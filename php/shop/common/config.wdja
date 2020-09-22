@@ -21,6 +21,7 @@
     <item varstr="nindex" strvalue="index.php" />
     <item varstr="nfields" strvalue="1" />
     <item varstr="nglobal" strvalue="1" />
+    <item varstr="nsort" strvalue="1" />
     <item varstr="ncreatefolder" strvalue="htmldata" />
     <item varstr="ncreatefiletype" strvalue=".html" />
     <item varstr="nuninstall" strvalue="1|1|1" />

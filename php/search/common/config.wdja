@@ -5,7 +5,7 @@
     <item varstr="nfoot" strvalue="default_foot" />
     <item varstr="npagesize" strvalue="20" />
     <item varstr="nlisttopx" strvalue="2000" />
-    <item varstr="nsearch_genre" strvalue="article,product,forum,download" />
+    <item varstr="nsearch_genre" strvalue="news,product" />
     <item varstr="nsearch_field" strvalue="topic" />
     <item varstr="nuninstall" strvalue="0|0|0" />
   </configure>
