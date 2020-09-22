@@ -94,7 +94,8 @@ function wdja_cms_admin_manage_adddisp()
       $tbackurl = $_GET['backurl'];
       $filepath = $_POST['xmlconfig_burl'];
       $nodename = $_POST['nodename'];
-      $tbackurl = $tbackurl.'&item='.$nodename;
+      if(strpos($tbackurl,'?')) $tbackurl = $tbackurl.'&item='.$nodename;
+      else $tbackurl = $tbackurl.'?item='.$nodename;
       if (is_file($filepath))
       {
         $doc = new DOMDocument();
