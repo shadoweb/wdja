@@ -37,15 +37,12 @@ function api_tags_array()
   $trs = ii_conn_query($tsqlstr, $conn);
   $res_array = array();
   while ($trow = ii_conn_fetch_array($trs)){
-    foreach ($trow as $key => $val)
-    {
       $tid = $trow[$tidfield];
       $ttopic = $trow[ii_cfnames($tfpre,'topic')];
       $tgourl = $trow[ii_cfnames($tfpre,'gourl')];
       if(!ii_isnull($tgourl)) $turl = '<a href="'.$tgourl.'" alt="'.$ttopic.'" title="'.$ttopic.'" target="_blank">'.$ttopic.'</a>';
       else $turl = '<a href="/'.$tgenre.'/?type=detail&id='.$tid.'" alt="'.$ttopic.'" title="'.$ttopic.'" target="_blank">'.$ttopic.'</a>';
       $res_array[$ttopic] = $turl;
-    }
   }
   if(is_array($res_array)){
     uksort($res_array,function($a,$b){
