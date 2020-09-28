@@ -66,16 +66,33 @@ function api_tags_array()
 
 function api_tags_replace_tags($str)
 {
-//循环替换内容中的标签为标签链接
-  $rule = '/<img.*?src=[\'"](.*?)[\'"].*?>/';
-  preg_match_all($rule, $str, $matches);
-  $str_without_alt = preg_replace($rule, 'Its_Just_A_Mark', $str);
+  //循环替换内容中的标签为标签链接
+  $rule_img = '/<img.*?src=[\'"](.*?)[\'"].*?>/';
+  $rule_a = '/<a .*?>.*?<\/a>/';
+  preg_match_all($rule_img, $str, $matches_img);//img标签字符串
+  preg_match_all($rule_a, $str, $matches_a);//a标签字符串
+  $str_without_img = preg_replace($rule_img, 'Its_Just_IMG_Mark', $str);
+  $str_without_a = preg_replace($rule_a, 'Its_Just_A_Mark', $str_without_img);
   $replaces = api_tags_array();
-  $str = api_tags_replace_limit(array_keys($replaces),array_values($replaces),$str_without_alt,1);
-  foreach ($matches[0] as $alt_content) {
+  //性能优化,strtr不对需替换的词进行查询及次数限制,可以提升替换速度.但需避免关键被包含在a标签内.
+  //$str = strtr($str_without_a,$replaces);
+  $str = api_tags_replace_limit(array_keys($replaces),array_values($replaces),$str_without_a,1);
+  foreach ($matches_img[0] as $alt_content) {
+    $str = preg_replace('/Its_Just_IMG_Mark/',$alt_content,$str,1);
+  }
+  foreach ($matches_a[0] as $alt_content) {
     $str = preg_replace('/Its_Just_A_Mark/',$alt_content,$str,1);
   }
   return $str;
+  unset($str);
+  unset($alt_content);
+  unset($replaces);
+  unset($str_without_img);
+  unset($str_without_a);
+  unset($matches_img);
+  unset($matches_a);
+  unset($rule_img);
+  unset($rule_a);
 }
 
 function api_tags_replace_limit($search, $replace, $str, $limit=-1)
@@ -88,10 +105,15 @@ function api_tags_replace_limit($search, $replace, $str, $limit=-1)
   }else{
     $search = '\'(' . $search . '(?![^<]*<\/a>))\'si';
   }
-  $str = preg_replace($search, $replace, $str, $limit); 
+  $str = preg_replace($search, $replace, $str, $limit);
   return $str;
+  unset($search);
+  unset($replace);
+  unset($limit);
+  unset($k);
+  unset($v);
+  unset($str);
 }
-
 
 
 function api_tags_add(){
