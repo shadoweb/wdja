@@ -83,10 +83,10 @@ function api_tags_replace_limit($search, $replace, $str, $limit=-1)
 //增强型替换函数
   if(is_array($search)){
     foreach($search as $k=>$v){
-      $search[$k] = '\'(?!((<.*?)|(<a.*?)))(' . $search[$k] . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'si';
+      $search[$k] = '\'(' . $search[$k] . '(?![^<]*<\/a>))\'si';
     } 
   }else{
-    $search = '\'(?!((<.*?)|(<a.*?)))(' . $search . ')(?!(([^<>]*?)>)|([^>]*?</a>))\'si';
+    $search = '\'(' . $search . '(?![^<]*<\/a>))\'si';
   }
   $str = preg_replace($search, $replace, $str, $limit); 
   return $str;
