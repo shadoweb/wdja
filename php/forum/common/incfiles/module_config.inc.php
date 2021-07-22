@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 function pp_module_data_top()
@@ -428,8 +428,7 @@ function wdja_cms_module_topic_editdisp()
     " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
     " . ii_cfname('content') . "='" . ii_left(ii_cstr($_POST['content']), 20000) . "' ,
     " . ii_cfname('content_files_list') . "='$tcontent_files_list',
-    " . ii_cfname('edit_info') . "='" . CRLF . CRLF . ii_ireplace('global.forum:module.topicedit_info', 'lng') . "',
-    " . ii_cfname('ubb') . "=" . ii_get_num($_POST['ubb']) . "
+    " . ii_cfname('edit_info') . "='" . ii_ireplace('global.forum:module.topicedit_info', 'lng') . "'
     where $nidfield=$ttid";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
@@ -615,7 +614,7 @@ function wdja_cms_module_manage_topic()
     }
   }
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace('{$sid}', $tsid, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -636,7 +635,9 @@ function wdja_cms_module_manage_detail()
   $tfpre = mm_cnfpre(USER_FOLDER);
   $tmpstr = ii_itake('module.manage_detail', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
+  $tmpastr2 = ii_ctemplate_infos($tmpstr, '{@recurrence_idb}');
   $tmprstr = '';
+  $tmprstr2 = '';
   $tsqlstr = "select * from $ndatabase,$tdatabase where $ndatabase." . ii_cfname('author') . "=$tdatabase." . ii_cfnames($tfpre, 'username') . " and ($ndatabase.$nidfield=$ttid or $ndatabase." . ii_cfname('fid') . "=$ttid) order by $ndatabase." . ii_cfname('fid') . " asc,$ndatabase." . ii_cfname('time') . " asc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -652,12 +653,11 @@ function wdja_cms_module_manage_detail()
     $tpichidden = ii_ireplace('config.hidden', 'tpl');
     foreach($trsary as $trs)
     {
-      $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($tfpre, 'username')]), $tmpastr);
+      $floor = $toffset + $ti;
+      if ($floor == 1 ) $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($tfpre, 'username')]), $tmpastr2);
+      else $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($tfpre, 'username')]), $tmpastr);
       $tmptstr = str_replace('{$utype}', ii_get_num($trs[ii_cfnames($tfpre, 'utype')]), $tmptstr);
-      $tmptstr = str_replace('{$face}', ap_get_userface($trs[ii_cfnames($tfpre, 'face')], $trs[ii_cfnames($tfpre, 'face_u')], $trs[ii_cfnames($tfpre, 'face_url')]), $tmptstr);
-      $tmptstr = str_replace('{$face_u}', ii_get_num($trs[ii_cfnames($tfpre, 'face_u')]), $tmptstr);
-      $tmptstr = str_replace('{$face_width}', ii_get_num($trs[ii_cfnames($tfpre, 'face_width')]), $tmptstr);
-      $tmptstr = str_replace('{$face_height}', ii_get_num($trs[ii_cfnames($tfpre, 'face_height')]), $tmptstr);
+      $tmptstr = str_replace('{$face}', ii_htmlencode($trs[ii_cfnames($tfpre, 'face')]), $tmptstr);
       $tmptstr = str_replace('{$email}', ii_htmlencode($trs[ii_cfnames($tfpre, 'email')]), $tmptstr);
       $tmptstr = str_replace('{$num_topic}', ii_get_num($trs[ii_cfnames($tfpre, 'topic')]), $tmptstr);
       $tmptstr = str_replace('{$integral}', ii_get_num($trs[ii_cfnames($tfpre, 'integral')]), $tmptstr);
@@ -668,16 +668,19 @@ function wdja_cms_module_manage_detail()
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$content}', $trs[ii_cfname('content')], $tmptstr);
       $tmptstr = str_replace('{$edit_info}', ii_htmlencode($trs[ii_cfname('edit_info')]), $tmptstr);
-      $tmptstr = str_replace('{$floor}', $toffset + $ti, $tmptstr);
+      if ($floor == 1 ) $tmptstr = str_replace('{$floor}', $floor, $tmptstr);
+      else $tmptstr = str_replace('{$floor}', $floor - 1, $tmptstr);
       $tmptstr = str_replace('{$tid}', ii_get_num($trs[$nidfield]), $tmptstr);
       if (ii_get_num($trs[ii_cfname('hidden')]) == 1) $tmptstr = str_replace('{$topicpic}', $tpichidden, $tmptstr);
       else $tmptstr = str_replace('{$topicpic}', '', $tmptstr);
-      $tmprstr .= $tmptstr;
+      if ($floor == 1 ) $tmprstr2 = $tmptstr;
+      else $tmprstr .= $tmptstr;
       $ti = $ti + 1;
     }
   }
+  $tmpstr = str_replace(WDJA_CINFO_INFOS, $tmprstr2, $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace('{$sid}', $tsid, $tmpstr);
   $tmpstr = str_replace('{$tid}', $ttid, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
@@ -729,7 +732,7 @@ function wdja_cms_module_manage_blacklist()
     }
   }
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace('{$sid}', $tsid, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -891,7 +894,7 @@ function wdja_cms_module_topic_list()
         }
       }
       $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-      $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+      $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
     }
     $tmpstr = str_replace('{$sid}', $tsid, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
@@ -980,7 +983,9 @@ function wdja_cms_module_topic_detail()
   $tidfield = mm_cnidfield(USER_FOLDER);
   $tfpre = mm_cnfpre(USER_FOLDER);
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
+  $tmpastr2 = ii_ctemplate_infos($tmpstr, '{@recurrence_idb}');
   $tmprstr = '';
+  $tmprstr2 = '';
   $tsqlstr = "select * from $ndatabase,$tdatabase where $ndatabase." . ii_cfname('author') . "=$tdatabase." . ii_cfnames($tfpre, 'username') . " and ($ndatabase.$nidfield=$ttid or $ndatabase." . ii_cfname('fid') . "=$ttid) and $ndatabase." . ii_cfname('hidden') . "=0 order by $ndatabase." . ii_cfname('fid') . " asc,$ndatabase." . ii_cfname('time') . " asc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -995,12 +1000,11 @@ function wdja_cms_module_topic_detail()
     $ti = 1;
     foreach($trsary as $trs)
     {
-      $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($tfpre, 'username')]), $tmpastr);
+      $floor = $toffset + $ti;
+      if ($floor == 1 ) $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($tfpre, 'username')]), $tmpastr2);
+      else $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($tfpre, 'username')]), $tmpastr);
       $tmptstr = str_replace('{$utype}', ii_get_num($trs[ii_cfnames($tfpre, 'utype')]), $tmptstr);
-      $tmptstr = str_replace('{$face}', ap_get_userface($trs[ii_cfnames($tfpre, 'face')], $trs[ii_cfnames($tfpre, 'face_u')], $trs[ii_cfnames($tfpre, 'face_url')]), $tmptstr);
-      $tmptstr = str_replace('{$face_u}', ii_get_num($trs[ii_cfnames($tfpre, 'face_u')]), $tmptstr);
-      $tmptstr = str_replace('{$face_width}', ii_get_num($trs[ii_cfnames($tfpre, 'face_width')]), $tmptstr);
-      $tmptstr = str_replace('{$face_height}', ii_get_num($trs[ii_cfnames($tfpre, 'face_height')]), $tmptstr);
+      $tmptstr = str_replace('{$face}', ii_htmlencode($trs[ii_cfnames($tfpre, 'face')]), $tmptstr);
       $tmptstr = str_replace('{$email}', ii_htmlencode($trs[ii_cfnames($tfpre, 'email')]), $tmptstr);
       $tmptstr = str_replace('{$num_topic}', ii_get_num($trs[ii_cfnames($tfpre, 'topic')]), $tmptstr);
       $tmptstr = str_replace('{$integral}', ii_get_num($trs[ii_cfnames($tfpre, 'integral')]), $tmptstr);
@@ -1011,14 +1015,17 @@ function wdja_cms_module_topic_detail()
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$content}',mm_encode_content($trs[ii_cfname('content')]), $tmptstr);
       $tmptstr = str_replace('{$edit_info}', ii_htmlencode($trs[ii_cfname('edit_info')]), $tmptstr);
-      $tmptstr = str_replace('{$floor}', $toffset + $ti, $tmptstr);
+      if ($floor == 1 ) $tmptstr = str_replace('{$floor}', $floor, $tmptstr);
+      else $tmptstr = str_replace('{$floor}', $floor - 1, $tmptstr);
       $tmptstr = str_replace('{$tid}', ii_get_num($trs[$nidfield]), $tmptstr);
-      $tmprstr .= $tmptstr;
+      if ($floor == 1 ) $tmprstr2 = $tmptstr;
+      else $tmprstr .= $tmptstr;
       $ti = $ti + 1;
     }
   }
+  $tmpstr = str_replace(WDJA_CINFO_INFOS, $tmprstr2, $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmprstr = '';
   $tmpastr = ii_ctemplate($tmpstr, '{@topic_reply}');
   $tmpary = explode('{@@}', $tmpastr);
@@ -1162,7 +1169,7 @@ function wdja_cms_module_search_list()
     }
   }
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace('{$sid}', $tsid, $tmpstr);
   $tmpstr = str_replace('{$keyword}', ii_htmlencode($tkeyword, 1), $tmpstr);
   $tmpstr = str_replace('{$author}', ii_htmlencode($tauthor, 1), $tmpstr);
@@ -1205,9 +1212,9 @@ function wdja_cms_module()
   }
 }
 
-function mm_html_content($name, $value)
+function mm_html_bbscontent($name, $value)
 {
-  $tmpstr = ii_itake('global.tpl_admin.content_htmledit', 'tpl');
+  $tmpstr = ii_itake('global.tpl_admin.content_bbsedit', 'tpl');
   $tmpstr = str_replace('{$name}', $name, $tmpstr);
   $tmpstr = str_replace('{$value}', $value, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
@@ -1216,7 +1223,7 @@ function mm_html_content($name, $value)
 
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

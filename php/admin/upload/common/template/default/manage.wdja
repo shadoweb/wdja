@@ -54,7 +54,7 @@
       </tbody>
     </table>
     <div class="control">
-      <div class="batch show-1" style="">{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
       <div class="pagi">{$cpagestr}</div>
     </div>
   </form>

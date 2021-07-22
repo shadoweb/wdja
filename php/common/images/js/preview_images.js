@@ -1,3 +1,4 @@
+//图片预览专用
 var preview_html;
 preview_html = "<div class=\"popup_mask\" id=\"popup_mask\" style=\"display:none;\"></div>";
 preview_html += "<div class=\"popup_page\" id=\"popup_page\">";

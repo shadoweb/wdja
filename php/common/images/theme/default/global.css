@@ -70,7 +70,6 @@ audio:not([controls]) {
   display: none;
   height: 0;
 }
-
 [hidden] {
   display: none;
 }

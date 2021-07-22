@@ -1,22 +1,22 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
-require('common/incfiles/common.inc.php');
-require('common/incfiles/api.inc.php');
-wdja_cms_module();
+//小程序使用接口,未作处理,不可使用,需后续开发.
+require('common/incfiles/autoload.php');
+wdja();
 
-function wdja_cms_api(){
-  $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
-  if($appid != $_GET['appid']){
+function wdja_cms_api() {
+  $appid = ii_itake('global.support/global:wechat.appid','lng');
+  if ($appid != $_GET['appid']) {
   echo "404";
   exit();
   }
 }
 
-function wdja_cms_module_api(){
+function wdja_cms_module_api() {
     $tmpstr = array();
     $res = array();
     $tmpstr["slide"] = json_decode(wdja_cms_page_api('support/slide'), JSON_UNESCAPED_UNICODE);
@@ -27,7 +27,7 @@ function wdja_cms_module_api(){
     echo $res;
 }
 
-function wdja_cms_module(){
+function wdja() {
   wdja_cms_api();
   $module = $_GET['module'];
   $id = $_GET['id'];
@@ -72,7 +72,7 @@ function wdja_cms_module(){
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

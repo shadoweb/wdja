@@ -19,6 +19,10 @@
       <chinese><![CDATA[生成地图]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[create_html]]></disinfo>
+      <chinese><![CDATA[生成地图]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[channel_title]]></disinfo>
       <chinese><![CDATA[Sitemap]]></chinese>
     </item>
@@ -37,6 +41,10 @@
     <item>
       <disinfo><![CDATA[singlepage]]></disinfo>
       <chinese><![CDATA[启用单页]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[page_num]]></disinfo>
+      <chinese><![CDATA[每分页网址数]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[save]]></disinfo>

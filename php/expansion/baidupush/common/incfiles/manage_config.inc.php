@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -20,7 +20,7 @@ function wdja_cms_admin_manage_adddisp()
   global $ngenre, $slng;
   global $ndatabase, $nidfield, $nfpre;
   $tbackurl = $_GET['backurl'];
-  if(ii_isnull($_POST['genre']) || ii_isnull($_POST['gid'])) mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
+  if (ii_isnull($_POST['genre']) || ii_isnull($_POST['gid'])) mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
   $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
   $tcount = 1;
   $tsqlstr = "insert into $ndatabase (
@@ -49,7 +49,6 @@ function wdja_cms_admin_manage_adddisp()
     '$slng'
     )";
   $trs = ii_conn_query($tsqlstr, $conn);
-  //echo $tsqlstr;exit;
   if ($trs)
   {
     $upfid = ii_conn_insert_id($conn);
@@ -65,7 +64,7 @@ function wdja_cms_admin_manage_editdisp()
   global $ngenre;
   global $ndatabase, $nidfield, $nfpre;
   $tbackurl = $_GET['backurl'];
-  if(ii_isnull($_POST['genre']) || ii_isnull($_POST['gid'])) mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
+  if (ii_isnull($_POST['genre']) || ii_isnull($_POST['gid'])) mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
   $tcontent = ii_left(ii_cstr($_POST['content']), 100000);
   $tid = ii_get_num($_GET['id']);
   $tsqlstr = "update $ndatabase set
@@ -82,15 +81,15 @@ function wdja_cms_admin_manage_editdisp()
   if ($trs)
   {
     $upfid = $tid;
-    if($_POST['type'] == 'update') mm_baidu_push('update',ii_left(ii_cstr($_POST['genre']), 50),ii_left(ii_cstr($_POST['topic']), 50),ii_get_num($_POST['gid']));
-    if($_POST['type'] == 'del') mm_baidu_push('del',ii_left(ii_cstr($_POST['genre']), 50),ii_left(ii_cstr($_POST['topic']), 50),ii_get_num($_POST['gid']));
+    if ($_POST['type'] == 'update') mm_baidu_push('update',ii_left(ii_cstr($_POST['genre']), 50),ii_left(ii_cstr($_POST['topic']), 50),ii_get_num($_POST['gid']));
+    if ($_POST['type'] == 'del') mm_baidu_push('del',ii_left(ii_cstr($_POST['genre']), 50),ii_left(ii_cstr($_POST['topic']), 50),ii_get_num($_POST['gid']));
     wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);
   }
   else wdja_cms_admin_msg(ii_itake('global.lng_public.edit_failed', 'lng'), $tbackurl, 1);
 }
 
 //导出
-function wdja_cms_admin_manage_export(){
+function wdja_cms_admin_manage_export() {
   header("Content-type: text/html; charset=utf-8"); 
   set_time_limit(0);
   ini_set('memory_limit','1024M');//设置导出最大内存
@@ -114,10 +113,10 @@ function wdja_cms_admin_manage_export(){
   echo $content;
   exit;
 }
-function getXLSFromList($pres,$lists){
+function getXLSFromList($pres,$lists) {
   //header("Content-type: text/html; charset=utf-8"); 
   // 内容太大建议搜索少量再导出
-  //    if(count($lists)>=20000)
+  //    if (count($lists)>=20000)
   //    {
   //        header("Content-Type:text/html;charset=utf-8");
   //        echo "<br/><h1 style='color:red'>Export data is too large, please narrow your search!</h1><br/>";
@@ -127,15 +126,14 @@ function getXLSFromList($pres,$lists){
   $content='<meta http-equiv="Content-Type" content="text/html; charset=gb2312">';
   $content.="<table border='1'><tr>";
   //输出表头键值
-  foreach($pres as $_pre){
+  foreach($pres as $_pre) {
     $val = iconv('utf-8','gb2312',$_pre);
     $content.="<td>$val</td>";
   }
   $content.="</tr>";
-  foreach($lists as $_list){
-    //print_r($_list);exit;
+  foreach($lists as $_list) {
     $content.= "<tr>";
-    foreach($keys as $key){
+    foreach($keys as $key) {
       $val = iconv('utf-8','gb2312',$_list[$key]);
       $content.= "<td style='vnd.ms-excel.numberformat:@'>".$val."</td>"; //style样式将导出的内容都设置为文本格式 输出对应键名的键值 即内容
     }
@@ -155,7 +153,7 @@ function wdja_cms_admin_manage_getAll()
   $trs = ii_conn_query($tsqlstr, $conn);
   $array = array();
   $i=0;
-  while($arr=mysqli_fetch_assoc($trs)){
+  while($arr=mysqli_fetch_assoc($trs)) {
     $array[$i] = $arr;
     $i++;
   }
@@ -205,7 +203,8 @@ function wdja_cms_admin_manage_view()
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
-      if($tkey == 'type') $tmpstr = str_replace('{$type}', ii_itake('sel_type.'.ii_htmlencode($trs[ii_cfname('type')]), 'lng'), $tmpstr);
+      $tmpstr = str_replace('{$genre}', ii_itake('global.'.ii_htmlencode($trs[ii_cfname('genre')]).':module.channel_title', 'lng'), $tmpstr);
+      if ($tkey == 'type') $tmpstr = str_replace('{$type}', ii_itake('sel_type.'.ii_htmlencode($trs[ii_cfname('type')]), 'lng'), $tmpstr);
       else $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
     }
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
@@ -303,7 +302,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -342,7 +341,7 @@ function wdja_cms_admin_manage_list_data($bid)
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -374,7 +373,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

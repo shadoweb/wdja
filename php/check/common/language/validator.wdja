@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[name]]></disinfo>
+      <chinese><![CDATA[联系人必须在1-5之间]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mobile]]></disinfo>
+      <chinese><![CDATA[错误的手机格式]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[email]]></disinfo>
+      <chinese><![CDATA[错误的邮件格式]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[title]]></disinfo>
+      <chinese><![CDATA[主题不能为空]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[content]]></disinfo>
+      <chinese><![CDATA[内容不能为空并且少于1000字]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[valcode]]></disinfo>
+      <chinese><![CDATA[验证码不能为空]]></chinese>
+    </item>
+  </language_list>
+</xml>

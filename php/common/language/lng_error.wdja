@@ -8,7 +8,11 @@
   <language_list>
     <item>
       <disinfo><![CDATA[insert_empty]]></disinfo>
-      <chinese><![CDATA[必须填项[]为空]]></chinese>
+      <chinese><![CDATA[必填项[]为空]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[sort]]></disinfo>
+      <chinese><![CDATA[请选择类别]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[valcode]]></disinfo>

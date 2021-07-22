@@ -1,9 +1,115 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
+
+function ii_require_ApiFile($path){
+  if (!is_dir($path)) return;
+  $path = rtrim(str_replace('//','/',str_replace('\\','/',$path )),'/').'/';
+  $tarys = Array();
+  $twebdir = dir($path);
+  while($tentry = $twebdir -> read())
+  {
+    if (!(is_numeric(strpos($tentry, '.'))))
+    {
+      $tfilename = $path . $tentry . '/incfiles/api.inc.php';
+      if(file_exists($tfilename)) require_once($tfilename);
+      else ii_require_ApiFile($path . $tentry);
+    }
+  }
+  $twebdir -> close();
+}
+
+/*检查是否到期
+*可以只传一个日期参数(YYYY-MM-DD H:i:s),和当前时间比对:主要用于定期更新状态等场景
+*或者添加一个日期和相差时长,支持年,月,周,日,时,分,秒:主要用于会员时长,订单有效期等固定期限的场景
+*ii_check_expireDate('2020-12-01 10:10:10')
+*ii_check_expireDate('2020-11-30 13:50:10','5','5')
+*/
+function ii_check_expireDate($date,$add='0',$type='0') {
+  $bool = false;
+  $tnow = strtotime(ii_now());
+  $tdate = strtotime($date);
+  switch($type) {
+      case 0:
+      $edate = strtotime("+".$add." years",$tdate);
+      break;
+      case 1:
+      $edate = strtotime("+".$add." months",$tdate);
+      break;
+      case 2:
+      $edate = strtotime("+".$add." week",$tdate);
+      break;
+      case 3:
+      $edate = strtotime("+".$add." days",$tdate);
+      break;
+      case 4:
+      $edate = strtotime("+".$add." hours",$tdate);
+      break;
+      case 5:
+      $edate = strtotime("+".$add." minutes",$tdate);
+      break;
+      case 6:
+      $edate = strtotime("+".$add." seconds",$tdate);
+      break;
+      default:
+      $edate = $tdate;
+      break;
+  }
+  if (date('Y-m-d H:i:s',$tnow) >= date('Y-m-d H:i:s',$edate)) $bool = true;
+  return $bool;
+}
+
+function ii_format_checkData($data,$str,$dstr) {
+  $tarys = '';
+  $tary = $data;
+  if (is_array($tary) && count($tary) > 0) {
+      $plus = $str;
+      for($i=0;$i<count($tary);$i++) {
+          if ($i < count($tary) - 1) $tarys .= $tary[$i].$plus;
+          else $tarys .= $tary[$i];
+      }
+  }
+  else $tarys = $dstr;
+  return $tarys;
+}
+
+//判断是否同一天
+function ii_isSameDay($day1,$day2) {
+  $bool = false;
+  if (date('Y-m-d',strtotime($day1)) == date('Y-m-d',strtotime($day2))) $bool = true;
+  return $bool;
+}
+//判断两天是否相连
+function ii_isStreakDays($last_date,$this_date) {
+  //格式'2020-02-23''
+  $last_date = getdate(strtotime(date('Y-m-d',strtotime($last_date))));
+  $this_date = getdate(strtotime(date('Y-m-d',strtotime($this_date))));
+  if (($last_date['year']===$this_date['year'])&&($this_date['yday']-$last_date['yday']===1)) {
+    return TURE;
+  }elseif (($this_date['year']-$last_date['year']===1)&&($last_date['mon']-$this_date['mon']=11)&&($last_date['mday']-$this_date['mday']===30)) {
+    return TURE;
+  }else{
+    return FALSE;
+  }
+}
+
+function ii_isWeixin() {
+	$bool = true;
+	$user_agent = $_SERVER['HTTP_USER_AGENT'];
+	if (strpos($user_agent, 'MicroMessenger') === false) {
+		// 非微信浏览器禁止浏览
+		$bool = false;
+	} else {
+		$bool = true;
+		// 获取版本号
+		//preg_match('/.*?(MicroMessenger\/([0-9.]+))\s*/', $user_agent, $matches);
+		//echo '<br>Version:'.$matches[2];
+     }
+	return $bool;
+}
 
 function ii_isAdmin()
 {
@@ -11,9 +117,9 @@ function ii_isAdmin()
   $pstrurl = str_replace(dirname($_SERVER['PHP_SELF']),'',$_SERVER['PHP_SELF']);
   $strurl = str_replace('/', '', dirname($_SERVER['PHP_SELF']));
   $strlen = strlen(ADMIN_FOLDER);
-  if(ADMIN_FOLDER == substr($strurl, 0, $strlen)) return true;
-  if($pstrurl == '/manage.php' || $pstrurl == '/manage-topic.php' || $pstrurl == '/manage-dispose.php') return true;
-  if(ADMIN_FOLDER == $strurl) return false;
+  if (ADMIN_FOLDER == substr($strurl, 0, $strlen)) return true;
+  if ($pstrurl == '/manage.php' || $pstrurl == '/manage-sort.php' || $pstrurl == '/manage-topic.php' || $pstrurl == '/manage-dispose.php') return true;
+  if (ADMIN_FOLDER == $strurl) return false;
   return $bool;
 }
 
@@ -21,25 +127,75 @@ function ii_isMobileAgent()
 {
   $bool = false;
   $userAgent = strtolower($_SERVER['HTTP_USER_AGENT']);
-  if (strpos($userAgent, 'android') && strpos($userAgent, 'mobile')) $bool = true;
+  $userUrl = parse_url($_SERVER['HTTP_HOST'],PHP_URL_HOST);
+  if (ii_isnull($userUrl)) $userUrl = $_SERVER['HTTP_HOST'];
+  if ($userUrl == MOBILE_URL && MOBILE_URL != DEFAULT_URL) $bool = true;//用手机网址访问时,设定作为手机访问
+  else if (strpos($userAgent, 'android') && strpos($userAgent, 'mobile')) $bool = true;
   else if (strpos($userAgent, 'iphone')) $bool = true;
   else if (strpos($userAgent, 'ipod')) $bool = true;
   else if (strpos($_SERVER['HTTP_USER_AGENT'],'MicroMessenger') !== false) $bool = true;
   return $bool;
 }
 
+function ii_isRobotsAgent()
+{
+  $bool = false;
+  $ua = ii_getAllHeaders();
+  $ua = $ua['User-Agent'];
+  $spider = 'baidu,google,360,sogou,soso,bing,msn,yahoo,yandex,360Spider,Sosospider,MSNBot,YoudaoBot,YodaoBot,bingbot,ia_archiver,Baiduspider,BaiduSpider,baiduspider,Baiduspider,Baiduspider-image,Baiduspider-mobile,Baiduspider-image,Baiduspider-video,Baiduspider-news,Baiduspider,Baiduspider-image,Googlebot,GoogleBot,Googlebot-Mobile,Yahoo! Slurp China,Yahoo,Sogou News Spider,Sogou web spider,Sogou inst spider,Sogou spider2,Sogou blog,Sogou Orion spider,msnbot，msnbot-media,bingbot,YisouSpider,ia_archiver,EasouSpider,JikeSpider,EtaoSpider,YandexBot,BingPreview';
+  if (ii_string($ua,$spider)) $bool = true;
+  return $bool;
+}
+
+function ii_getAllHeaders()
+{
+    $headers = array();
+    $copy_server = array(
+      'CONTENT_TYPE'   => 'Content-Type',
+      'CONTENT_LENGTH' => 'Content-Length',
+      'CONTENT_MD5'    => 'Content-Md5',
+    );
+    foreach ($_SERVER as $key => $value) {
+      if (substr($key, 0, 5) === 'HTTP_') {
+        $key = substr($key, 5);
+        if (!isset($copy_server[$key]) || !isset($_SERVER[$key])) {
+          $key = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', $key))));
+          $headers[$key] = $value;
+        }
+      } elseif (isset($copy_server[$key])) {
+        $headers[$copy_server[$key]] = $value;
+      }
+    }
+    if (!isset($headers['Authorization'])) {
+      if (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+        $headers['Authorization'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+      } elseif (isset($_SERVER['PHP_AUTH_USER'])) {
+        $basic_pass = isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : '';
+        $headers['Authorization'] = 'Basic ' . base64_encode($_SERVER['PHP_AUTH_USER'] . ':' . $basic_pass);
+      } elseif (isset($_SERVER['PHP_AUTH_DIGEST'])) {
+        $headers['Authorization'] = $_SERVER['PHP_AUTH_DIGEST'];
+      }
+    }
+    return $headers;
+}
+
 function ii_conn_init()
 {
   global $conn, $db_host, $db_username, $db_password, $db_database;
   $conn = new mysqli($db_host, $db_username, $db_password, $db_database);
-  if(mysqli_connect_errno()) die('MYSQL.Connect.Error!');
-  mysqli_query($conn,'set names utf8'); 
-  mysqli_select_db($db_database, $conn);
+  if (mysqli_connect_errno()) die('MYSQL.Connect.Error!');
+  mysqli_query($conn,'set names utf8');
+  mysqli_select_db($conn, $db_database);
 }
 
 function ii_conn_query($sqlstr, $conn)
 {
-  return mysqli_query($conn,$sqlstr); 
+  return mysqli_query($conn,$sqlstr);
+}
+
+function ii_conn_close($conn)
+{
+  return mysqli_close($conn);
 }
 
 function ii_conn_fetch_array($result)
@@ -49,13 +205,24 @@ function ii_conn_fetch_array($result)
 
 function ii_conn_fetch_all($result)
 {
-  return mysqli_fetch_all($result,MYSQL_ASSOC);//只取关联数组(MYSQL_ASSOC - 关联数组,MYSQL_NUM - 数字数组,MYSQL_BOTH - 默认。同时产生关联和数字数组)
+  return mysqli_fetch_all($result,MYSQLI_ASSOC);//只取关联数组(MYSQL_ASSOC - 关联数组,MYSQL_NUM - 数字数组,MYSQL_BOTH - 默认。同时产生关联和数字数组)
+}
+
+function ii_conn_fetch_assoc($conn)
+{
+  return mysqli_fetch_assoc($conn);
 }
 
 function ii_conn_insert_id($conn)
 {
   return mysqli_insert_id($conn);
 }
+
+function ii_conn_affected_rows($conn)
+{
+  return mysqli_affected_rows($conn);//上次执行所影响的行数,用于判断执行是否成功
+}
+
 
 function ii_cache_is($name)
 {
@@ -140,7 +307,7 @@ function ii_cache_remove($name = '')
 
 function ii_cstr($strers)
 {
-  if (get_magic_quotes_gpc()) return $strers;
+  if (get_magic_quotes_gpc() && function_exists('get_magic_quotes_gpc')) return $strers;
   else return addslashes($strers);
 }
 
@@ -246,6 +413,7 @@ function ii_cper($num, $mum)
 
 function ii_curl($baseurl, $url)
 {
+  global $nurlpre;
   if (!ii_isnull($url))
   {
     if (ii_left($url, 1) == '/') return $url;
@@ -278,15 +446,15 @@ function ii_deldir($dir)
   $tdirs = opendir($dir);
   while ($tfile = readdir($tdirs))
   {
-    if($tfile != '.' && $tfile!='..')
+    if ($tfile != '.' && $tfile!='..')
     {
       $tpath = $dir . '/' . $tfile;
-      if(!is_dir($tpath)) unlink($tpath);
+      if (!is_dir($tpath)) unlink($tpath);
       else ii_deldir($tpath);
     }
   }
   closedir($tdirs);
-  if(rmdir($dir)) return true;
+  if (rmdir($dir)) return true;
   else return false;
 }
 
@@ -355,7 +523,7 @@ function ii_eval($strers)
     if (substr($strers, 0 ,1) == '#')
     {
       $tstrers = substr($strers, 1, strlen($strers) - 1);
-      eval('$tstr = $GLOBALS[' . $tstrers . '];');
+      eval('$tstr = $GLOBALS[\'' . $tstrers . '\'];');
     }
     else
     {
@@ -430,6 +598,15 @@ function ii_format_date($date, $type)
       case 3:
         return date('Y.m.d', $tdate);
         break;
+      case 4:
+        return date('Y-m-d', $tdate).'T'.date('H:i', $tdate);
+        break;
+      case 5:
+        return date('YmdG', $tdate);
+        break;
+      case 6:
+        return date('m-d', $tdate);
+        break;
       case 10:
         return date('mdis', $tdate);
         break;
@@ -441,6 +618,9 @@ function ii_format_date($date, $type)
         break;
       case 21:
         return date('G:i:s', $tdate);
+        break;
+      case 22:
+        return date('Ymd', $tdate);
         break;
       default:
         return date('Y-m-d', $tdate);
@@ -559,9 +739,10 @@ function ii_get_active_things($type)
       break;
     case 'tpl':
       $tthings = 'template';
-      if(ii_isMobileAgent()) $tthings = $tthings . '/' . $GLOBALS['m_skin' ];
-      else $tthings = $tthings . '/' . $GLOBALS['default_skin' ];
-      if(ii_isAdmin()) $tthings = 'template/default';
+      if (ii_isMobileAgent()) $tthings = $tthings . '/' . $GLOBALS['mobile_skin'];
+      elseif (ii_isRobotsAgent()) $tthings = $tthings . '/' . $GLOBALS['robots_skin'];
+      else $tthings = $tthings . '/' . $GLOBALS['default_skin'];
+      if (ii_isAdmin()) $tthings = 'template/default';
       break;
     case 'skin':
       $tthings = 'skin';
@@ -571,7 +752,7 @@ function ii_get_active_things($type)
   {
     $trthings = ii_get_safecode($_COOKIE[APP_NAME . 'config'][$tthings]);
     if (ii_isnull($trthings)) $trthings = $GLOBALS['default_' . $tthings];
-    if (!ii_isnull($trthings) && ii_isMobileAgent() && $tthings == 'skin') $trthings = $GLOBALS['m_' . $tthings];
+    if (!ii_isnull($trthings) && ii_isMobileAgent() && $tthings == 'skin') $trthings = $GLOBALS['mobile_' . $tthings];
     if (ii_isAdmin() && $tthings == 'skin') $trthings = 'default';
   }
   return $trthings;
@@ -580,10 +761,10 @@ function ii_get_active_things($type)
 function ii_get_client_ip()
 {
   $tclient_ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-  if(ii_isnull($tclient_ip))
+  if (ii_isnull($tclient_ip))
   {
     $tclient_ip = $_SERVER['HTTP_CLIENT_IP'];
-    if(ii_isnull($tclient_ip)) $tclient_ip = $_SERVER['REMOTE_ADDR'];
+    if (ii_isnull($tclient_ip)) $tclient_ip = $_SERVER['REMOTE_ADDR'];
   }
   $tclient_ip = ii_get_safecode($tclient_ip);
   return $tclient_ip;
@@ -841,6 +1022,28 @@ function ii_get_myvalid_module($strers)
   return $tmpstr;
 }
 
+function ii_htmlclear($str,$type=0)
+{
+  switch($type) {
+      case -1:
+      $str = $str; 
+      break;
+      case 0:
+      $str = strip_tags($str); 
+      break;
+      case 1:
+      $str = strip_tags($str,'<p> <br> <img>'); 
+      break;
+      case 2:
+      $str = strip_tags($str,'<section> <div> <span> <p> <br> <strong> <h1> <h2> <h3> <h4> <h5> <b> <img>'); 
+      break;
+      default:
+      $str = strip_tags($str); 
+      break;
+  }
+  return trim($str); 
+}
+
 function ii_htmlencode($strers, $type = 0)
 {
   $tstrers = $strers;
@@ -913,7 +1116,7 @@ function ii_isvalidemail($email)
 
 function ii_iurl($type, $key, $set, $strers)
 {
-  global $ngenre;
+  global $ngenre, $nurlpre;
   $ucode = mm_get_field($ngenre,$key,'ucode');
   $tset = ii_get_num($set);
   switch($tset)
@@ -925,11 +1128,17 @@ function ii_iurl($type, $key, $set, $strers)
           return '?type=list&amp;classid=' . $key;
           break;
         case 'detail':
-          if(!ii_isnull($ucode)) $durl = $ucode.'.html';
+          if (!ii_isnull($ucode)) $durl = $ucode.'.html';
           else $durl = '?type=detail&amp;id=' . $key;
           return $durl;
           break;
         case 'listpage':
+          return '?' . ii_htmlencode(ii_replace_querystring('offset', $key));
+          break;
+        case 'searchpage':
+          return '?' . ii_htmlencode(ii_replace_querystring('offset', $key));
+          break;
+        case 'detailpage':
           return '?' . ii_htmlencode(ii_replace_querystring('offset', $key));
           break;
         case 'cutepage':
@@ -953,6 +1162,14 @@ function ii_iurl($type, $key, $set, $strers)
           $tlistkey = ii_get_strvalue($strers, 'listkey');
           return $tfolder . '/list/' . $tlistkey . '/' . $key . $tfiletype;
           break;
+        case 'searchpage':
+          $tsearchkey = ii_get_strvalue($strers, 'listkey');
+          return $tfolder . '/search/' . $tsearchkey . '/' . $key . $tfiletype;
+          break;
+        case 'detailpage':
+          $tsearchkey = ii_get_strvalue($strers, 'listkey');
+          return $tfolder . '/detail/' . $tsearchkey . '/' . $key . $tfiletype;
+          break;
         case 'cutepage':
           $tcutekey = ii_get_strvalue($strers, 'cutekey');
           if ($key <= 1) return $tfolder . '/detail/' . ii_format_date($ttime, 2) . '/' . $tcutekey . $tfiletype;
@@ -972,7 +1189,18 @@ function ii_iurl($type, $key, $set, $strers)
           break;
         case 'listpage':
           $tlistkey = ii_get_strvalue($strers, 'listkey');
-          return 'list-' . $tlistkey . '-' . $key . $tfiletype;
+          if (ii_isnull($tlistkey)) return 'list-' . $key . $tfiletype;
+          else return 'list-' . $tlistkey . '-' . $key . $tfiletype;
+          break;
+        case 'searchpage':
+          $tlistkey = ii_get_strvalue($strers, 'listkey');
+          if (ii_isnull($tlistkey)) return 'search-' . $key . $tfiletype;
+          else return 'search-' . $tlistkey . '-' . $key . $tfiletype;
+          break;
+        case 'detailpage':
+          $tlistkey = ii_get_strvalue($strers, 'listkey');
+          if (ii_isnull($tlistkey)) return 'detail-' . $key . $tfiletype;
+          else return 'detail-' . $tlistkey . '-' . $key . $tfiletype;
           break;
         case 'cutepage':
           $tcutekey = ii_get_strvalue($strers, 'cutekey');
@@ -1066,9 +1294,10 @@ function ii_replace_xinfo_ary($strers, $type)
   {
     case 'tpl':
       $troot = 'common/template';
-      if(ii_isMobileAgent()) $troot = $troot . '/' . $GLOBALS['m_skin' ];
-      else $troot = $troot . '/' . $GLOBALS['default_skin' ];
-      if(ii_isAdmin()) $troot = 'common/template/default';
+      if (ii_isMobileAgent()) $troot = $troot . '/' . $GLOBALS['mobile_skin'];
+      elseif (ii_isRobotsAgent()) $troot = $troot . '/' . $GLOBALS['robots_skin'];
+      else $troot = $troot . '/' . $GLOBALS['default_skin'];
+      if (ii_isAdmin()) $troot = 'common/template/default';
       break;
     case 'lng':
       $troot = 'common/language';
@@ -1169,7 +1398,7 @@ function ii_show_xmlinfo_select($strers, $value, $template)
   if (is_numeric(strpos($strers, '|')))
   {
     $txinfostr = ii_get_lrstr($strers, '|', 'left');
-    $tselstr = ii_get_lrstr($strers, '|', 'right');
+    $tselstr = ii_get_lrstr($strers, '|', 'right');//启用的节点值
   }
   else
   {
@@ -1215,21 +1444,21 @@ function ii_show_xmlinfo_select($strers, $value, $template)
 }
 
 function ii_unescape($strers)
-{    
+{
   $tstrers = rawurldecode($strers);
   preg_match_all("/%u.{4}|&#x.{4};|&#d+;|.+/U", $tstrers, $tarys);
   $tary = $tarys[0];
   foreach($tary as $key => $val)
   {
-    if(substr($val, 0, 2) == "%u")
+    if (substr($val, 0, 2) == "%u")
     {
       $tary[$key] = iconv("UCS-2BE", CHARSET, pack("H4",substr($val, -4)));
     }
-    elseif(substr($val, 0, 3) == "&#x")
+    elseif (substr($val, 0, 3) == "&#x")
     {
       $tary[$key] = iconv("UCS-2BE", CHARSET, pack("H4",substr($val, 3, -1)));
     }
-    elseif(substr($val, 0, 2) == "&#")
+    elseif (substr($val, 0, 2) == "&#")
     {
       $tary[$key] = iconv("UCS-2BE", CHARSET, pack("n",substr($val, 2, -1)));
     }
@@ -1238,7 +1467,7 @@ function ii_unescape($strers)
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

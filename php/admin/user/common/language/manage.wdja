@@ -55,6 +55,10 @@
       <chinese><![CDATA[编辑用户]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[useredit_password]]></disinfo>
+      <chinese><![CDATA[修改]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[useredit_notice]]></disinfo>
       <chinese><![CDATA[不修改则不填写]]></chinese>
     </item>

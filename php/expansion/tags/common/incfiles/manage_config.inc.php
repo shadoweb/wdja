@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -19,38 +19,67 @@ function pp_manage_batch_menu()
   return ii_ireplace('manage.batch_menu', 'tpl');
 }
 
-function wdja_cms_admin_manage_adddisp()
+function wdja_cms_interface_check_topic()
 {
   global $ngenre;
+  $bool = false;
+  $tid = ii_get_safecode($_GET['id']);
+  $ttopic = ii_get_safecode($_GET['topic']);
+  if (!ii_isnull($tid)) $bool = mm_search_field($ngenre,$ttopic,'topic',$tid);
+  else $bool = mm_search_field($ngenre,$ttopic,'topic');
+  if ($bool) echo '1';
+  else echo '0';
+  exit;
+}
+
+function wdja_cms_admin_manage_adddisp()
+{
+  global $ngenre, $slng;
   global $conn;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
+  
+  $tckstr = 'topic:' . ii_itake('global.lng_config.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
+  if ($nsaveimages == '1') $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
-  $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
-  if(mm_search_field($ngenre,$_POST['topic'],'topic')) wdja_cms_admin_msg(ii_itake('manage.check', 'lng'), $tbackurl, 1);
+  $tcontent_atts_list = ii_left(ii_cstr($_POST['content_atts_list']), 10000);
+  if (mm_search_field($ngenre,$_POST['topic'],'topic')) wdja_cms_admin_msg(ii_itake('manage.check', 'lng'), $tbackurl, 1);
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('topic') . ",
     " . ii_cfname('gourl') . ",
+    " . ii_cfname('titles') . ",
     " . ii_cfname('keywords') . ",
     " . ii_cfname('description') . ",
     " . ii_cfname('content') . ",
-    " . ii_cfname('content_images_list') . ",
-    " . ii_cfname('time') . "
+    " . ii_cfname('content_atts_list') . ",
+    " . ii_cfname('time') . ",
+    " . ii_cfname('update') . ",
+    " . ii_cfname('lng') . "
     ) values (
     '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
     '" . ii_left(ii_cstr($_POST['gourl']), 250) . "',
+    '" . ii_left(ii_cstr($_POST['titles']), 250) . "',
     '" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
     '" . ii_left(ii_cstr($_POST['description']), 250) . "',
     '$tcontent',
-    '$tcontent_images_list',
-    '" . ii_now() . "'
+    '$tcontent_atts_list',
+    '" . ii_now() . "',
+    '" . ii_now() . "',
+    '$slng'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
       $upfid = ii_conn_insert_id($conn);
-      uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
+      uu_upload_update_database_note($ngenre, $tcontent_atts_list, 'content_atts', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.add_succeed', 'lng'), $tbackurl, 1);
     }
     else wdja_cms_admin_msg(ii_itake('global.lng_public.add_failed', 'lng'), $tbackurl, 1);
@@ -62,26 +91,38 @@ function wdja_cms_admin_manage_editdisp()
   global $conn;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
-  if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
+  
+  $tckstr = 'topic:' . ii_itake('global.lng_config.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
+  if ($nsaveimages == '1') $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent = ii_left(ii_cstr($_POST['content']), 100000);
-  $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
+  $tcontent_atts_list = ii_left(ii_cstr($_POST['content_atts_list']), 10000);
   $tid = ii_get_num($_GET['id']);
-  if(mm_search_field($ngenre,$_POST['topic'],'topic',$tid)) wdja_cms_admin_msg(ii_itake('manage.check', 'lng'), $tbackurl, 1);
+  if (mm_search_field($ngenre,$_POST['topic'],'topic',$tid)) wdja_cms_admin_msg(ii_itake('manage.check', 'lng'), $tbackurl, 1);
     $tsqlstr = "update $ndatabase set
     " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
     " . ii_cfname('gourl') . "='" . ii_left(ii_cstr($_POST['gourl']), 250) . "',
+    " . ii_cfname('titles') . "='" . ii_left(ii_cstr($_POST['titles']), 250) . "',
     " . ii_cfname('keywords') . "='" . ii_left(ii_cstr($_POST['keywords']), 150) . "',
     " . ii_cfname('description') . "='" . ii_left(ii_cstr($_POST['description']), 250) . "',
     " . ii_cfname('content') . "='$tcontent',
-    " . ii_cfname('content_images_list') . "='$tcontent_images_list',
+    " . ii_cfname('content_atts_list') . "='$tcontent_atts_list',
     " . ii_cfname('count') . "=" . ii_get_num($_POST['count']) . ",
-    " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "'
+    " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
+    " . ii_cfname('update') . "='" . ii_now() . "'
     where $nidfield=$tid";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
       $upfid = $tid;
-      uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
+      uu_upload_update_database_note($ngenre, $tcontent_atts_list, 'content_atts', $upfid);
       wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);
     }
     else wdja_cms_admin_msg(ii_itake('global.lng_public.edit_failed', 'lng'), $tbackurl, 1);
@@ -89,19 +130,23 @@ function wdja_cms_admin_manage_editdisp()
 
 function pp_add($k)
 {
-  global $ngenre;
+  global $ngenre, $slng;
   global $conn;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
-  if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
+  if ($nsaveimages == '1') $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
-  $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
-  if(mm_search_field($ngenre,trim($k),'topic')) return;//已添加
+  $tcontent_atts_list = ii_left(ii_cstr($_POST['content_atts_list']), 10000);
+  if (mm_search_field($ngenre,trim($k),'topic')) return;//已添加
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('topic') . ",
-    " . ii_cfname('time') . "
+    " . ii_cfname('time') . ",
+    " . ii_cfname('update') . ",
+    " . ii_cfname('lng') . "
     ) values (
     '" . ii_left(ii_cstr(trim($k)), 50) . "',
-    '" . ii_now() . "'
+    '" . ii_now() . "',
+    '" . ii_now() . "',
+    '$slng'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs) $res = '1';//添加成功
@@ -111,13 +156,13 @@ function pp_add($k)
 }
 
 
-function wdja_cms_admin_manage_sqldisp(){
+function wdja_cms_admin_manage_sqldisp() {
     $time = explode(' ',microtime());
     $start = $time[0] + $time[1];
     $res = '';
     $keywords=explode("\r\n", trim($_POST['keywords']));
-    foreach($keywords as $k=>$v){
-    if(!empty($v) && $v != ' ' && $v != NULL) $res .= pp_add($v);
+    foreach($keywords as $k=>$v) {
+    if (!empty($v) && $v != ' ' && $v != NULL) $res .= pp_add($v);
     }
     $endtime = explode(' ',microtime());
     $end = $endtime[0] + $endtime[1];
@@ -214,7 +259,7 @@ function wdja_cms_admin_manage_list()
   $tmpstr = ii_itake('manage.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase";
+  $tsqlstr = "select * from $ndatabase where " . ii_cfname('lng') . "= '" . $slng . "'";
   if ($search_field == 'topic') $tsqlstr .= " and $ndatabase." . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'id') $tsqlstr .= " and $ndatabase.$nidfield=" . ii_get_num($search_keyword);
   $tsqlstr .= " order by $nidfield desc";
@@ -239,8 +284,16 @@ function wdja_cms_admin_manage_list()
         $font_red = str_replace('{$explain}', $search_keyword, $font_red);
         $ttopic = str_replace($search_keyword, $font_red, $ttopic);
       }
+      global $variable;
+      $nurltype = $variable[ii_cvgenre($ngenre) . '.nurltype'];
+      $ncreatefolder = $variable[ii_cvgenre($ngenre) . '.ncreatefolder'];
+      $ncreatefiletype = $variable[ii_cvgenre($ngenre) . '.ncreatefiletype'];
+	  $tgourl = mm_get_field($ngenre,$trs[$nidfield],'gourl');
+	  if (!ii_isnull($tgourl)) $turl = $tgourl;
+	  else $turl = '/'.$ngenre.'/'.ii_iurl('detail',$trs[$nidfield], $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype);
       $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
       $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('topic')])), $tmptstr);
+      $tmptstr = str_replace('{$url}', $turl, $tmptstr);
       $tmptstr = str_replace('{$gourl}', ii_htmlencode($trs[ii_cfname('gourl')]), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$count}', ii_get_num($trs[ii_cfname('count')]), $tmptstr);
@@ -248,7 +301,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -286,6 +339,9 @@ function wdja_cms_admin_manage()
 {
   switch($_GET['type'])
   {
+    case 'check_topic':
+      return wdja_cms_interface_check_topic();
+      break;
     case 'add':
       return wdja_cms_admin_manage_add();
       break;
@@ -311,7 +367,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

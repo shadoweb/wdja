@@ -1,11 +1,11 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
-$nsearch = 'topic,keyword';
+$nsearch = 'topic';
 $ncontrol = 'select,delete';
 
 function pp_manage_navigation()
@@ -20,21 +20,31 @@ function wdja_cms_admin_manage_adddisp()
   global $ndatabase, $nidfield, $nfpre;
   $tbackurl = $_GET['backurl'];
   $ttopic = ii_cstr($_POST['topic']);
+  
+  $tckstr = 'topic:' . ii_itake('manage.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   if (!(ii_isnull($ttopic)))
   {
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('topic') . ",
     " . ii_cfname('url') . ",
-    " . ii_cfname('keyword') . ",
     " . ii_cfname('intro') . ",
     " . ii_cfname('hidden') . ",
+    " . ii_cfname('update') . ",
     " . ii_cfname('time') . "
     ) values (
     '" . ii_left($ttopic, 50) . "',
     '" . ii_left(ii_cstr($_POST['url']), 255) . "',
-    '" . ii_left(ii_cstr($_POST['keyword']), 50) . "',
     '" . ii_left(ii_cstr($_POST['intro']), 255) . "',
     " . ii_get_num($_POST['hidden']) . ",
+    '" . ii_now() . "',
     '" . ii_get_date(ii_cstr($_POST['time'])) . "'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -54,15 +64,25 @@ function wdja_cms_admin_manage_editdisp()
   $tbackurl = $_GET['backurl'];
   $ttopic = ii_cstr($_POST['topic']);
   $tid = ii_get_num($_GET['id']);
+  
+  $tckstr = 'topic:' . ii_itake('manage.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   if (!(ii_isnull($ttopic)))
   {
     $tsqlstr = "update $ndatabase set
     " . ii_cfname('topic') . "='" . ii_left($ttopic, 50) . "',
     " . ii_cfname('url') . "='" . ii_left(ii_cstr($_POST['url']), 255) . "',
-    " . ii_cfname('keyword') . "='" . ii_left(ii_cstr($_POST['keyword']), 50) . "',
     " . ii_cfname('intro') . "='" . ii_left(ii_cstr($_POST['intro']), 255) . "',
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
-    " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "'
+    " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
+    " . ii_cfname('update') . "='" . ii_now() . "'
     where $nidfield=$tid";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs) wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);
@@ -130,13 +150,11 @@ function wdja_cms_admin_manage_list()
   global $ndatabase, $nidfield, $nfpre, $npagesize;
   $toffset = ii_get_num($_GET['offset']);
   $search_field = ii_get_safecode($_GET['field']);
-  $search_keyword = ii_get_safecode($_GET['keyword']);
   $tmpstr = ii_itake('manage.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where $nidfield>0";
   if ($search_field == 'topic') $tsqlstr .= " and " . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
-  if ($search_field == 'keyword') $tsqlstr .= " and " . ii_cfname('keyword') . " like '%" . $search_keyword . "%'";
   $tsqlstr .= " order by $ndatabase." . ii_cfname('time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -158,7 +176,6 @@ function wdja_cms_admin_manage_list()
       }
       $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
       $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('topic')])), $tmptstr);
-      $tmptstr = str_replace('{$keyword}', ii_htmlencode($trs[ii_cfname('keyword')]), $tmptstr);
       $tmptstr = str_replace('{$url}', ii_htmlencode($trs[ii_cfname('url')]), $tmptstr);
       $tmptstr = str_replace('{$intro}', ii_htmlencode($trs[ii_cfname('intro')]), $tmptstr);
       $tmptstr = str_replace('{$hidden}',ii_itake('global.sel_yesno.'.ii_get_num($trs[ii_cfname('hidden')]), 'lng'), $tmptstr);
@@ -167,7 +184,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -193,7 +210,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

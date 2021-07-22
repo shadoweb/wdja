@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -20,32 +20,44 @@ function wdja_cms_admin_manage_adddisp()
   global $ngenre, $slng;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
+  
+  $tckstr = 'topic:' . ii_itake('global.lng_config.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   $timage = ii_left(ii_cstr($_POST['image']), 255);
-  if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
+  if ($nsaveimages == '1') $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent =ii_left(ii_cstr($_POST['content']), 100000);
-  $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
+  $tcontent_atts_list = ii_left(ii_cstr($_POST['content_atts_list']), 10000);
   $tsqlstr = "insert into $ndatabase (
   " . ii_cfname('topic') . ",
-    " . ii_cfname('image') . ",
+  " . ii_cfname('image') . ",
   " . ii_cfname('content') . ",
-  " . ii_cfname('content_images_list') . ",
+  " . ii_cfname('content_atts_list') . ",
   " . ii_cfname('time') . ",
+  " . ii_cfname('update') . ",
   " . ii_cfname('good') . ",
   " . ii_cfname('lng') . "
   ) values (
   '" . ii_left(ii_cstr($_POST['topic']), 50) . "',
-    '$timage',
+  '$timage',
   '$tcontent',
-  '$tcontent_images_list',
+  '$tcontent_atts_list',
+  '" . ii_now() . "',
   '" . ii_now() . "',
   " . ii_get_num($_POST['good']) . ",
-  '$slng'
+  '".$slng."'
   )";
   $trs = ii_conn_query($tsqlstr, $conn);
   if ($trs)
   {
     $upfid = ii_conn_insert_id($conn);
-    uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
+    uu_upload_update_database_note($ngenre, $tcontent_atts_list, 'content_atts', $upfid);
     wdja_cms_admin_msg(ii_itake('global.lng_public.add_succeed', 'lng'), $tbackurl, 1);
   }
   else wdja_cms_admin_msg(ii_itake('global.lng_public.add_failed', 'lng'), $tbackurl, 1);
@@ -57,24 +69,35 @@ function wdja_cms_admin_manage_editdisp()
   global $ngenre;
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
+  
+  $tckstr = 'topic:' . ii_itake('global.lng_config.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   $timage = ii_left(ii_cstr($_POST['image']), 255);
-  if($nsaveimages == '1' ) $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
+  if ($nsaveimages == '1') $tcontent = ii_left(ii_cstr(saveimages($_POST['content'])), 100000);
   else $tcontent = ii_left(ii_cstr($_POST['content']), 100000);
-  $tcontent_images_list = ii_left(ii_cstr($_POST['content_images_list']), 10000);
+  $tcontent_atts_list = ii_left(ii_cstr($_POST['content_atts_list']), 10000);
   $tid = ii_get_num($_GET['id']);
   $tsqlstr = "update $ndatabase set
   " . ii_cfname('topic') . "='" . ii_left(ii_cstr($_POST['topic']), 50) . "',
     " . ii_cfname('image') . "='$timage',
   " . ii_cfname('content') . "='$tcontent',
-  " . ii_cfname('content_images_list') . "='$tcontent_images_list',
+  " . ii_cfname('content_atts_list') . "='$tcontent_atts_list',
   " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
+  " . ii_cfname('update') . "='" . ii_now() . "',
   " . ii_cfname('good') . "=" . ii_get_num($_POST['good']) . "
   where $nidfield=$tid";
   $trs = ii_conn_query($tsqlstr, $conn);
   if ($trs)
   {
     $upfid = $tid;
-    uu_upload_update_database_note($ngenre, $tcontent_images_list, 'content_images', $upfid);
+    uu_upload_update_database_note($ngenre, $tcontent_atts_list, 'content_atts', $upfid);
     wdja_cms_admin_msg(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl, 1);
   }
   else wdja_cms_admin_msg(ii_itake('global.lng_public.edit_failed', 'lng'), $tbackurl, 1);
@@ -176,11 +199,13 @@ function wdja_cms_admin_manage_list()
   $tmpstr = ii_itake('manage.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('lng') . "='$slng'";
+  $tsqlstr = "select * from $ndatabase where $nidfield>0";
   if ($search_field == 'topic') $tsqlstr .= " and " . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'good') $tsqlstr .= " and " . ii_cfname('good') . "=" . ii_get_num($search_keyword);
+  if ($search_field == 'nogood') $tsqlstr .= " and " . ii_cfname('good') . "=" . ii_get_num($search_keyword);
   if ($search_field == 'id') $tsqlstr .= " and $nidfield=" . ii_get_num($search_keyword);
-  $tsqlstr .= " order by " . ii_cfname('time') . " desc";
+  $tsqlstr .= " and " . ii_cfname('lng') . " = '" . $slng . "'";
+  $tsqlstr .= " order by " . ii_cfname('good') . "," . ii_cfname('time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
   $tcp -> sqlstr = $tsqlstr;
@@ -197,20 +222,24 @@ function wdja_cms_admin_manage_list()
     foreach($trsary as $trs)
     {
       $ttopic = ii_htmlencode($trs[ii_cfname('topic')]);
+      $good = ii_itake('manage.nogood','lng');
       if (isset($font_red))
       {
         $font_red = str_replace('{$explain}', $search_keyword, $font_red);
         $ttopic = str_replace($search_keyword, $font_red, $ttopic);
       }
-      if ($trs[ii_cfname('good')] == 1) $ttopic .= $postfix_good;
+      if ($trs[ii_cfname('good')] == 1){
+          $good = str_replace('{$explain}', ii_itake('manage.good','lng'), ii_itake('global.tpl_config.font_red', 'tpl'));
+      }
       $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
       $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('topic')])), $tmptstr);
+      $tmptstr = str_replace('{$good}', $good, $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -242,7 +271,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

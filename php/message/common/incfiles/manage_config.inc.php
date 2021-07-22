@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -19,8 +19,19 @@ function wdja_cms_admin_manage_adddisp()
   global $ndatabase, $nidfield, $nfpre;
   global $ngenre, $nlng, $slng;
   $tbackurl = $_GET['backurl'];
+  
+  $tckstr = 'name:' . ii_itake('config.name', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
+  $tname = ii_cstr($_POST['name']);
   $ttitle = ii_cstr($_POST['title']);
-  if (!(ii_isnull($ttitle)))
+  if (!(ii_isnull($tname)))
   {
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('name') . ",
@@ -62,9 +73,20 @@ function wdja_cms_admin_manage_editdisp()
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
   $tbackurl = $_GET['backurl'];
+  
+  $tckstr = 'name:' . ii_itake('config.name', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
+  $tname = ii_cstr($_POST['name']);
   $ttitle = ii_cstr($_POST['title']);
   $tid = ii_get_num($_GET['id']);
-  if (!(ii_isnull($ttitle)))
+  if (!(ii_isnull($tname)))
   {
     $tsqlstr = "update $ndatabase set
     " . ii_cfname('name') . "='" . ii_left(ii_cstr($_POST['name']), 50) . "',
@@ -188,7 +210,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -214,7 +236,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

@@ -40,7 +40,7 @@ class CCheckCodeFile
 
   public function SetCheckImageWH($width, $height)
   {
-    if($width == '' || $height == '') return false;
+    if ($width == '' || $height == '') return false;
     $this -> mCheckImageWidth  = $width;
     $this -> mCheckImageHeight = $height;
     return true;
@@ -69,7 +69,7 @@ class CCheckCodeFile
   }
 }
 
-if(!defined('E_DEPRECATED')) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
+if (!defined('E_DEPRECATED')) error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 else error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED ^ E_WARNING);
 $c_check_code_image = new CCheckCodeFile();
 $c_check_code_image -> SetCheckImageWH(66, 20);

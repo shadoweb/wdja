@@ -7,120 +7,101 @@
   </configure>
   <item_list>
     <item>
-      <name><![CDATA[base]]></name>
-      <tpl_default><![CDATA[<base id="base" href="{$=ii_get_lrstr($GLOBALS['nurlpre'] . $GLOBALS['nuri'], '/', 'leftr')}/" />]]></tpl_default>
-    </item>
-    <item>
       <name><![CDATA[default_head]]></name>
-      <tpl_default><![CDATA[<!DOCTYPE html>
+      <tpl_default><![CDATA[<!doctype html>
 <html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=yes">
-{$=mm_web_base()}
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-<title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
-<meta name="keywords" content="{$=mm_web_keywords($GLOBALS['nkeywords'])}" />
-<meta name="description" content="{$=mm_web_description($GLOBALS['ndescription'])}" />
-<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.css" />
-<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/layout.css?{$=ii_random(3)}" />
-<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/global.css?{$=ii_random(3)}" />
-<script type="text/javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
-<script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
-<script type="text/javascript" src="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.js"></script>
-<link type="text/css" rel="stylesheet" href="{$=ii_get_actual_route('common')}/editor/tinymce/prism.css?{$=ii_random(3)}"/>
-<script type="text/javascript" src="{$=ii_get_actual_route('common')}/editor/tinymce/prism.js?{$=ii_random(3)}"></script>
-</head>
-<body>
-<header id="top">
-	<section id="topContent">
-     <div style="width:1000px;margin:0 auto;height:80px;line-height:80px;POSITION: relative;">
-        <h2><a href="{$=ii_get_actual_route('./')}"><img src="{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.logo','lng')}" alt="{$=ii_itake('global.module.web_title', 'lng')}"></a></h2>
-        <div class="desc">{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.topic','lng')}</div>
-        <div id="panel">
-            <form method="get" name="search" action="{$=ii_get_actual_route('search')}"><input type="text" name="keyword" size="15" class="text" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}"/> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
-            </form>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+    <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
+    <title>{$=mm_web_title($GLOBALS['ntitles'])}</title>
+    <meta name="keywords" content="{$=mm_web_keywords($GLOBALS['nkeywords'])}" />
+    <meta name="description" content="{$=mm_web_description($GLOBALS['ndescription'])}" />
+    <link rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.css?{$=ii_random(3)}" />
+    <link rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/global.css?{$=ii_random(3)}" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/style.css?{$=ii_random(3)}" />
+    <link type="text/css" rel="stylesheet" href="{$=#global_images_route}iconfont/iconfont.css?{$=ii_random(3)}" />
+    <script src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
+    <script src="{$=#global_images_route}theme/{$=#nskin}/swiper/swiper-4.2.2.min.js"></script>
+    <link rel="stylesheet" href="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.css?{$=ii_random(3)}"/>
+    <script src="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.js?{$=ii_random(3)}"></script>
+    <script src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
+    <script src="{$=#global_images_route}js/dict.js?{$=ii_random(3)}"></script>
+    <script src="{$=#global_images_route}js/zh_CN.js"></script>
+    <link rel="shortcut icon" href="{$=ii_itake('global.support/global:basic.web_icon','lng')}" type="image/x-icon">
+  </head>
+  <body>
+    <header>
+      <div class="header-con">
+        <div class="logo">
+          <a class="" href="{$=ii_get_actual_route('./')}"><img src="{$=ii_itake('global.support/global:basic.web_logo','lng')}" alt="{$=ii_itake('global.module.web_title', 'lng')}" ></a>
         </div>
-    </div>
-    </section>
-  <section id="menuContent">
-    <div id="menu">
-      <ul>
-        <li id="m"><a href="{$=#nurlpre}">{$=ii_itake('global.module.channel_title', 'lng')}</a></li>
-        <li id="maboutus"><a href="{$=ii_get_actual_route('aboutus')}">{$=ii_itake('global.aboutus:module.channel_title', 'lng')}</a></li>
-        <li id="mnews"><a href="{$=ii_get_actual_route('news')}">{$=ii_itake('global.news:module.channel_title', 'lng')}</a></li>
-        <li id="mproduct"><a href="{$=ii_get_actual_route('product')}">{$=ii_itake('global.product:module.channel_title', 'lng')}</a></li>
-        <li id="mdownload"><a href="{$=ii_get_actual_route('download')}">{$=ii_itake('global.download:module.channel_title', 'lng')}</a></li>
-        <li id="mshop"><a href="{$=ii_get_actual_route('shop')}">{$=ii_itake('global.shop:module.channel_title', 'lng')}</a></li>
-        <li id="mforum"><a href="{$=ii_get_actual_route('forum')}">{$=ii_itake('global.forum:module.channel_title', 'lng')}</a></li>
-        <li id="mpage"><a href="{$=ii_get_actual_route('contactus')}">{$=ii_itake('global.contactus:manage.channel_title', 'lng')}</a></li>
-        <li id="mquestion"><a href="{$=ii_get_actual_route('question')}">{$=ii_itake('global.question:module.channel_title', 'lng')}</a></li>
-        <li id="mhelp"><a href="{$=ii_get_actual_route('help')}" target="_blank">{$=ii_itake('global.help:module.channel_title', 'lng')}</a></li>
-      </ul>
-    </div>
-    </section>
-</header>
-]]></tpl_default>
+        <div class="menu" id="menu">
+          {$=vv_itransfer('order', 'menu', 'topx=12;tnum=30;genre=support/menu;osql= and #_group=\'0\' and #_fsid=\'0\'')}
+        </div>
+        <div class="search">
+          <div class="search-con">
+            <form method="get" id="searchform" name="search" action="{$=ii_get_actual_route('search')}"> 
+              <input type="hidden" name="type" value="list">
+              <input type="text" class="i1" name="keyword" value="" placeholder="{$=ii_itake('global.lng_config.keyword', 'lng')}" required/> 
+              <button type="submit" class="b3">{$=ii_itake('global.lng_config.search','lng')}</button>
+            </form>
+          </div>
+        </div>
+        <div id="cart" class="cart">
+          <a href="/user/shopcart"><span><i class="num"></i></span><img src="{$=#global_images_route}theme/{$=#nskin}/cart.png"></a>
+        </div>
+        <div class="language">
+          <a href="javascript:zh_tran('s');" class="zh_click" id="zh_click_s">简体</a> <a href="javascript:zh_tran('t');" class="zh_click" id="zh_click_t">繁体</a>
+        </div>
+        <div class="menu-button" onclick="menu_view();">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div>
+      <script>
+        function menu_view(){
+          var menu = get_id("menu");
+          var view = 1;
+          if(view == 1){
+            view = 0; 
+            menu.classList.toggle('open');
+          }else{
+            menu.classList.toggle('open');
+            view = 1;
+          }
+        }
+      </script>
+    </header>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[default_foot]]></name>
       <tpl_default><![CDATA[{$=ii_ireplace('global.module.links','tpl')}
-<footer id="bottom">
-  <section id="bottomContent">
-    <p>Copyright 2004-{$=date('Y', ii_mktime(ii_now()))} WDJA(<a href="{$=#nurlpre}" target="_blank">CMS</a>) <a href="{$=#nurlpre}" target="_blank">wdja.net</a> All Rights Reserved.<a href="{$=#nurlpre}/sitemap.xml" target="_blank">Sitemap</a> 备案号:{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.icp','lng')}</p>
-    <div id="bottomMenu">{$=vv_itransfer('new', 'm1', 'topx=10;tnum=30;genre=aboutus;osql= and ab_lng=\'' . $GLOBALS['nlng'] . '\'')}<a href="{$=ii_get_actual_route('message')}" target="_self">{$=ii_itake('global.message:module.channel_title', 'lng')}</a></div>
+<footer>
+  <div class="footer-con">
+  <section>
+    <ul>
+      {$=vv_itransfer('new', 'm1', 'topx=10;tnum=30;genre=aboutus;osql= and #_lng=\'' . $GLOBALS['nlng'] . '\'')}
+      <li><a href="{$=ii_get_actual_route('message')}" target="_self">{$=ii_itake('global.message:module.channel_title', 'lng')}</a></li>
+      <li>© 2004-{$=date('Y', ii_mktime(ii_now()))} <a href="{$=#nurlpre}" target="_blank">{$=ii_itake('global.support/global:basic.web_name','lng')}</a> {$=ii_itake('global.support/global:basic.web_copyright','lng')} <a href="{$=#nurlpre}/sitemap.xml" target="_blank">Sitemap</a> 备案号:{$=ii_itake('global.support/global:basic.web_beian','lng')} {$=ii_itake('global.support/global:basic.web_tongji','lng')}
+</li>
+    </ul>
+    <ul>
+      <li>{$=ii_itake('global.support/global:basic.contacts_address','lng')} {$=ii_itake('global.support/global:basic.contacts_name','lng')} {$=ii_itake('global.support/global:basic.contacts_email','lng')}</li>
+    </ul>
   </section>
+  </div>
 </footer>
-{$=ii_itake('global.' . ADMIN_FOLDER . '/global:basic.tongji','lng')}
-<script>        
-  var mySwiper = new Swiper ('.swiper-container', {
-                    autoplay: {
-                        delay:3000,//秒            
-                        disableOnInteraction: false,//滑动不会失效
-                        reverseDirection: false,//如果最后一个 反向播放
-                    },
-                    loop: true,//轮播
-                    followFinger: false,//手指滑动完毕在动
-    // 如果需要分页器
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-        renderBullet: function (index, className) {
-          return '<span class="' + className + '">' + (index + 1) + '</span>';
-        },
-      },
-    
-    // 如果需要前进后退按钮
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-  })        
-  </script>
-<script type="text/javascript">get_id('m{$=#ngenre}').className = 'on';</script>
+<script src="{$=#global_images_route}js/foot.js?{$=ii_random(3)}"></script>
+<script src="{$=#global_images_route}js/WdjaCart.js?{$=ii_random(3)}"></script>
 </body>
 </html>]]></tpl_default>
     </item>
     <item>
-      <name><![CDATA[chead]]></name>
-      <tpl_default><![CDATA[<html>
-<head>
-<meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
-<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}">
-<link type="text/css" rel="stylesheet" href="{$=#global_images_route}theme/{$=#nskin}/layout.css" />
-<title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
-</head>
-<body>]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[cfoot]]></name>
-      <tpl_default><![CDATA[</body>
-</html>]]></tpl_default>
-    </item>
-    <item>
       <name><![CDATA[clear_head]]></name>
-      <tpl_default><![CDATA[<html>
+      <tpl_default><![CDATA[<!doctype html>
+<html>
 <head>
 <meta http-equiv="x-ua-compatible" content="IE=EmulateIE7" />
 <meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}">
@@ -145,7 +126,7 @@ h1 {padding-left: 5px;color:red;}
     </item>
     <item>
       <name><![CDATA[admin_head]]></name>
-      <tpl_default><![CDATA[<!DOCTYPE html>
+      <tpl_default><![CDATA[<!doctype html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
@@ -157,16 +138,48 @@ h1 {padding-left: 5px;color:red;}
 <script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/selects.js?{$=ii_random(3)}"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/manage.js?{$=ii_random(3)}"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/dict.js?{$=ii_random(3)}"></script>
 </head>
 <body onload="nhrefstate()">
 <div class="container" style="height: 180px;">
     <div class="maincontent">
       <div class="main">
-<nav genre="{$ngenre}"><span>{$=mm_admin_nav('{$ngenre}')}</span></nav>
+<nav><span>{$=mm_admin_nav('{$ngenre}')}</span></nav>
 <div class="manager">]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[admin_foot]]></name>
+      <tpl_default><![CDATA[</div>
+</div>
+</div>
+</div>
+</body>
+</html>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_head]]></name>
+      <tpl_default><![CDATA[<!doctype html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
+<link href="{$=ii_get_actual_route(ADMIN_FOLDER . '/common/images/global.css')}?{$=ii_random(3)}" type="text/css" rel="stylesheet" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<title>{$=mm_web_title($GLOBALS['ntitle'])}</title>
+<script type="text/javascript" src="{$=#global_images_route}js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/main.js?{$=ii_random(3)}"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/selects.js?{$=ii_random(3)}"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/manage.js?{$=ii_random(3)}"></script>
+<script type="text/javascript" src="{$=#global_images_route}js/dict.js?{$=ii_random(3)}"></script>
+</head>
+<body onload="nhrefstate()">
+<div class="container" style="height: 180px;">
+    <div class="maincontent">
+      <div class="main">
+<div class="manager">]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_foot]]></name>
       <tpl_default><![CDATA[</div>
 </div>
 </div>

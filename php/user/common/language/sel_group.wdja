@@ -12,11 +12,11 @@
     </item>
     <item>
       <value><![CDATA[1]]></value>
-      <chinese><![CDATA[认证用户]]></chinese>
+      <chinese><![CDATA[VIP会员]]></chinese>
     </item>
     <item>
       <value><![CDATA[2]]></value>
-      <chinese><![CDATA[高级用户]]></chinese>
+      <chinese><![CDATA[SVIP会员]]></chinese>
     </item>
   </sel_list>
 </xml>

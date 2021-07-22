@@ -22,5 +22,17 @@
       <value><![CDATA[3]]></value>
       <chinese><![CDATA[输入框]]></chinese>
     </item>
+    <item>
+      <value><![CDATA[4]]></value>
+      <chinese><![CDATA[编辑框]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[5]]></value>
+      <chinese><![CDATA[上传框]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[6]]></value>
+      <chinese><![CDATA[相册框]]></chinese>
+    </item>
   </sel_list>
 </xml>

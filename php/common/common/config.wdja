@@ -2,8 +2,7 @@
 <xml mode="wdjafg" author="wdja">
   <configure>
     <item varstr="nupmaxsize" strvalue="20480000" />
-    <item varstr="nvalidate" strvalue="0" />
-    <item varstr="nbasehref" strvalue="1" />
+    <item varstr="nvalidate" strvalue="1" />
     <item varstr="sort.ndatabase" strvalue="wdja_support_sort" />
     <item varstr="sort.nidfield" strvalue="sortid" />
     <item varstr="sort.nfpre" strvalue="sort_" />
@@ -13,6 +12,7 @@
     <item varstr="adminlog.ndatabase" strvalue="wdja_admin_log" />
     <item varstr="adminlog.nidfield" strvalue="lid" />
     <item varstr="adminlog.nfpre" strvalue="l_" />
+    <item varstr="adminlog.maxerrornum" strvalue="10" />
     <item varstr="upload.ndatabase" strvalue="wdja_sys_upload" />
     <item varstr="upload.nidfield" strvalue="upid" />
     <item varstr="upload.nfpre" strvalue="up_" />

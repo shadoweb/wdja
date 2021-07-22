@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -20,6 +20,16 @@ function wdja_cms_admin_manage_adddisp()
   global $ngenre, $slng;
   global $ndatabase, $nidfield, $nfpre;
   $tbackurl = $_GET['backurl'];
+  
+  $tckstr = 'ip:' . ii_itake('manage.ip', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   $tsqlstr = "insert into $ndatabase (
   " . ii_cfname('area') . ",
   " . ii_cfname('robots') . ",
@@ -58,6 +68,16 @@ function wdja_cms_admin_manage_editdisp()
   global $ndatabase, $nidfield, $nfpre, $nsaveimages;
   $tbackurl = $_GET['backurl'];
   $tid = ii_get_num($_GET['id']);
+  
+  $tckstr = 'ip:' . ii_itake('manage.ip', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   $tsqlstr = "update $ndatabase set
   " . ii_cfname('area') . "='" . ii_left(ii_cstr($_POST['area']), 50) . "',
   " . ii_cfname('robots') . "='" . ii_left(ii_cstr($_POST['robots']), 50) . "',
@@ -85,7 +105,7 @@ function pp_add($ip,$robots,$lock,$out)
   global $ndatabase, $nidfield, $nfpre;
   if (!ii_isnull($ip))
   {
-   if(mm_search_field($ngenre,trim($ip),'ip')) return;//已添加
+   if (mm_search_field($ngenre,trim($ip),'ip')) return;//已添加
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('ip') . ",
     " . ii_cfname('robots') . ",
@@ -116,7 +136,7 @@ function pp_add($ip,$robots,$lock,$out)
 }
 
 
-function wdja_cms_admin_manage_sqldisp(){
+function wdja_cms_admin_manage_sqldisp() {
     $time = explode(' ',microtime());
     $start = $time[0] + $time[1];
     $res = '';
@@ -124,8 +144,8 @@ function wdja_cms_admin_manage_sqldisp(){
     $lock=$_POST['lock'];
     $out=$_POST['out'];
     $ips=explode("\r\n", trim($_POST['ips']));
-    foreach($ips as $k=>$v){
-    if(!empty($v) && $v != ' ' && $v != NULL)  $res .= pp_add($v,$robots,$lock,$out);
+    foreach($ips as $k=>$v) {
+    if (!empty($v) && $v != ' ' && $v != NULL) $res .= pp_add($v,$robots,$lock,$out);
     }
     $endtime = explode(' ',microtime());
     $end = $endtime[0] + $endtime[1];
@@ -188,7 +208,7 @@ function wdja_cms_admin_manage_edit()
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
-      if($tkey == 'robots' &&ii_isnull($val)) $val = 'unknown';
+      if ($tkey == 'robots' &&ii_isnull($val)) $val = 'unknown';
       $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
     }
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
@@ -209,13 +229,13 @@ function wdja_cms_admin_manage_list()
   $tmpstr = ii_itake('manage.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('lng') . "='$slng'";
+  $tsqlstr = "select * from $ndatabase where 1=1 ";
   if ($search_field == 'ip') $tsqlstr .= " and " . ii_cfname('ip') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'default') $tsqlstr .= " and " . ii_cfname('lock') . " = '" . $search_keyword . "' and " . ii_cfname('out') . " = '" . $search_keyword . "'";
   if ($search_field == 'lock') $tsqlstr .= " and " . ii_cfname('lock') . " = '" . $search_keyword . "' and " . ii_cfname('out') . " <> '1'";
   if ($search_field == 'out') $tsqlstr .= " and " . ii_cfname('out') . " = '" . $search_keyword . "'";
   if ($search_field == 'content') $tsqlstr .= " and " . ii_cfname('content') . " like '%" . $search_keyword . "%'";
-  if ($search_field == 'robots'){
+  if ($search_field == 'robots') {
     switch($search_keyword)
     {
     case '百度':
@@ -238,9 +258,6 @@ function wdja_cms_admin_manage_list()
       break;
     case '管理员':
       $tsqlstr .= " and " . ii_cfname('robots') . " = 'admin'";
-      break;
-    default:
-      $tsqlstr .= " and 1 = 1 ";
       break;
   }
   }
@@ -267,11 +284,12 @@ function wdja_cms_admin_manage_list()
         $tcontent = str_replace($search_keyword, $font_red, $tcontent);
       }
       $tarea = ii_htmlencode($trs[ii_cfname('area')]);
-      if(ii_isnull($trs[ii_cfname('robots')])) $trobots = 'unknown';
+      if (ii_isnull($trs[ii_cfname('robots')])) $trobots = 'unknown';
       else $trobots = ii_htmlencode($trs[ii_cfname('robots')]);
       $tmptstr = str_replace('{$area}', $tarea, $tmpastr);
       $tmptstr = str_replace('{$robots}', ii_itake('sel_robots.'.$trobots, 'sel'), $tmptstr);
       $tmptstr = str_replace('{$ip}', $tip, $tmptstr);
+      $tmptstr = str_replace('{$come}', $trs[ii_cfname('come')], $tmptstr);
       $tmptstr = str_replace('{$content}', $tcontent, $tmptstr);
       $tmptstr = str_replace('{$count}', $trs[ii_cfname('count')], $tmptstr);
       $tmptstr = str_replace('{$lock}', $trs[ii_cfname('lock')], $tmptstr);
@@ -282,11 +300,12 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }
+
 function wdja_cms_admin_manage()
 {
   switch($_GET['type'])
@@ -313,7 +332,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

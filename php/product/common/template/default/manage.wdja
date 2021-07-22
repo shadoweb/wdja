@@ -33,19 +33,19 @@
     <table cellpadding="10" cellspacing="1" class="tableL">
       <thead>
         <tr>
-          <th height="25" width="10"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
           <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
           <th width="*">{$=ii_itake('global.lng_config.topic','lng')}</th>
           <th width="100">{$=ii_itake('global.lng_config.sort','lng')}</th>
           <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
-          <th align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
         </tr>
       </thead>
       <tbody>{@recurrence_ida}
         <tr class="lock-0">
-          <td><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
-          <td>{$id}</td>
-          <td><a href="/{$=#ngenre}/?type=detail&id={$id}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" border="0"></a>&nbsp;<a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td><a href="{$url}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" border="0"></a>&nbsp;<a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
           <td><a href="?classid={$classid}">{$sort}</a></td>
           <td>{$time}</td>
           <td>
@@ -58,7 +58,7 @@
       </tbody>
     </table>
     <div class="control">
-      <div class="batch show-1" style="">{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
       <div class="pagi">{$cpagestr}</div>
     </div>
   </form>
@@ -72,11 +72,10 @@
 <link rel="stylesheet" type="text/css" href="{$=#global_images_route}js/ySelect/ySelect.css?{$=ii_random(3)}">
 <script type="text/javascript" src="{$=#global_images_route}js/ySelect/ySelect.js?{$=ii_random(3)}"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/preview_images.js?{$=ii_random(3)}"></script>
-<script type="text/javascript" src="{$=#global_images_route}js/loader.js?{$=ii_random(3)}"></script>
 <script type="text/javascript">
 function bfsubmit()
 {
-  get_id("content_images_list").value = get_selects_list(get_id('content_images'));
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
   get_id("sort_list").value = $("#sort").ySelectedValues(",");
 }
 </script>
@@ -87,12 +86,18 @@ function bfsubmit()
     <input type="hidden" id="infos_date_option" name="infos_date_option" value="2">
       <table cellpadding="10" cellspacing="0" class="tableF">
         <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('global.support/collect:manage.collect','lng')}</t></th>
+  <td><input type="text" id="url" class="i1"> <a onclick="get_collect_content('url');" style="display: inline-block;width: 60px;height: 30px;line-height: 30px;margin-top: -2px;padding: 0;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;vertical-align: middle;">{$=ii_itake('global.support/collect:manage.get','lng')}</a></td>
+</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.snum','lng')}<r>*</r></t></th>
   <td><input type="text" name="snum" class="i1" value="{$snum}"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
   <td><input type="text" name="topic" class="i1"></td>
 </tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.titles','lng')}</t></th>
+  <td><input type="text" name="titles" size="40" class="i1"></td>
+	</tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.keywords','lng')}</t></th>
   <td><input type="text" name="keywords" size="40" class="i1"></td>
 	</tr>
@@ -104,23 +109,10 @@ function bfsubmit()
 <tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}<r>*</r></t></th>
   <td><input type="hidden" name="sort_list" id="sort_list"><select id="sort" class="s1" multiple="multiple">{$=mm_sel_sort_list($GLOBALS['ngenre'],$GLOBALS['slng'],ii_get_num($_GET['classid'], 0))}</select></td>
-	</tr>
-<script type="text/javascript">
-$(function() {
-        $('#sort').ySelect(
-          {
-            placeholder: "{$=ii_itake('global.lng_config.unselect', 'lng')}",
-            searchText: "{$=ii_itake('global.lng_config.search', 'lng')}",
-            showSearch: false,
-            numDisplayed: 1,//超出数量整合
-            overflowText: '已选{n}项',//超出数量整合文本提示,{n}为数量
-            isCheck:false
-          }
-        );
-});
-</script>
+</tr>
+<script type="text/javascript">$(function(){$('#sort').ySelect();});</script>
 <tr>
-  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}<r>*</r></t></th>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}</t></th>
   <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="image" size="40" ondblclick="preview_images(this.value, event)">
   <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=image&upfname=/{$=#ngenre}/{$=#nuppath}noimg.gif&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
   </div></td>
@@ -157,12 +149,14 @@ $(function() {
   <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
   <td>{$=mm_html_content('content','')}</td>
 </tr><tr>
-  <th valign="top"><t>{$=ii_itake('global.lng_config.images','lng')}</t></th>
-  <td><input type="hidden" name="content_images_list" id="content_images_list"><select name="content_images" id="content_images" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)"></select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_images(get_id('content_images').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_images'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_images('content', get_id('content_images').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <iframe style="display: inline-block;overflow: hidden;width: 60px;height: 30px;margin-top: -3px;padding: 0;vertical-align: middle;" src="?type=upload&upform=form&uptext=content_images&upftype=1&upsimg={$upsimgs}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="content_atts_list" id="content_atts_list"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)"></select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_img(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_img('content', get_id('content_atts').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.edit','lng')}" onclick="edit_img('content_atts',get_id('content_atts').value)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" type="button" onclick="pop_display('content_atts')" value="{$=ii_itake('global.lng_config.upload','lng')}"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('manage.ucode','lng')}</t></th>
   <td><input style="width:100px;" type="text" name="ucode" size="40" class="i1">&nbsp;{$=ii_itake('manage.ucode_tips','lng')}</td>
-	</tr><tr>
+	</tr>
+{$=api_timer_add()}
+<tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
   <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="0" /></span></td>
 </tr><tr>
@@ -171,7 +165,12 @@ $(function() {
 </tr></tbody>
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    
+<script type="text/javascript" src="{$=#global_images_route}js/pop.js?{$=ii_random(3)}"></script>
+{$=mm_get_pop_upload()}
+
     </form>
+    </div>
 ]]></tpl_default>
     </item>
     <item>
@@ -180,11 +179,10 @@ $(function() {
 <link rel="stylesheet" type="text/css" href="{$=#global_images_route}js/ySelect/ySelect.css?{$=ii_random(3)}">
 <script type="text/javascript" src="{$=#global_images_route}js/ySelect/ySelect.js?{$=ii_random(3)}"></script>
 <script type="text/javascript" src="{$=#global_images_route}js/preview_images.js?{$=ii_random(3)}"></script>
-<script type="text/javascript" src="{$=#global_images_route}js/loader.js?{$=ii_random(3)}"></script>
 <script type="text/javascript">
 function bfsubmit()
 {
-  get_id("content_images_list").value = get_selects_list(get_id('content_images'));
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
   get_id("sort_list").value = $("#sort").ySelectedValues(",");
 }
 </script>
@@ -195,12 +193,18 @@ function bfsubmit()
      <input type="hidden" id="infos_date_option" name="infos_date_option" value="{$inop_count}">
       <table cellpadding="10" cellspacing="0" class="tableF">
         <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('global.support/collect:manage.collect','lng')}</t></th>
+  <td><input type="text" id="url" class="i1"> <a onclick="get_collect_content('url');" style="display: inline-block;width: 60px;height: 30px;line-height: 30px;margin-top: -2px;padding: 0;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;vertical-align: middle;">{$=ii_itake('global.support/collect:manage.get','lng')}</a></td>
+</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.snum','lng')}<r>*</r></t></th>
   <td><input type="text" name="snum" class="i1" value="{$snum}"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
   <td><input type="text" name="topic" class="i1" value="{$topic}"></td>
 </tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.titles','lng')}</t></th>
+  <td><input type="text" name="titles" size="40" value="{$titles}" class="i1"></td>
+	</tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.keywords','lng')}</t></th>
   <td><input type="text" name="keywords" size="40" value="{$keywords}" class="i1"></td>
 	</tr>
@@ -213,22 +217,9 @@ function bfsubmit()
   <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}<r>*</r></t></th>
   <td><input type="hidden" name="sort_list" id="sort_list" value="{$class_list}"><select id="sort" class="s1" multiple="multiple">{$=mm_sel_sort_list($GLOBALS['ngenre'],$GLOBALS['slng'],'{$class_list}')}</select></td>
 </tr>
-<script type="text/javascript">
-$(function() {
-        $('#sort').ySelect(
-          {
-            placeholder: "{$=ii_itake('global.lng_config.unselect', 'lng')}",
-            searchText: "{$=ii_itake('global.lng_config.search', 'lng')}",
-            showSearch: false,
-            numDisplayed: 1,//超出数量整合
-            overflowText: '已选{n}项',//超出数量整合文本提示,{n}为数量
-            isCheck:false
-          }
-        );
-});
-</script>
+<script type="text/javascript">$(function(){$('#sort').ySelect();});</script>
 <tr>
-  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}<r>*</r></t></th>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}</t></th>
   <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="image" size="40" value="{$image}" ondblclick="preview_images(this.value, event)">
   <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=image&upfname=&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
   </div></td>
@@ -257,12 +248,14 @@ $(function() {
   <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
   <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']))}</td>
 </tr><tr>
-  <th valign="top"><t>{$=ii_itake('global.lng_config.images','lng')}</t></th>
-  <td><input type="hidden" name="content_images_list" id="content_images_list"><select name="content_images" id="content_images" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_images_list('{$content_images_list}')}</select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_images(get_id('content_images').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_images'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_images('content', get_id('content_images').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <iframe style="display: inline-block;overflow: hidden;width: 60px;height: 30px;margin-top: -3px;padding: 0;vertical-align: middle;" src="?type=upload&upform=form&uptext=content_images&upftype=1&upsimg={$upsimgs}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="content_atts_list" id="content_atts_list"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_img_list('{$content_atts_list}')}</select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_img(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_img('content', get_id('content_atts').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.edit','lng')}" onclick="edit_img('content_atts',get_id('content_atts').value)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" type="button" onclick="pop_display('content_atts')" value="{$=ii_itake('global.lng_config.upload','lng')}"></td>
 </tr><tr>
-  <th valign="top"><t>{$=ii_itake('manage.ucode','lng')}<r>*</r></t></th>
+  <th valign="top"><t>{$=ii_itake('manage.ucode','lng')}</t></th>
   <td><input style="width:100px;" type="text" name="ucode" class="i1" value="{$ucode}">&nbsp;{$=ii_itake('manage.ucode_tips','lng')}</td>
-</tr><tr>
+</tr>
+{$=api_timer_edit()}
+<tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
   <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
 </tr><tr>
@@ -277,7 +270,12 @@ $(function() {
 </tr></tbody>
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    
+<script type="text/javascript" src="{$=#global_images_route}js/pop.js?{$=ii_random(3)}"></script>
+{$=mm_get_pop_upload()}
+
     </form>
+    </div>
 ]]></tpl_default>
     </item>
     <item>

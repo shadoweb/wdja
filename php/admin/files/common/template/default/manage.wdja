@@ -80,7 +80,7 @@ function count_foldersize(seid, strers)
             <td height="20"></td>
           </tr>
           <tr>
-            <td><div class="CodeMirrorContent"><textarea id="codemirror" name="filetext" class="hide"></textarea></div></td>
+            <td><div class="CodeMirrorContent" id="CodeMirrorContent"><textarea id="codemirror" name="filetext" class="hide"></textarea></div></td>
           </tr>
           <tr>
             <td height="20"></td>
@@ -105,6 +105,9 @@ function count_foldersize(seid, strers)
 <script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/php/php.js"></script>
 <script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/javascript/javascript.js"></script>
 <script>
+var codeWidthStyle = parent.document.all.main.offsetWidth - 101;
+console.log(codeWidthStyle);
+document.getElementById('CodeMirrorContent').style = 'width:' + codeWidthStyle + 'px;';
 var myTextarea = document.getElementById('codemirror');
 var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
      mode: "php",
@@ -117,7 +120,7 @@ var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
          'Esc': function(cm) { if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false); }
          }
      });
-     var fileContent =myTextarea.val();
+     var fileContent = myTextarea.val();
 </script>
 ]]></tpl_default>
     </item>
@@ -133,7 +136,7 @@ var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
       <table cellpadding="0" cellspacing="0" class="tableF">
         <tbody>
           <tr>
-            <td><div class="CodeMirrorContent"><textarea rows="25" class="hide" id="codemirror" name="filetext" cols="55">{$=ii_htmlencode(file_get_contents(iconv(CHARSET, 'cp936', stripslashes(ii_cstr($_GET['file_path'])))))}</textarea></div></td>
+            <td><div class="CodeMirrorContent" id="CodeMirrorContent"><textarea rows="25" class="hide" id="codemirror" name="filetext" cols="55">{$=ii_htmlencode(file_get_contents(iconv(CHARSET, 'cp936', stripslashes(ii_cstr($_GET['file_path'])))))}</textarea></div></td>
           </tr>
           <tr>
             <td height="20"></td>
@@ -158,6 +161,9 @@ var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
 <script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/php/php.js"></script>
 <script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/javascript/javascript.js"></script>
 <script>
+var codeWidthStyle = parent.document.all.main.offsetWidth - 101;
+console.log(codeWidthStyle);
+document.getElementById('CodeMirrorContent').style = 'width:' + codeWidthStyle + 'px;';
 var myTextarea = document.getElementById('codemirror');
 var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
      mode: "php",

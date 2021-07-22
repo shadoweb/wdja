@@ -34,8 +34,8 @@
           <th width="*">{$=ii_itake('manage.username','lng')}</th>
           <th width="160">{$=ii_itake('manage.lasttime','lng')}</th>
           <th width="80">{$=ii_itake('manage.lastip','lng')}</th>
-          <th align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
-          <th align="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</th>
         </tr>
       </thead>
       <tbody>
@@ -46,13 +46,13 @@
           <td><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$username}</a></td>
           <td>{$lasttime}</td>
           <td>{$lastip}</td>
-          <td align="center"><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/edit.gif" border="0"></a></td>
-          <td align="center"><a href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$usernamestr}]')"><img src="{$=#global_images_route}public/small/delete.gif" border="0"></a></td>
+          <td class="center"><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/edit.gif" border="0"></a></td>
+          <td class="center"><a href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$usernamestr}]')"><img src="{$=#global_images_route}public/small/delete.gif" border="0"></a></td>
         </tr>{@recurrence_ida}
       </tbody>
     </table>
     <div class="control">
-      <div class="batch show-1" style="">{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
       <div class="pagi">{$cpagestr}</div>
     </div>
   </form>
@@ -91,7 +91,7 @@ function CG_popedom(strers)
         <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="lock" class="val" value="0" /></span></td>
         </tr><tr>
         <th valign="top"><t>{$=ii_itake('manage.admin_password','lng')}<r>*</r></t></th>
-        <td><input type="password" name="admin_password" class="i1"><span class="info-1">{$=ii_itake('manage.admin_password_tips','lng')}</span></td>
+        <td><input type="password" name="admin_password" class="i1">&nbsp;&nbsp;<span class="info-1">{$=ii_itake('manage.admin_password_tips','lng')}</span></td>
         </tr>
         </tbody>
       </table>
@@ -119,7 +119,7 @@ function CG_popedom(strers)
   <td>{$username}</td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_config.password','lng')}<r>*</r></t></th>
-  <td><input type="password" name="password" class="i1"><span class="info-1">{$=ii_itake('manage.useredit_notice','lng')}</span></td>
+  <td><input id="password" type="password" name="password" class="i1" disabled />&nbsp;&nbsp;<a class="btn" onclick="get_id('password').disabled='';">{$=ii_itake('manage.useredit_password','lng')}</a>&nbsp;&nbsp;<span class="info-1">{$=ii_itake('manage.useredit_notice','lng')}</span></td>
 </tr><tr class="show-1">
   <th valign="top"><t>{$=ii_itake('manage.super','lng')}</t></th>
   <td><select name="super" class="s1" onchange="CG_popedom(this.value)">{$=ii_show_xmlinfo_select('global.sel_yesno.all','{$super}','select')}</select></td>
@@ -131,7 +131,7 @@ function CG_popedom(strers)
   <td><span onclick="inputSwitch(this)" class="switch switch-{$lock}" bind="1"><b></b><u></u><em></em><input type="hidden" name="lock" class="val" value="{$lock}" /></span></td>
 </tr><tr>
         <th valign="top"><t>{$=ii_itake('manage.admin_password','lng')}<r>*</r></t></th>
-        <td><input type="password" name="admin_password" class="i1"><span class="info-1">{$=ii_itake('manage.admin_password_tips','lng')}</span></td>
+        <td><input type="password" name="admin_password" class="i1">&nbsp;&nbsp;<span class="info-1">{$=ii_itake('manage.admin_password_tips','lng')}</span></td>
         </tr></tbody>
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>

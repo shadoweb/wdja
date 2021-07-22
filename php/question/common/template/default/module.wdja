@@ -9,59 +9,33 @@
     <item>
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation('{$genre}', 'strers=module;strurl={$genre}')}</nav>
-<form id="filterForm" name="form1" method="get" action="{$=#nurl}">
-<input id="type" type="hidden" value="list" name="type" to="filter">
-<input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
-{$=api_list_fields_input()}
-{$=api_list_fields()}
-</form>
-      <div class="list_con">
-      <ul>
-        {@recurrence_ida}
-            <li><i class="pre_dot"></i>
-              <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">{$topic}</a>
-              <span>[{$=ii_format_date('{$time}',1)}]</span>
-            </li>
-        {@recurrence_ida}
-      </ul>
-      <div id="cutepage" class="cutepage">{$cpagestr}</div>
-      </div>
-    <div class="clear"></div>
-    </main>
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="text-list">
+    <div class="text-list-con">
+      {@recurrence_ida}
+      <div class="list-con-item"><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}"><h4>{$topic}</h4></a></div>
+      {@recurrence_ida}
+    </div>
   </div>
-</section>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', '')}</nav>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[detail]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <div class="content">
-        <nav class="nav">{$=vv_inavigation('{$genre}', '')}{$=NAV_SP_STR}{$topic}</nav>
-        <h1>{$topic}</h1>
-        <div class="con_text">
-        <p>{$=api_tags_list()}</p>
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
-        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-        {$=api_view_fields()}
-	    </table>
-        </div>
-        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
-        <div class="updown">
-            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
-            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
-        </div>
-    </div>
-    <div class="clear"></div>
+<div class="detail">
+  <h1>{$topic}</h1>
+  <div class="data">{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></div>
+  <div class="content">
+    {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+    <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
   </div>
-</section>
-<script type="text/javascript">get_id('lm{$id}').className = 'on';</script>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', '')}</div>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

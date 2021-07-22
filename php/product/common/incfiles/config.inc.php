@@ -2,7 +2,7 @@
 /*
 判断是否作为网站首页使用
 */
-if(ii_strlen(dirname($_SERVER['PHP_SELF']))>1){
+if (ii_strlen(dirname($_SERVER['PHP_SELF']))>1) {
   $nroute = 'node';
   $ngenre = ii_get_actual_genre(__FILE__, $nroute);
 }else{
@@ -10,26 +10,26 @@ if(ii_strlen(dirname($_SERVER['PHP_SELF']))>1){
   $ngenre = 'product';
 }
 wdja_cms_init($nroute);
-$nhead = $variable[$ngenre . '.nhead'];
-$nfoot = $variable[$ngenre . '.nfoot'];
+$nhead = $variable[ii_cvgenre($ngenre) . '.nhead'];
+$nfoot = $variable[ii_cvgenre($ngenre) . '.nfoot'];
 if (ii_isnull($nhead)) $nhead = $default_head;
 if (ii_isnull($nfoot)) $nfoot = $default_foot;
-$ndatabase = $variable[$ngenre . '.ndatabase'];
-$nidfield = $variable[$ngenre . '.nidfield'];
-$nfpre = $variable[$ngenre . '.nfpre'];
-$npagesize = $variable[$ngenre . '.npagesize'];
-$nuppath = $variable[$ngenre . '.nuppath'];
-$nuptype = $variable[$ngenre . '.nuptype'];
-$nlisttopx = $variable[$ngenre . '.nlisttopx'];
-$nurltype = $variable[$ngenre . '.nurltype'];
-$nclstype = $variable[$ngenre . '.nclstype'];
-$nbasehref = $variable[$ngenre . '.nbasehref'];
-$nsaveimages = $variable[$ngenre . '.nsaveimages'];
-$nupsimg = $variable[$ngenre . '.thumbnail.upsimg'];
-$nupsimgs = $variable[$ngenre . '.thumbnail.upsimgs'];
-$ncreatefolder = $variable[$ngenre . '.ncreatefolder'];
-$ncreatefiletype = $variable[$ngenre . '.ncreatefiletype'];
-$ntitle = ii_itake('module.channel_title', 'lng');
-$nkeywords = $variable[$ngenre . '.nkeywords'];
-$ndescription = $variable[$ngenre . '.ndescription'];
+$ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+$nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+$nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+$npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
+$nuppath = $variable[ii_cvgenre($ngenre) . '.nuppath'];
+$nuptype = $variable[ii_cvgenre($ngenre) . '.nuptype'];
+$nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
+$nurltype = $variable[ii_cvgenre($ngenre) . '.nurltype'];
+$nclstype = $variable[ii_cvgenre($ngenre) . '.nclstype'];
+$nsaveimages = $variable[ii_cvgenre($ngenre) . '.nsaveimages'];
+$nupsimg = $variable[ii_cvgenre($ngenre) . '.thumbnail.upsimg'];
+$nupsimgs = $variable[ii_cvgenre($ngenre) . '.thumbnail.upsimgs'];
+$ncreatefolder = $variable[ii_cvgenre($ngenre) . '.ncreatefolder'];
+$ncreatefiletype = $variable[ii_cvgenre($ngenre) . '.ncreatefiletype'];
+$ntitles = $variable[ii_cvgenre($ngenre) . '.ntitles'];
+if(ii_isnull($ntitles)) $ntitles = ii_itake('module.channel_title', 'lng');
+$nkeywords = $variable[ii_cvgenre($ngenre) . '.nkeywords'];
+$ndescription = $variable[ii_cvgenre($ngenre) . '.ndescription'];
 ?>

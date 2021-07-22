@@ -5,7 +5,7 @@ body {
   width: 100%; margin: 0px; padding: 0px; background: #eee; color: #000; font-size: 1.2rem; font-family: Arial, Verdana, "NSimSun"
 }
 div,p,span,em {
-  backface-visibility: hidden
+  /*backface-visibility: hidden;*/
 }
 ul,ol {
   list-style: none
@@ -28,6 +28,7 @@ a:hover {
 a.link {
   cursor: pointer
 }
+a.btn{display: inline-block;margin-top: -2px;padding: 5px 8px;font-size: 12px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;vertical-align: middle;}
 label.radio,
 label.checkbox {
   display: inline-block; min-width: 16px; position: relative; line-height: 16px; color: #666
@@ -103,11 +104,16 @@ button.lock:hover,
 button.lock:focus {
   background-color: #bbb !important; border-color: #bbb !important
 }
+input.btn{display: inline-block;width: 60px;height: 28px;line-height: 28px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;}
 input.i1 {
   width: 500px; height: 30px; line-height: 30px; padding: 0px 10px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
 }
-input.i1:focus {
+input.i1:focus,
+input.i2:focus {
   border-color: #5b9dd9; box-shadow: 0px 0px 2px rgba(30, 140, 190, 0.8)
+}
+input.i2 {
+  width: 100%; height: 30px; line-height: 30px; padding: 0px 10px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
 }
 select.s1 {
   padding: 6px; height: 30px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
@@ -137,7 +143,7 @@ icons btn.b1 {
   background: url(icon/select.1.svg) center center no-repeat; background-size: 24px 24px
 }
 icons icon {
-  display: inline-block; width: 16px; height: 16px; margin-right: 5px; opacity: 0.6; cursor: pointer; transition: all .3s ease
+  display: inline-block; width: 16px; height: 16px; margin-right: 2px; opacity: 0.6; cursor: pointer; transition: all .3s ease;vertical-align: middle;
 }
 icons icon:hover {
   opacity: 1
@@ -147,6 +153,9 @@ icons icon.edit {
 }
 icons icon.db {
   background: url(icon/db.1.svg) center center no-repeat
+}
+icons icon.oss {
+  background: url(icon/oss.1.svg) center center no-repeat
 }
 icons icon.delete {
   background: url(icon/delete.1.svg) center center no-repeat
@@ -244,64 +253,64 @@ icons icon a.link {
 .topbar span.menu l3 {
   display: block; width: 20px; height: 2px; background: #fff; margin: auto; margin-top: 5px
 }
-.topbar right {
+.topbar .topright {
   display: block; height: 50px; text-align: right; position: absolute; top: 0px; right: 20px; z-index: 100
 }
-.topbar right .section {
+.topbar .topright .section {
   display: inline-block; height: 50px; line-height: 50px; padding: 0px 10px; font-size: 1.4rem; color: #fff; vertical-align: top; position: relative; z-index: 100; transition: background-color .3s ease
 }
-.topbar right .section em {
+.topbar .topright .section em {
   display: inline-block; width: 14px; height: 14px; margin-left: 5px; background: url(icon/arrow.1.svg) center center no-repeat; vertical-align: middle
 }
-.topbar right .section ul {
+.topbar .topright .section ul {
   min-width: 100%; position: absolute; top: 50px; right: -1px; background: #fff; border: #364150 1px solid; border-top: 0px; padding: 5px 0px; box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3); display: none; z-index: 100
 }
-.topbar right .section ul li {
+.topbar .topright .section ul li {
   padding: 0px 20px; line-height: 30px; text-align: center; font-size: 1.4rem; color: #333; white-space: nowrap; cursor: pointer
 }
-.topbar right .section ul li:hover {
+.topbar .topright .section ul li:hover {
   background: #ececec
 }
-.topbar right .section:hover {
+.topbar .topright .section:hover {
   background-color: #364150
 }
-.topbar right .section:hover ul {
+.topbar .topright .section:hover ul {
   display: block
 }
-.topbar right lang.section flag {
+.topbar .topright lang.section flag {
   display: inline-block; width: 30px; height: 20px; margin-right: 10px; vertical-align: middle; background-position: center center; background-repeat: no-repeat
 }
-.topbar right lang.section flag.f0 {
+.topbar .topright lang.section flag.f0 {
   background-image: url(icon/lang/cn.svg)
 }
-.topbar right lang.section flag.f1 {
+.topbar .topright lang.section flag.f1 {
   background-image: url(icon/lang/en.svg)
 }
-.topbar right lang.section flag.f2 {
+.topbar .topright lang.section flag.f2 {
   background-image: url(icon/lang/jp.svg)
 }
-.topbar right lang.section flag.f3 {
+.topbar .topright lang.section flag.f3 {
   background-image: url(icon/lang/kr.svg)
 }
-.topbar right lang.section ul li {
+.topbar .topright lang.section ul li {
   padding: 0px 10px; text-align: left
 }
-.topbar right admin a{
+.topbar .topright admin a{
   display: inline-block; width: 50px; height: 50px; background: url(icon/setting.1.svg) center center no-repeat; background-size: 20px; vertical-align: top; transition: background-color .3s ease
 }
-.topbar right admin a:hover {
+.topbar .topright admin a:hover {
   background-color: #364150
 }
-.topbar right home a{
+.topbar .topright home a{
   display: inline-block; width: 50px; height: 50px; background: url(icon/universal.1.svg) center center no-repeat; background-size: 20px; vertical-align: top; transition: background-color .3s ease
 }
-.topbar right home a:hover {
+.topbar .topright home a:hover {
   background-color: #364150
 }
-.topbar right logout a{
+.topbar .topright logout a{
   display: inline-block; width: 50px; height: 50px; background: url(icon/logout.1.svg) center center no-repeat; background-size: 20px; vertical-align: top; transition: background-color .3s ease
 }
-.topbar right logout a:hover {
+.topbar .topright logout a:hover {
   background-color: #364150
 }
 .topbar.min h1 {
@@ -362,7 +371,7 @@ icons icon a.link {
   display: block; width: 14px; height: 14px; background: url(icon/arrow.1.svg) center center no-repeat; margin-top: -7px; position: absolute; right: 18px; top: 50%; z-index: 100; transition: all .3s ease
 }
 .container div.leftmenu ul li span.tit b {
-  font-weight: normal; color: #b4bcc8
+  font-weight: normal; color: #b4bcc8;font-size:12px;
 }
 .container div.leftmenu ul li span.tit em {
   display: inline-block; width: 18px; height: 18px; margin-right: 7px; background-image: url(icon/module.1.svg); vertical-align: middle; background-position: center; background-repeat: no-repeat
@@ -517,7 +526,7 @@ icons icon a.link {
   margin-bottom: 20px; padding: 20px; border: #e1e1e1 1px solid; position: relative; z-index: 100
 }
 .container div.main div.manager div.table h3 {
-  line-height: 100%; margin-bottom: 10px; padding-bottom: 15px; font-size: 1.6rem; color: #000; border-bottom: #e1e1e1 1px solid
+  line-height: 100%; margin-bottom: 0; padding-bottom: 15px; font-size: 1.6rem; color: #000; border-bottom: #e1e1e1 1px solid
 }
 .container div.main div.manager div.table div.tab {
   margin-top: -4px; margin-bottom: 10px
@@ -563,7 +572,7 @@ display: inline-block;
   width: 100%; position: relative; z-index: 100
 }
 .container div.main div.manager div.table div.batch {
-  padding-left: 10px; height: 30px; line-height: 30px; background: #f5f5f5; position: absolute; top: 10px; left: 0px; z-index: 100; border: #e1e1e1 1px solid
+  padding-left: 14px; height: 30px; line-height: 30px; background: #f5f5f5; position: absolute; top: 10px; left: 0px; z-index: 100; border: #e1e1e1 1px solid
 }
 .container div.main div.manager div.table div.batch span.text {
   padding-right: 10px; color: #333
@@ -752,7 +761,7 @@ display: inline-block;
   width: 40px; margin-left: 5px; display: inline-block; height: 30px; line-height: 30px; color: #666; text-align: center; border: #e1e1e1 1px solid; vertical-align: middle
 }
 .pagi a {
-  display: inline-block; height: 30px; line-height: 30px; padding: 0px 10px; color: #666; border: #e1e1e1 1px solid; border-left: 0px; cursor: pointer; vertical-align: middle
+  display: inline-block; height: 30px; line-height: 30px; padding: 0px 10px; color: #666; border: #e1e1e1 1px solid; cursor: pointer; vertical-align: middle
 }
 .pagi a.on {
   text-decoration: underline
@@ -1022,6 +1031,13 @@ display: inline-block;
 .tableL {
   width: 100%; background: #e1e1e1
 }
+.tableL a img{
+    vertical-align: bottom;
+}
+.tableL input[type="checkbox"],
+.control input[type="checkbox"]{
+    vertical-align: middle;
+}
 .tableL th {
   text-align: left; background: #f6f6f6
 }
@@ -1127,4 +1143,21 @@ display: inline-block;
   0% { left: 0% }
   50% { left: 90% }
   100% { left: 0% }
+}
+.gallery{
+display: inline-block;
+vertical-align: middle;
+}
+.gallery span{
+display: inline-block;
+width:80px;
+height:80px;
+padding: 5px;
+margin-right:5px;
+border:1px solid #5cb85c;
+overflow:hidden;
+}
+.gallery span img {
+max-width:80px;
+max-height:80px;
 }

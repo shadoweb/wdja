@@ -7,24 +7,44 @@
   </configure>
   <language_list>
     <item>
-      <disinfo><![CDATA[topic]]></disinfo>
-      <chinese><![CDATA[WDJA网站内容管理系统]]></chinese>
+      <disinfo><![CDATA[sitemap]]></disinfo>
+      <chinese><![CDATA[站点地图]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[keywords]]></disinfo>
-      <chinese><![CDATA[WDJA网站内容管理系统]]></chinese>
+      <disinfo><![CDATA[page]]></disinfo>
+      <chinese><![CDATA[页面]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[description]]></disinfo>
-      <chinese><![CDATA[WDJA网站内容管理系统]]></chinese>
+      <disinfo><![CDATA[module]]></disinfo>
+      <chinese><![CDATA[模块]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[content]]></disinfo>
-      <chinese><![CDATA[<p>&nbsp;<img src="/wechat/aboutus/common/upload/simg/2018/06/21/1844121V.png" border="0" vspace="5" hspace="5" align="left" alt="" />WDJA网站内容管理系统是一套可对现有模块进行扩充与克隆的网站系统核心，采用UTF-8编码，采取 语言/代码/程序 两两分离的技术模式，全面使用了模板包与语言包结构，为用户的修改提供方便，网站内容的每一个角落都可以在后台予以管理，是一套非常适合用做系统建站或者进行二次开发的程序核心。</p>]]></chinese>
+      <chinese><![CDATA[内容]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[att]]></disinfo>
-      <chinese><![CDATA[]]></chinese>
+      <disinfo><![CDATA[sort]]></disinfo>
+      <chinese><![CDATA[分类]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[pagi]]></disinfo>
+      <chinese><![CDATA[分页]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[list]]></disinfo>
+      <chinese><![CDATA[内容列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mappagi]]></disinfo>
+      <chinese><![CDATA[地图分页]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[maplist]]></disinfo>
+      <chinese><![CDATA[地图列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[viewhome]]></disinfo>
+      <chinese><![CDATA[查看首页]]></chinese>
     </item>
   </language_list>
 </xml>

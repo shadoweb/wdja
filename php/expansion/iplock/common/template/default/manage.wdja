@@ -34,44 +34,40 @@
     <table cellpadding="10" cellspacing="1" class="tableL">
       <thead>
         <tr>
-          <th height="25" width="30"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
           <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="95">{$=ii_itake('manage.come','lng')}</th>
           <th width="95">{$=ii_itake('global.lng_config.ip','lng')}</th>
           <th width="45">{$=ii_itake('manage.robots','lng')}</th>
-          <th width="110">{$=ii_itake('manage.area','lng')}</th>
           <th width="40">{$=ii_itake('manage.count','lng')}</th>
           <th width="30">{$=ii_itake('manage.lock','lng')}</th>
           <th width="50">{$=ii_itake('manage.out','lng')}</th>
-          <th width="110">{$=ii_itake('global.lng_config.time','lng')}</th>
           <th width="110">{$=ii_itake('manage.update','lng')}</th>
-          <th width="*">{$=ii_itake('global.lng_config.content','lng')}</th>
-          <th align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
         </tr>
       </thead>
       <tbody>{@recurrence_ida}
         <tr class="lock-0">
-          <td height="25"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
-          <td>{$id}</td>
-          <td>{$ip}</td>
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td>{$come}</td>
+          <td>{$ip}({$area})</td>
           <td>{$robots}</td>
-          <td>{$area}</td>
           <td>{$count}</td>
-          <td align="center"><img src="{$=#global_images_route}public/small/lock_{$lock}.gif" border="0"></td>
-          <td align="center"><img src="{$=#global_images_route}public/small/out_{$out}.gif" border="0"></td>
-          <td>{$time}</td>
+          <td class="center"><img src="{$=#global_images_route}public/small/lock_{$lock}.gif" border="0"></td>
+          <td class="center"><img src="{$=#global_images_route}public/small/out_{$out}.gif" border="0"></td>
           <td>{$update}</td>
-          <td>{$content}</td>
-          <td align="center">
+          <td class="center">
               <icons>
               <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
-              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$ip}]')"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}')"></a></icon>
               </icons>
            </td>
         </tr>{@recurrence_ida}
       </tbody>
     </table>
     <div class="control">
-      <div class="batch show-1" style="">{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
       <div class="pagi">{$cpagestr}</div>
     </div>
   </form>
@@ -87,7 +83,7 @@
      <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
       <table cellpadding="10" cellspacing="0" class="tableF">
         <tbody><tr>
-        <th valign="top"><t>{$=ii_itake('manage.ip','lng')}</t></th>
+        <th valign="top"><t>{$=ii_itake('manage.ip','lng')}</t><r>*</r></th>
         <td><input type="text" name="ip" class="i1"></td>
       	  </tr><tr>
         <th valign="top"><t>{$=ii_itake('manage.area','lng')}</t></th>
@@ -120,7 +116,7 @@
     <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
       <table cellpadding="10" cellspacing="0" class="tableF">
         <tbody><tr>
-          <th valign="top"><t>{$=ii_itake('manage.ip','lng')}</t></th>
+          <th valign="top"><t>{$=ii_itake('manage.ip','lng')}</t><r>*</r></th>
           <td><input type="text" name="ip" class="i1" value="{$ip}"></td>
         </tr><tr>
           <th valign="top"><t>{$=ii_itake('manage.area','lng')}</t></th>

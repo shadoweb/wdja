@@ -1,8 +1,5 @@
 <?php
-require('../../common/incfiles/common.inc.php');
-require('../common/api/user.inc.php');
-require('common/incfiles/config.inc.php');
-require('common/incfiles/module_config.inc.php');
+require('../../common/incfiles/autoload.php');
 
 echo wdja_cms_module_api();
 
@@ -26,5 +23,4 @@ function wdja_cms_module_api()
     return $tmpstr;
   }
 }
-
-
+?>

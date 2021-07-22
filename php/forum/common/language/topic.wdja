@@ -8,31 +8,31 @@
   <language_list>
     <item>
       <disinfo><![CDATA[normal]]></disinfo>
-      <chinese><![CDATA[开放的主题]]></chinese>
+      <chinese><![CDATA[开放]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[hot]]></disinfo>
-      <chinese><![CDATA[热门的主题]]></chinese>
+      <chinese><![CDATA[热门]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[elite]]></disinfo>
-      <chinese><![CDATA[精华的主题]]></chinese>
+      <chinese><![CDATA[精华]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[lock]]></disinfo>
-      <chinese><![CDATA[锁定的主题]]></chinese>
+      <chinese><![CDATA[锁定]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[top]]></disinfo>
-      <chinese><![CDATA[置顶的主题]]></chinese>
+      <chinese><![CDATA[置顶]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[htop]]></disinfo>
-      <chinese><![CDATA[固顶的主题]]></chinese>
+      <chinese><![CDATA[固顶]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[hidden]]></disinfo>
-      <chinese><![CDATA[隐藏的主题]]></chinese>
+      <chinese><![CDATA[隐藏]]></chinese>
     </item>
   </language_list>
 </xml>

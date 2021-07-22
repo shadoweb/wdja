@@ -1,13 +1,13 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 
-function getAccessToken(){
-  $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
-  $secret = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.secret','lng');
+function getAccessToken() {
+  $appid = ii_itake('global.support/global:wechat.appid','lng');
+  $secret = ii_itake('global.support/global:wechat.secret','lng');
   $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.$appid.'&secret='.$secret;
   $html = file_get_contents($url);
   $output = json_decode($html, true);
@@ -15,9 +15,9 @@ function getAccessToken(){
   return $access_token;
 }
 
-function getOpenid($code){
-    $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
-    $secret = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.secret','lng');
+function getOpenid($code) {
+    $appid = ii_itake('global.support/global:wechat.appid','lng');
+    $secret = ii_itake('global.support/global:wechat.secret','lng');
     $curl = curl_init();
     $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -31,10 +31,10 @@ function getOpenid($code){
     return $data['openid'];
 }
 
-function send_template_message($id,$openid,$formid,$name,$mobile,$idnum,$date,$info){
+function send_template_message($id,$openid,$formid,$name,$mobile,$idnum,$date,$info) {
  $color = '#e3e3e3';
- $templateid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.templateid','lng');
- $templateurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.templateurl','lng');
+ $templateid = ii_itake('global.support/global:wechat.templateid','lng');
+ $templateurl = ii_itake('global.support/global:wechat.templateurl','lng');
  $data_arr = array(
   'keyword1' => array( "value" => $name, "color" => $color),//联系人
   'keyword2' => array( "value" => $mobile, "color" => $color),//联系方式
@@ -52,7 +52,7 @@ function send_template_message($id,$openid,$formid,$name,$mobile,$idnum,$date,$i
   );
   $url = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=".getAccessToken();
   $data = urldecode(json_encode($post_data));
-  if( empty( $url ) ){
+  if ( empty( $url )) {
    return ;
   }
   $ch = curl_init();
@@ -61,7 +61,7 @@ function send_template_message($id,$openid,$formid,$name,$mobile,$idnum,$date,$i
   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
   curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
   curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
-  if( $data != '' && !empty( $data ) ){
+  if ( $data != '' && !empty( $data )) {
    curl_setopt($ch, CURLOPT_POST, 1);
    curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json', 'Content-Length: ' . strlen($data)));
@@ -72,11 +72,11 @@ function send_template_message($id,$openid,$formid,$name,$mobile,$idnum,$date,$i
   return $res;
 }
 
-function wdja_cms_wxlogin_api(){
+function wdja_cms_wxlogin_api() {
     $sessionid = $_GET['loginid'];//
     $code = $_GET['code'];
-    $appid = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.appid','lng');
-    $secret = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.secret','lng');
+    $appid = ii_itake('global.support/global:wechat.appid','lng');
+    $secret = ii_itake('global.support/global:wechat.secret','lng');
     $curl = curl_init();
     $url='https://api.weixin.qq.com/sns/jscode2session?appid='.$appid.'&secret='.$secret.'&js_code='.$code.'&grant_type=authorization_code';
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -93,7 +93,7 @@ function wdja_cms_wxlogin_api(){
       $session3rd  = null;
       $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
       $max = strlen($strPol)-1;
-      for($i=0;$i<16;$i++){
+      for($i=0;$i<16;$i++) {
           $session3rd .=$strPol[rand(0,$max)];
       }
       $session3rd = $session3rd;
@@ -111,11 +111,11 @@ function wdja_cms_wxlogin_api(){
     return $res;
 }
 
-function wdja_cms_wxlogin_code_api(){
+function wdja_cms_wxlogin_code_api() {
 session_start();
      $sessionid = $_GET['sessionid'];
      $data['sessionid'] = $sessionid;
-    if(session_id($sessionid)){
+    if (session_id($sessionid)) {
      $data['code'] = "1";
      $data['value'] = session_id($sessionid);
     }else{
@@ -131,9 +131,9 @@ function wdja_cms_form_api()
   global $conn, $variable;
   ii_conn_init();
   ii_get_variable_init();
-  $mail = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.mail','lng');
-  $mail_topic = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.mail_topic','lng');
-  $mail_body = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.mail_body','lng');
+  $mail = ii_itake('global.support/global:wechat.mail','lng');
+  $mail_topic = ii_itake('global.support/global:wechat.mail_topic','lng');
+  $mail_body = ii_itake('global.support/global:wechat.mail_body','lng');
   $ngenre = 'register';
   $nlng = 'chinese';
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
@@ -181,7 +181,7 @@ function wdja_cms_form_api()
       $status = '1';
       $title = '留言成功';
       //send_template_message($tid,$topenid,$tformid,$tname,$tmobile,$tidnum,$tdate,$tinfo);//($id,$openid,$formid,$name,$mobile,$idnum,$date,$info)
-      if(!ii_isnull($tidnum)) mm_sendemail($mail, $mail_topic, $mail_body);
+      if (!ii_isnull($tidnum)) mm_sendemail($mail, $mail_topic, $mail_body);
     }else{
       $status = '0';
       $title = '留言失败';
@@ -232,7 +232,7 @@ function wdja_cms_search_detail_api($module,$array)
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $nurl = ii_itake('global.support/global:wechat.url','lng');
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
@@ -250,7 +250,7 @@ function wdja_cms_search_detail_api($module,$array)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
-      if($tkey == 'date') $val = ii_format_date($val, 1);
+      if ($tkey == 'date') $val = ii_format_date($val, 1);
       $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
       $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
       $tmpstr[$tkey] = $val;
@@ -267,7 +267,7 @@ function wdja_cms_search_list_api($module)
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $nurl = ii_itake('global.support/global:wechat.url','lng');
   $tkeywords = $_GET['keywords'];
   $tpage =  ii_get_num($_GET['page'])==0?1:ii_get_num($_GET['page']);
   $tpage_size =  ii_get_num($_GET['page_size']);
@@ -278,10 +278,10 @@ function wdja_cms_search_list_api($module)
   $nclstype =$variable[ii_cvgenre($ngenre) . '.nclstype'];
   $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
   $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
-  if($tpage_size !=0 ) $npagesize = $tpage_size;
+  if ($tpage_size !=0 ) $npagesize = $tpage_size;
   $toffset = ($tpage - 1)*$npagesize;
   $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
-  if(!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre,'topic') . " like '%" . $tkeywords . "%'";
+  if (!ii_isnull($tkeywords)) $tsqlstr .= " and " . ii_cfnames($nfpre,'topic') . " like '%" . $tkeywords . "%'";
   $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -319,7 +319,7 @@ function wdja_cms_detail_api($module,$id)
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $nurl = ii_itake('global.support/global:wechat.url','lng');
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
@@ -335,7 +335,7 @@ function wdja_cms_detail_api($module,$id)
     {
       $tkey = ii_get_lrstr($key, '_', 'rightr');
       $GLOBALS['RS_' . $tkey] = $val;
-      if($tkey == 'date') $val = ii_format_date($val, 1);
+      if ($tkey == 'date') $val = ii_format_date($val, 1);
       $val = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $val);
       $val = str_replace(array("　","\t","\n\r","\n","\r"), '', $val);
       $tmpstr[$tkey] = $val;
@@ -352,7 +352,7 @@ function wdja_cms_list_api($module,$num='')
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $nurl = ii_itake('global.support/global:wechat.url','lng');
   $toffset =  ii_get_num($_GET['offset']);
   $tpage =  ii_get_num($_GET['page'],'');
   $tpage_size =  ii_get_num($_GET['page_size'],'');
@@ -363,13 +363,13 @@ function wdja_cms_list_api($module,$num='')
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
   $nclstype =$variable[ii_cvgenre($ngenre) . '.nclstype'];
   $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
-  if(!ii_isnull($tnum)){
+  if (!ii_isnull($tnum)) {
     $npagesize = $tnum;
-  }elseif(!ii_isnull($tpage) && !ii_isnull($tpage_size)){
+  }elseif (!ii_isnull($tpage) && !ii_isnull($tpage_size)) {
     $toffset = ($tpage - 1)*$tpage_size;
     $npagesize = $tpage_size;
   }else{
-    $npagesize = $variable[$ngenre . '.npagesize'];
+    $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
   }
   $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
   if ($tclassid != 0)
@@ -413,7 +413,7 @@ function wdja_cms_page_api($module)
   ii_conn_init();
   ii_get_variable_init();
   $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $nurl = ii_itake('global.support/global:wechat.url','lng');
   $toffset = '0';
   $tid =  ii_get_num($_GET['id'],'');
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
@@ -421,7 +421,7 @@ function wdja_cms_page_api($module)
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];;
   $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
   $tsqlstr = "select * from $ndatabase where ".ii_cfnames($nfpre,'hidden')." = '0' ";
-  if(!ii_isnull($tid)) $tsqlstr .= " and " . $nidfield . " = ".$tid;
+  if (!ii_isnull($tid)) $tsqlstr .= " and " . $nidfield . " = ".$tid;
   $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
   $tcp = new cc_cutepage;
   $tcp -> id = $nidfield;
@@ -453,7 +453,7 @@ function wdja_cms_page_api($module)
 function wdja_cms_singlepage_api($module)
 {
   $ngenre = $module;
-  $nurl = ii_itake('global.' . ADMIN_FOLDER . '/global:wechat.url','lng');
+  $nurl = ii_itake('global.support/global:wechat.url','lng');
   $trootstr = ii_get_actual_route($ngenre).'/common/language/module.wdja';
   if (file_exists($trootstr))
   {
@@ -482,9 +482,9 @@ function wdja_cms_singlepage_api($module)
         {
           $nodeValue = $trest -> childNodes -> item($ti) -> nodeValue;
         }
-        if($i < $tlength) $k = ii_htmlencode($nodeValue);
-        if($i == $tlength) {
-          if(ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
+        if ($i < $tlength) $k = ii_htmlencode($nodeValue);
+        if ($i == $tlength) {
+          if (ii_isnull($GLOBALS['RS_' . $k])) $GLOBALS['RS_' . $k] = $nodeValue;
           $nodeValue = str_replace('/'.$module.'/', $nurl.'/'.$module.'/', $nodeValue);
           $nodeValue = str_replace(array("　","\t","\n\r","\n","\r"), '', $nodeValue);
           $tmpstr[$k] = $nodeValue;
@@ -499,7 +499,7 @@ function wdja_cms_singlepage_api($module)
 
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

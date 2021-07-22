@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 $ncontrol = 'select,lock,delete';
@@ -107,7 +107,7 @@ function wdja_cms_admin_manage_adddisp()
   $tbackurl = $_GET['backurl'];
   $tusername = ii_get_safecode($_POST['username']);
   $tadmin_password = ii_md5($_POST['admin_password']);
-  if(!wdja_cms_ckpassword($tadmin_password)) wdja_cms_admin_msg(ii_itake('manage.admin_password_err', 'lng'), $tbackurl, 1);
+  if (!wdja_cms_ckpassword($tadmin_password)) wdja_cms_admin_msg(ii_itake('manage.admin_password_err', 'lng'), $tbackurl, 1);
   if (ii_isnull($tusername)) mm_client_alert(str_replace('[]', '[' . ii_itake('global.lng_config.username', 'lng') . ']', ii_itake('global.lng_public.insert_empty', 'lng')), -1);
   $tsuper = ii_get_num($_POST['super']);
   if ($tsuper == 1)
@@ -149,7 +149,7 @@ function wdja_cms_admin_manage_editdisp()
   $tbackurl = $_GET['backurl'];
   $tsuper = ii_get_num($_POST['super']);
   $tadmin_password = ii_md5($_POST['admin_password']);
-  if(!wdja_cms_ckpassword($tadmin_password)) wdja_cms_admin_msg(ii_itake('manage.admin_password_err', 'lng'), $tbackurl, 1);
+  if (!wdja_cms_ckpassword($tadmin_password)) wdja_cms_admin_msg(ii_itake('manage.admin_password_err', 'lng'), $tbackurl, 1);
   if ($tsuper == 1)
   {
     $tpopedom = '-1';
@@ -271,7 +271,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -297,7 +297,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

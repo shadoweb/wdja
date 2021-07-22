@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 $ncontrol = 'select,delete';
@@ -56,14 +56,14 @@ function wdja_cms_admin_manage_action()
 
 function wdja_cms_admin_manage_list()
 {
-  global $ndatabase, $nidfield, $nfpre, $npagesize;
+  global $ndatabase, $nidfield, $nfpre, $npagesize, $slng;
   $toffset = ii_get_num($_GET['offset']);
   $search_field = ii_get_safecode($_GET['field']);
   $search_keyword = ii_get_safecode($_GET['keyword']);
   $tmpstr = ii_itake('manage.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where $nidfield>0";
+  $tsqlstr = "select * from $ndatabase where " . ii_cfname('lng') . " = '".$slng."'";
   if ($search_field == 'filename') $tsqlstr .= " and " . ii_cfname('filename') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'genre') $tsqlstr .= " and " . ii_cfname('genre') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'valid') $tsqlstr .= " and " . ii_cfname('valid') . "=" . ii_get_num($search_keyword);
@@ -122,7 +122,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -142,7 +142,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

@@ -7,56 +7,57 @@
   </configure>
   <item_list>
     <item>
+      <name><![CDATA[gallery]]></name>
+      <tpl_default><![CDATA[
+              <div id="{$name}" class="gallery"></div>
+              <input type="hidden" name="{$name}" value="{$value}">
+              <iframe style="padding:5px;background-color: #5cb85c;border: 1px solid #5cb85c;display:inline-block;width:80px;height:80px;vertical-align: middle;margin-top: -3px;" src="?type=uploads&upform=form&uptext={$name}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+      <script language="javascript">
+      var gallery_{$name} = '{$value}';
+      if(gallery_{$name} != ''){
+          var galleryary = gallery_{$name}.split("#:#");
+          var str = '';
+          for(i=0;i < galleryary.length;i++){
+            if(galleryary[i] != '') str +='<span onclick="del_gallery_{$name}(this,\'' + galleryary[i]+ '\');"><img width="80" src="' + galleryary[i]+ '"/></span>';
+          }
+          get_id('{$name}').innerHTML = str;
+      }
+      
+      function del_gallery_{$name}(obj,val){
+          if(confirm('确认删除图片?'))
+          {
+              var imgval = document.form.{$name}.value;
+              var imgary = imgval.split("#:#");
+              var nimgval = '';
+              obj.remove();
+              for(i=0;i < imgary.length;i++){
+                  if(imgary[i] != val && imgary[i] != '') nimgval += imgary[i] + '#:#';
+              }
+              document.form.{$name}.value = nimgval;
+          }
+      }
+      </script>
+]]></tpl_default>
+    </item>
+    <item>
       <name><![CDATA[msg]]></name>
       <tpl_default><![CDATA[
 <script language="javascript">
-setTimeout("location.href='{$backurl}';",2000); 
+setTimeout("location.href='{$backurl}';",3000);
 </script>
   <div class="table">
     <h3>{$=ii_itake('global.lng_admin.admin_info','lng')}</h3>
-      <table cellpadding="0" cellspacing="0" class="tableF">
-        <tbody>
-        <tr>
-		  <th valign="top" style="width:auto;"><t>{$msginfo}</t></th>
-		  <td>{$=ii_itake('global.lng_admin.admin_backtime','lng')}</td>
-		</tr></tbody>
-      </table>
+    <p class="center">{$msginfo}{$=ii_itake('global.lng_admin.admin_backtime','lng')}</p>
+  </div>
 ]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[msgs]]></name>
       <tpl_default><![CDATA[
-<table border="0" width="100%" cellSpacing="0" cellPadding="0">
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-  <tr>
-    <td width="100%" align="center">
-    <table border="0" width="98%" cellSpacing="0" cellPadding="0" class="lrbtline">
-      <tr>
-        <td width="100%" height="25" class="tbtop">{$=ii_itake('global.lng_admin.admin_info','lng')}</td>
-      </tr>
-      <tr>
-        <td width="100%" align="center">
-          <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-            <tr>
-              <td width="100%" height="5"></td>
-            </tr>
-            <tr>
-              <td width="100%" height="80" align="center">{$msginfo}</td>
-            </tr>
-              <td width="100%" height="5"></td>
-            </tr>
-          </table>
-        </td>
-      </tr>
-    </table>
-    </td>
-  </tr>
-  <tr>
-    <td width="100%" height="5"></td>
-  </tr>
-</table>
+  <div class="table">
+    <h3>{$=ii_itake('global.lng_admin.admin_info','lng')}</h3>
+    <p class="center">{$msginfo}</p>
+  </div>
 ]]></tpl_default>
     </item>
     <item>
@@ -67,7 +68,7 @@ setTimeout("location.href='{$backurl}';",2000);
                 <td width="100%" height="25" class="tbtop">{$=ii_itake('global.lng_admin.admin_slng','lng')}</td>
               </tr>
               <tr>
-                <td width="100%" align="center">
+                <td width="100%" class="center">
                   <table border="0" width="98%" cellSpacing="0" cellPadding="0">
                     <tr>
                       <td width="100%" height="5"></td>
@@ -92,16 +93,22 @@ setTimeout("location.href='{$backurl}';",2000);
     <item>
       <name><![CDATA[content_htmledit]]></name>
       <tpl_default><![CDATA[
-<script src="{$=ii_get_actual_route('common')}/editor/tinymce/tinymce.min.js"></script>
-<script src="{$=ii_get_actual_route('common')}/editor/tinymce/wdja.edit.js"></script>
-<link href="{$=ii_get_actual_route('common')}/editor/tinymce/prism.css" rel="stylesheet" />
-<script src="{$=ii_get_actual_route('common')}/editor/tinymce/prism.js"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/tinymce.min.js?{$=ii_random(3)}"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/wdja.edit.js?{$=ii_random(3)}"></script>
+<link href="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.css" rel="stylesheet" />
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.js"></script>
 <textarea class="wdjaedit" id="{$name}" name="{$name}">{$value}</textarea>
 ]]></tpl_default>
     </item>
     <item>
-      <name><![CDATA[content_ubbcode]]></name>
-      <tpl_default><![CDATA[<input type="hidden" name="cttype" value="1">{$=mm_ubb_bar('{$name}')}<br><textarea rows="15" id="{$name}" name="{$name}" cols="55">{$value}</textarea>]]></tpl_default>
+      <name><![CDATA[content_bbsedit]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/tinymce.min.js?{$=ii_random(3)}"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/wdja.bbsedit.js?{$=ii_random(3)}"></script>
+<link href="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.css" rel="stylesheet" />
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.js"></script>
+<textarea class="wdjaedit" id="{$name}" name="{$name}" placeholder="{$=ii_itake('global.forum:config.content', 'lng')}">{$value}</textarea>
+]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[content_text]]></name>

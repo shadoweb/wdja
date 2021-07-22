@@ -59,8 +59,12 @@
       <chinese><![CDATA[回复时间]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[nckcode_error]]></disinfo>
+      <disinfo><![CDATA[token_error]]></disinfo>
       <chinese><![CDATA[安全校验失败]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[maxdaynum]]></disinfo>
+      <chinese><![CDATA[当日留言最大次数[]个]]></chinese>
     </item>
   </language_list>
 </xml>

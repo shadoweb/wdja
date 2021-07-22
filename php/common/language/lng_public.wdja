@@ -27,6 +27,22 @@
       <chinese><![CDATA[修改失败]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[order_succeed]]></disinfo>
+      <chinese><![CDATA[下单成功]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order_failed]]></disinfo>
+      <chinese><![CDATA[下单失败]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[pay_succeed]]></disinfo>
+      <chinese><![CDATA[支付成功]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[pay_failed]]></disinfo>
+      <chinese><![CDATA[支付失败]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[succeed]]></disinfo>
       <chinese><![CDATA[操作成功]]></chinese>
     </item>

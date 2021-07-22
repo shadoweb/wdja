@@ -12,7 +12,6 @@
     <item varstr="nidfield_data" strvalue="bdid" />
     <item varstr="nfpre_data" strvalue="bd_" />
     <item varstr="nurltype" strvalue="0" />
-    <item varstr="nbasehref" strvalue="1" />
     <item varstr="ncontentcutepage" strvalue="1" />
     <item varstr="nuninstall" strvalue="1|1|1" />
   </configure>

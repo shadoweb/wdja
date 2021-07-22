@@ -18,5 +18,9 @@
       <disinfo><![CDATA[floor]]></disinfo>
       <chinese><![CDATA[楼]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[gift]]></disinfo>
+      <chinese><![CDATA[积分]]></chinese>
+    </item>
   </language_list>
 </xml>

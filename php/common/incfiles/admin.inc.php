@@ -1,18 +1,174 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
-function mm_get_genre_title($genre)
+function mm_admin_gallery($name='',$value='')
 {
-  if (!ii_isnull($genre))
-  {
-    $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
-    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
-    if (ii_isnull($tmpstr)) $tmpstr = '?';
-    return $tmpstr;
+  $name = $name ? $name:'gallery';
+  $value = $value ? $value:'';
+  $tmpstr = ii_itake('global.tpl_admin.gallery', 'tpl');
+  $tmpstr = str_replace('{$value}', $value, $tmpstr);
+  $tmpstr = str_replace('{$name}', $name, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
+function mm_pop_add($genre)
+{
+  $tmpstr = ii_itake('global.tpl_pops.pop_add', 'tpl');
+  $tmpstr = str_replace('{$genre}', $genre, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
+function mm_pop_edit($genre,$lists)
+{
+  $tmpstr = ii_itake('global.tpl_pops.pop_edit', 'tpl');
+  $tmpstr = str_replace('{$genre}', $genre, $tmpstr);
+  $tmpstr = str_replace('{$'.$genre.'_lists}', $lists, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
+function mm_get_pop_lists($genre,$lists)
+{
+  global $variable,$conn;
+  $ndatabase = $variable[ii_cvgenre($genre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($genre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($genre) . '.nfpre'];
+  if(!ii_isnull($lists)){
+  $tsqlstr = "select * from $ndatabase where $nidfield in ($lists)";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $tmpstr = ii_itake('global.tpl_pops.li', 'tpl');
+    $tmpastr = ii_ctemplate($tmpstr, '{@}');
+    while ($trow = ii_conn_fetch_array($trs))
+    {
+      $tmptstr = $tmpastr;
+      foreach ($trow as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $tval = $val;
+        $GLOBALS['RST_' . $tkey] = $tval;
+        $tmptstr = str_replace('{$' . $tkey . '}', $tval, $tmptstr);
+      }
+      $tmptstr = str_replace('{$id}', $trow[$nidfield], $tmptstr);
+      $tmptstr = str_replace('{$genre}', $genre, $tmptstr);
+      $tmptstr = ii_creplace($tmptstr);
+      $tmprstr .= $tmptstr;
+    }
+    $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+  $tmpstr = str_replace('{$genre}', $genre, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
   }
+}
+
+function mm_view_pop_lists($genre,$lists)
+{
+  global $variable,$conn;
+  $ndatabase = $variable[ii_cvgenre($genre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($genre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($genre) . '.nfpre'];
+  $nurltype = $variable[ii_cvgenre($ngenre) . '.nurltype'];
+  $ncreatefolder = $variable[ii_cvgenre($ngenre) . '.ncreatefolder'];
+  $ncreatefiletype = $variable[ii_cvgenre($ngenre) . '.ncreatefiletype'];
+  if(!ii_isnull($lists)){
+  $tsqlstr = "select * from $ndatabase where $nidfield in ($lists)";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $tmpstr = ii_itake('global.tpl_pops.view', 'tpl');
+    $tmpastr = ii_ctemplate($tmpstr, '{@}');
+    while ($trow = ii_conn_fetch_array($trs))
+    {
+      $tmptstr = $tmpastr;
+      foreach ($trow as $key => $val)
+      {
+        $tkey = ii_get_lrstr($key, '_', 'rightr');
+        $tval = $val;
+        $GLOBALS['RST_' . $tkey] = $tval;
+        $tmptstr = str_replace('{$' . $tkey . '}', $tval, $tmptstr);
+      }
+      $turl = '/'.$genre.'/'.ii_iurl('detail', $trow[$nidfield], $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype);
+      $tmptstr = str_replace('{$id}', $trow[$nidfield], $tmptstr);
+      $tmptstr = str_replace('{$url}', $turl, $tmptstr);
+      $tmptstr = str_replace('{$genre}', $genre, $tmptstr);
+      $tmptstr = ii_creplace($tmptstr);
+      $tmprstr .= $tmptstr;
+    }
+    $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+  $tmpstr = str_replace('{$genre}', $genre, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+  }
+}
+
+function mm_get_pop_iframe($genre)
+{
+  $tmpstr = ii_itake('global.tpl_pops.pop_iframe', 'tpl');
+  $tmpstr = str_replace('{$genre}', $genre, $tmpstr);
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
+}
+
+function mm_get_pop_upload()
+{
+  $tmpstr = ii_ireplace('global.tpl_pops.pop_upload', 'tpl');
+  return $tmpstr;
+}
+
+function wdja_cms_cklogin_erromax($username)
+{
+  global $conn, $variable;
+  $bool=false;
+  $ndatabase = $variable['common.adminlog.ndatabase'];
+  $nidfield = $variable['common.adminlog.nidfield'];
+  $nfpre = $variable['common.adminlog.nfpre'];
+  $numMax = ii_get_num($variable['common.adminlog.maxerrornum'],0);
+  $tsqlstr = "select count(" . $nidfield . ") from $ndatabase where DATEDIFF(" . ii_cfnames($nfpre, 'time') . ",'".ii_now()."') = 0 and " . ii_cfnames($nfpre, 'name') . "='$username' and " . ii_cfnames($nfpre, 'islogin') . "=0";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  if ($trs[0] > $numMax) {
+    $bool=true;
+  }
+  return $bool;
+}
+
+function get_skin_list($skin)
+{
+  global $nlng;
+  $outputstr = '';
+  $folderPath = '../../common/template/';
+  $file_arr = array();
+  $folder_arr = array();
+  $file_arr = scandir($folderPath);
+  foreach($file_arr as $arr) {
+      if (is_dir($folderPath.$arr)&& $arr != "." && $arr != "..") $folder_arr[$arr] = $arr;
+  }
+  $tselectary = $folder_arr;
+  if (is_array($tselectary))
+  {
+    $option_unselected = ii_itake('global.tpl_config.xmlselect_unselect', 'tpl');
+    $option_selected = ii_itake('global.tpl_config.xmlselect_select', 'tpl');
+    foreach ($tselectary as $key => $val)
+    {
+      if (ii_isnull($tselstr) || ii_cinstr($tselstr, $key, ','))
+      {
+        if (ii_cinstr($skin, $key, ','))
+        {
+          $outputstr = $outputstr . $option_selected;
+        }
+        else
+        {
+          $outputstr = $outputstr . $option_unselected;
+        }
+        $outputstr = str_replace('{$explain}', $val, $outputstr);
+        $outputstr = str_replace('{$value}', $key, $outputstr);
+      }
+    }
+    $outputstr = ii_creplace($outputstr);
+  }
+  return $outputstr;
 }
 
 function mm_admin_nav($genre)
@@ -20,16 +176,25 @@ function mm_admin_nav($genre)
   global $variable, $nlng;
   $tmpstr = '<a href="/'.ADMIN_FOLDER.'/admin_main.php" target="_parent">'.ii_itake('global.module.mgtitle', 'lng').'</a>';
   $tbaseurl = ii_get_actual_route($genre);
+  $tfilename = $tbaseurl . '/common/guide' . XML_SFX;
   if (ii_right($tbaseurl, 1) != '/') $tbaseurl .= '/';
   $tbary = explode('/', $tbaseurl);
   $i = 1;
   foreach($tbary as $key => $val)
   {
-    if($val != '..' && !ii_isnull($val)){
-	    if($i != 2) $tmpstr .= '<u><em></em>' . ii_itake('global.'. $val . ':manage.mgtitle','lng').'</u>';
-	    else $tmpstr .= '<u><em></em><a href="../.././'.$genre.'/manage.php">' . ii_itake('global.'. $genre . ':manage.mgtitle','lng').'</a></u>';
-       $i++;
-   }
+    $tpath = ii_get_actual_route('./').$val.'/manage.php';
+    if ($val != '..' && !ii_isnull($val)) {
+      if ($i != 2){
+        $tmprstr = '';
+        if (file_exists($tpath)) $tmprstr = '<u><em></em><a href="../.././'.$val.'/manage.php">' . ii_itake('global.'. $val . ':manage.mgtitle','lng').'</a></u>';
+        else $tmprstr = '<u><em></em>' . ii_itake('global.'. $val . ':manage.mgtitle','lng').'</u>';
+        $tmpstr .=$tmprstr;
+      }else{
+        if(!file_exists($tfilename)) $tmpstr .= '';
+        else $tmpstr .= '<u><em></em><a href="../.././'.$genre.'/manage.php">' . ii_itake('global.'. $genre . ':manage.mgtitle','lng').'</a></u>';
+      }
+      $i++;
+    }
   }
   return $tmpstr;
 }
@@ -85,20 +250,6 @@ function mm_get_genre_description($genre)
     if (ii_isnull($tmpstr)) $tmpstr = '?';
     return $tmpstr;
   }
-}
-
-function mm_get_html_content()
-{
-  $tmpstr = ii_ireplace('global.tpl_config.a_href_sort', 'tpl');
-  $tmpstr0 = str_replace('{$explain}', ii_itake('global.lng_admin.content_htmledit', 'lng'), $tmpstr);
-  $tmpstr0 = str_replace('{$value}', '?' . ii_replace_querystring('htype', '0'), $tmpstr0);
-  $tmpstr1 = str_replace('{$explain}', ii_itake('global.lng_admin.content_ubbcode', 'lng'), $tmpstr);
-  $tmpstr1 = str_replace('{$value}', '?' . ii_replace_querystring('htype', '1'), $tmpstr1);
-  $tmpstr2 = str_replace('{$explain}', ii_itake('global.lng_admin.content_text', 'lng'), $tmpstr);
-  $tmpstr2 = str_replace('{$value}', '?' . ii_replace_querystring('htype', '2'), $tmpstr2);
-  $tmpstr3 = str_replace('{$explain}', ii_itake('global.lng_admin.content_html', 'lng'), $tmpstr);
-  $tmpstr3 = str_replace('{$value}', '?' . ii_replace_querystring('htype', '3'), $tmpstr3);
-  return $tmpstr3 . ' ' . $tmpstr0 . ' ' . $tmpstr1 . ' ' . $tmpstr2;
 }
 
 function mm_html_content($name, $value)
@@ -186,9 +337,9 @@ function wdja_cms_ckpassword($password)
   global $admc_username, $admc_popedom;
   $tusername = $admc_username;
   $tpassword = ii_get_safecode($password);
-  $tdatabase =  $variable['common.admin.ndatabase'];
-  $tidfield =  $variable['common.admin.nidfield'];
-  $tfpre =  $variable['common.admin.nfpre'];
+  $tdatabase = $variable['common.admin.ndatabase'];
+  $tidfield = $variable['common.admin.nidfield'];
+  $tfpre = $variable['common.admin.nfpre'];
   $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'name') . "='$tusername' and " . ii_cfnames($tfpre, 'pword') . "='$tpassword' and " . ii_cfnames($tfpre, 'lock') . "=0";
   $trs = ii_conn_query($tsqlstr, $conn);
   $trs = ii_conn_fetch_array($trs);
@@ -203,9 +354,9 @@ function wdja_cms_cklogin($username, $password)
   if (ii_isnull($admc_popedom) || ii_isnull($admc_username))
   {
     global $variable;
-    $tdatabase =  $variable['common.admin.ndatabase'];
-    $tidfield =  $variable['common.admin.nidfield'];
-    $tfpre =  $variable['common.admin.nfpre'];
+    $tdatabase = $variable['common.admin.ndatabase'];
+    $tidfield = $variable['common.admin.nidfield'];
+    $tfpre = $variable['common.admin.nfpre'];
     $tusername = ii_get_safecode($username);
     $tpassword = ii_get_safecode($password);
     $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'name') . "='$tusername' and " . ii_cfnames($tfpre, 'pword') . "='$tpassword' and " . ii_cfnames($tfpre, 'lock') . "=0";
@@ -213,12 +364,11 @@ function wdja_cms_cklogin($username, $password)
     $trs = ii_conn_fetch_array($trs);
     if ($trs)
     {
-      if(!mm_search_field('expansion/iplock',ii_get_client_ip(),'ip')) ip_insert(ii_get_client_ip(),'admin');
-      if(ip_get_field(ii_get_client_ip(),'out') == 0) ip_update_field(ii_get_client_ip(),'out');
-      header("Set-Cookie:".APP_NAME."admin[username]=".$trs[ii_cfnames($tfpre, 'name')].";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
-      header("Set-Cookie:".APP_NAME."admin[password]=".$trs[ii_cfnames($tfpre, 'pword')].";path =".COOKIES_PATH.";httpOnly;SameSite=Strict;expires=".COOKIES_EXPIRES.";",false);
+      if (!mm_search_field('expansion/iplock',ii_get_client_ip(),'ip')) ip_insert(ii_get_client_ip(),'admin');
+      if (ip_get_field(ii_get_client_ip(),'out') == 0) ip_update_field(ii_get_client_ip(),'out');
       $_SESSION[APP_NAME . 'admin_popedom'] = $trs[ii_cfnames($tfpre, 'popedom')];
       $_SESSION[APP_NAME . 'admin_username'] = $trs[ii_cfnames($tfpre, 'name')];
+      $_SESSION[APP_NAME . 'admin_password'] = $trs[ii_cfnames($tfpre, 'pword')];
       $admc_popedom = $_SESSION[APP_NAME . 'admin_popedom'];
       $tsqlstr = "update $tdatabase set " . ii_cfnames($tfpre, 'lasttime') . "='" . ii_now() . "', " . ii_cfnames($tfpre, 'lastip') . "='" . ii_get_client_ip() . "' where " . ii_cfnames($tfpre, 'name') . "='$tusername' and " . ii_cfnames($tfpre, 'pword') . "='$tpassword' and " . ii_cfnames($tfpre, 'lock') . "=0";
       ii_conn_query($tsqlstr, $conn);
@@ -238,13 +388,14 @@ function wdja_cms_cklogin($username, $password)
 function wdja_cms_admin_init()
 {
   global $admin_head, $admin_foot;
-  global $admc_name, $admc_pword, $admc_popedom, $admc_username;
+  global $admc_name, $admc_pword, $admc_popedom, $admc_username, $admc_password;
   $admin_head = 'admin_head';
   $admin_foot = 'admin_foot';
-  $admc_name = ii_get_safecode($_COOKIE[APP_NAME . 'admin']['username']);
-  $admc_pword = ii_get_safecode($_COOKIE[APP_NAME . 'admin']['password']);
+  $admc_name = $_SESSION[APP_NAME . 'admin_username'];
+  $admc_pword = $_SESSION[APP_NAME . 'admin_password'];
   $admc_popedom = $_SESSION[APP_NAME . 'admin_popedom'];
   $admc_username = $_SESSION[APP_NAME . 'admin_username'];
+  $admc_password = $_SESSION[APP_NAME . 'admin_password'];
   global $slng, $nlng;
   $slng = ii_get_safecode($_GET['slng']);
   if (!(ii_isnull($slng)))
@@ -469,7 +620,7 @@ function wdja_cms_admin_orderdisp($genre, $strers, $osql)
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

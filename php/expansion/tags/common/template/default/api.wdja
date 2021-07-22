@@ -11,25 +11,14 @@
       <tpl_default><![CDATA[
                     <tr>
                       <th valign="top"><t>{$=ii_itake('global.expansion/tags:api.tags','lng')}</t></th>
-                      <td>
+                      <td style="position:relative;">
                       <link rel="stylesheet" type="text/css" href="/expansion/tags/common/images/tags/tags.css?{$=ii_random(3)}">
-						<div class="tags_input">
-							<div id="wordTags"></div>
-							<input id="wordInput" type="text" placeholder="输入后按空格键确认">
-							<input id="wordHiddenInput" type="hidden" name="tags">
+						<div id="tags_input" class="tags_input">
+							<div id="tagsInputs"></div>
+							<input id="tagsInput" type="text" onkeyup="get_tags(this.value)">
+							<input id="tagsHiddenInput" type="hidden" name="tags">
 						</div>
                         <script type="text/javascript" src="/expansion/tags/common/images/tags/tags.js?{$=ii_random(3)}"></script>
-                        <script type="text/javascript">
-						$(function () {
-						    var keyWord = $("#wordInput").keyWord({
-						        panel: '#wordTags',
-						        value: '#wordHiddenInput',
-						        max: 10,
-						        tips: '最多只能输入10项'
-						    });
-						    keyWord.init('');
-						});
-						</script>
                     </tr>
 ]]></tpl_default>
     </item>
@@ -38,25 +27,14 @@
       <tpl_default><![CDATA[
                     <tr>
                       <th valign="top"><t>{$=ii_itake('global.expansion/tags:api.tags','lng')}</t></th>
-                      <td>
+                      <td style="position:relative;">
                       <link rel="stylesheet" type="text/css" href="/expansion/tags/common/images/tags/tags.css?{$=ii_random(3)}">
-						<div class="tags_input">
-							<div id="wordTags"></div>
-							<input id="wordInput" type="text" placeholder="输入后按空格键确认">
-							<input id="wordHiddenInput" type="hidden" name="tags" value="{$tags}">
+						<div id="tags_input" class="tags_input">
+							<div id="tagsInputs"></div>
+							<input id="tagsInput" type="text" onkeyup="get_tags(this.value)">
+							<input id="tagsHiddenInput" type="hidden" name="tags" value="{$tags}">
 						</div>
                         <script type="text/javascript" src="/expansion/tags/common/images/tags/tags.js?{$=ii_random(3)}"></script>
-                        <script type="text/javascript">
-						$(function () {
-						    var keyWord = $("#wordInput").keyWord({
-						        panel: '#wordTags',
-						        value: '#wordHiddenInput',
-						        max: 10,
-						        tips: '最多只能输入10项'
-						    });
-						    keyWord.init('{$tags}');
-						});
-						</script>
                     </tr>
 ]]></tpl_default>
     </item>
@@ -65,6 +43,21 @@
       <tpl_default><![CDATA[
                      <a style="width:auto;" href="{$turl}" title="{$tag}">{$tag}</a>
 ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[api_tags_genre_list]]></name>
+      <tpl_default><![CDATA[
+      <div class="text-list">
+      <div class="text-list-con">
+      <div class="text-list-title">
+      <h2>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h2>
+      </div>
+      <div class="list-con-item">
+      {@}<a href="{$=ii_get_actual_route('{$genre}')}/{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'])}">{$topic}</a>{@}
+      </div>
+      </div>
+      </div>
+      ]]></tpl_default>
     </item>
   </item_list>
 </xml>

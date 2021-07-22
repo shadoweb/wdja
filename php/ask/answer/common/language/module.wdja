@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[channel_title]]></disinfo>
+      <chinese><![CDATA[网友回答]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[announce]]></disinfo>
+      <chinese><![CDATA[本站声明]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[announce_content]]></disinfo>
+      <chinese><![CDATA[⒈所有回答均为网友自发提交
+⒉所有回答均不代表本站观点
+⒊发现非法言论可联系管理员]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[error0]]></disinfo>
+      <chinese><![CDATA[提交失败，您的回答速度可能过快]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[error1]]></disinfo>
+      <chinese><![CDATA[提交失败，请检查回答内容是否为空]]></chinese>
+    </item>
+  </language_list>
+</xml>

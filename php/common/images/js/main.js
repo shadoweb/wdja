@@ -85,8 +85,9 @@ function get_num(strers)
   }
 }
 
-function get_sel_id()
+function get_sel_id(obj)
 {
+  var obj = arguments[0] ? arguments[0] : '';
   var frm = eval("document.sel_form");
   if (frm.sel_id.length)
   {
@@ -114,6 +115,7 @@ function get_sel_id()
       if (frm.sel_id.checked) sel_ids = frm.sel_id.value;
     }
   }
+  if(obj == 'buy') localStorage.setItem('WdjaBuy',sel_ids);
   document.sel_form.sel_ids.value = sel_ids;
 }
 
@@ -273,8 +275,8 @@ function switch_display(obj,strers)
    for(var i = 0; i<pobj.length; i++){
         pobj[i].className = '';
     }
-   for(var i = 0; i<sobj.length; i++){
-        if(sobj[i].className == 'tit t1 open') sobj[i].className = 'tit t1';
+   for(var j = 0; j<sobj.length; j++){
+        if(sobj[j].className == 'tit t1 open') sobj[j].className = 'tit t1';
     }
     obj.className = 'tit t1 open';
     tobj.className = 'open';
@@ -284,6 +286,13 @@ function switch_display(obj,strers)
     obj.className = 'tit t1';
     tobj.className = '';
   }
+  
+  var tcontainer = get_id("container");
+  var ttopbar = get_id("topbar");
+  var myWidth = document.body.scrollWidth - 230; 
+  document.getElementById('main').style.cssText = 'width:'+myWidth+'px;height:'+(getClientHeight() - ttopbar.offsetHeight) + 'px';
+  tcontainer.style.height = (getClientHeight() - ttopbar.offsetHeight) + 'px';
+  
 }
 
 function switch_display_a(strers)
@@ -319,19 +328,49 @@ function iframe_onload(strers)
     }
     if(tsrc.indexOf("?site_language=") != -1) window.location.reload();
 }
-
+ 
 function select_all()
 {
   var frm = eval("document.sel_form");
-  var slength = 0;
-  if (frm.sel_id == null) { return false; }
+  if (frm.sel_id == null) {return false;}
   var sall = frm.sel_all.checked;
-  if (frm.sel_id.length)
-  {
-    slength = frm.sel_id.length;
-    for (var i = 0; i < slength; i++) { frm.sel_id[i].checked = sall; }
-  }
-  else { frm.sel_id.checked = sall; }
+  if(sall){
+    frm.sel_alls.checked = true;
+    if (frm.sel_id.length)
+    {
+      var s1 = frm.sel_id.length;
+      for (var i = 0; i < s1; i++) { frm.sel_id[i].checked = true; }
+     }else{ frm.sel_id.checked = true; }
+   }else{
+    frm.sel_alls.checked = false;
+    if (frm.sel_id.length)
+    {
+      var s2 = frm.sel_id.length;
+      for (var j = 0; j < s2; j++) { frm.sel_id[j].checked = false; }
+     }else{ frm.sel_id.checked = false; }                     
+   }
+}
+ 
+function select_alls()
+{
+  var frm = eval("document.sel_form");
+  if (frm.sel_id == null) {return false;}
+  var salls = frm.sel_alls.checked;
+  if(salls){
+    frm.sel_all.checked = true;
+    if (frm.sel_id.length)
+    {
+      var s1 = frm.sel_id.length;
+      for (var i = 0; i < s1; i++) { frm.sel_id[i].checked = true; }
+     }else{ frm.sel_id.checked = true; }
+   }else{
+    frm.sel_all.checked = false;
+    if (frm.sel_id.length)
+    {
+      var s2 = frm.sel_id.length;
+      for (var j = 0; j < s2; j++) { frm.sel_id[j].checked = false; }
+     }else{ frm.sel_id.checked = false; }                     
+   }
 }
 
 function changeAddress(id){
@@ -393,27 +432,6 @@ function GetRequest() {
    }
    return theRequest;  
 }
-//商品列表筛选
-function Filter(a,b){
-  var $ = function(e){return get_id(e);}
-  var ipts = $('filterForm').getElementsByTagName('input'),result=[];
-  for(var i=0,l=ipts.length;i<l;i++){
-    if(ipts[i].getAttribute('to')=='filter'){
-      result.push(ipts[i]);
-    }
-  }
-  if($(a)){
-    $(a).value = b;
-    for(var j=0,len=result.length;j<len;j++){
-
-      if(result[j].value=='' || result[j].value=='0'){
-        result[j].parentNode.removeChild(result[j]);
-      }
-    }
-    document.forms['filterForm'].submit();
-  }
-  return false;
-}
 
 function insert_images2(strid, strurl, strntype, strtype, strbase)
 {
@@ -462,14 +480,24 @@ function inputSwitch(obj){
 function jscheck_topics(strers)
 {
   var tstrers = strers;
-  get_id("view_topic").style.display = "inline-block";
-  if (tstrers == "1") get_id("view_topic").innerHTML = "标题重复";
+  if (tstrers == "1") get_id("view_topic").style.display = "inline-block"; 
   else get_id("view_topic").style.display = "none";
 }
 
-function jscheck_topic(strtopic,strid="")
+function jscheck_topic(strtopic,strid)
 {
+  var strid = arguments[1] ? arguments[1] : '';
   if (strtopic == "") return false;
   if (strid == "") igets("manage.php?type=check_topic&topic=" + strtopic, jscheck_topics);
   else igets("manage.php?type=check_topic&topic=" + strtopic + "&id=" + strid, jscheck_topics);
+}
+
+function setTab(name,cursel,n){
+    for(i=1;i<=n;i++){
+        var menu=document.getElementById(name+i);
+        var con=document.getElementById("con_"+name+"_"+i);
+        menu.className=i==cursel?"hover":"";
+        con.className=i==cursel?"hover":"";
+        con.style.display=i==cursel?"block":"none";
+    }
 }

@@ -36,7 +36,7 @@
     </item>
     <item>
       <disinfo><![CDATA[nav]]></disinfo>
-      <chinese><![CDATA[分类导航]]></chinese>
+      <chinese><![CDATA[分类列表]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[all]]></disinfo>
@@ -64,11 +64,15 @@
     </item>
     <item>
       <disinfo><![CDATA[delete_has]]></disinfo>
-      <chinese><![CDATA[直接删除拥挤子类别的类别被认为是不妥当的\n如果您确实想删除该类别，请务必事先删除其所有子类别]]></chinese>
+      <chinese><![CDATA[直接删除拥有子类别的类别被认为是不妥当的\n如果您确实想删除该类别，请务必事先删除其所有子类别]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[delete_has2]]></disinfo>
+      <chinese><![CDATA[直接删除类别被认为是不妥当的\n如果您确实想删除该类别，请务必事先删除该类别下所有的内容]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[deletenotice]]></disinfo>
-      <chinese><![CDATA[确认删除类别[]吗？\n\n删除该类别的操作仅止于删除该类别名\n\n建议在删除该类别之前删除或者移动该类别下所有的内容以避免数据冗余]]></chinese>
+      <chinese><![CDATA[确认删除类别[]吗？\n删除该类别的操作仅止于删除该类别名\n建议在删除该类别之前删除或者移动该类别下所有的内容以避免数据冗余]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[deletesucceed]]></disinfo>

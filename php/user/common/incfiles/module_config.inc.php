@@ -1,19 +1,19 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 function pp_check_isregister_close()
 {
   global $ngenre, $variable;
-  if (ii_get_num($variable[$ngenre . '.register_close']) == 1) mm_imessage(ii_itake('module.register_close', 'lng'), -1);
+  if (ii_get_num($variable[ii_cvgenre($ngenre) . '.register_close']) == 1) mm_imessage(ii_itake('module.register_close', 'lng'), -1);
 }
 
 function pp_check_islostpassword_close()
 {
   global $ngenre, $variable;
-  if (ii_get_num($variable[$ngenre . '.lostpassword_close']) == 1) mm_imessage(ii_itake('module.lostpassword_close', 'lng'), -1);
+  if (ii_get_num($variable[ii_cvgenre($ngenre) . '.lostpassword_close']) == 1) mm_imessage(ii_itake('module.lostpassword_close', 'lng'), -1);
 }
 
 function wdja_cms_module_logindisp()
@@ -46,8 +46,9 @@ function wdja_cms_module_registerdisp()
   global $ctype;
   $ctype = 'register';
   global $Err;
+  if (ap_check_isuser(stripslashes($_POST['username'])) == 1) mm_imessage(ii_itake('global.user:validator.check_username_1', 'lng'), '-1');
   if (!mm_ck_valcode()) $Err[count($Err)] = ii_itake('global.lng_error.valcode', 'lng');
-  $tckstr = 'username:' . ii_itake('config.username', 'lng') . ',password:' . ii_itake('config.password', 'lng') . ',email:' . ii_itake('config.email', 'lng') . ',city:' . ii_itake('config.city', 'lng') . ',sex:' . ii_itake('config.sex', 'lng') . ',old:' . ii_itake('config.old', 'lng');
+  $tckstr = 'username:' . ii_itake('config.username', 'lng') . ',password:' . ii_itake('config.password', 'lng') . ',email:' . ii_itake('config.email', 'lng');
   $tary = explode(',', $tckstr);
   foreach ($tary as $key => $val)
   {
@@ -85,18 +86,7 @@ function wdja_cms_module_registerdisp()
       " . ii_cfname('openid') . ",
       " . ii_cfname('nickname') . ",
       " . ii_cfname('headimgurl') . ",
-      " . ii_cfname('face_u') . ",
-      " . ii_cfname('face_url') . ",
-      " . ii_cfname('city') . ",
-      " . ii_cfname('sex') . ",
-      " . ii_cfname('old') . ",
-      " . ii_cfname('name') . ",
-      " . ii_cfname('qq') . ",
-      " . ii_cfname('msn') . ",
-      " . ii_cfname('phone') . ",
-      " . ii_cfname('homepage') . ",
-      " . ii_cfname('code') . ",
-      " . ii_cfname('address') . ",
+      " . ii_cfname('face') . ",
       " . ii_cfname('time') . "
       ) values (
       '$tRegUserName',
@@ -105,18 +95,7 @@ function wdja_cms_module_registerdisp()
       '" . ii_left(ii_cstr($_POST['openid']), 250) . "',
       '" . ii_left(ii_cstr($_POST['nickname']), 50) . "',
       '" . ii_left(ii_cstr($_POST['headimgurl']), 255) . "',
-      '" . ii_get_num($_POST['face_u']) . "',
-      '" . ii_left(ii_cstr($_POST['face_url']), 255) . "',
-      '" . ii_left(ii_cstr($_POST['city']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['sex']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['old']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['name']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['qq']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['msn']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['phone']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['homepage']), 255) . "',
-      '" . ii_left(ii_cstr($_POST['code']), 50) . "',
-      '" . ii_left(ii_cstr($_POST['address']), 255) . "',
+      '" . ii_left(ii_cstr($_POST['face']), 255) . "',
       '" . ii_now() . "'
       )";
       $trs = ii_conn_query($tsqlstr, $conn);
@@ -179,15 +158,12 @@ function wdja_cms_module_manage_informationdisp()
   {
     $tsqlstr = "update $ndatabase set
     " . ii_cfname('email') . "='" . ii_left(ii_cstr($_POST['email']), 50) . "',
-    " . ii_cfname('city') . "='" . ii_left(ii_cstr($_POST['city']), 50) . "',
-    " . ii_cfname('sex') . "=" . ii_get_num($_POST['sex']) . ",
-    " . ii_cfname('old') . "=" . ii_get_num($_POST['old']) . ",
+    " . ii_cfname('face') . "='" . ii_left(ii_cstr($_POST['face']), 255) . "',
+    " . ii_cfname('sign') . "='" . ii_left(ii_cstr($_POST['sign']), 100) . "',
     " . ii_cfname('name') . "='" . ii_left(ii_cstr($_POST['name']), 50) . "',
+    " . ii_cfname('sex') . "=" . ii_get_num($_POST['sex']) . ",
     " . ii_cfname('qq') . "=" . ii_get_num($_POST['qq']) . ",
-    " . ii_cfname('msn') . "='" . ii_left(ii_cstr($_POST['msn']), 50) . "',
     " . ii_cfname('phone') . "='" . ii_left(ii_cstr($_POST['phone']), 50) . "',
-    " . ii_cfname('homepage') . "='" . ii_left(ii_cstr($_POST['homepage']), 255) . "',
-    " . ii_cfname('code') . "=" . ii_get_num($_POST['code']) . ",
     " . ii_cfname('address') . "='" . ii_left(ii_cstr($_POST['address']), 255) . "'
     where " . ii_cfname('username') . "='$nusername'";
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -224,38 +200,6 @@ function wdja_cms_module_manage_passworddisp()
   else mm_imessage(ii_itake('module.insert_password', 'lng'), $tbackurl);
 }
 
-function wdja_cms_module_manage_usersetdisp()
-{
-  $tbackurl = $_GET['backurl'];
-  global $conn;
-  global $ndatabase, $nidfield, $nfpre;
-  global $nusername;
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('username') . "='$nusername'";
-  $trs = ii_conn_query($tsqlstr, $conn);
-  $trs = ii_conn_fetch_array($trs);
-  if ($trs)
-  {
-    global $face_width_max, $face_height_max;
-    $tface_width = ii_get_num($_POST['face_width']);
-    $tface_height = ii_get_num($_POST['face_height']);
-    if ($tface_width > $face_width_max) $tface_width = $face_width_max;
-    if ($tface_height > $face_height_max) $tface_height = $face_height_max;
-
-    $tsqlstr = "update $ndatabase set
-    " . ii_cfname('face') . "=" . ii_get_num($_POST['face']) . ",
-    " . ii_cfname('face_u') . "=" . ii_get_num($_POST['face_u']) . ",
-    " . ii_cfname('face_url') . "='" . ii_left(ii_cstr($_POST['face_url']), 255) . "',
-    " . ii_cfname('face_width') . "=$tface_width,
-    " . ii_cfname('face_height') . "=$tface_height,
-    " . ii_cfname('sign') . "='" . ii_left(ii_cstr($_POST['sign']), 100) . "'
-    where " . ii_cfname('username') . "='$nusername'";
-    $trs = ii_conn_query($tsqlstr, $conn);
-    if ($trs) mm_imessage(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl);
-    else mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), $tbackurl);
-  }
-  else mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), $tbackurl);
-}
-
 function wdja_cms_module_managedisp()
 {
   switch($_GET['mtype'])
@@ -265,9 +209,6 @@ function wdja_cms_module_managedisp()
       break;
     case 'password':
       wdja_cms_module_manage_passworddisp();
-      break;
-    case 'userset':
-      wdja_cms_module_manage_usersetdisp();
       break;
   }
 }
@@ -293,129 +234,11 @@ function wdja_cms_module_action()
     case 'manage':
       wdja_cms_module_managedisp();
       break;
+    case 'upload':
+      ap_user_islogin();
+      uu_upload_files();
+      break;
   }
-}
-
-
-function wdja_cms_module_shopcart_detail()
-{
-  global $conn,  $variable;
-  $nshop = 'shop';
-  $ndatabase = $variable['shopcart.ndatabase'];
-  $nidfield = $variable['shopcart.nidfield'];
-  $nfpre = $variable['shopcart.nfpre'];
-  $tid = ii_get_num($_GET['id']);
-  $tbackurl = $_GET['backurl'];
-  $tsqlstr = "select * from $ndatabase where $nidfield=$tid";
-  $trs = ii_conn_query($tsqlstr, $conn);
-  $trs = ii_conn_fetch_array($trs);
-  if ($trs)
-  {
-    $tmpstr = ii_itake('module.shopcart_detail', 'tpl');
-    $tprolist = $trs[ii_cfnames($nfpre, 'fid')];
-    $tdatabase = mm_cndatabase($nshop);
-    $tidfield = mm_cnidfield($nshop);
-    $tfpre = mm_cnfpre($nshop);
-    $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
-    $tmprstr = '';
-    $tmerchandiseprice = 0;
-    if (!ii_isnull($tprolist))
-    {
-      $tary = explode(',', $tprolist);
-      if (is_array($tary))
-      {
-        foreach ($tary as $key => $val)
-        {
-          $tid = ii_get_num(ii_get_lrstr($val, ':', 'left'), 0);
-          if ($tid != 0)
-          {
-            $tsqlstr2 = "select * from $tdatabase where " . ii_cfnames($tfpre, 'hidden') . "=0 and $tidfield=$tid";
-            $trs2 = ii_conn_query($tsqlstr2, $conn);
-            $trs2 = ii_conn_fetch_array($trs2);
-            if ($trs2)
-            {
-              $tnum = ii_get_num(ii_get_lrstr($val, ':', 'right'), 0);
-              $tprice = ii_get_num($trs2[ii_cfnames($tfpre, 'price')], 0);
-              $twprice = ii_get_num($trs2[ii_cfnames($tfpre, 'wprice')], 0);
-              $tmerchandiseprice = $tmerchandiseprice + ($twprice * $tnum);
-              $tmptstr = $tmpastr;
-              $tmptstr = str_replace('{$id}', $trs2[$tidfield], $tmptstr);
-              $tmptstr = str_replace('{$num}', $tnum, $tmptstr);
-              $tmptstr = str_replace('{$price}', $tprice, $tmptstr);
-              $tmptstr = str_replace('{$wprice}', $twprice, $tmptstr);
-              $tmptstr = str_replace('{$topic}', ii_htmlencode($trs2[ii_cfnames($tfpre, 'topic')]), $tmptstr);
-              $tmptstr = str_replace('{$limitnum}', ii_get_num($trs2[ii_cfnames($tfpre, 'limitnum')], 0), $tmptstr);
-              $tmprstr .= $tmptstr;
-            }
-          }
-        }
-      }
-    }
-    $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-    $tmpstr = str_replace('{$tallprice}', $tmerchandiseprice, $tmpstr);
-    foreach ($trs as $key => $val)
-    {
-      $tkey = ii_get_lrstr($key, '_', 'rightr');
-      $GLOBALS['RS_' . $tkey] = $val;
-      if($tkey=='expressid' && ii_htmlencode($val) == 0 ) $tmpstr = str_replace('{$' . $tkey . '}', '', $tmpstr);
-      else $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
-    }
-    $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
-    $tmpstr = ii_creplace($tmpstr);
-    return $tmpstr;
-  }
-  else
-  {
-    mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
-  }
-}
-
-
-function wdja_cms_module_shopcart_list()
-{
-  global $conn,$variable;
-  $ndatabase = $variable['shopcart.ndatabase'];
-  $nidfield = $variable['shopcart.nidfield'];
-  $nfpre = $variable['shopcart.nfpre'];
-  $npagesize = $variable['shopcart.npagesize'];
-  $nlisttopx = $variable['shopcart.nlisttopx'];
-  $toffset = ii_get_num($_GET['offset']);
-  $tusername = ii_get_safecode($_COOKIE[APP_NAME . 'user']['username']);
-  $tmpstr = ii_itake('module.shopcart_list', 'tpl');
-  $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_idb}');
-  $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where $nidfield>0";
-  if (!ii_isnull($tusername)) $tsqlstr .= " and " . ii_cfnames($nfpre,'username') . "='" . $tusername."'";
-  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
-  $tcp = new cc_cutepage;
-  $tcp -> id = $nidfield;
-  $tcp -> sqlstr = $tsqlstr;
-  $tcp -> offset = $toffset;
-  $tcp -> pagesize = $npagesize;
-  $tcp -> rslimit = $nlisttopx;
-  $tcp -> init();
-  $trsary = $tcp -> get_rs_array();
-  if (is_array($trsary))
-  {
-    foreach($trsary as $trs)
-    {
-      $tname = ii_htmlencode($trs[ii_cfnames($nfpre,'name')]);
-      $tmptstr = str_replace('{$username}', ii_htmlencode($trs[ii_cfnames($nfpre,'username')]), $tmpastr);
-      $tmptstr = str_replace('{$name}', $tname, $tmptstr);
-      $tmptstr = str_replace('{$namestr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfnames($nfpre,'name')])), $tmptstr);
-      $tmptstr = str_replace('{$orderid}', ii_htmlencode($trs[ii_cfnames($nfpre,'orderid')]), $tmptstr);
-      $tmptstr = str_replace('{$allprice}', ii_get_num($trs[ii_cfnames($nfpre,'allprice')]), $tmptstr);
-      $tmptstr = str_replace('{$paystate}', ii_itake('global.shopcart:sel_paystate.' . ii_get_num($trs[ii_cfnames($nfpre,'prepaid')]), 'lng'), $tmptstr);
-      $tmptstr = str_replace('{$state}', ii_itake('global.shopcart:sel_state.' . ii_get_num($trs[ii_cfnames($nfpre,'state')]), 'lng'), $tmptstr);
-      $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfnames($nfpre,'time')]), $tmptstr);
-      $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
-      $tmprstr .= $tmptstr;
-    }
-  }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
-  $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = ii_creplace($tmpstr);
-  return $tmpstr;
 }
 
 function wdja_cms_module_weixin_notify()
@@ -423,15 +246,15 @@ function wdja_cms_module_weixin_notify()
   $tbackurl = $_GET['backurl'];
   if (ii_isnull($tbackurl)) $tbackurl = ii_get_actual_route('./');
   mm_check_valcode($tbackurl);
-    $userInfo = wxlogin_notify();
-    //判断openid是否存在,如存在则生成登录信息和有效期
-    //不存在则进行注册绑定
-	if(is_array($userInfo)){
-		$openid = $userInfo['openid'];
-		if(wxlogin_check_isuser($openid)) mm_client_redirect($tbackurl);
-	    else return wdja_cms_module_weixin_register($userInfo);
-	}
-	else  mm_client_redirect($tbackurl);
+  $userInfo = wxlogin_notify();
+  //判断openid是否存在,如存在则生成登录信息和有效期
+  //不存在则进行注册绑定
+  if (is_array($userInfo)) {
+    $openid = $userInfo['openid'];
+    if (wxlogin_check_isuser($openid)) mm_client_redirect($tbackurl);
+    else return wdja_cms_module_weixin_register($userInfo);
+  }
+  else  mm_client_redirect($tbackurl);
 }
 
 function wdja_cms_module_login()
@@ -512,7 +335,12 @@ function wdja_cms_module_manage_member()
       $GLOBALS['RS_' . $tkey] = $val;
       $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
     }
+    if ($trs[ii_cfname('utype')] == 1 ) $buy_type = 'upvip';
+    elseif ($trs[ii_cfname('utype')] == 2 ) $buy_type = 'topvip';
+    else $buy_type = 'buyvip';
+    $GLOBALS['RS_buy_type'] = $buy_type;
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
+    $tmpstr = str_replace('{$buy_type}', $buy_type, $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }
@@ -548,30 +376,6 @@ function wdja_cms_module_manage_password()
   return ii_ireplace('module.manage_password', 'tpl');
 }
 
-function wdja_cms_module_manage_userset()
-{
-  global $conn;
-  global $ndatabase, $nidfield, $nfpre;
-  global $nusername;
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('username') . "='$nusername'";
-  $trs = ii_conn_query($tsqlstr, $conn);
-  $trs = ii_conn_fetch_array($trs);
-  if ($trs)
-  {
-    $tmpstr = ii_itake('module.manage_userset', 'tpl');
-    foreach ($trs as $key => $val)
-    {
-      $tkey = ii_get_lrstr($key, '_', 'rightr');
-      $GLOBALS['RS_' . $tkey] = $val;
-      $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
-    }
-    $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
-    $tmpstr = ii_creplace($tmpstr);
-    return $tmpstr;
-  }
-  else mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
-}
-
 function wdja_cms_module_manage()
 {
   switch(mm_ctype($_GET['mtype'], 1))
@@ -585,9 +389,6 @@ function wdja_cms_module_manage()
     case 'password':
       return wdja_cms_module_manage_password();
       break;
-    case 'userset':
-      return wdja_cms_module_manage_userset();
-      break;
     default:
       return wdja_cms_module_manage_member();
       break;
@@ -599,30 +400,100 @@ function wdja_cms_module_premise()
   return ii_ireplace('module.premise', 'tpl');
 }
 
+function wdja_cms_module_wxpayjs($torderid,$title,$tprice,$body)
+{
+  global $nvalidate, $conn;
+  $result = wxpayjs($torderid,$title,$tprice,$body);
+  if (is_array($result))
+  {
+      if ($result['return_code'] == 1 && $result['return_msg'] == 'SUCCESS') {
+        $tmpstr = ii_itake('module.wxpayjs', 'tpl');
+        $tmpstr = str_replace('{$qrcode}', $result['qrcode'], $tmpstr);
+        $tmpstr = str_replace('{$out_trade_no}', $result['out_trade_no'], $tmpstr);
+        $tmpstr = str_replace('{$total_fee}', $result['total_fee']/100, $tmpstr);
+        $tmpstr = str_replace('{$payjs_order_id}', $result['payjs_order_id'], $tmpstr);
+        $tmpstr = ii_creplace($tmpstr);
+        return $tmpstr;
+      }
+      else mm_imessage($result['return_msg'], '-1');
+  }
+      else mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+}
+
+function wdja_cms_module_alipayjs($torderid,$title,$tprice,$body)
+{
+  global $nvalidate, $conn;
+  $result = alipayjs($torderid,$title,$tprice,$body);
+  if (is_array($result))
+  {
+      if ($result['return_code'] == 1 && $result['return_msg'] == 'SUCCESS') {
+        $tmpstr = ii_itake('module.alipayjs', 'tpl');
+        $tmpstr = str_replace('{$qrcode}', $result['qrcode'], $tmpstr);
+        $tmpstr = str_replace('{$out_trade_no}', $result['out_trade_no'], $tmpstr);
+        $tmpstr = str_replace('{$total_fee}', $result['total_fee']/100, $tmpstr);
+        $tmpstr = str_replace('{$payjs_order_id}', $result['payjs_order_id'], $tmpstr);
+        $tmpstr = ii_creplace($tmpstr);
+        return $tmpstr;
+      }
+      else mm_imessage($result['return_msg'], '-1');
+  }
+      else mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+}
+
+function wdja_cms_module_pay_success()
+{
+  global $conn,  $variable;
+  $tbackurl = $_GET['backurl'];
+  if (ii_isnull($tbackurl)) $tbackurl = ii_get_actual_route('./').'user/shopcart/?type=order_list';
+  $ndatabase = $variable['user.shopcart.ndatabase'];
+  $nidfield = $variable['user.shopcart.nidfield'];
+  $nfpre = $variable['user.shopcart.nfpre'];
+  $tprice = ii_get_num($_POST['price']);
+  $torderid = ii_get_num($_POST['orderid']);
+  $tid = ii_get_num($_POST['id']);
+  if ($tprice == '0') {
+    $tsqlstr = "update $ndatabase set " . ii_cfnames($nfpre,'prepaid') . "=1 where " . $nidfield . "='$tid' and " . ii_cfnames($nfpre, 'orderid') . "='$torderid' and " . ii_cfnames($nfpre, 'allprice') . "='$tprice' and " . ii_cfnames($nfpre,'prepaid') . "=0";
+    $trs = ii_conn_query($tsqlstr, $conn);
+    if (ii_conn_affected_rows($conn) > 0) mm_imessage(ii_itake('global.lng_public.pay_succeed', 'lng'), $tbackurl);
+    else mm_imessage(ii_itake('global.lng_public.pay_failed', 'lng'), $tbackurl);
+  }
+    else mm_imessage(ii_itake('global.lng_public.pay_failed', 'lng'), $tbackurl);
+}
+
 function wdja_cms_module_pay()
 {
   global $nvalidate;
   global $global_images_route, $nskin;
-  $tpayid = $_GET['payid'];//支付方式ID
-  $tprice = $_GET['price'];//价格
-  $torderid = $_GET['orderid'];//订单号
-  $tid = $_GET['id'];//订单ID
-  $timg_url_pre = $global_images_route . 'theme/' . $nskin . '/';
-  switch($tpayid)
+  $tweb_title = ii_itake('global.support/global:basic.web_name', 'lng');
+  $genre = 'user/recharge';
+  $tid = $_POST['id'];//订单ID
+  $torderid = $_POST['orderid'];//post提交订单号
+  $tprice = $_POST['price'];//post提交价格
+  $orderid = mm_get_field($genre,$tid,'orderid');//订单表订单号
+  $price = mm_get_field($genre,$tid,'price');//订单表价格
+  if ($torderid != $orderid || $tprice != $price) mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+  $tpayment = $_POST['payment'];//支付方式ID
+  $title = ii_itake('global.user/recharge:module.order', 'lng').$torderid;
+  $body = $tweb_title;
+  switch($tpayment)
   {
     case '1':
-      return  wxpay($torderid,$tid,$tprice,$tid);//微信二维码
+      return wdja_cms_module_wxpayjs($torderid,$title,$tprice,$body);//个人微信payjs接口
       break;
     case '2':
-      return  alipay($torderid,$tid,$tprice,$tid);//$talipay -> pay($torderid,$tid,$tprice,$tid,$methodname);//支付宝二维码
+      return wdja_cms_module_alipayjs($torderid,$title,$tprice,$body);//个人支付宝payjs接口
+      break;
+    case '3':
+      return wxpay($torderid,$title,$tprice,$body);//企业微信
+      break;
+    case '4':
+      return alipay($torderid,$title,$tprice,$body);//企业支付宝
       break;
     default:
-      return  alipay($torderid,$tid,$tprice,$tid);//支付宝二维码
+      return wdja_cms_module_wxpayjs($torderid,$title,$tprice,$body);//个人微信payjs接口
       break;
   }
   $tmpstr = ii_itake('module.pay', 'tpl');
-  $tmpstr = str_replace('{$img}', $timg, $tmpstr);
-  $tmpstr = str_replace('{$alipaycode}', $tcode, $tmpstr);
   $tmpstr = str_replace('{$price}', $tprice, $tmpstr);
   $tmpstr = str_replace('{$orderid}', $torderid, $tmpstr);
   $tmpstr = str_replace('{$id}', $tid, $tmpstr);
@@ -630,58 +501,133 @@ function wdja_cms_module_pay()
   return $tmpstr;
 }
 
-function wdja_cms_module_openalipay()
-{
-  return ii_ireplace('module.openalipay', 'tpl');
-}
-
 function wdja_cms_module_alipay_notify()
 {
-    global $conn,  $variable;
-    $ndatabase = $variable['shopcart.ndatabase'];
-    $nidfield = $variable['shopcart.nidfield'];
-    $nfpre = $variable['shopcart.nfpre'];
-	$talipay = new alipay;
-	$res = $talipay -> notify_url();
-	if($res == '1'){
-		//print_r($_POST);
-	  $torderid = $_POST['out_trade_no'];
-      $tsqlstr = "update $ndatabase set " . ii_cfnames($nfpre,'prepaid') . "=1 where " . ii_cfnames($nfpre, 'orderid') . "='$torderid'";
-      ii_conn_query($tsqlstr, $conn);
-	}else if ($res == '2'){
-		echo '22';
-	}else{
-		echo '00';
-	}
+  global $conn, $variable;
+  
+  $genre = 'user/recharge';
+  $ndatabase = $variable[ii_cvgenre($genre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($genre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($genre) . '.nfpre'];
+  
+  $alipay_data = alipay_notify();
+  if (is_array($alipay_data)) {
+      $torderid = $_GET['out_trade_no'];
+      $tprice = ii_get_num($_GET['total_amount']);
+      $ttrade_no = ii_get_num($_GET['trade_no']);
+      $tseller_id = ii_get_num($_GET['seller_id']);
+      $ttimestamp = ii_get_num($_GET['timestamp']);
+      
+      $tsqlstr = "update $ndatabase set " . ii_cfnames($nfpre,'state') . "=1," . ii_cfnames($nfpre,'prepaid') . "=1," . ii_cfnames($nfpre,'trade_no') . "='$ttrade_no'," . ii_cfnames($nfpre,'seller_id') . "='$tseller_id'," . ii_cfnames($nfpre,'timestamp') . "='$ttimestamp' where " . ii_cfnames($nfpre, 'orderid') . "='$torderid'";
+      $trs = ii_conn_query($tsqlstr, $conn);
+      if (ii_conn_affected_rows($conn) > 0) {
+          $tusername = mm_get_field($genre,$tid,'username');
+          $tuserid = ap_get_userid($tusername);//当前订单会员ID
+          $tmoney = ap_get_userinfo('money', $tusername);//当前会员的余额
+          if (mm_update_field('user',$tuserid,'money',$tmoney + $tprice)) {
+              $nmoney = ap_get_userinfo('money', $tusername);//当前会员的最新余额
+              if ($tprice == ($nmoney-$tmoney)) mm_update_field($genre,$tid,'lock',1);
+          }
+      }
+  }
 }
 
 function wdja_cms_module_alipay_return()
 {
-    global $conn,  $variable;
-    $tbackurl = $_GET['backurl'];
-    if (ii_isnull($tbackurl)) $tbackurl = ii_get_actual_route('./').'user/?type=shopcart_list';
-    $ndatabase = $variable['shopcart.ndatabase'];
-    $nidfield = $variable['shopcart.nidfield'];
-    $nfpre = $variable['shopcart.nfpre'];
-	$talipay = new alipay;
-	$res = $talipay -> return_url();
-	if($res == '1'){
-	  $torderid = $_GET['out_trade_no'];
+  global $conn,$variable;
+  $tbackurl = $_GET['backurl'];
+  if (ii_isnull($tbackurl)) $tbackurl = ii_get_actual_route('./').'user/';
+  $genre = 'user/recharge';
+  $ndatabase = $variable[ii_cvgenre($genre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($genre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($genre) . '.nfpre'];
+  
+  $torderid = $_GET['out_trade_no'];
+  $tprice = ii_get_num($_GET['total_amount']);
+  $ttrade_no = ii_get_num($_GET['trade_no']);
+  $tseller_id = ii_get_num($_GET['seller_id']);
+  $ttimestamp = $_GET['timestamp'];
+  
+  $tid = mm_get_id($genre,$torderid,'orderid');//充值订单id
+  $tprepaid = mm_get_field($genre,$tid,'prepaid');//充值订单支付状态
+  if ($tprepaid == 1) mm_imessage(ii_itake('module.pay_finish', 'lng'), $tbackurl);
+  $orderid = mm_get_field($genre,$tid,'orderid');//订单表订单号
+  $price = mm_get_field($genre,$tid,'price');//订单表价格
+  if ($torderid != $orderid || $tprice != $price) mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+  
+  $tsqlstr = "update $ndatabase set " . ii_cfnames($nfpre,'state') . "=1," . ii_cfnames($nfpre,'prepaid') . "=1," . ii_cfnames($nfpre,'trade_no') . "='$ttrade_no'," . ii_cfnames($nfpre,'seller_id') . "='$tseller_id'," . ii_cfnames($nfpre,'timestamp') . "='$ttimestamp' where " . ii_cfnames($nfpre, 'orderid') . "='$torderid'";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  if (ii_conn_affected_rows($conn) > 0) {
+      $tusername = mm_get_field($genre,$tid,'username');
+      $tuserid = ap_get_userid($tusername);//当前订单会员ID
+      $tmoney = ap_get_userinfo('money', $tusername);//当前会员的余额
+      if (mm_update_field('user',$tuserid,'money',$tmoney + $tprice)) {
+          $nmoney = ap_get_userinfo('money', $tusername);//当前会员的最新余额
+          if (!bccomp($tprice,$nmoney-$tmoney)) {
+              if (mm_update_field($genre,$tid,'lock',1)) mm_imessage(ii_itake('module.pay_success', 'lng'), $tbackurl);
+          }
+      else mm_imessage(ii_itake('module.pay_fail', 'lng'), $tbackurl);
+      }
+  }
+  else mm_imessage(ii_itake('module.pay_fail', 'lng'), $tbackurl);
+}
+
+function wdja_cms_module_wxpay_notify()
+{
+    global $conn, $variable;
+  $genre = 'user/recharge';
+  $ndatabase = $variable[ii_cvgenre($genre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($genre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($genre) . '.nfpre'];
+    $wxpay_data = wxpay_notify();
+    if (is_array($wxpay_data)) {
+      $torderid = $wxpay_data['out_trade_no'];
       $tsqlstr = "update $ndatabase set " . ii_cfnames($nfpre,'prepaid') . "=1 where " . ii_cfnames($nfpre, 'orderid') . "='$torderid'";
-      ii_conn_query($tsqlstr, $conn);
-      mm_imessage(ii_itake('global.lng_public.edit_succeed', 'lng'), $tbackurl);
-	}else{
-		echo $res.'00';
-	}
+      $trs = ii_conn_query($tsqlstr, $conn);
+    }
+}
+
+function wdja_cms_module_payjs_notify()
+{
+global $conn,$variable;
+  $genre = 'user/recharge';
+  $ndatabase = $variable[ii_cvgenre($genre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($genre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($genre) . '.nfpre'];
+  $result = array();
+  $result = payjs_notify();
+  if ($result['state'] == 1) {
+    $data = $result['data'];
+    $torderid = $data['out_trade_no'];
+    $tid = mm_get_id($genre,$torderid,'orderid');//充值订单id
+    $tprice = $data['total_fee']/100;
+    $tseller_id = $data['payjs_order_id'];
+    $ttimestamp = $data['time_end'];
+    $tsqlstr = "update $ndatabase set " . ii_cfnames($nfpre,'state') . "=1," . ii_cfnames($nfpre,'state') . "=1," . ii_cfnames($nfpre,'prepaid') . "=1," . ii_cfnames($nfpre,'seller_id') . "='$tseller_id'," . ii_cfnames($nfpre,'timestamp') . "='$ttimestamp' where " . ii_cfnames($nfpre, 'orderid') . "='$torderid'";
+    $trs = ii_conn_query($tsqlstr, $conn);
+    if (ii_conn_affected_rows($conn) > 0) {
+      $tusername = mm_get_field($genre,$tid,'username');
+      $tuserid = ap_get_userid($tusername);//当前订单会员ID
+      $tmoney = ap_get_userinfo('money', $tusername);//当前会员的余额
+      if (mm_update_field('user',$tuserid,'money',$tmoney + $tprice)) {
+          $nmoney = ap_get_userinfo('money', $tusername);//当前会员的最新余额
+          if (!bccomp($tprice,$nmoney-$tmoney)) {
+              if (mm_update_field($genre,$tid,'lock',1)) echo 'success';
+          }
+      else echo 'fail';
+      }
+    }
+  }
+  else echo 'fail';
 }
 
 function wdja_cms_module()
 {
-  $wxlogin_switch = ii_itake('global.' . ADMIN_FOLDER . '/global:weixin.wxlogin_switch','lng');
+  $wxlogin_switch = ii_itake('global.support/global:weixin.wxlogin_switch','lng');
   switch(mm_ctype($_GET['type']))
   {
     case 'login':
-      if(is_weixin() && $wxlogin_switch == 1) return wxlogin();
+      if (ii_isWeixin() && $wxlogin_switch == 1) return wxlogin();
       else return wdja_cms_module_login();
       break;
     case 'wxnotify':
@@ -699,14 +645,6 @@ function wdja_cms_module()
       pp_check_isregister_close();
       return wdja_cms_module_register();
       break;
-    case 'shopcart_list':
-      ap_user_islogin();
-      return wdja_cms_module_shopcart_list();
-      break;
-    case 'shopcart_detail':
-      ap_user_islogin();
-      return wdja_cms_module_shopcart_detail();
-      break;
     case 'manage':
       ap_user_islogin();
       return wdja_cms_module_manage();
@@ -715,8 +653,9 @@ function wdja_cms_module()
       ap_user_islogin();
       return wdja_cms_module_pay();
       break;
-    case 'openalipay':
-      return wdja_cms_module_openalipay();
+    case 'upload':
+      ap_user_islogin();
+      uu_upload_files_html('upload_html');
       break;
     default:
       ap_user_islogin();
@@ -726,7 +665,7 @@ function wdja_cms_module()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

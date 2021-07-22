@@ -1,6 +1,6 @@
 <?php
-  $nroute = 'child';
-  $ngenre = ii_get_actual_genre(__FILE__, $nroute);
+$nroute = 'child';
+$ngenre = ii_get_actual_genre(__FILE__, $nroute);
 wdja_cms_init($nroute);
 $nhead = $variable[ii_cvgenre($ngenre) . '.nhead'];
 $nfoot = $variable[ii_cvgenre($ngenre) . '.nfoot'];
@@ -11,10 +11,14 @@ $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
 $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
 $npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
 $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
+$nsearch_genre = $variable[ii_cvgenre($ngenre) . '.nsearch_genre'];
+$nsearch_field = $variable[ii_cvgenre($ngenre) . '.nsearch_field'];
 $nurltype = $variable[ii_cvgenre($ngenre) . '.nurltype'];
 $nclstype = $variable[ii_cvgenre($ngenre) . '.nclstype'];
-$nbasehref = $variable[ii_cvgenre($ngenre) . '.nbasehref'];
-$ntitle = ii_itake('module.channel_title', 'lng');
+$ncreatefolder = $variable[ii_cvgenre($ngenre) . '.ncreatefolder'];
+$ncreatefiletype = $variable[ii_cvgenre($ngenre) . '.ncreatefiletype'];
+$ntitles = $variable[ii_cvgenre($ngenre) . '.ntitles'];
+if(ii_isnull($ntitles)) $ntitles = ii_itake('module.channel_title', 'lng');
 $nkeywords = $variable[ii_cvgenre($ngenre) . '.nkeywords'];
 $ndescription = $variable[ii_cvgenre($ngenre) . '.ndescription'];
 ?>

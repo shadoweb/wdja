@@ -126,5 +126,9 @@
       <disinfo><![CDATA[cksubmit]]></disinfo>
       <chinese><![CDATA[确认检查]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[admin_tips]]></disinfo>
+      <chinese><![CDATA[如不会使用本系统或不会制作模板等，可选择官方服务，为您提供全程无忧服务，详询官方网站客服。QQ925474725 &nbsp;<a href="http://www.wdja.net/" target="_blank">官方网站</a>]]></chinese>
+    </item>
   </language_list>
 </xml>

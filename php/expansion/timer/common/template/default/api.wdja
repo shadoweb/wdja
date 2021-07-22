@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[api_timer_add]]></name>
+      <tpl_default><![CDATA[
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.expansion/timer:manage.timer_switch','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="timer_switch" class="val" value="0" /></span>&nbsp;<select name="event" class="s1">{$=ii_show_xmlinfo_select('global.expansion/timer:sel_event.all', 0, 'select')}</select>&nbsp;<input type="datetime-local" name="timer" class="i1" style="width:180px;"></td>
+</tr>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[api_timer_edit]]></name>
+      <tpl_default><![CDATA[
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.expansion/timer:manage.timer_switch','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$timer_switch}" bind="1"><b></b><u></u><em></em><input type="hidden" name="timer_switch" class="val" value="{$timer_switch}" /></span>&nbsp;<select name="event" class="s1">{$=ii_show_xmlinfo_select('global.expansion/timer:sel_event.all', '{$event}', 'select')}</select>&nbsp;<input type="datetime-local" name="timer" class="i1" value="{$timer}" style="width:180px;"></td>
+</tr>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

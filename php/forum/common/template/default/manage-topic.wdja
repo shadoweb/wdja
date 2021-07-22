@@ -32,18 +32,18 @@
     <table cellpadding="10" cellspacing="1" class="tableL">
       <thead>
         <tr>
-          <th height="25" width="10"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
           <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
           <th width="*">{$=ii_itake('global.lng_config.topic','lng')}</th>
           <th width="100">{$=ii_itake('global.lng_config.sort','lng')}</th>
           <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
-          <th align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
         </tr>
       </thead>
       <tbody>{@recurrence_ida}
         <tr class="lock-0">
-          <td><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
-          <td>{$id}</td>
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
           <td><a href="/{$=#ngenre}/?type=detail&sid={$sid}&tid={$id}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" border="0"></a>&nbsp;<a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
           <td><a href="?sid={$sid}">{$sort}</a></td>
           <td>{$time}</td>
@@ -57,7 +57,7 @@
       </tbody>
     </table>
     <div class="control">
-      <div class="batch show-1" style="">{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
       <div class="pagi">{$cpagestr}</div>
     </div>
   </form>
@@ -67,7 +67,6 @@
     <item>
       <name><![CDATA[edit]]></name>
       <tpl_default><![CDATA[<script language="javascript" src="{$=#global_images_route}js/preview_images.js"></script>
-<script language="javascript" src="{$=#global_images_route}js/loader.js"></script>
 <script language="javascript">
 function bfsubmit()
 {

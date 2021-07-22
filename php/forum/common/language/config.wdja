@@ -68,7 +68,7 @@
     </item>
     <item>
       <disinfo><![CDATA[votenotice]]></disinfo>
-      <chinese><![CDATA[⒈每行一个选项 ⒉至少二个选项 ⒊最多{$=#nmax_vote_option}个选项 ⒋过期停止投票 ⒌发布不得修改]]></chinese>
+      <chinese><![CDATA[1.每行一个选项 2.至少二个选项 3.最多{$=#nmax_vote_option}个选项 4.过期停止投票 5.发布不得修改]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[author]]></disinfo>
@@ -121,6 +121,10 @@
     <item>
       <disinfo><![CDATA[files]]></disinfo>
       <chinese><![CDATA[附件]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[insert]]></disinfo>
+      <chinese><![CDATA[插入]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[insert_url]]></disinfo>

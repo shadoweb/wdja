@@ -23,6 +23,10 @@
       <chinese><![CDATA[按关键字]]></chinese>
     </item>
     <item>
+      <value><![CDATA[search]]></value>
+      <chinese><![CDATA[按搜索词]]></chinese>
+    </item>
+    <item>
       <value><![CDATA[username]]></value>
       <chinese><![CDATA[按用户名]]></chinese>
     </item>

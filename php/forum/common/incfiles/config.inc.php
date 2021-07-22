@@ -2,7 +2,7 @@
 /*
 判断是否作为网站首页使用
 */
-if(ii_strlen(dirname($_SERVER['PHP_SELF']))>1){
+if (ii_strlen(dirname($_SERVER['PHP_SELF']))>1) {
   $nroute = 'node';
   $ngenre = ii_get_actual_genre(__FILE__, $nroute);
 }else{
@@ -10,23 +10,23 @@ if(ii_strlen(dirname($_SERVER['PHP_SELF']))>1){
   $ngenre = 'forum';
 }
 wdja_cms_init($nroute);
-$nhead = $variable[$ngenre . '.nhead'];
-$nfoot = $variable[$ngenre . '.nfoot'];
+$nhead = $variable[ii_cvgenre($ngenre) . '.nhead'];
+$nfoot = $variable[ii_cvgenre($ngenre) . '.nfoot'];
 if (ii_isnull($nhead)) $nhead = $default_head;
 if (ii_isnull($nfoot)) $nfoot = $default_foot;
-$ndatabase = $variable[$ngenre . '.ndatabase'];
-$nidfield = $variable[$ngenre . '.nidfield'];
-$nfpre = $variable[$ngenre . '.nfpre'];
-$npagesize = $variable[$ngenre . '.npagesize'];
-$nuppath = $variable[$ngenre . '.nuppath'];
-$nuptype = $variable[$ngenre . '.nuptype'];
-$nlisttopx = $variable[$ngenre . '.nlisttopx'];
-$npagesize_reply = ii_get_num($variable[$ngenre . '.npagesize_reply']);
-$nint_topic = ii_get_num($variable[$ngenre . '.nint_topic']);
-$nint_reply = ii_get_num($variable[$ngenre . '.nint_reply']);
-$nmax_vote_option = ii_get_num($variable[$ngenre . '.nmax_vote_option']);
-$nuser_upload = ii_get_num($variable[$ngenre . '.nuser_upload']);
-$nnew_user_release_timeout = ii_get_num($variable[$ngenre . '.nnew_user_release_timeout']);
+$ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+$nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+$nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+$npagesize = $variable[ii_cvgenre($ngenre) . '.npagesize'];
+$nuppath = $variable[ii_cvgenre($ngenre) . '.nuppath'];
+$nuptype = $variable[ii_cvgenre($ngenre) . '.nuptype'];
+$nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
+$npagesize_reply = ii_get_num($variable[ii_cvgenre($ngenre) . '.npagesize_reply']);
+$nint_topic = ii_get_num($variable[ii_cvgenre($ngenre) . '.nint_topic']);
+$nint_reply = ii_get_num($variable[ii_cvgenre($ngenre) . '.nint_reply']);
+$nmax_vote_option = ii_get_num($variable[ii_cvgenre($ngenre) . '.nmax_vote_option']);
+$nuser_upload = ii_get_num($variable[ii_cvgenre($ngenre) . '.nuser_upload']);
+$nnew_user_release_timeout = ii_get_num($variable[ii_cvgenre($ngenre) . '.nnew_user_release_timeout']);
 $ntitle = ii_itake('module.channel_title', 'lng');
 
 function pp_change_forum_topic($topic, $color, $b)
@@ -138,19 +138,6 @@ function pp_check_forum_blacklist($sid, $username)
   $trs = ii_conn_fetch_array($trs);
   if ($trs) return true;
   else return false;
-}
-
-function pp_encode_forum_content($content, $type)
-{
-  switch ($type)
-  {
-    case 0:
-      return ii_encode_article(ii_htmlencode($content));
-      break;
-    case 1:
-      return ii_encode_article(mm_ubbcode(ii_htmlencode($content), 0));
-      break;
-  }
 }
 
 function pp_get_forum_admin($strers)

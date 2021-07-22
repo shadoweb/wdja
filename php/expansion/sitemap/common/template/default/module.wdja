@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>站点地图_{$=ii_itake('global.module.web_title','lng')}</title>
+<title>{$=ii_itake('global.expansion/sitemap:module.sitemap', 'lng')}_{$=ii_itake('global.module.web_title','lng')}</title>
 <style type="text/css">
 	body {font-family: Verdana;FONT-SIZE: 12px;MARGIN: 0;color: #000000;background: #ffffff;}
 	li {margin-top: 8px;}
@@ -21,14 +21,14 @@
 </style>
 </head>
 <body vlink="#333333" link="#333333">
-<h2 style="text-align: center; margin-top: 20px">{$=ii_itake('global.module.web_title','lng')}'s SiteMap </h2>
+<h2 style="text-align: center; margin-top: 20px">{$=ii_itake('global.support/global:basic.web_name','lng')}'s SiteMap </h2>
 <center></center>
 ]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[footer]]></name>
       <tpl_default><![CDATA[
-<div id="footer">查看首页: <strong><a href="{$=ii_itake('global.expansion/sitemap:config.url', 'lng')}">{$=ii_itake('global.module.web_title','lng')}</a></strong></div><br />
+<div id="footer">{$=ii_itake('global.expansion/sitemap:module.viewhome', 'lng')}: <strong><a href="{$=ii_itake('global.expansion/sitemap:config.url', 'lng')}">{$=ii_itake('global.support/global:basic.web_name','lng')}</a></strong></div><br />
 <center>
 <div style="text-algin: center; font-size: 11px"><strong><a href="{$=ii_itake('global.expansion/sitemap:config.url', 'lng')}/sitemap.xml" target="_blank">Baidu-SiteMap</a></strong> &nbsp;
 Latest Update: {$=ii_format_date(ii_now(),1)}<br /><br /></div>

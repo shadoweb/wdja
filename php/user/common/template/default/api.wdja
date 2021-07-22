@@ -82,5 +82,11 @@
       <name><![CDATA[login2]]></name>
       <tpl_default><![CDATA[{$=ap_user_login('global.' . USER_FOLDER . ':api.data_login2')}]]></tpl_default>
     </item>
+    <item>
+      <name><![CDATA[group]]></name>
+      <tpl_default><![CDATA[
+      <span class="group">{$group}</span>
+      ]]></tpl_default>
+    </item>
   </item_list>
 </xml>

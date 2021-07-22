@@ -8,7 +8,7 @@
   <language_list>
     <item>
       <disinfo><![CDATA[copyright]]></disinfo>
-      <chinese><![CDATA[WDJA网站内容管理系统(V1.5.4)]]></chinese>
+      <chinese><![CDATA[WDJA网站内容管理系统(V1.0)]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[slng]]></disinfo>
@@ -57,6 +57,10 @@
     <item>
       <disinfo><![CDATA[ulogin_failed]]></disinfo>
       <chinese><![CDATA[用户名密码错误]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[ulogin_maxnum]]></disinfo>
+      <chinese><![CDATA[您的账号今日因[]次输入错误密码而被暂时锁定.]]></chinese>
     </item>
   </language_list>
 </xml>

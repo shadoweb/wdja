@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 
@@ -21,7 +21,7 @@ function uu_upload_create_thumbnail($strURL1, $strURL2, $strScale = 0)
   {
     $tImageType = ii_get_lrstr($tstrURL1, '.', 'right');
     if ($tImageType == 'jpg' || $tImageType == 'jpeg') $timg = ImageCreateFromJpeg($tstrURL1);
-    elseif ($tImageType == 'gif') $timg = ImageCreateFromGif($tstrURL1);
+    elseif ($tImageType == 'gif') $timg = ImageCreateFromGif ($tstrURL1);
     elseif ($tImageType == 'png') $timg = ImageCreateFromPng($tstrURL1);
     if ($timg && function_exists('imagecopyresampled'))
     {
@@ -87,7 +87,7 @@ function uu_get_upload_foldername()
 
 function uu_upload_create_database_note($genre, $filename, $field)
 {
-  global $conn;
+  global $conn,$slng;
   global $variable;
   global $nupident;
   $tdatabase = $variable['common.upload.ndatabase'];
@@ -97,7 +97,7 @@ function uu_upload_create_database_note($genre, $filename, $field)
   $tfilename = ii_left($filename, 250);
   $tfield = ii_left($field, 250);
   $tuser = uu_get_upload_user();
-  $tsqlstr = "insert into $tdatabase (" . ii_cfnames($tfpre, 'genre') . "," . ii_cfnames($tfpre, 'upident') . "," . ii_cfnames($tfpre, 'filename') . "," . ii_cfnames($tfpre, 'field') . "," . ii_cfnames($tfpre, 'user') . "," . ii_cfnames($tfpre, 'time') . ") values ('$tgenre','$nupident','$tfilename','$tfield','$tuser','" . ii_now() . "')";
+  $tsqlstr = "insert into $tdatabase (" . ii_cfnames($tfpre, 'genre') . "," . ii_cfnames($tfpre, 'upident') . "," . ii_cfnames($tfpre, 'filename') . "," . ii_cfnames($tfpre, 'field') . "," . ii_cfnames($tfpre, 'user') . "," . ii_cfnames($tfpre, 'lng') . "," . ii_cfnames($tfpre, 'time') . ") values ('$tgenre','$nupident','$tfilename','$tfield','$tuser','$slng','" . ii_now() . "')";
   return ii_conn_query($tsqlstr, $conn);
 }
 
@@ -158,7 +158,7 @@ function uu_upload_init()
   $uptext = $_GET['uptext'];
   $upfname = $_GET['upfname'];
   $upftype = $_GET['upftype'];
-  $upsimg = $_GET['upsimg'];//缩略图开关
+  $upsimg = ii_get_num($_GET['upsimg'], 0);//缩略图开关
   $upbasefname = $_GET['upbasefname'];
   $upbasefolder = $_GET['upbasefolder'];
 }
@@ -182,6 +182,11 @@ function uu_upload_files()
   if ($tfilesize > $nupmaxsize) uu_upload_msg('max');
   $tfilename = $_FILES['file1']['name'];
   $tmp_filename = $_FILES['file1']['tmp_name'];
+/*这里设置开关,是否启用OSS上传
+    $tfiletype = strtolower(ii_get_filetype($tfilename));
+    $tfilename = mm_upload_File($tmp_filename,$tfiletype);
+    mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname='. $tfilename);//补全上传图片返回路径为带模块文件夹
+*/
   $tfiletype = strtolower(ii_get_filetype($tfilename));
   if (ii_cinstr($nuptype, $tfiletype, '.'))
   {
@@ -200,13 +205,63 @@ function uu_upload_files()
       chmod($tfilename, 0755);
       if ($upsimg == 1 && ($tfiletype == 'jpg' || $tfiletype == 'png' || $tfiletype == 'gif' || $tfiletype == 'jpeg' || $tfiletype == 'bmp')) {
          uu_upload_create_thumbnail($tfilename,$stfilename,1);//生成缩略图
-         if($doriginal == '1') unlink($tfilename);//删除原图
+         if ($doriginal == '1') unlink($tfilename);//删除原图
          else uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$tfilename, $uptext);
          uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$stfilename, $uptext);
          mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname=/' . $ngenre .'/' .$stfilename);//补全上传图片返回路径为带模块缩略图文件夹
       }else{
         uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$tfilename, $uptext);
         mm_client_redirect('?type=upload&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname=/' . $ngenre .'/'. $tfilename);//补全上传图片返回路径为带模块文件夹
+      }
+    }
+    else uu_upload_msg('sudd');
+  }
+  else uu_upload_msg('uptype');
+}
+
+function uu_uploads_files()
+{
+  uu_upload_init();
+  global $ngenre;
+  global $nupmaxsize, $nuptype, $nuppath, $variable;
+  global $upform, $uptext, $upftype, $upsimg;
+  $doriginal = ii_get_num($variable['common.thumbnail.original']);//删除原图
+  $sfile = $variable['common.thumbnail.file'];//
+  $tfilesize = ii_get_num($_FILES['file1']['size']);
+  if ($tfilesize <= 0) uu_upload_msg('null');
+  if ($tfilesize > $nupmaxsize) uu_upload_msg('max');
+  $tfilename = $_FILES['file1']['name'];
+  $tmp_filename = $_FILES['file1']['tmp_name'];
+/*这里设置开关,是否启用OSS上传
+    $tfiletype = strtolower(ii_get_filetype($tfilename));
+    $tfilename = mm_upload_File($tmp_filename,$tfiletype);
+    mm_client_redirect('?type=uploads&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname='. $tfilename);//补全上传图片返回路径为带模块文件夹
+*/
+  $tfiletype = strtolower(ii_get_filetype($tfilename));
+  if (ii_cinstr($nuptype, $tfiletype, '.'))
+  {
+    $tfilefolder = $nuppath . uu_get_upload_foldername();
+    if (!(is_dir($tfilefolder))) ii_mkdir($tfilefolder);
+    $nfilename = uu_get_upload_filename($tfiletype);
+    $tfilename = $tfilefolder . '/' .$nfilename ; 
+    if ($upsimg == 1)
+    {
+      $stfilefolder = $nuppath.$sfile.'/' . uu_get_upload_foldername();//缩略图文件夹
+      if (!(is_dir($stfilefolder))) ii_mkdir($stfilefolder);//判断是否存在缩略图,不存在则创建
+      $stfilename = $stfilefolder . '/' . $nfilename; 
+    }
+    if (move_uploaded_file($tmp_filename, $tfilename))
+    {
+      chmod($tfilename, 0755);
+      if ($upsimg == 1 && ($tfiletype == 'jpg' || $tfiletype == 'png' || $tfiletype == 'gif' || $tfiletype == 'jpeg' || $tfiletype == 'bmp')) {
+         uu_upload_create_thumbnail($tfilename,$stfilename,1);//生成缩略图
+         if ($doriginal == '1') unlink($tfilename);//删除原图
+         else uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$tfilename, $uptext);
+         uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$stfilename, $uptext);
+         mm_client_redirect('?type=uploads&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname=/' . $ngenre .'/' .$stfilename);//补全上传图片返回路径为带模块缩略图文件夹
+      }else{
+        uu_upload_create_database_note($ngenre, '/' .$ngenre .'/' .$tfilename, $uptext);
+        mm_client_redirect('?type=uploads&upform=' . $upform . '&uptext=' . $uptext . '&upftype=' . $upftype . '&upsimg=' . $upsimg . '&upfname=/' . $ngenre .'/'. $tfilename);//补全上传图片返回路径为带模块文件夹
       }
     }
     else uu_upload_msg('sudd');
@@ -222,7 +277,7 @@ function uu_upload_files_html($strers)
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

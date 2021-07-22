@@ -9,60 +9,51 @@
     <item>
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
-      <div id="list_menu">
-        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
-      </div>
-      <div class="list_con">
-      <ul>
-        {@recurrence_ida}
-            <li><i class="pre_dot"></i>
-              <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">{$topic}</a>
-              <span>[{$=ii_format_date('{$time}',1)}]</span>
-            </li>
-        {@recurrence_ida}
-      </ul>
-      <div id="cutepage" class="cutepage">{$cpagestr}</div>
-      </div>
-    <div class="clear"></div>
-    </main>
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="text-list">
+    <div class="text-list-con">
+      {@recurrence_ida}
+      <div class="list-con-item"><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}"><h4>{$topic}</h4></a></div>
+      {@recurrence_ida}
+    </div>
   </div>
-</section>
-<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[detail]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <div class="content">
-        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
-        <h1>{$topic}</h1>
-        <div class="con_text">
-        <p>{$=api_tags_list()}</p>
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
-        </div>
-        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
-        <div class="updown">
-            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
-            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
-        </div>
+<div class="detail">
+  <h1>{$topic}</h1>
+  <div class="data">{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:{$count}</div>
+  <div class="content">
+    <div>
+      <link rel="stylesheet" href="{$=#global_images_route}js/viewer/viewer.min.css?{$=ii_random(3)}" />
+      <script src="{$=#global_images_route}js/viewer/viewer.min.js"></script>
+      <ul id="images" class="gallery">
+        {$=mm_get_gallery('{$gallery}')}
+      </ul>
+      <script>
+        const gallery = new Viewer(document.getElementById('images'));
+      </script>
     </div>
-    <div class="clear"></div>
+    {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+    <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
   </div>
-</section>
-<script type="text/javascript">
-function innerCOUNT(strers)
-{
-  if (strers != "$error$") get_id("count").innerHTML = strers;
-};
-igets("{$=ii_get_actual_route('expansion')}/count/?genre={$=urlencode($GLOBALS['ngenre'])}&id={$id}", innerCOUNT);
-</script>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  <div class="vuser">{$=mm_get_vuser('{$vuid}','{$id}')}</div>
+  <div class="updown">
+    <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
+    <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
+  </div>
+  {$=mm_view_pop_lists('shop','{$shop_lists}')}
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

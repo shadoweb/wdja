@@ -19,24 +19,20 @@
       <chinese><![CDATA[密码修改]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?type=manage&mtype=userset]]></disinfo>
-      <chinese><![CDATA[个人设置]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/message/?type=list]]></disinfo>
-      <chinese><![CDATA[我的短信]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/friend/?type=list]]></disinfo>
-      <chinese><![CDATA[我的好友]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?type=shopcart_list]]></disinfo>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/shopcart/?type=order_list]]></disinfo>
       <chinese><![CDATA[我的订单]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/address/?type=list]]></disinfo>
       <chinese><![CDATA[我的地址]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/recharge/?type=buy]]></disinfo>
+      <chinese><![CDATA[余额充值]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?action=logout]]></disinfo>
+      <chinese><![CDATA[退出登录]]></chinese>
     </item>
   </language_list>
 </xml>

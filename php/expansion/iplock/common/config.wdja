@@ -10,7 +10,6 @@
     <item varstr="nfpre" strvalue="ip_" />
     <item varstr="nurltype" strvalue="0" />
     <item varstr="nclstype" strvalue="1" />
-    <item varstr="nbasehref" strvalue="1" />
     <item varstr="ncontentcutepage" strvalue="1" />
     <item varstr="nuninstall" strvalue="1|1|1" />
   </configure>

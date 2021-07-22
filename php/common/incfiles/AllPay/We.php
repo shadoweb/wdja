@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2018 广州楚才信息科技有限公司 [ http://www.cuci.cc ]
+// | 版权所有 2014~2020 广州楚才信息科技有限公司 [ http://www.cuci.cc ]
 // +----------------------------------------------------------------------
 // | 官方网站: http://think.ctolog.com
 // +----------------------------------------------------------------------
@@ -28,6 +28,7 @@ use WeChat\Exceptions\InvalidInstanceException;
  * @method \AliPay\Bill AliPayBill($options) static 支付宝电子面单下载
  * @method \AliPay\Pos AliPayPos($options) static 支付宝刷卡支付
  * @method \AliPay\Scan AliPayScan($options) static 支付宝扫码支付
+ * @method \AliPay\Trade AliPayTrade($options) static 支付宝标准接口
  * @method \AliPay\Transfer AliPayTransfer($options) static 支付宝转账到账户
  * @method \AliPay\Wap AliPayWap($options) static 支付宝手机网站支付
  * @method \AliPay\Web AliPayWeb($options) static 支付宝网站支付
@@ -56,6 +57,7 @@ use WeChat\Exceptions\InvalidInstanceException;
  * @method \WeMini\Delivery WeMiniDelivery($options = []) static 小程序即时配送
  * @method \WeMini\Guide WeMiniGuide($options = []) static 小程序导购助手
  * @method \WeMini\Image WeMiniImage($options = []) static 小程序图像处理
+ * @method \WeMini\Live WeMiniLive($options = []) static 小程序直播接口
  * @method \WeMini\Logistics WeMiniLogistics($options = []) static 小程序物流助手
  * @method \WeMini\Message WeMiniMessage($options = []) static 小程序动态消息
  * @method \WeMini\Newtmpl WeMiniNewtmpl($options = []) static 小程序订阅消息
@@ -85,7 +87,7 @@ class We
      * 定义当前版本
      * @var string
      */
-    const VERSION = '1.2.20';
+    const VERSION = '1.2.27';
 
     /**
      * 静态配置

@@ -20,7 +20,11 @@
     </item>
     <item>
       <disinfo><![CDATA[nav_good]]></disinfo>
-      <chinese><![CDATA[推荐的记录]]></chinese>
+      <chinese><![CDATA[完成的记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_nogood]]></disinfo>
+      <chinese><![CDATA[未完成的记录]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[add]]></disinfo>
@@ -33,6 +37,18 @@
     <item>
       <disinfo><![CDATA[view]]></disinfo>
       <chinese><![CDATA[查看记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[staus]]></disinfo>
+      <chinese><![CDATA[状态]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[good]]></disinfo>
+      <chinese><![CDATA[完成]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nogood]]></disinfo>
+      <chinese><![CDATA[未完成]]></chinese>
     </item>
   </language_list>
 </xml>

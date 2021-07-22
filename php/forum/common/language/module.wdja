@@ -71,6 +71,10 @@
       <chinese><![CDATA[编辑帖子]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[manage]]></disinfo>
+      <chinese><![CDATA[管理]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[topiclist]]></disinfo>
       <chinese><![CDATA[帖子列表]]></chinese>
     </item>

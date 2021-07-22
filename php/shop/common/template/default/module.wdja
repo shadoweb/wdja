@@ -9,156 +9,113 @@
     <item>
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
-      <div id="list_menu">
-        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
-      </div>
-
-<form id="filterForm" name="form1" method="get" action="{$=#nurl}">
-<input id="type" type="hidden" value="list" name="type" to="filter">
-<input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
-<input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
-{$=api_list_fields_input()}
-{$=api_list_fields()}
-</form>
-
-      <div class="list_con">
-      <ol>
+{$=ii_ireplace('global.module.swiper','tpl')}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="img-list">
+    <div class="img-list-con">
+      <div class="img-lists">
         {@recurrence_ida}
-            <li>
-              <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">
-              <img src="{$image}" alt="{$topic}">
-              <strong>{$topic}</strong>
-              <strong>{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</strong>
-              </a>
-            </li>
+        <div class="img-list-item">
+          <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}">
+            <div class="img-list-info">
+              <span class="img-list-img" style="padding-bottom: 80.185758513932%;"><img src="{$image}" max-width="323" max-height="259"></span>
+              <div class="img-list-details">
+                <div class="img-list-name">{$topic}</div>
+                <div class="img-list-price">
+                  <span>{$=ii_itake('config.wprice', 'lng')}:￥&nbsp;{$wprice}{$=ii_itake('global.lng_unit.money','lng')}</span>
+                </div>
+                <div class="img-list-desc">{$=ii_left('{$description}',70)}</div>
+              </div>
+              <button class="b2" type="button" title="立即购买" onclick="addCart('{$id}','{$topic}','1','{$=api_get_userGroupPrice('{$id}','{$ugid}')}','{$limitnum}');return false;"><span>立即购买</span></button>
+            </div>
+          </a>
+        </div>
         {@recurrence_ida}
-      </ol>
-      <div id="cutepage" class="cutepage">{$cpagestr}</div>
       </div>
-    <div class="clear"></div>
-    </main>
+    </div>
   </div>
-</section>
-<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[detail]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <div class="content">
-      <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
-      <h1>{$topic}</h1>
-      <div class="con_text">
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        <div style="float: left;display:inline-block;text-align: right;"><img src="{$image}" alt="{$image}" width="300" height="246" /></div>
-        <div style="float: left;display:inline-block;">
-          <table width="100%" cellspacing="0" cellpadding="0" border="0">
+<div class="detail">
+  <div class="content">
+    <div class="content-info">
+      <div class="content-img"><img alt="" src="{$image}"></div>
+      <div class="content-text">
+        <h1 class="content-topic">{$topic}</h1>
+        <div class="content-desc">{$=ii_left('{$description}',120)}</div>
+      </div>
+      <div class="content-buyinfo">
+        <div class="content-price">
+          <span>{$=ii_itake('config.wprice', 'lng')}:￥&nbsp;{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</span>
+          {$=api_view_userGroupPrice('{$id}')}
+          <span class="num"><input type="text" id="buynum" name="buynum" value="1" size="4" /></span>
+        </div>
+        <div class="content-btn">
+          <button type="button" title="立即购买" onclick="addCart('{$id}','{$topic}','1','{$=api_get_userGroupPrice('{$id}','{$ugid}')}','{$limitnum}');return false;"><span>立即购买</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="content-tab">
+      <div class="content-tab-title">
+        <span id="shop1" onclick="setTab('shop',1,2)" class="hover">商品详情</span>
+        <span id="shop2" onclick="setTab('shop',2,2)">参数规格</span>
+      </div>
+      <div class="content-tab-con">
+        <div id="con_shop_1">{$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+          <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
+        </div>
+
+        <div id="con_shop_2" style="display:none;">
+          <table width="100%" class="content-table">
             <tr>
-              <td width="80" height="25" align="right">{$=ii_itake('config.snum', 'lng')}</td>
+              <td align="right">{$=ii_itake('config.snum', 'lng')}</td>
               <td width="5"></td>
               <td>{$snum}</td>
             </tr>
             <tr>
-              <td height="25" align="right">{$=ii_itake('config.topic', 'lng')}</td>
+              <td align="right">{$=ii_itake('config.topic', 'lng')}</td>
               <td></td>
               <td>{$topic}</td>
             </tr>
-            {$=api_view_fields()}
-            {@recurrence_ida}
             <tr>
-              <td width="80" height="25" align="right">{$infos_topic}</td>
-              <td width="5"></td>
-              <td>{$infos_link}</td>
-            </tr>
-            {@recurrence_ida}
-            <tr>
-              <td height="25" align="right">{$=ii_itake('config.price', 'lng')}</td>
+              <td align="right">{$=ii_itake('config.price', 'lng')}</td>
               <td></td>
               <td class="del">{$price}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
             </tr>
             <tr>
-              <td height="25" align="right">{$=ii_itake('config.wprice', 'lng')}</td>
+              <td align="right">{$=ii_itake('config.wprice', 'lng')}</td>
               <td></td>
               <td>{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
             </tr>
             <tr>
-              <td height="25" align="right">{$=ii_itake('config.limitnum', 'lng')}</td>
+              <td align="right">{$=ii_itake('config.limitnum', 'lng')}</td>
               <td></td>
               <td>{$limitnum}{$unit}</td>
             </tr>
+            {@recurrence_ida}
+            <tr>
+              <td align="right">{$infos_topic}</td>
+              <td></td>
+              <td>{$infos_link}</td>
+            </tr>
+            {@recurrence_ida}
           </table>
-          <form method="get" action="{$=ii_get_actual_route($GLOBALS['nshopcart'])}" onSubmit="return ACBuy.tcksubmit();">
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="id" value="{$id}" />
-            <input type="hidden" name="backurl" value="{$=urlencode($GLOBALS['nurl'])}" />
-            <table width="100%" cellspacing="0" cellpadding="0" border="0">
-              <tr>
-                <td colspan="3" height="5"></td>
-              </tr>
-              <tr>
-                <td align="right" width="80" height="25">{$=ii_itake('module.buynum', 'lng')}</td><td width="5"></td><td><input type="text" id="buynum" name="buynum" value="1" size="4" onkeyup="ACBuy.tcklimitnum(this.id, this.value);" /> <input type="image" id="buyimg" src="/{$genre}/{$=#images_route}buy_{$=#nlng}.gif" /></td>
-              </tr>
-              <tr>
-                <td colspan="3" height="5"></td>
-              </tr>
-            </table>
-          </form>
         </div>
-        <div class="clear"></div>
-        <div>{$=mm_encode_content(api_tags_replace_tags($GLOBALS['RS_content']))}</div>
-      </div>
-      <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
-      <div class="updown">
-        <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
-        <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
       </div>
     </div>
-    <div class="clear"></div>
   </div>
-</section>
-<script type="text/javascript">
-  ACBuy = {
-    tstate: 0,
-    tlimitnum: {$limitnum},
-    tinit: function ()
-    {
-      if (this.tlimitnum <= 0)
-      {
-        this.tstate = 1;
-        get_id('buynum').value = 0;
-        get_id('buyimg').src = '{$=#images_route}buyn_{$=#nlng}.gif';
-      }
-      else get_id('buynum').value = 1;
-    },
-    tcklimitnum: function (strid, strnum)
-    {
-      var tstrnum = get_num(strnum);
-      get_id(strid).value = tstrnum;
-      if (tstrnum > this.tlimitnum)
-      {
-        if (this.tlimitnum != 0) alert('{$=ii_itake('module.limitnumerror', 'lng')}');
-        get_id(strid).value = this.tlimitnum;
-      };
-    },
-    tcksubmit: function()
-    {
-      if (this.tstate == 1)
-      {
-        alert('{$=ii_itake('module.limitnumerror2', 'lng')}');
-        return false;
-      };
-    }
-  };
-
-  ACBuy.tinit();
-
-</script>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

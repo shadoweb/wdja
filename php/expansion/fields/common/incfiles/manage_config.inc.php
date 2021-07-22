@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -23,33 +23,53 @@ function wdja_cms_admin_manage_adddisp()
 {
   global $conn;
   global $ndatabase, $nidfield, $nfpre;
-  global $ngenre, $nlng;
+  global $ngenre, $slng;
   $tbackurl = $_GET['backurl'];
   $ttopic = ii_cstr($_POST['topic']);
   $ttype = ii_get_num($_POST['type']);
   $tcount = ii_get_num($_POST['count']);
+  
+  $tckstr = 'topic:' . ii_itake('manage.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   if ($tcount <= 0) mm_client_alert(ii_itake('manage.add_count_error', 'lng'), $tbackurl);
   if (!(ii_isnull($ttopic)))
   {
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('genre') . ",
+    " . ii_cfname('name') . ",
     " . ii_cfname('topic') . ",
     " . ii_cfname('type') . ",
     " . ii_cfname('count') . ",
     " . ii_cfname('hidden') . ",
-    " . ii_cfname('time') . "
+    " . ii_cfname('hidden_list') . ",
+    " . ii_cfname('hidden_detail') . ",
+    " . ii_cfname('time') . ",
+    " . ii_cfname('update') . ",
+    " . ii_cfname('lng') . "
     ) values (
     '" . ii_left(ii_cstr($_POST['genre']), 50) . "',
+    '" . ii_left(ii_cstr($_POST['name']), 50) . "',
     '" . ii_left($ttopic, 50) . "',
     $ttype,
     $tcount,
     " . ii_get_num($_POST['hidden']) . ",
-    '" . ii_now() . "'
+    " . ii_get_num($_POST['hidden_list']) . ",
+    " . ii_get_num($_POST['hidden_detail']) . ",
+    '" . ii_now() . "',
+    '" . ii_now() . "',
+    '$slng'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
     {
-    	if($ttype != 3){
+    	if ($ttype != 3) {
 	      $upfid = ii_conn_insert_id($conn);
 	      $tdatabase = mm_cndatabase(ii_cvgenre($ngenre), 'data');
 	      $tidfield = mm_cnidfield(ii_cvgenre($ngenre), 'data');
@@ -89,7 +109,20 @@ function wdja_cms_admin_manage_editdisp()
   $ttype = ii_get_num($_POST['type']);
   $tcount = ii_get_num($_POST['count']);
   $otype = mm_get_field($ngenre,$tid,'type');
-  if(($otype == 3 || $ttype == 3 ) && $otype != $ttype) wdja_cms_admin_msg(ii_itake('manage.type_error', 'lng'), $tbackurl, 1);
+  
+  $tckstr = 'topic:' . ii_itake('manage.topic', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
+  if (($otype == 3 || $ttype == 3 ) && $otype != $ttype) wdja_cms_admin_msg(ii_itake('manage.type_error', 'lng'), $tbackurl, 1);
+  if (($otype == 4 || $ttype == 4 ) && $otype != $ttype) wdja_cms_admin_msg(ii_itake('manage.type_error', 'lng'), $tbackurl, 1);
+  if (($otype == 5 || $ttype == 5 ) && $otype != $ttype) wdja_cms_admin_msg(ii_itake('manage.type_error', 'lng'), $tbackurl, 1);
+  if (($otype == 6 || $ttype == 6 ) && $otype != $ttype) wdja_cms_admin_msg(ii_itake('manage.type_error', 'lng'), $tbackurl, 1);
   if (!(ii_isnull($ttopic)))
   {
     $tsqlstr = "select * from $ndatabase where $nidfield=$tid";
@@ -100,11 +133,15 @@ function wdja_cms_admin_manage_editdisp()
       $tycount = ii_get_num($trs[ii_cfname('count')]);
       $tsqlstr = "update $ndatabase set
       " . ii_cfname('genre') . "='" . ii_left(ii_cstr($_POST['genre']), 50) . "',
+      " . ii_cfname('name') . "='" . ii_left(ii_cstr($_POST['name']), 50) . "',
       " . ii_cfname('topic') . "='" . ii_left($ttopic, 50) . "',
       " . ii_cfname('type') . "=$ttype,
       " . ii_cfname('count') . "=$tcount,
       " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
-      " . ii_cfname('time') . "='" . ii_get_date($_POST['time']) . "'
+      " . ii_cfname('hidden_list') . "=" . ii_get_num($_POST['hidden_list']) . ",
+      " . ii_cfname('hidden_detail') . "=" . ii_get_num($_POST['hidden_detail']) . ",
+      " . ii_cfname('time') . "='" . ii_get_date($_POST['time']) . "',
+      " . ii_cfname('update') . "='" . ii_now() . "'
       where $nidfield=$tid";
       $trs = ii_conn_query($tsqlstr, $conn);
       if ($trs)
@@ -142,10 +179,10 @@ function wdja_cms_admin_manage_editdisp()
             while ($trow = ii_conn_fetch_array($trs))
             {
               $gid = $trow[$gidfield];
-              if(strpos($trow[ii_cfnames($gfpre, 'data')],'|') !==false)
+              if (strpos($trow[ii_cfnames($gfpre, 'data')],'|') !==false)
               {
                 $tmyvid2_array = explode(',', $tmyvid2);
-                foreach($tmyvid2_array as $kk => $vv){
+                foreach($tmyvid2_array as $kk => $vv) {
                   $vv = str_replace($vv,'',$trow[ii_cfnames($gfpre, 'data')]);
                   $tsqlstr5 = 'update '.$gdatabase.' set '.ii_cfnames($gfpre, 'data').' = "'.$vv.'" where '.$gidfield.' = '.$gid.' and '.ii_cfnames($gfpre, 'fid').' = '.$trow[ii_cfnames($gfpre, 'fid')];
                   ii_conn_query($tsqlstr5, $conn);
@@ -222,7 +259,10 @@ function wdja_cms_admin_manage_edit()
   $tidfield = mm_cnidfield(ii_cvgenre($ngenre), 'data');
   $tfpre = mm_cnfpre(ii_cvgenre($ngenre), 'data');
   $otype = mm_get_field($ngenre,$tid,'type');
-  if($otype == 3) $tmpstr = ii_itake('manage.edit_input', 'tpl');
+  if ($otype == 3) $tmpstr = ii_itake('manage.edit_input', 'tpl');
+  elseif ($otype == 4) $tmpstr = ii_itake('manage.edit_textarea', 'tpl');
+  elseif ($otype == 5) $tmpstr = ii_itake('manage.edit_upload', 'tpl');
+  elseif ($otype == 6) $tmpstr = ii_itake('manage.edit_gallery', 'tpl');
   else $tmpstr = ii_itake('manage.edit', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
@@ -259,7 +299,7 @@ function wdja_cms_admin_manage_edit()
 
 function wdja_cms_admin_manage_list()
 {
-  global $conn;
+  global $conn, $slng;
   global $ndatabase, $nidfield, $nfpre, $npagesize;
   $toffset = ii_get_num($_GET['offset']);
   $tgenre = ii_get_safecode($_GET['genre']);
@@ -268,7 +308,7 @@ function wdja_cms_admin_manage_list()
   $tmpstr = ii_itake('manage.list', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where $nidfield>0";
+  $tsqlstr = "select * from $ndatabase where " . ii_cfname('lng') . "= '" . $slng . "'";
   if ($search_field == 'topic') $tsqlstr .= " and " . ii_cfname('topic') . " like '%" . $search_keyword . "%'";
   if ($search_field == 'id') $tsqlstr .= " and $nidfield=" . ii_get_num($search_keyword);
   if (!ii_isnull($tgenre)) $tsqlstr .= " and " . ii_cfname('genre') . "='" . $tgenre . "'";
@@ -293,6 +333,10 @@ function wdja_cms_admin_manage_list()
       }
       $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
       $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('topic')])), $tmptstr);
+      $tmptstr = str_replace('{$name}', ii_htmlencode($trs[ii_cfname('name')]), $tmptstr);
+      $tmptstr = str_replace('{$hidden}', ii_itake('global.sel_yesno.'.ii_get_num($trs[ii_cfname('hidden')]), 'sel'), $tmptstr);
+      $tmptstr = str_replace('{$hidden_list}', ii_itake('global.sel_yesno.'.ii_get_num($trs[ii_cfname('hidden_list')]), 'sel'), $tmptstr);
+      $tmptstr = str_replace('{$hidden_detail}', ii_itake('global.sel_yesno.'.ii_get_num($trs[ii_cfname('hidden_detail')]), 'sel'), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$type}', ii_get_num($trs[ii_cfname('type')]), $tmptstr);
       $tmptstr = str_replace('{$genre}',ii_itake('global.'.$trs[ii_cfname('genre')].':module.channel_title', 'lng'), $tmptstr);
@@ -300,7 +344,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace('{$tgenre}', $tgenre, $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
@@ -327,7 +371,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

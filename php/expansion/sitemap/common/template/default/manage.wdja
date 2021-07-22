@@ -26,6 +26,9 @@
           <th valign="top"><t>{$=ii_itake('manage.singlepage','lng')}</t></th>
           <td><input type="text" name="singlepage" class="i1" value="{$singlepage}"></td>
         </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.page_num','lng')}</t></th>
+          <td><input type="text" name="page_num" class="i1" value="{$page_num}"></td>
+        </tr><tr>
           <th valign="top"><t>{$=ii_itake('manage.save','lng')}</t></th>
           <td><span style="vertical-align: middle;" onclick="inputSwitch(this)" class="switch switch-{$save}" bind="1"><b></b><u></u><em></em><input type="hidden" name="save" class="val" value="{$save}" /></span> {$=ii_itake('manage.save_tips','lng')}</td>
         </tr></tbody>
@@ -35,20 +38,24 @@
       </div>
     </form>
     <h3>{$=ii_itake('manage.create','lng')}</h3>
-    <form name="form" method="post" action="?action=create&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
       <table cellpadding="10" cellspacing="0" class="tableF">
         <tbody><tr>
           <th valign="top"><t>{$=ii_itake('manage.sitemap','lng')}</t></th>
-          <td><a href="{$sitemap}" target="_blank" >{$sitemap}</a></td>
+          <td>
+    <form name="form" method="post" action="?action=create&backurl={$=urlencode($GLOBALS['nurl'])}">
+            <a href="{$sitemap}" target="_blank" >{$sitemap}</a>&nbsp;&nbsp;<button class="b2 submit" onclick="click_go();">{$=ii_itake('manage.create','lng')}</button>
+    </form>
+          </td>
         </tr><tr>
           <th valign="top"><t>{$=ii_itake('manage.sitemap_html','lng')}</t></th>
-          <td><a href="{$sitemap_html}" target="_blank" >{$sitemap_html}</a></td>
+          <td>
+    <form name="form" method="post" action="?action=create_html&backurl={$=urlencode($GLOBALS['nurl'])}">
+            <a href="{$sitemap_html}" target="_blank" >{$sitemap_html}</a>&nbsp;&nbsp;<button class="b2 submit" onclick="click_go();">{$=ii_itake('manage.create_html','lng')}</button>
+    </form>
+          </td>
         </tr></tbody>
       </table>
-      <div class="form_button">
-      <button class="b2 submit">{$=ii_itake('manage.create','lng')}</button>
-      </div>
-    </form>
+<script type="text/javascript" src="{$=#global_images_route}js/click_go.js?{$=ii_random(3)}"></script>
       ]]></tpl_default>
     </item>
   </item_list>

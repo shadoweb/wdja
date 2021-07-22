@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------
 // | WeChatDeveloper
 // +----------------------------------------------------------------------
-// | 版权所有 2014~2018 广州楚才信息科技有限公司 [ http://www.cuci.cc ]
+// | 版权所有 2014~2020 广州楚才信息科技有限公司 [ http://www.cuci.cc ]
 // +----------------------------------------------------------------------
 // | 官方网站: http://think.ctolog.com
 // +----------------------------------------------------------------------
@@ -39,7 +39,7 @@ class Bill extends BasicWePay
         $params = $this->params->merge($options);
         $params['sign'] = $this->getPaySign($params, 'MD5');
         $result = Tools::post('https://api.mch.weixin.qq.com/pay/downloadbill', Tools::arr2xml($params));
-        if (($jsonData = Tools::xml2arr($result))) {
+        if (is_array($jsonData = Tools::xml3arr($result))) {
             if ($jsonData['return_code'] !== 'SUCCESS') {
                 throw new InvalidResponseException($jsonData['return_msg'], '0');
             }

@@ -163,5 +163,25 @@
 支付宝请扫码支付,微信请添加好友或直接扫码支付.<br/>
 如有问题请联系在线客服:QQ 925474725 微信: shadoweb]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[pay_success]]></disinfo>
+      <chinese><![CDATA[支付成功]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[pay_fail]]></disinfo>
+      <chinese><![CDATA[支付失败]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[pay_finish]]></disinfo>
+      <chinese><![CDATA[已支付]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[buy]]></disinfo>
+      <chinese><![CDATA[购买]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[sign]]></disinfo>
+      <chinese><![CDATA[签到]]></chinese>
+    </item>
   </language_list>
 </xml>

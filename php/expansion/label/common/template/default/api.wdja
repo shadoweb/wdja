@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[inputs_text]]></name>
+      <tpl_default><![CDATA[
+      <ul id="inputs_{$id}" class="label_inputs_text">
+      {@}<li class="images_{$id}_{$i}"><span>{$key}</span><span>{$val}</span></li>{@}
+      </ul>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[inputs_link]]></name>
+      <tpl_default><![CDATA[
+      <ul id="inputs_{$id}" class="label_inputs_link">
+      {@}<li class="images_{$id}_{$i}"><a href="{$val}">{$key}</a></li>{@}
+      </ul>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[images]]></name>
+      <tpl_default><![CDATA[
+      <ul id="images_{$id}" class="label_images">
+      {@}<li class="images_{$id}_{$i}"><img src="{$url}" title="{$title}" alt="{$desc}"></li>{@}
+      </ul>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

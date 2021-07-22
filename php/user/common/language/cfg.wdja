@@ -7,14 +7,6 @@
   </configure>
   <language_list>
     <item>
-      <disinfo><![CDATA[face_width_max]]></disinfo>
-      <chinese><![CDATA[自定义头像最大宽]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[face_height_max]]></disinfo>
-      <chinese><![CDATA[自定义头像最大宽高]]></chinese>
-    </item>
-    <item>
       <disinfo><![CDATA[register_close]]></disinfo>
       <chinese><![CDATA[注册用户功能是否关闭(0:否/1:是)]]></chinese>
     </item>

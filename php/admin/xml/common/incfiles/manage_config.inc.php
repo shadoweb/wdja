@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 
@@ -30,7 +30,7 @@ function pp_get_template_select()
     {
       if (!ii_isnull($tmodule) && $val == $tmodule) $tmprstr = $option_selected;
       else $tmprstr = $option_unselected;
-      if(file_exists(ii_get_actual_route($val) . $tthings)){
+      if (file_exists(ii_get_actual_route($val) . $tthings)) {
         $tmprstr = str_replace('{$explain}', '(' . mm_get_genre_description($val) . ')' , $tmprstr);
         $tmprstr = str_replace('{$value}', $val, $tmprstr);
       }
@@ -93,8 +93,8 @@ function wdja_cms_admin_manage_adddisp()
 {
       $tbackurl = $_GET['backurl'];
       $filepath = $_POST['xmlconfig_burl'];
-      $nodename = $_POST['nodename'];
-      if(strpos($tbackurl,'?')) $tbackurl = $tbackurl.'&item='.$nodename;
+      $nodename = trim($_POST['nodename']);
+      if (strpos($tbackurl,'?')) $tbackurl = $tbackurl.'&item='.$nodename;
       else $tbackurl = $tbackurl.'?item='.$nodename;
       if (is_file($filepath))
       {
@@ -144,7 +144,7 @@ function wdja_cms_admin_manage_editdisp()
       $tbackurl = $_GET['backurl'];
       $keyword = $_POST['xmlconfig_field'];
       $sourceFile = $_POST['xmlconfig_burl'];
-      $name = $_POST['name'];
+      $name = trim($_POST['name']);
       $value = $_POST[$name];
       if (is_file($sourceFile))
       {
@@ -185,13 +185,13 @@ function wdja_cms_admin_manage_deletedisp()
 {
   $trootstr = $_GET['xml'];
   $tbackurl = $_GET['backurl'];
-  if(strpos($tbackurl,'&item=')) $tbackurl_array = explode('&', $tbackurl);
+  if (strpos($tbackurl,'&item=')) $tbackurl_array = explode('&', $tbackurl);
    if (is_array($tbackurl_array))
     {
      $tbackurl = '';
-     foreach($tbackurl_array as $k => $v){
-         if(strpos($v,'item=') !== false) continue;
-         if($k == 0) $tbackurl .= $v;
+     foreach($tbackurl_array as $k => $v) {
+         if (strpos($v,'item=') !== false) continue;
+         if ($k == 0) $tbackurl .= $v;
          else $tbackurl .= '&'.$v;
      }
     }
@@ -243,7 +243,7 @@ function wdja_cms_admin_manage_edit()
 {
   $txml = $_GET['xml'];
   $titem = $_GET['item'];
-  if(ii_isnull($txml)) $txml = '.tpl.module';
+  if (ii_isnull($txml)) $txml = '.tpl.module';
   $trootstr = pp_get_template_root($txml) . XML_SFX;
   if (file_exists($trootstr))
   {
@@ -279,12 +279,12 @@ function wdja_cms_admin_manage_edit()
             $tdisplay = '';
             $tname = $trest -> childNodes -> item($ti) -> nodeValue;
             $torder .= $tname . ',';
-            if(!ii_isnull($titem) && $titem != $tname) break;
-            if(ii_isnull($titem) && $t >1) break;
+            if (!ii_isnull($titem) && $titem != $tname) break;
+            if (ii_isnull($titem) && $t >1) break;
           }
-          if(ii_isnull($titem)) $titem = $trest -> childNodes -> item(1) -> nodeValue;
+          if (ii_isnull($titem)) $titem = $trest -> childNodes -> item(1) -> nodeValue;
           $tmptstr = $tmpastr;
-          if($trest -> childNodes -> item($ti) -> nodeName == 'tpl_default' || $trest -> childNodes -> item($ti) -> nodeName == 'chinese' ) {
+          if ($trest -> childNodes -> item($ti) -> nodeName == 'tpl_default' || $trest -> childNodes -> item($ti) -> nodeName == 'chinese') {
           $tdisplay = '';
           $tmptstr = str_replace('{$rows}', $trows, $tmptstr);
           $tmptstr = str_replace('{$disinfo}', ii_htmlencode($trest -> childNodes -> item($ti) -> nodeName), $tmptstr);
@@ -318,13 +318,13 @@ function wdja_cms_admin_manage_edit()
 function wdja_cms_admin_manage_add()
 {
   $tbackurl = $_GET['backurl'];
-  if(strpos($tbackurl,'&item=')) $tbackurl_array = explode('&', $tbackurl);
+  if (strpos($tbackurl,'&item=')) $tbackurl_array = explode('&', $tbackurl);
    if (is_array($tbackurl_array))
     {
      $tbackurl = '';
-     foreach($tbackurl_array as $k => $v){
-         if(strpos($v,'item=') !== false) continue;
-         if($k == 0) $tbackurl .= $v;
+     foreach($tbackurl_array as $k => $v) {
+         if (strpos($v,'item=') !== false) continue;
+         if ($k == 0) $tbackurl .= $v;
          else $tbackurl .= '&'.$v;
      }
     }
@@ -353,7 +353,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

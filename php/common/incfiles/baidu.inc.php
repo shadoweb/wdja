@@ -1,16 +1,18 @@
 <?php
-function mm_baidu_push($type,$genre,$topic,$gid){
+function mm_baidu_push($type,$genre,$topic,$gid) {
   global $conn, $variable;
   ii_conn_init();
-  $baidu_offon = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.baidupush','lng');//推送配置开关
-  $baidu_url = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.baidupush_url','lng');//推送配置url
-  $baidu_token = ii_itake('global.' . ADMIN_FOLDER . '/global:seo.baidupush_token','lng');//推送配置token
-  if($baidu_offon == 0) return;
-  $ngenre = 'expansion/baidupush';
+  $baidu_offon = ii_itake('global.support/global:seo.baidupush_switch','lng');//推送配置开关
+  $baidu_url = ii_itake('global.support/global:seo.baidupush_url','lng');//推送配置url
+  $baidu_token = ii_itake('global.support/global:seo.baidupush_token','lng');//推送配置token
+  if ($baidu_offon == 0) return;
   //推送方式:推送 urls 更新 update 删除 del
   global $nurlpre;
-  $url = $nurlpre.'/'.$genre.'/?type=detail&id='.$gid;
-  if(ii_isnull($baidu_url)) $baidu_url = $nurlpre;
+  $nurltype = $variable[ii_cvgenre($genre) . '.nurltype'];
+  $ncreatefolder = $variable[ii_cvgenre($genre) . '.ncreatefolder'];
+  $ncreatefiletype = $variable[ii_cvgenre($genre) . '.ncreatefiletype'];
+  $url = $nurlpre.'/'.$genre.'/'.ii_iurl('detail', $gid, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype);
+  if (ii_isnull($baidu_url)) $baidu_url = $nurlpre;
   $urls = array(
     $url,
   );
@@ -26,16 +28,16 @@ function mm_baidu_push($type,$genre,$topic,$gid){
   curl_setopt_array($ch, $options);
   $result = curl_exec($ch);
   $res = json_decode($result, true);
-  if(ii_isnull($res['error']) && !ii_isnull($res['success'])){
+  if (ii_isnull($res['error']) && !ii_isnull($res['success'])) {
     $state = 1;
-    if($type == 'urls') baidu_insert($genre,$topic,$gid, $result,$state);
-    if($type == 'update') baidu_update($genre,$gid, $result,$state);
-    if($type == 'del') baidu_del($genre,$gid, $result,$state);
+    if ($type == 'urls') baidu_insert($genre,$topic,$gid, $result,$state);
+    if ($type == 'update') baidu_update($genre,$gid, $result,$state);
+    if ($type == 'del') baidu_del($genre,$gid, $result,$state);
   }else{
     $state = 0;
-    if($type == 'urls') baidu_insert($genre,$topic,$gid, $result,$state);
-    if($type == 'update') baidu_update($genre,$gid, $result,$state);
-    if($type == 'del') baidu_del($genre,$gid, $result,$state);
+    if ($type == 'urls') baidu_insert($genre,$topic,$gid, $result,$state);
+    if ($type == 'update') baidu_update($genre,$gid, $result,$state);
+    if ($type == 'del') baidu_del($genre,$gid, $result,$state);
   }
 }
 
@@ -48,7 +50,10 @@ function baidu_insert($genre,$topic,$gid,$content,$state)
   $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
-  $turl = $nurlpre.'/'.$genre.'/?type=detail&id='.$gid;
+  $urltype = $variable[ii_cvgenre($genre) . '.nurltype'];
+  $createfolder = $variable[ii_cvgenre($genre) . '.ncreatefolder'];
+  $createfiletype = $variable[ii_cvgenre($genre) . '.ncreatefiletype'];
+  $turl = $nurlpre.'/'.$genre.'/'.ii_iurl('detail',$gid, $urltype, 'folder=' . $createfolder . ';filetype=' . $createfiletype);
   $ttype = 'urls';
   $ttime = ii_now();
   $tupdate = ii_now();
@@ -79,7 +84,7 @@ function baidu_insert($genre,$topic,$gid,$content,$state)
     '$nlng'
     )";
   $trs = ii_conn_query($tsqlstr, $conn);
-  if($trs){
+  if ($trs) {
     $bid = ii_conn_insert_id($conn);
     baidu_data_insert($bid,$tcount,$ttype,$state,$content);
   }
@@ -103,7 +108,7 @@ function baidu_update($genre,$gid, $result,$state)
   '.ii_cfnames($nfpre, "update") . '= "'.$tupdate.'" 
   where ' . ii_cfnames($nfpre, "genre") . '="'.$genre.'" and ' . ii_cfnames($nfpre, "gid") . '="'.$gid.'"';
   $trs = ii_conn_query($tsqlstr, $conn);
-  if($trs){
+  if ($trs) {
     $nsqlstr = 'select '.$nidfield.' from '. $ndatabase.' where ' . ii_cfnames($nfpre, "genre") . '="'.$genre.'" and ' . ii_cfnames($nfpre, "gid") . '="'.$gid.'"';
     $nrs = ii_conn_query($nsqlstr, $conn);
     $nrs = ii_conn_fetch_array($nrs);
@@ -124,9 +129,8 @@ function baidu_del($genre,$gid, $result,$state)
   $ttype = 'del';
   $tupdate = ii_now();
   $tsqlstr = 'update '.$ndatabase.' set '.ii_cfnames($nfpre, "count") . '=' . ii_cfnames($nfpre, "count") . '+1,'.ii_cfnames($nfpre, "state") . '= "'.$state.'" ,'.ii_cfnames($nfpre, "content") . '= \''.$result.'\' ,'.ii_cfnames($nfpre, "type") . '= "'.$ttype.'" ,'.ii_cfnames($nfpre, "update") . '= "'.$tupdate.'" where ' . ii_cfnames($nfpre, "genre") . '="'.$genre.'" and ' . ii_cfnames($nfpre, "gid") . '="'.$gid.'"';
-  //echo $tsqlstr;exit;
   $trs = ii_conn_query($tsqlstr, $conn);
-  if($trs){
+  if ($trs) {
     $nsqlstr = 'select '.$nidfield.' from '. $ndatabase.' where ' . ii_cfnames($nfpre, "genre") . '="'.$genre.'" and ' . ii_cfnames($nfpre, "gid") . '="'.$gid.'"';
     $nrs = ii_conn_query($nsqlstr, $conn);
     $nrs = ii_conn_fetch_array($nrs);
@@ -150,10 +154,9 @@ function mm_search_baidu($array)
   $gid = $array['gid'];
   $tmpstr = '';
   $tsqlstr = 'select * from '. $tdatabase.' where '.ii_cfnames($tfpre,'genre').' = "' .$genre.'" and '.ii_cfnames($tfpre,'gid').' = "' .$gid.'"';
-  //echo $tsqlstr;exit;
   $trs = ii_conn_query($tsqlstr, $conn);
   $trs = ii_conn_fetch_array($trs);
-  if($trs) $res = true;
+  if ($trs) $res = true;
   else $res = false;
   return $res;
 }

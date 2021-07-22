@@ -67,12 +67,33 @@
       <tpl_default><![CDATA[<option value="{$value}" selected>{$explain}</option>]]></tpl_default>
     </item>
     <item>
+      <name><![CDATA[xmlinput_input]]></name>
+      <tpl_default><![CDATA[<tr>
+  <th valign="top"><t>{$ugname}</t></th>
+  <td><input name="ugid_{$ugid}" value="{$value}" class="i1"></td>
+</tr>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[shop_price]]></name>
+      <tpl_default><![CDATA[
+      <span id="ugid_{$ugid}">{$ugname}:￥&nbsp;{$value}{$=ii_itake('global.lng_unit.money', 'lng')}</span>
+      ]]></tpl_default>
+    </item>
+    <item>
       <name><![CDATA[xmlselect_unradio]]></name>
       <tpl_default><![CDATA[<label class="radio"><input type="radio" class="radio" name="{$name}" value="{$value}"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[xmlselect_radio]]></name>
       <tpl_default><![CDATA[<label class="radio"><input type="radio" class="radio" name="{$name}" value="{$value}" checked="checked"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_unradio_img]]></name>
+      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="hidden" name="{$name}" value="{$value}"><img src="{$=#global_images_route}public/label/{$name}_{$value}.png"></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_radio_img]]></name>
+      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="hidden" name="{$name}" value="{$value}" checked="checked"><img src="{$=#global_images_route}public/label/{$name}_{$value}.png"></label>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[xmlselect_uncheckbox]]></name>
@@ -135,7 +156,7 @@
     </item>
     <item>
       <name><![CDATA[admin_un_lng]]></name>
-      <tpl_default><![CDATA[<li val="{$i}" text="{$explain}"><flag class="f{$i}"></flag><span class="hand"><a target="main" href="admin_manage.php?slng={$value}">{$explain}</a></span></li>]]></tpl_default>
+      <tpl_default><![CDATA[<li val="{$i}" text="{$explain}"><flag class="f{$i}"></flag><span class="hand"><a target="_self" href="/{$=ADMIN_FOLDER}/?slng={$value}">{$explain}</a></span></li>]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[admin_lng]]></name>

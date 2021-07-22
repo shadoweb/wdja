@@ -15,6 +15,10 @@
       <chinese><![CDATA[错误的搜索条件]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[nodata]]></disinfo>
+      <chinese><![CDATA[结果为空,请重新搜索.]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[keyword_error]]></disinfo>
       <chinese><![CDATA[没有输入关键字]]></chinese>
     </item>

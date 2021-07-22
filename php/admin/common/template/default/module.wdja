@@ -11,8 +11,17 @@
       <tpl_default><![CDATA[
       <style>
       .table{border: 0 !important;}
-      .container { background: #eee;}
+      .container {background: #eee;}
       nav{display:none;}
+      a.back{
+      font-size: 1.4rem;
+      font: 400 13.3333px Arial;
+      color: #fff;
+      display: inline-block;padding: 6px 16px;line-height: 100%;font-size: 1.4rem;border: #666 1px solid;cursor: pointer;transition: all .1s ease;background-color: #555;border-color: #555;border-radius: 2px;
+      }
+      a.back:hover{
+      background-color: #333; border-color: #333
+      }
       </style>
       <div class="login">
   <h1>{$=ii_itake('config.login','lng')}</h1>
@@ -31,8 +40,7 @@
     </div>
     <div style="text-align: center;" class="button clear_float">
     <button style="float:none;" class="b1">{$=ii_itake('config.ulogin','lng')}</button>
-    <a style="display: inline-block;padding: 6px 16px;line-height: 100%;font-size: 1.4rem;color: #fff;border: #666 1px solid;cursor: pointer;transition: all .1s ease;background-color: #555;border-color: #555;font: Arial;" href="{$=#nurlpre}">{$=ii_itake('config.backhome','lng')}</a>
-    <!--input style="display:none;" onclick="get_id('submit').click" type="submit" id="submit" name="submit" value="{$=ii_itake('config.ulogin','lng')}" class="b1"-->
+    <a class="back" href="{$=#nurlpre}">{$=ii_itake('config.backhome','lng')}</a>
     </div>
   </form>
 </div>
@@ -40,7 +48,7 @@
     </item>
     <item>
       <name><![CDATA[frame]]></name>
-      <tpl_default><![CDATA[<!DOCTYPE html>
+      <tpl_default><![CDATA[<!doctype html>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
@@ -139,7 +147,7 @@ function getClientHeight()
   <div id="topbar" class="topbar">
     <h1 id="logo" ><img src="{$=#images_route}top_logo.png" border="0"></h1>
     <span class="menu hand" onclick="switch_menu(this);"><img id="images" name="images" src="{$=#images_route}smenu.png" width="30" border="0"></span>
-    <right>
+    <div class="topright">
       <div class="section"><b>{$admin_user}</b><ul><li><a href="./?action=logout" target="_top"><b>{$=ii_itake('module.logout','lng')}</b></a></li></ul></div>
       <lang class="section"><b>{$=wdja_cms_top_lng_view()}</b><em></em>
 		<ul>
@@ -149,12 +157,14 @@ function getClientHeight()
       <admin class="hand"><a href="admin_main.php" target="_top" title="{$=ii_itake('module.main','lng')}"></a></admin>
       <home class="hand"><a href="{$=#nurlpre}" target="_blank" title="{$=ii_itake('module.home','lng')}"></a></home>
       <logout class="hand"><a href="./?action=logout" target="_self" title="{$=ii_itake('module.logout','lng')}"></a></logout>
-    </right>
+    </div>
   </div>
   <div id="container" class="container">
     <div class="leftmenu" id="lists">{$=wdja_cms_left()}</div>
     <div class="maincontent">
-      <div class="main"><iframe id="main" name="main" src="admin_manage.php" onload="iframe_onload(this)" frameborder="0" scrolling="auto" height="100%"></iframe></div>
+      <div class="main">
+      <iframe id="main" name="main" src="admin_manage.php" onload="iframe_onload(this)" frameborder="0" scrolling="auto" height="100%"></iframe>
+  </div>
     </div>
   </div>
 </div>
@@ -199,6 +209,7 @@ function getClientHeight()
       <li><b>{$=ii_itake('module.session','lng')}</b>{$=function_exists(session_start)?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
     </ul>
   </div>
+      <p style="text-align:center;padding:5px 0;">{$=ii_itake('module.admin_tips','lng')}</p>
 ]]></tpl_default>
     </item>
     <item>

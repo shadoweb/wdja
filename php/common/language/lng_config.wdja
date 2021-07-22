@@ -15,6 +15,10 @@
       <chinese><![CDATA[否]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[view]]></disinfo>
+      <chinese><![CDATA[查看]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[edit]]></disinfo>
       <chinese><![CDATA[编辑]]></chinese>
     </item>
@@ -79,12 +83,20 @@
       <chinese><![CDATA[标题]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[topic_tips]]></disinfo>
+      <chinese><![CDATA[标题重复]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[titles]]></disinfo>
+      <chinese><![CDATA[SEO标题]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[keywords]]></disinfo>
-      <chinese><![CDATA[关键字]]></chinese>
+      <chinese><![CDATA[SEO关键字]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[description]]></disinfo>
-      <chinese><![CDATA[描述]]></chinese>
+      <chinese><![CDATA[SEO描述]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[author]]></disinfo>
@@ -105,6 +117,10 @@
     <item>
       <disinfo><![CDATA[time]]></disinfo>
       <chinese><![CDATA[时间]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[update]]></disinfo>
+      <chinese><![CDATA[更新时间]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[content]]></disinfo>
@@ -171,12 +187,20 @@
       <chinese><![CDATA[图片]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[images]]></disinfo>
-      <chinese><![CDATA[图片集]]></chinese>
+      <disinfo><![CDATA[gallery]]></disinfo>
+      <chinese><![CDATA[相册]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[atts]]></disinfo>
+      <chinese><![CDATA[附件集]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[upload]]></disinfo>
       <chinese><![CDATA[上传]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[download]]></disinfo>
+      <chinese><![CDATA[下载]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[create]]></disinfo>
@@ -244,11 +268,19 @@
     </item>
     <item> 
       <disinfo><![CDATA[gourl-tips]]></disinfo> 
-      <chinese><![CDATA[填写跳转链接后，内容将作为外部链接直接跳转自此地址]]></chinese> 
+      <chinese><![CDATA[填写跳转链接后，本内容将通过301跳转到链接地址]]></chinese> 
     </item>
     <item> 
       <disinfo><![CDATA[tpl]]></disinfo> 
       <chinese><![CDATA[模板]]></chinese> 
+    </item>
+    <item> 
+      <disinfo><![CDATA[tpl_list]]></disinfo> 
+      <chinese><![CDATA[列表模板]]></chinese> 
+    </item>
+    <item> 
+      <disinfo><![CDATA[tpl_detail]]></disinfo> 
+      <chinese><![CDATA[内容模板]]></chinese> 
     </item>
     <item>
       <disinfo><![CDATA[img_title]]></disinfo>
@@ -261,6 +293,10 @@
     <item>
       <disinfo><![CDATA[img_url]]></disinfo>
       <chinese><![CDATA[图片链接]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[view_user]]></disinfo>
+      <chinese><![CDATA[权限]]></chinese>
     </item>
   </language_list>
 </xml>

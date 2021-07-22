@@ -9,71 +9,60 @@
     <item>
       <name><![CDATA[list]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
-      <div id="list_menu">
-        <ul>{$=vv_isort('{$genre}', 'tpl=sort')}</ul>
-      </div>
-<form id="filterForm" name="form1" method="get" action="{$=#nurl}">
-<input id="type" type="hidden" value="list" name="type" to="filter">
-<input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
-<input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
-{$=api_list_fields_input()}
-{$=api_list_fields()}
-</form>
-      <div class="list_con">
-      <ol>
+{$=ii_ireplace('global.module.swiper','tpl')}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="imgtxt-list">
+    <div class="imgtxt-list-con">
+      <ul>
         {@recurrence_ida}
-            <li>
-              <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}" title="{$topic}">
-              <img src="{$image}" alt="{$topic}">
-              <strong>{$topic}</strong>
-              </a>
-            </li>
+        <li>
+          <div class="imgtxt-details">
+            <div class="img"><img src="{$image}"></div>
+            <span class="title">{$topic}</span>
+            <div class="desc">{$=ii_left({$description},80)}</div>
+            <dl class="view_fileds">
+              <dd><i class="icon iconfont icon-viewlist"></i>{$staus_topic}:{$staus}</dd>
+              <dd><i class="icon iconfont icon-viewlist"></i>{$style_topic}:{$style}</dd>
+            </dl>
+            <a class="view" href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';time={$time}')}"><span>查看详情</span></a>
+          </div>
+        </li>
         {@recurrence_ida}
-      </ol>
-      <div id="cutepage" class="cutepage">{$cpagestr}</div>
-      </div>
-    <div class="clear"></div>
-    </main>
+      </ul>
+    </div>
   </div>
-</section>
-<script type="text/javascript">get_id('lm{$classid}').className = 'on';</script>
+
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[detail]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <div class="content">
-        <nav class="nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</nav>
-        <h1>{$topic}</h1>
-        <div class="con_text">
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        <p>{$=api_tags_list()}</p>
-        <table width="100%" cellspacing="0" cellpadding="0" border="0">
-        {$=api_view_fields()}
-		{@recurrence_ida}
-          <tr>
-            <td width="80" height="25" align="right">{$infos_topic}</td>
-            <td width="5"></td>
-            <td>{$infos_link}</td>
-          </tr>
-		{@recurrence_ida}
- 		</table>
-        {$=mm_encode_content(api_tags_replace_tags($GLOBALS['RS_content']))}
-        </div>
-        <div class="updown">
-            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
-            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
-        </div>
+<div class="detail">
+  <h1>{$topic}</h1>
+  <div class="data">{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></div>
+  <div class="content">
+    <div>
+      <link rel="stylesheet" href="{$=#global_images_route}js/viewer/viewer.min.css?{$=ii_random(3)}" />
+      <script src="{$=#global_images_route}js/viewer/viewer.min.js"></script>
+      <ul id="images" class="gallery">
+        {$=mm_get_gallery('{$photos}')}
+      </ul>
+      <script>
+        const gallery = new Viewer(document.getElementById('images'));
+      </script>
     </div>
-    <div class="clear"></div>
+    {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+    <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
   </div>
-</section>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

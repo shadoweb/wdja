@@ -21,7 +21,7 @@
 <section id="middle">
   <div id="middleContent">
     <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('module.mread','lng')}</nav>
+    <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('module.mread','lng')}</nav>
       <div class="list_con">
               <form method="post" action="?action=register">
               <table width="100%" cellspacing="0" cellpadding="0" border="0">
@@ -35,7 +35,7 @@
                   <td height="10"></td>
                 </tr>
                 <tr>
-                  <td height="35" align="center"><input type="button" name="agree" value="{$=ii_itake('module.agree','lng')}" class="button" onclick="location.href='?type=register'"> <input type="button" name="oppose" value="{$=ii_itake('module.oppose','lng')}" class="button" onclick="self.close()"></td>
+                  <td height="35" class="center"><input type="button" name="agree" value="{$=ii_itake('module.agree','lng')}" class="button" onclick="location.href='?type=register'"> <input type="button" name="oppose" value="{$=ii_itake('module.oppose','lng')}" class="button" onclick="self.close()"></td>
                 </tr>
                 <tr>
                   <td height="10"></td>
@@ -51,193 +51,416 @@
 ]]></tpl_default>
     </item>
     <item>
-      <name><![CDATA[shopcart_detail]]></name>
-      <tpl_default><![CDATA[
-
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.shopcart', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
+      <name><![CDATA[wxpayjs]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+          {$=ap_user_data_member_side()}
+        </div>
       </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+          <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('config.recharge', 'lng')}</div>
+          <table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tbody><tr>
+              <td colspan="2" class="center"><img src="{$qrcode}"></td>
+              </tr>
+              <tr>
+                <td height="25" align="right">{$=ii_itake('global.user/recharge:module.payorder', 'lng')}</td>
+                <td>{$payjs_order_id}</td>
+              </tr>
+              <tr>
+                <td height="25" align="right">{$=ii_itake('global.user/recharge:module.order', 'lng')}</td>
+                <td>{$out_trade_no}</td>
+              </tr>
+              <tr>
+                <td height="25" align="right">{$=ii_itake('global.user/recharge:module.money', 'lng')}</td>
+                <td>{$total_fee}</td>
+              </tr>
+              <tr>
+              <td colspan="2" class="center"><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=manage&mtype=userinfo" class="button">{$=ii_itake('global.user/recharge:module.viewmoney', 'lng')}</a></td>
+              </tr>
+            </tbody></table>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[alipayjs]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+          {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+          <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('config.recharge', 'lng')}</div>
+          <table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tbody><tr>
+              <td colspan="2" class="center"><img src="{$qrcode}"></td>
+              </tr>
+              <tr>
+                <td height="25" align="right">{$=ii_itake('global.user/recharge:module.payorder', 'lng')}</td>
+                <td>{$payjs_order_id}</td>
+              </tr>
+              <tr>
+                <td height="25" align="right">{$=ii_itake('global.user/recharge:module.order', 'lng')}</td>
+                <td>{$out_trade_no}</td>
+              </tr>
+              <tr>
+                <td height="25" align="right">{$=ii_itake('global.user/recharge:module.money', 'lng')}</td>
+                <td>{$total_fee}</td>
+              </tr>
+              <tr>
+              <td colspan="2" class="center"><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=manage&mtype=userinfo" class="button">{$=ii_itake('global.user/recharge:module.viewmoney', 'lng')}</a></td>
+              </tr>
+            </tbody></table>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[manage_member]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.userinfo', 'lng')}</div>
+              <table width="100%" cellspacing="0" cellpadding="10" border="0">
+                <tr>
+                  <td height="25" align="left">{$=ii_itake('config.hello', 'lng')}, <strong>{$=#nusername}</strong>, {$=ii_itake('config.lasttime', 'lng')}: {$pretime}</td>
+                </tr>
+              </table>
+              <table width="100%" cellspacing="0" cellpadding="10" border="0">
+                <tr>
+                  <td width="100" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
+                  <td>{$username}</td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.group', 'lng')}</td>
+                  <td>{$=ii_itake('sel_group.{$utype}', 'sel')} <a href="/user/vip/?type={$buy_type}" class="button">{$=ii_itake('config.'.$GLOBALS['RS_buy_type'],'lng')}</a></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.name', 'lng')}</td>
+                  <td>{$name}</td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.email', 'lng')}</td>
+                  <td>{$email}</td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.money', 'lng')}</td>
+                  <td>{$money}{$=ii_itake('global.lng_unit.money', 'lng')} <a href="/user/recharge/?type=buy" class="button">{$=ii_itake('config.recharge','lng')}</a></td>
+                </tr>
+                <tr class="none hide">
+                  <td height="25" align="right">{$=ii_itake('global.lng_noun.emoney', 'lng')}</td>
+                  <td>{$emoney}</td>
+                </tr>
+                <tr class="none hide">
+                  <td height="25" align="right">{$=ii_itake('global.lng_noun.integral', 'lng')}</td>
+                  <td>{$integral}</td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.sign', 'lng')}</td>
+                  <td>{$sign}</td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.time', 'lng')}</td>
+                  <td>{$time}</td>
+                </tr>
+              </table>
+      </div>
+     </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[manage_information]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.information', 'lng')}</div>
+              <form name="form" action="{$=#nuri}?action=manage&mtype=information&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+              <table width="100%" cellspacing="0" cellpadding="10" border="0">
+                <tr>
+                  <td width="100" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
+                  <td><strong>{$=#nusername}</strong></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.email', 'lng')}</td>
+                  <td><input type="text" name="email" size="40" maxlength="40" class="i1" value="{$email}" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.face', 'lng')}</td>
+                  <td><input type="text" size="40" name="face" class="i1" maxlength="50" value="{$face}" />&nbsp;<iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=face&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+                </tr>
+                <tr>
+                  <td width="100" height="25" align="right">{$=ii_itake('config.name', 'lng')}</td>
+                  <td><input type="text" size="20" name="name" class="i1" maxlength="50" value="{$name}" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.sex', 'lng')}</td>
+                  <td><select name="sex" class="s1">{$=ii_show_xmlinfo_select('global.sel_sex.all', '{$sex}', 'select')}</select></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.qq', 'lng')}</td>
+                  <td><input type="text" size="20" name="qq" class="i1" maxlength="50" value="{$qq}" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.phone', 'lng')}</td>
+                  <td><input type="text" size="20" name="phone" class="i1" maxlength="50" value="{$phone}" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.address', 'lng')}</td>
+                  <td><input type="text" size="40" name="address" class="i1" maxlength="50" value="{$address}" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.sign', 'lng')}</td>
+                  <td><input type="text" size="50" name="sign" class="i1" maxlength="50" value="{$sign}" /></td>
+                </tr>
+                <tr>
+                  <td height="35" align="right"></td>
+                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit', 'lng')}" class="button" /></td>
+                </tr>
+              </table>
+              </form>
+      </div>
+     </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[manage_password]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.password', 'lng')}</div>
+              <form method="post" action="{$=#nuri}?action=manage&mtype=password&backurl={$=urlencode($GLOBALS['nurl'])}">
+              <table width="100%" cellspacing="0" cellpadding="10" border="0">
+                <tr>
+                  <td width="100" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
+                  <td><strong>{$=#nusername}</strong></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.old_password', 'lng')}</td>
+                  <td><input type="password" name="password" size="20" class="i1" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.new_password', 'lng')}</td>
+                  <td><input type="password" name="npassword" size="20" class="i1" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.new_password', 'lng')}</td>
+                  <td><input type="password" name="ncpassword" size="20" class="i1" /></td>
+                </tr>
+                <tr>
+                  <td height="35" align="right"></td>
+                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /> <input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
+                </tr>
+              </table>
+              </form>
+      </div>
+     </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[user_detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+          {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+          <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.userdetail', 'lng')}</div>
+          <table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tr>
+              <td width="100" height="25" align="left">{$=ii_itake('config.username', 'lng')}</td>
+              <td>{$username}</td>
+            </tr>
+            <tr>
+              <td height="25" align="left">{$=ii_itake('config.group', 'lng')}</td>
+              <td>{$=ii_itake('sel_group.{$utype}', 'sel')}</td>
+            </tr>
+            <tr>
+              <td height="25" align="left">{$=ii_itake('config.sex', 'lng')}</td>
+              <td>{$=ii_itake('global.sel_sex.{$sex}', 'sel')}</td>
+            </tr>
+            <tr>
+              <td height="25" align="left">{$=ii_itake('config.email', 'lng')}</td>
+              <td>{$email}</td>
+            </tr>
+            <tr>
+              <td height="25" align="left">{$=ii_itake('config.qq', 'lng')}</td>
+              <td>{$qq}</td>
+            </tr>
+            <tr>
+              <td height="25" align="left">{$=ii_itake('global.lng_noun.integral', 'lng')}</td>
+              <td>{$integral}</td>
+            </tr>
+            <tr>
+              <td height="25" align="left">{$=ii_itake('config.sign', 'lng')}</td>
+              <td>{$sign}</td>
+            </tr>
+            <tr>
+              <td height="25" align="left">{$=ii_itake('config.time', 'lng')}</td>
+              <td>{$time}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[lostpassword]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="list">
+    <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</nav>
       <div class="list_con">
-
-            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
-              <tr>
-                <td width="100%" height="25" class="tbtop">{$=ii_itake('config.prolist','lng')}</td>
-              </tr>
-              <tr>
-                <td width="100%" align="center">
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                  <table class="table" border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="*" height="25">{$=ii_itake('global.shop:config.topic','lng')}</td>
-                      <td width="100">{$=ii_itake('global.shopcart:config.num','lng')}</td>
-                      <td width="100">{$=ii_itake('global.shop:config.price','lng')}({$=ii_itake('global.lng_unit.money','lng')})</td>
-                      <td width="100">{$=ii_itake('global.shop:config.wprice','lng')}({$=ii_itake('global.lng_unit.money','lng')})</td>
-                    </tr>
-                    {@recurrence_ida}
-                    <tr>
-                      <td height="25"><a href="{$=ii_get_actual_route('shop')}/?type=detail&id={$id}" target="_blank">{$topic}</a></td>
-                      <td>{$num}</td>
-                      <td>{$price}</td>
-                      <td class="green">{$wprice}</td>
-                    </tr>
-                    {@recurrence_ida}
-                  </table>
-
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="120" height="25">{$=ii_itake('global.shopcart:config.orderid','lng')}</td>
-                      <td width="*" class="red">{$orderid}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.merchandiseprice','lng')}</td>
-                      <td>{$merchandiseprice}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.trafficprice','lng')}</td>
-                      <td>{$trafficprice}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.allprice','lng')}</td>
-                      <td class="red">{$allprice} ({$=ii_itake('global.lng_unit.money','lng')})</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.name','lng')}</td>
-                      <td>{$name}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.address','lng')}</td>
-                      <td>{$address}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.code','lng')}</td>
-                      <td>{$code}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.phone','lng')}</td>
-                      <td>{$phone}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.email','lng')}</td>
-                      <td>{$email}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.remark','lng')}</td>
-                      <td>{$=ii_encode_article(ii_htmlencode($GLOBALS['RS_remark']))}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.payment','lng')}</td>
-                      <td><select name="payment" class="select" onchange="document.getElementById('payimg').src='{$=#global_images_route}theme/{$=#nskin}/payimg-'+this.value+'.png';document.getElementById('payurl').href='?type=pay&payid='+this.value+'&price={$allprice}&orderid={$orderid}&id={$id}'">{$=ii_show_xmlinfo_select('global.shopcart:sel_payment.all', '{$payment}', 'select')}</select><a class="btn" id="payurl" href="?type=pay&payid={$payment}&price={$allprice}&orderid={$orderid}&id={$id}">立即支付</a><img style="vertical-align: top;display:none;" id="payimg" src="{$=#global_images_route}theme/{$=#nskin}/payimg-{$payment}.png"></td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.traffic','lng')}</td>
-                      <td>{$=ii_itake('global.shopcart:sel_traffic.{$traffic}','lng')}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.time','lng')}</td>
-                      <td>{$time}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.dtime','lng')}</td>
-                      <td>{$dtime}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.state','lng')}</td>
-                      <td>{$=ii_itake('global.shopcart:sel_state.{$state}','lng')}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.express','lng')}</td>
-                      <td>{$=ii_itake('global.shopcart:sel_express.{$express}','lng')}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.expressid','lng')}</td>
-                      <td>{$expressid}&nbsp;<a style="display:none{$expressid};" href="https://www.baidu.com/s?word={$expressid}" target="_blank">查询</a></td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.prepaid','lng')}</td>
-                      <td>{$=ii_itake('global.sel_yesno.{$prepaid}','lng')}</td>
-                    </tr>
-                    <tr style="DISPLAY: none">
-                      <td height="25">{$=ii_itake('global.shopcart:config.payid','lng')}</td>
-                      <td>{$payid}</td>
-                    </tr>
-                    <tr>
-                      <td height="25">{$=ii_itake('global.shopcart:config.username','lng')}</td>
-                      <td>{$username}</td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
+              <form method="post" action="{$=#nuri}?action=lostpassword&backurl={$=urlencode($GLOBALS['nurl'])}">
+              <table width="350" style="margin:0 auto;" cellspacing="0" cellpadding="10" class="tablem">
+                <tr>
+                  <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
+                  <td><input type="text" name="username" style="width:200px;height:30px;" class="i1" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.email', 'lng')}</td>
+                  <td><input type="text" name="email" style="width:200px;height:30px;" class="i1" /></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('config.name', 'lng')}</td>
+                  <td><input type="text" name="name" style="width:200px;height:30px;" class="i1" /></td>
+                </tr>
+                <tr>
+                  <td height="35" align="right"></td>
+                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /></td>
+                </tr>
+              </table>
+              </form>
+              <table style="margin:0 auto;" cellspacing="0" cellpadding="10" border="0">
+                <tr>
+                  <td height="25"><b>{$=ii_itake('config.hint', 'lng')}</b></td>
+                </tr>
+                <tr>
+                  <td>{$=ii_itake('module.lostpassword_notice', 'lng')}</td>
+                </tr>
+                <tr>
+                  <td height="15"></td>
+                </tr>
+              </table>
       </div>
     <div class="clear"></div>
     </main>
   </div>
-</section>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}
 ]]></tpl_default>
     </item>
     <item>
-      <name><![CDATA[shopcart_list]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
+      <name><![CDATA[login]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
     <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.shopcart', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
+    <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.' . USER_FOLDER . ':api.userlogin', 'lng')}</nav>
       <div class="list_con">
-                  <form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
-                  <input type="hidden" name="sel_ids">
-                  <table class="table" border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="150">{$=ii_itake('global.shopcart:config.orderid','lng')}</td>
-                      <td width="*">{$=ii_itake('global.shopcart:global.shopcart:config.name','lng')}</td>
-                      <td width="200">{$=ii_itake('global.shopcart:config.allprice','lng')}</td>
-                      <td width="200">{$=ii_itake('global.shopcart:config.paystate','lng')}</td>
-                      <td width="200">{$=ii_itake('global.shopcart:config.state','lng')}</td>
-                      <td width="*">{$=ii_itake('global.shopcart:config.username','lng')}</td>
-                    </tr>{@recurrence_idb}
-                    <tr>
-                      <td><a href="?type=shopcart_detail&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$orderid}</a></td>
-                      <td>{$name}</td>
-                      <td>{$allprice}</td>
-                      <td>{$paystate}</td>
-                      <td>{$state}</td>
-                      <td>{$username}</td>
-                      </tr>{@recurrence_idb}
-                  </table>
-                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
-                    <tr>
-                      <td width="100%" height="25" align="right">{$cpagestr}</td>
-                    </tr>
-                    <tr>
-                      <td width="100%" height="5"></td>
-                    </tr>
-                  </table>
-                  </form>
+              <form action="{$=#nuri}?action=login&backurl={$=urlencode($_GET['backurl'])}" method="post">
+              <table width="350" style="margin:50px auto;" cellspacing="0" cellpadding="10" border="0">
+                <tr>
+                  <td width="100" height="25" align="right">{$=ii_itake('global.lng_config.username', 'lng')}</td>
+                  <td><input type="text" name="username" style="width:150px" class="i1"></td>
+                </tr>
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('global.lng_config.password', 'lng')}</td>
+                  <td><input type="password" name="password" style="width:150px" class="i1"></td>
+                </tr>{@recurrence_valcode}
+                <tr>
+                  <td height="25" align="right">{$=ii_itake('global.' . USER_FOLDER . ':api.valcode','lng')}</td>
+                  <td><input type="text" name="valcode" size="4" style="width:80px" class="i1">&nbsp;{$=mm_valcode()}</td>
+                </tr>{@recurrence_valcode}
+                <tr>
+                  <td colspan="2" style="text-align:center;">
+                  <input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" />
+                  <p> <a href="./?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register_newuser', 'lng')}</a> <a href="./?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></p>
+                  </td>
+                </tr>
+              </table>
+              </form>
       </div>
     <div class="clear"></div>
     </main>
   </div>
-</section>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}
 ]]></tpl_default>
     </item>
     <item>
       <name><![CDATA[register]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
 {$=mm_echo_error()}
 <script type="text/javascript" src="{$=#global_images_route}js/validator.js"></script>
 <script type="text/javascript">
@@ -274,117 +497,40 @@ function jscheck_username(struname)
   igets("interface.php?type=check_username&username=" + struname, jscheck_usernames);
 };
 </script>
-<section id="middle">
-  <div id="middleContent">
+<div class="detail">
+  <div class="content">
     <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('module.new','lng')}</nav>
+    <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('module.new','lng')}</nav>
       <div class="list_con">
               <form action="{$=#nuri}?action=register" method="post" onSubmit="return Validator.Validate(this, 2)">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td height="25"><strong>{$=ii_itake('module.need','lng')}</strong></td>
-                </tr>
-              </table>
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
+              <table style="margin:50px auto;" cellspacing="0" cellpadding="10" border="0">
                 <tr>
                   <td width="70" height="25" align="right">{$=ii_itake('config.username','lng')}</td>
-                  <td width="10"></td>
-                  <td><input type="text" id="username" name="username" size="15" class="text" dtype="Limit" min="2" max="16" dmsg="{$=ii_itake('validator.username', 'lng')}" value="{$=ii_htmlencode($_POST['username'], 1)}" /> <input type="button" value="{$=ii_itake('validator.check_username', 'lng')}" onclick="jscheck_username(escape(get_id('username').value))" class="button" /></td>
+                  <td><input type="text" id="username" name="username" size="15" style="width:180px;display:inline-block;" class="i1" dtype="Limit" min="2" max="16" dmsg="{$=ii_itake('validator.username', 'lng')}" value="{$=ii_htmlencode($_POST['username'], 1)}" /> <input type="button" value="{$=ii_itake('validator.check_username', 'lng')}" onclick="jscheck_username(escape(get_id('username').value))" style="display:inline-block;" class="button" /></td>
                 </tr>
                 <tr name="trck_username" id="trck_username" style="display:none;">
                   <td height="25" align="right"></td>
-                  <td></td>
                   <td name="ck_username" id="ck_username" class="red"></td>
                 </tr>
                 <tr>
                   <td height="25" align="right">{$=ii_itake('config.password','lng')}</td>
-                  <td></td>
-                  <td><input type="password" name="password" size="15" class="text"  dtype="Limit" min="4" max="32" dmsg="{$=ii_itake('validator.password', 'lng')}" value="{$=ii_htmlencode($_POST['password'], 1)}" /></td>
+                  <td><input type="password" name="password" size="15" style="width:180px;display:inline-block;" class="i1"  dtype="Limit" min="4" max="32" dmsg="{$=ii_itake('validator.password', 'lng')}" value="{$=ii_htmlencode($_POST['password'], 1)}" /></td>
                 </tr>
                 <tr>
                   <td height="25" align="right">{$=ii_itake('config.password','lng')}</td>
-                  <td></td>
-                  <td><input type="password" name="cpassword" size="15" class="text" dtype="Repeat" to="password" dmsg="{$=ii_itake('validator.cpassword', 'lng')}" value="{$=ii_htmlencode($_POST['cpassword'], 1)}" /></td>
+                  <td><input type="password" name="cpassword" size="15" style="width:180px;display:inline-block;" class="i1" dtype="Repeat" to="password" dmsg="{$=ii_itake('validator.cpassword', 'lng')}" value="{$=ii_htmlencode($_POST['cpassword'], 1)}" /></td>
                 </tr>
                 <tr>
                   <td height="25" align="right">{$=ii_itake('config.email','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="email" size="20" class="text" dtype="Email" dmsg="{$=ii_itake('validator.email', 'lng')}" value="{$=ii_htmlencode($_POST['email'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.city','lng')}</td>
-                  <td></td>
-                  <td><select name="city" class="select">{$=ii_show_xmlinfo_select('global.sel_city.all', ii_get_num($_POST['city']), 'select')}</select></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.sex','lng')}</td>
-                  <td></td>
-                  <td><select name="sex" class="select">{$=ii_show_xmlinfo_select('global.sel_sex.all', ii_get_num($_POST['sex']), 'select')}</select></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.old','lng')}</td>
-                  <td></td>
-                  <td><select name="old" class="select">{$=ii_show_old_select(ii_get_num($_POST['old'], -1))}</select></td>
-                </tr>
-              </table>
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td height="10"></td>
-                </tr>
-                <tr>
-                  <td height="25"><strong>{$=ii_itake('module.choice','lng')}</strong></td>
-                </tr>
-              </table>
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="70" height="25" align="right">{$=ii_itake('config.name','lng')}</td>
-                  <td width="10"></td>
-                  <td><input type="text" name="name" size="15" class="text" value="{$=ii_htmlencode($_POST['name'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.qq','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="qq" size="15" class="text" value="{$=ii_htmlencode($_POST['qq'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.msn','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="msn" size="15" class="text" value="{$=ii_htmlencode($_POST['msn'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.phone','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="phone" size="15" class="text" value="{$=ii_htmlencode($_POST['phone'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.homepage','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="homepage" size="25" class="text" require="false" dtype="Url" dmsg="{$=ii_itake('validator.homepage', 'lng')}" value="{$=ii_htmlencode($_POST['homepage'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.code','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="code" size="15" class="text" value="{$=ii_htmlencode($_POST['code'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.address','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="address" size="40" class="text" value="{$=ii_htmlencode($_POST['address'], 1)}" /></td>
-                </tr>
-                <tr>
-                  <td height="10"></td>
-                  <td></td>
-                  <td></td>
+                  <td><input type="text" name="email" size="20" style="width:180px;display:inline-block;" class="i1" dtype="Email" dmsg="{$=ii_itake('validator.email', 'lng')}" value="{$=ii_htmlencode($_POST['email'], 1)}" /></td>
                 </tr>{@recurrence_valcode}
                 <tr>
                   <td height="25" align="right">{$=ii_itake('global.lng_config.valcode', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="valcode" size="4" dtype="Require" dmsg="{$=ii_itake('validator.valcode', 'lng')}" class="text" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
+                  <td><input type="text" name="valcode" size="4" dtype="Require" dmsg="{$=ii_itake('validator.valcode', 'lng')}" style="width:80px;display:inline-block;" class="i1" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
                 </tr>{@recurrence_valcode}
                 <tr>
                   <td height="35" align="right"></td>
-                  <td></td>
-                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /> <input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
+                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /></td>
                 </tr>
               </table>
               </form>
@@ -392,474 +538,7 @@ function jscheck_username(struname)
     <div class="clear"></div>
     </main>
   </div>
-</section>
-{$=mm_web_foot($GLOBALS['nfoot'])}
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[manage_member]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.userinfo', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
-      <div class="list_con">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.hello', 'lng')}, <strong>{$=#nusername}</strong>, {$=ii_itake('config.lasttime', 'lng')}: {$pretime}</td>
-                </tr>
-              </table>
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
-                  <td width="10"></td>
-                  <td>{$username}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.group', 'lng')}</td>
-                  <td></td>
-                  <td>{$=ii_itake('sel_group.{$utype}', 'sel')}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.name', 'lng')}</td>
-                  <td></td>
-                  <td>{$name}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.email', 'lng')}</td>
-                  <td></td>
-                  <td>{$email}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('global.lng_noun.emoney', 'lng')}</td>
-                  <td></td>
-                  <td>{$emoney}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('global.lng_noun.integral', 'lng')}</td>
-                  <td></td>
-                  <td>{$integral}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.sign', 'lng')}</td>
-                  <td></td>
-                  <td>{$sign}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.time', 'lng')}</td>
-                  <td></td>
-                  <td>{$time}</td>
-                </tr>
-              </table>
-      </div>
-    <div class="clear"></div>
-    </main>
   </div>
-</section>
-{$=mm_web_foot($GLOBALS['nfoot'])}
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[manage_information]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.information', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
-      <div class="list_con">
-              <form action="{$=#nuri}?action=manage&mtype=information&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
-                  <td width="10"></td>
-                  <td><strong>{$=#nusername}</strong></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.email', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="email" size="40" maxlength="40" class="text" value="{$email}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.city', 'lng')}</td>
-                  <td></td>
-                  <td><select name="city" class="select">{$=ii_show_xmlinfo_select('global.sel_city.all', '{$city}', 'select')}</select></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.sex', 'lng')}</td>
-                  <td></td>
-                  <td><select name="sex" class="select">{$=ii_show_xmlinfo_select('global.sel_sex.all', '{$sex}', 'select')}</select></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.old', 'lng')}</td>
-                  <td></td>
-                  <td><select name="old" class="select">{$=ii_show_old_select('{$old}')}</select></td>
-                </tr>
-              </table>
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td height="10"></td>
-                </tr>
-              </table>
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="70" height="25" align="right">{$=ii_itake('config.name', 'lng')}</td>
-                  <td width="10"></td>
-                  <td><input type="text" size="20" name="name" class="text" maxlength="50" value="{$name}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.qq', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="20" name="qq" class="text" maxlength="50" value="{$qq}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.msn', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="20" name="msn" class="text" maxlength="50" value="{$msn}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.phone', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="20" name="phone" class="text" maxlength="50" value="{$phone}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.homepage', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="40" name="homepage" class="text" maxlength="50" value="{$homepage}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.code', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="20" name="code" class="text" maxlength="50" value="{$code}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.address', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="40" name="address" class="text" maxlength="50" value="{$address}" /></td>
-                </tr>
-                <tr>
-                  <td height="35" align="right"></td>
-                  <td></td>
-                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit', 'lng')}" class="button" />&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset', 'lng')}" class="button" /></td>
-                </tr>
-              </table>
-              </form>
-      </div>
-    <div class="clear"></div>
-    </main>
-  </div>
-</section>
-{$=mm_web_foot($GLOBALS['nfoot'])}
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[manage_password]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.password', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
-      <div class="list_con">
-              <form method="post" action="{$=#nuri}?action=manage&mtype=password&backurl={$=urlencode($GLOBALS['nurl'])}">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
-                  <td width="10"></td>
-                  <td><strong>{$=#nusername}</strong></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.old_password', 'lng')}</td>
-                  <td></td>
-                  <td><input type="password" name="password" size="20" class="text" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.new_password', 'lng')}</td>
-                  <td></td>
-                  <td><input type="password" name="npassword" size="20" class="text" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.new_password', 'lng')}</td>
-                  <td></td>
-                  <td><input type="password" name="ncpassword" size="20" class="text" /></td>
-                </tr>
-                <tr>
-                  <td height="35" align="right"></td>
-                  <td></td>
-                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /> <input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
-                </tr>
-              </table>
-              </form>
-      </div>
-    <div class="clear"></div>
-    </main>
-  </div>
-</section>
-{$=mm_web_foot($GLOBALS['nfoot'])}
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[manage_userset]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<script type="text/javascript">
-function check_face_width(strwidth)
-{
-  var face_width_max = {$=#face_width_max};
-  if (get_num(strwidth) > face_width_max)
-  {
-    alert("{$=ii_itake('module.wh_max', 'lng')}");
-    get_id("face_width").value = face_width_max;
-  };
-};
-
-function check_face_height(strheight)
-{
-  var face_height_max = {$=#face_height_max};
-  if (get_num(strheight) > face_height_max)
-  {
-    alert("{$=ii_itake('module.wh_max', 'lng')}");
-    get_id("face_height").value = face_height_max;
-  };
-};
-</script>
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.userset', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
-      <div class="list_con">
-              <form method="post" action="{$=#nuri}?action=manage&mtype=userset&backurl={$=urlencode($GLOBALS['nurl'])}">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
-                  <td width="10"></td>
-                  <td><strong>{$=#nusername}</strong></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.face', 'lng')}</td>
-                  <td></td>
-                  <td><select name="face" onchange="get_id('myface').src='{$=#global_images_route}face/' + this.options[this.selectedIndex].value + '.gif';">{$=ii_show_num_select(0, 1, '{$face}')}</select> <img name="myface" id="myface" src="{$=#global_images_route}face/{$face}.gif" border="0" class="absmiddle" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.face_u', 'lng')}</td>
-                  <td></td>
-                  <td>{$=mm_sel_yesno('face_u', {$face_u})}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.face_url', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="40" name="face_url" class="text" maxlength="50" value="{$face_url}" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.face_width', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="3" id="face_width" name="face_width" class="text" maxlength="3" value="{$face_width}" onkeyup="check_face_width(this.value)" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.face_height', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="3" id="face_height" name="face_height" class="text" maxlength="3" value="{$face_height}" onkeyup="check_face_height(this.value)" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.sign', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" size="50" name="sign" class="text" maxlength="50" value="{$sign}" /></td>
-                </tr>
-                <tr>
-                  <td height="35" align="right"></td>
-                  <td></td>
-                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /> <input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
-                </tr>
-              </table>
-              </form>
-      </div>
-    <div class="clear"></div>
-    </main>
-  </div>
-</section>
-{$=mm_web_foot($GLOBALS['nfoot'])}
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[user_detail]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('member.userdetail', 'lng')}</nav>
-      <div id="list_menu">
-        {$=ap_user_data_member_side()}
-      </div>
-      <div class="list_con">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="70" height="25" align="left">{$=ii_itake('config.username', 'lng')}</td>
-                  <td width="10"></td>
-                  <td>{$username}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.group', 'lng')}</td>
-                  <td></td>
-                  <td>{$=ii_itake('sel_group.{$utype}', 'sel')}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.city', 'lng')}</td>
-                  <td></td>
-                  <td>{$=ii_itake('global.sel_city.{$city}', 'sel')}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.sex', 'lng')}</td>
-                  <td></td>
-                  <td>{$=ii_itake('global.sel_sex.{$sex}', 'sel')}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.old', 'lng')}</td>
-                  <td></td>
-                  <td>{$old}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.email', 'lng')}</td>
-                  <td></td>
-                  <td>{$email}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.qq', 'lng')}</td>
-                  <td></td>
-                  <td>{$qq}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.homepage', 'lng')}</td>
-                  <td></td>
-                  <td><a href="{$homepage}" target="_blank">{$homepage}</a></td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('global.lng_noun.integral', 'lng')}</td>
-                  <td></td>
-                  <td>{$integral}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.sign', 'lng')}</td>
-                  <td></td>
-                  <td>{$sign}</td>
-                </tr>
-                <tr>
-                  <td height="25" align="left">{$=ii_itake('config.time', 'lng')}</td>
-                  <td></td>
-                  <td>{$time}</td>
-                </tr>
-              </table>
-      </div>
-    <div class="clear"></div>
-    </main>
-  </div>
-</section>
-{$=mm_web_foot($GLOBALS['nfoot'])}
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[lostpassword]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</nav>
-      <div class="list_con">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td height="25"><b>{$=ii_itake('config.hint', 'lng')}</b></td>
-                </tr>
-                <tr>
-                  <td>{$=ii_itake('module.lostpassword_notice', 'lng')}</td>
-                </tr>
-                <tr>
-                  <td height="15"></td>
-                </tr>
-              </table>
-              <form method="post" action="{$=#nuri}?action=lostpassword&backurl={$=urlencode($GLOBALS['nurl'])}">
-              <table cellspacing="0" cellpadding="0" class="tablem">
-                <tr>
-                  <td width="70" height="25" align="right">{$=ii_itake('config.username', 'lng')}</td>
-                  <td width="10"></td>
-                  <td><input type="text" name="username" size="20" class="text" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.email', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="email" size="20" class="text" /></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('config.name', 'lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="name" size="20" class="text" /></td>
-                </tr>
-                <tr>
-                  <td height="35" align="right"></td>
-                  <td></td>
-                  <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /> <input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
-                </tr>
-              </table>
-              </form>
-      </div>
-    <div class="clear"></div>
-    </main>
-  </div>
-</section>
-{$=mm_web_foot($GLOBALS['nfoot'])}
-]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[login]]></name>
-      <tpl_default><![CDATA[
-{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <main class="list">
-    <nav class="nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.' . USER_FOLDER . ':api.userlogin', 'lng')}</nav>
-      <div class="list_con">
-              <form action="{$=#nuri}?action=login&backurl={$=urlencode($_GET['backurl'])}" method="post">
-              <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                <tr>
-                  <td width="100" height="25" align="right">{$=ii_itake('global.lng_config.username', 'lng')}</td>
-                  <td width="10"></td>
-                  <td><input type="text" name="username" size="20" class="text"></td>
-                </tr>
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('global.lng_config.password', 'lng')}</td>
-                  <td></td>
-                  <td><input type="password" name="password" size="20" class="text"></td>
-                </tr>{@recurrence_valcode}
-                <tr>
-                  <td height="25" align="right">{$=ii_itake('global.' . USER_FOLDER . ':api.valcode','lng')}</td>
-                  <td></td>
-                  <td><input type="text" name="valcode" size="4" class="text">&nbsp;{$=mm_valcode()}</td>
-                </tr>{@recurrence_valcode}
-                <tr>
-                  <td height="35"></td>
-                  <td></td>
-                  <td><input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /> <img src="{$=#global_images_route}public/small/sico.gif" border="0" class="absmiddle" /> <a href="./?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register_newuser', 'lng')}</a> <a href="./?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></td>
-                </tr>
-              </table>
-              </form>
-      </div>
-    <div class="clear"></div>
-    </main>
-  </div>
-</section>
 {$=mm_web_foot($GLOBALS['nfoot'])}
 ]]></tpl_default>
     </item>
@@ -871,19 +550,19 @@ function check_face_height(strheight)
   <div id="middleContent">
     <table width="90%" cellpadding="0" cellspacing="0" border="0">
       <tr>
-        <td width="100%" align="center"><img src="{$img}" border="0" /></td>
+        <td width="100%" class="center"><img src="{$img}" border="0" /></td>
       </tr>
       <tr>
-        <td width="100%" height="200" align="center">
+        <td width="100%" height="200" class="center">
           <table width="100%" cellpadding="0" cellspacing="0" border="0">
             <tr>
-              <td width="100%" align="center" height="25" class="red">{$=ii_itake('global.shopcart:config.orderid','lng')}: <input value="{$orderid}" type="text" size="15" class="btn" id="btn"> <a data-clipboard-action="copy" data-clipboard-target="#btn" class="btn" id="copy">复制单号</span></td>
+              <td width="100%" align="center" height="25" class="red">{$=ii_itake('global.user/shopcart:config.orderid','lng')}: <input value="{$orderid}" type="text" size="15" class="btn" id="btn"> <a data-clipboard-action="copy" data-clipboard-target="#btn" class="btn" id="copy">复制单号</span></td>
             </tr>
             <tr>
-              <td width="100%" align="center" height="25">{$=ii_itake('global.shopcart:config.allprice','lng')}: {$price}({$=ii_itake('global.lng_unit.money','lng')})</td>
+              <td width="100%" align="center" height="25">{$=ii_itake('global.user/shopcart:config.allprice','lng')}: {$price}({$=ii_itake('global.lng_unit.money','lng')})</td>
             </tr>
             <tr>
-              <td width="100%" align="center" height="25"><a class="btn" href="/user/?type=shopcart_detail&id={$id}">{$=ii_itake('global.shopcart:module.back', 'lng')}</a></td>
+              <td width="100%" align="center" height="25"><a class="btn" href="/user/shopcart/?type=order_detail&id={$id}">{$=ii_itake('global.user/shopcart:module.back', 'lng')}</a></td>
             </tr>
             <tr>
               <td height="25"></td>
@@ -910,230 +589,6 @@ function check_face_height(strheight)
 
     </script>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
-    </item>
-    <item>
-      <name><![CDATA[openalipay]]></name>
-      <tpl_default><![CDATA[
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta content="width=device-width,initial-scale=1.0" name="viewport" />
-        <title>WDJA支付宝收银台</title>
-        <script src="https://gw.alipayobjects.com/as/g/h5-lib/alipayjsapi/3.1.1/alipayjsapi.min.js"></script>
-        <!-- 主文件 -->
-        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/antui.css" rel="stylesheet" />
-        <!-- 组件 -->
-        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/??dpl/widget/message.css,dpl/icon/message.css,dpl/widget/search.css" rel="stylesheet" />
-        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/widget/notice.css" rel="stylesheet" />
-        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/widget/tips.css" rel="stylesheet" />
-        <link href="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/dpl/widget/dialog.css" rel="stylesheet" />
-        <!-- js -->
-        <script src="https://gw.alipayobjects.com/as/g/antui/antui/10.1.32/antui.js"></script>
-    </head>
-    <style>
-        .am-notice .am-notice-content {
-            -webkit-flex: 1;
-            overflow: hidden;
-            margin-left: 15px;
-            margin-right: 5px;
-            padding-left: 25px;
-        }
-    </style>
-
-    <body>
-        <div class="am-notice" id="alert" role="alert">
-            <div class="am-notice-content">由于客户端版本问题，部分设备可能无法跳转支付</div>
-            <div class="am-notice-operation">
-                <a class="am-notice-close" onclick="closeAlert()" role="button"></a>
-            </div>
-        </div>
-        <div class="am-message result">
-            <i class="am-icon result wait" id="icon-wait"></i>
-            <i class="am-icon result warn" id="icon-fail" style="display: none"></i>
-            <div class="am-message-main" id="waiting">等待跳转支付...</div>
-            <div class="am-message-sub">若无法自动跳转支付请点击下方立即支付按钮</div>
-        </div>
-        <div class="am-button-wrap">
-            <!--<button class="am-button blue" onclick="showDialog()">扫码支付</button>-->
-            <button class="am-button blue" onclick="showAction()">立即支付</button>
-            <button class="am-button white" onclick="returnApp()">取消支付</button>
-        </div>
-        <div class="am-tips am-tips-block am-tips-favorite" id="tip">
-            <div class="am-tips-wrap">
-                <div class="am-tips-close" onclick="closeTip()">关闭</div>
-                <div class="am-tips-icon">
-                    <img src="{$=#global_images_route}public/alipay/zfb.png" />
-                </div>
-                <div class="am-tips-content am-ft-ellipsis">
-                    若无法跳转请点击“立即支付”
-                </div>
-                <div class="am-tips-action" onclick="closeTip()" role="button">
-                    知道了
-                </div>
-            </div>
-        </div>
-
-        <div class="am-dialog-mask show" id="dialog-mask" style="display: none"></div>
-        <div class="am-dialog image show" id="dialog" role="dialog" style="display: none">
-            <div class="am-dialog-wrap">
-                <div class="am-dialog-img fill">
-                    <img height="150" src="{$=#global_images_route}public/alipay/alireamrk.png" width="85%" />
-                </div>
-                <div class="am-dialog-header">
-                    <h3 id="title">订单标识号：<span id="num1"></span></h3>
-                </div>
-                <div class="am-dialog-body">
-                    <p class="am-dialog-brief" id="content">支付时请输入金额：<span id="money"></span>，备注中输入标识号：<span id="num2"></span></p>
-                </div>
-                <div class="am-dialog-footer">
-                    <a class="am-dialog-button" id="btn2" onclick="customPay()" style="display: block;" type="button">知道了，立即支付</a>
-                </div>
-                <a class="am-dialog-close" onclick="closeDialog()"></a>
-            </div>
-        </div>
-  
-    <script>
-
-        // 判断是否支付宝内打开
-		//生成二维码格式alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fdemo.wdja.net%2FopenAlipay.html%3Fmoney%3D10.00%26num%3D123
-		//url= 后面为本页代码所在位置,本页为在支付宝内打开的页面,本页URL本传递两个参数 money 为支付的金额,num 为 数量或订单号或备注数字
-		//%3D为= ;%2F为 / ;%3A为 : ;
-        var ua = window.navigator.userAgent.toLowerCase();
-        if (ua.indexOf("alipay")<0) {
-            var domain = document.domain;
-            var port = window.location.port;
-            location.href = '//'+domain+':'+port;
-        }
-
-        function GetRequest() {
-            var url = window.location.search; //获取url中"?"符后的字串
-            var theRequest = new Object();
-            if (url.indexOf("?") != -1) {
-                var str = url.substr(1);
-                strs = str.split("&");
-                for(var i = 0; i < strs.length; i ++) {
-                    theRequest[strs[i].split("=")[0]] = decodeURIComponent(strs[i].split("=")[1]);
-                }
-            }
-            return theRequest;
-        }
-
-        var params = GetRequest();
-        var money = params['money']
-        var num = params['num']
-        var userId = params['uid']
-
-        // 替换你的自定义金额收款码
-        var customUrl = "https://qr.alipay.com/fkx05222n7jysldmxtsl9ba";
-
-        // 如需银行卡转账模式请填写如下信息（正规个人收款没必要使用）
-        var bankAccount = "孟雷"; // 持卡人姓名
-        var cardNo = "6217214000016176386"; // 银行卡卡号
-        var bankMark = "ICBC"; // 银行缩写简写 其他例如CCB中国建设银行 ICBC工商银行,其他自行百度
-        var bankName = "工商银行"; // 银行完整名称
-
-        var url = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data=' +
-            '{"s": "money","u": "'+userId+'","a": "'+money+'","m": "'+encodeURIComponent(num)+'"}';
-
-        var bankUrl = "https://ds.alipay.com/?from=pc&appId=09999988&actionType=toCard&sourceId=bill&" +
-            "cardNo="+cardNo+"&bankAccount="+encodeURIComponent(bankAccount)
-            +"&money="+money+"&amount="+money+"&bankMark="+bankMark+"&bankName="+encodeURIComponent(bankName)+"&tdsourcetag=s_pctim_aiomsg";
-
-        function customPay() {
-            location.href = customUrl;
-        }
-
-        document.getElementById("money").innerText = money;
-        document.getElementById("num1").innerText = num;
-        document.getElementById("num2").innerText = num;
-
-        function returnApp() {
-            AlipayJSBridge.call("exitApp")
-        }
-
-        function closeAlert() {
-            document.getElementById("alert").style.display = "none";
-        }
-
-        function closeTip() {
-            document.getElementById("tip").style.display = "none";
-        }
-
-        function closeDialog() {
-            document.getElementById("dialog-mask").style.display = "none";
-            document.getElementById("dialog").style.display = "none";
-        }
-
-        function showDialog() {
-            document.getElementById("dialog-mask").style.display = "block";
-            document.getElementById("dialog").style.display = "block";
-        }
-
-        function ready(a) {
-            window.AlipayJSBridge ? a && a() : document.addEventListener("AlipayJSBridgeReady", a, !1)
-        }
-
-        function showAction() {
-            AlipayJSBridge.call('actionSheet',{
-                'title': '选择支付方式',
-                'btns': ['立即支付', '收款码支付(推荐)','银行卡转账'],
-                'cancelBtn': '取消',
-            }, function(data) {
-                switch (data.index) { // index标示用户点击的按钮，在actionSheet中的位置，从0开始
-                    case 0:
-                        // 无法修改金额
-                        location.href = 'alipays://platformapi/startapp?appId=20000123&actionType=scan&biz_data=' +
-                            decodeURIComponent('{"s": "money","u": "'+userId+'","a": "'+money+'","m": "'+num+'"}');
-                        break;
-                    case 1:
-                        // 转账码
-                        // location.href = 'alipays://platformapi/startapp?appId=09999988&actionType=toAccount&goBack=NO' +
-                        //     '&userId='+userId+'&amount='+money+'&memo='+num;
-                        // break;
-                        showDialog();
-                        break;
-                    case 2:
-                        // 银行卡转账
-                        location.href = bankUrl;
-                        break;
-                }
-            });
-        }
-
-        ready(function() {
-            AlipayJSBridge.call('setTitle', {
-                title: 'WDJA支付宝收银台'
-            });
-
-            var a = {
-                actionType: "scan",
-                u: userId,
-                a: money,
-                m: num,
-                biz_data: {
-                    s: "money",
-                    u: userId,
-                    a: money,
-                    m: num,
-                }
-            }
-            AlipayJSBridge.call("startApp", {
-                appId: "20000123",
-                param: a
-            }, function (a) {
-                if (a.errorCode == 4) {
-                    document.getElementById("icon-wait").style.display = "none";
-                    document.getElementById("icon-fail").style.display = "block";
-                    document.getElementById("waiting").innerText = "自动跳转支付失败";
-                    alert("跳转支付失败，请点击立即支付")
-                }
-            });
-        });
-
-    </script>
-</body></html>
-      ]]></tpl_default>
     </item>
   </item_list>
 </xml>

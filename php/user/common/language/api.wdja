@@ -86,5 +86,9 @@
       <disinfo><![CDATA[jslogin_error3]]></disinfo>
       <chinese><![CDATA[通信失败, 稍后重试..]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[open]]></disinfo>
+      <chinese><![CDATA[公开]]></chinese>
+    </item>
   </language_list>
 </xml>

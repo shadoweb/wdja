@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 $ncontrol = 'select,delete';
@@ -36,7 +36,7 @@ function wdja_cms_admin_manage_list()
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where $nidfield>0";
-  if ($search_field == 'username') $tsqlstr .= " and " . ii_cfname('name') . " like '%" . $search_keyword . "%'";
+  if ($search_field == 'username') $tsqlstr .= " and " . ii_cfname('name') . " like '%" . ii_htmlencode($search_keyword) . "%'";
   if ($search_field == 'islogin') $tsqlstr .= " and " . ii_cfname('islogin') . "=" . ii_get_num($search_keyword);
   if ($search_field == 'id') $tsqlstr .= " and $nidfield=" . ii_get_num($search_keyword);
   $tsqlstr .= " order by $nidfield desc";
@@ -55,7 +55,7 @@ function wdja_cms_admin_manage_list()
     foreach($trsary as $trs)
     {
       $tislogin = $tyesstr;
-      $tusername = $trs[ii_cfname('name')];
+      $tusername = ii_htmlencode($trs[ii_cfname('name')]);
       if ($trs[ii_cfname('islogin')] == 0)
       {
         $tusername = str_replace('{$explain}', $tusername, $font_disabled);
@@ -65,12 +65,12 @@ function wdja_cms_admin_manage_list()
       $tmptstr = str_replace('{$usernamestr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfname('name')])), $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$ip}', $trs[ii_cfname('ip')], $tmptstr);
-      $tmptstr = str_replace('{$islogin}', $tislogin, $tmptstr);
+      $tmptstr = str_replace('{$islogin}', ii_htmlencode($tislogin), $tmptstr);
       $tmptstr = str_replace('{$id}', $trs[$nidfield], $tmptstr);
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -90,7 +90,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

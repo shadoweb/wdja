@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 header("cache-control: no-cache, must-revalidate");
@@ -46,8 +46,11 @@ function wdja_cms_interface_reply()
     $trs = ii_conn_query($tsqlstr, $conn);
     while ($trow = ii_conn_fetch_array($trs))
     {
+      $tcontent = str_replace("<br>","",$trow[ii_cfname('content')]);
+      $tcontent = trim(str_replace("&nbsp;","",$tcontent));
+      $tcontent = ii_left(strip_tags($tcontent), 60);
       $tmptstr = str_replace('{$icon}', ii_get_num($trow[ii_cfname('icon')]), $tmpastr);
-      $tmptstr = str_replace('{$content}', ii_left(ii_htmlencode($trow[ii_cfname('content')]), 60), $tmptstr);
+      $tmptstr = str_replace('{$content}', $tcontent, $tmptstr);
       $tmptstr = str_replace('{$time}', ii_get_date($trow[ii_cfname('time')]), $tmptstr);
       $tmptstr = str_replace('{$author}', ii_htmlencode($trow[ii_cfname('author')]), $tmptstr);
       $tmprstr .= $tmptstr;
@@ -75,7 +78,7 @@ function wdja_cms_interface()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

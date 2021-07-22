@@ -1,19 +1,36 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
+function wdja_cms_ip_maxdaynum($ip)
+{
+  global $conn, $variable;
+  global $ndatabase, $nidfield, $nfpre,$nmaxdaynum;
+  $bool=false;
+  $tsqlstr = "select count(" . $nidfield . ") from $ndatabase where DATEDIFF(" . ii_cfnames($nfpre, 'time') . ",'".ii_now()."') = 0 and " . ii_cfnames($nfpre, 'ip') . "='" . $ip ."'";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  if ($trs[0] >= $nmaxdaynum) {
+    $bool=true;
+  }
+  return $bool;
+}
+
 function wdja_cms_module_adddisp()
 {
   global $ctype, $Err;
   $ctype = 'add';
   global $conn;
-  global $nlng, $nuri, $nckcode;
-  global $ndatabase, $nidfield, $nfpre;
-  if ($nckcode != $_POST['nckcode']) $Err[count($Err)] = ii_itake('config.nckcode_error', 'lng');
+  global $nlng, $nuri;
+  global $ndatabase, $nidfield, $nfpre,$nmaxdaynum;
+  $tip = ii_get_client_ip();
+  $tips = str_replace('[]', '[' . $nmaxdaynum . ']', ii_itake('config.maxdaynum', 'lng'));
+  if(wdja_cms_ip_maxdaynum($tip)) mm_imessage($tips, '-1');
+  if (!mm_check_token()) $Err[count($Err)] = ii_itake('config.token_error', 'lng');
   if (!mm_ck_valcode()) $Err[count($Err)] = ii_itake('global.lng_error.valcode', 'lng');
-  $tckstr = 'name:' . ii_itake('config.name', 'lng') . ',title:' . ii_itake('config.title', 'lng') . ',content:' . ii_itake('config.content', 'lng');
+  $tckstr = 'name:' . ii_itake('config.name', 'lng') . ',mobile:' . ii_itake('config.mobile', 'lng') . ',content:' . ii_itake('config.content', 'lng');
   $tary = explode(',', $tckstr);
   foreach ($tary as $key => $val)
   {
@@ -33,10 +50,11 @@ function wdja_cms_module_adddisp()
     " . ii_cfname('content') . ",
     " . ii_cfname('hidden') . ",
     " . ii_cfname('lng') . ",
+    " . ii_cfname('token') . ",
     " . ii_cfname('time') . "
     ) values (
     '" . ii_left(ii_cstr($_POST['name']), 50) . "',
-    '" . ii_get_client_ip() . "',
+    '" . $tip . "',
     " . ii_get_num($_POST['sex']) . ",
     '" . ii_left(ii_cstr($_POST['mobile']), 50) . "',
     '" . ii_left(ii_cstr($_POST['email']), 50) . "',
@@ -45,17 +63,18 @@ function wdja_cms_module_adddisp()
     '" . ii_left(ii_cstr($_POST['content']), 10000) . "',
     " . ii_get_num($_POST['hidden']) . ",
     '$nlng',
+    '" . ii_left(ii_cstr($_POST['token']), 250) . "',
     '" . ii_now() . "'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
-    if ($trs){
-        $gmail = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.message_mail','lng');
-        $gtitle = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.message_title','lng');
-        $gbody = ii_itake('global.' . ADMIN_FOLDER . '/global:extend.message_body','lng');
-      	mm_sendemail($gmail, $gtitle, $gbody);
-   		mm_imessage(ii_itake('global.lng_public.succeed', 'lng'), $nuri);
+    if ($trs) {
+        $gmail = ii_itake('global.support/global:email.message_mail','lng');
+        $gtitle = ii_itake('global.support/global:email.message_title','lng');
+        $gbody = ii_itake('global.support/global:email.message_body','lng');
+        mm_sendemail($gmail, $gtitle, $gbody);
+        mm_imessage(ii_itake('global.lng_public.succeed', 'lng'), $nuri);
     } else {
-    	mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+        mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
     }
   }
 }
@@ -107,22 +126,18 @@ function wdja_cms_module_list()
     }
   }
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
 }
 
 function wdja_cms_module_add()
 {
-  global $nckcode, $nvalidate;
-  if ($nckcode == $_GET['nckcode'])
-  {
-    $tmpstr = ii_itake('module.add', 'tpl');
-    $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
-    $tmpstr = ii_creplace($tmpstr);
-    return $tmpstr;
-  }
-  else mm_imessage(ii_itake('global.lng_public.sudd', 'lng'), '-1');
+  global $nvalidate;
+  $tmpstr = ii_itake('module.add', 'tpl');
+  $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
+  $tmpstr = ii_creplace($tmpstr);
+  return $tmpstr;
 }
 
 function wdja_cms_module_index()
@@ -155,7 +170,7 @@ function wdja_cms_module()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

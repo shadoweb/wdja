@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 header("cache-control: no-cache, must-revalidate");
@@ -24,7 +24,7 @@ function pp_get_cthtm_select()
     foreach ($tary as $key => $val)
     {
       $tmprstr = $option_unselected;
-      if (!ii_isnull($variable[ii_cvgenre($val) . '.nindex'])){
+      if (!ii_isnull($variable[ii_cvgenre($val) . '.nindex'])) {
         $tmprstr = str_replace('{$explain}', '(' . mm_get_genre_description($val) . ')' , $tmprstr);
         $tmprstr = str_replace('{$value}', $val, $tmprstr);
       }
@@ -47,7 +47,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

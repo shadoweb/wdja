@@ -40,8 +40,8 @@
           <th width="*">{$=ii_itake('global.lng_config.intro','lng')}</th>
           <th width="50">{$=ii_itake('global.lng_config.hidden','lng')}</th>
           <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
-          <th align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
-          <th align="center" width="50"><a href="?action=reset&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.' . ADMIN_FOLDER . '/sort:manage.reset_sure', 'lng')}')">{$=ii_itake('global.lng_config.order','lng')}</a></th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th class="center" width="50"><a href="?action=reset&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.' . ADMIN_FOLDER . '/sort:manage.reset_sure', 'lng')}')">{$=ii_itake('global.lng_config.order','lng')}</a></th>
         </tr>
       </thead>
       <tbody>{@recurrence_ida}
@@ -60,12 +60,12 @@
               <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"></a></icon>
               </icons>
            </td>
-           <td align="center"><a href="?action=order&at=up&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/up.gif" border="0"></a>&nbsp;<a href="?action=order&at=down&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/down.gif" border="0"></a></td>
+           <td class="center"><a href="?action=order&at=up&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/up.gif" border="0"></a>&nbsp;<a href="?action=order&at=down&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/down.gif" border="0"></a></td>
         </tr>{@recurrence_ida}
       </tbody>
     </table>
     <div class="control">
-      <div class="batch show-1" style="">{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
       <div class="pagi">{$cpagestr}</div>
     </div>
   </form>
@@ -76,7 +76,6 @@
       <name><![CDATA[add]]></name>
       <tpl_default><![CDATA[
 <script language="javascript" src="{$=#global_images_route}js/preview_images.js"></script>
-<script language="javascript" src="{$=#global_images_route}js/loader.js"></script>
 <toplink>{$=pp_manage_navigation()}</toplink>
   <div class="table">
     <h3>{$=ii_itake('manage.nav_add','lng')}</h3>
@@ -109,7 +108,6 @@
       <name><![CDATA[edit]]></name>
       <tpl_default><![CDATA[
 <script language="javascript" src="{$=#global_images_route}js/preview_images.js"></script>
-<script language="javascript" src="{$=#global_images_route}js/loader.js"></script>
 <toplink>{$=pp_manage_navigation()}</toplink>
   <div class="table">
     <h3>{$=ii_itake('manage.edit','lng')}</h3>

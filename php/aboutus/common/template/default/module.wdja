@@ -9,26 +9,17 @@
     <item>
       <name><![CDATA[detail]]></name>
       <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
-<section id="middle">
-  <div id="middleContent">
-    <div class="content">
-        <nav class="nav">{$=vv_inavigation('{$genre}', '')}{$=NAV_SP_STR}{$topic}</nav>
-        <h1>{$topic}</h1>
-        <div class="con_text">
-        <p>{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></p>
-        <p>{$=api_tags_list()}</p>
-        {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
-        </div>
-        <div id="ct-cutepage" class="cutepage">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
-        <div class="updown">
-            <div class="up">{$=vv_itransfer('up', 'updown', 'topx=1;genre={$genre};bid={$id}')} </div>
-            <div class="down">{$=vv_itransfer('down', 'updown', 'topx=1;genre={$genre};bid={$id}')}</div>
-        </div>
-    </div>
-    <div class="clear"></div>
+{$=ii_ireplace('global.module.swiper','tpl')}
+<div class="detail">
+  <h1>{$topic}</h1>
+  <div class="content">
+    {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+    <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], 'folder=' . $GLOBALS['ncreatefolder'] . ';filetype=' . $GLOBALS['ncreatefiletype'] . ';cutekey={$id};time={$time}')}</div>
+    <div class="data">{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></div>
   </div>
-</section>
-<script type="text/javascript">get_id('lm{$id}').className = 'on';</script>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', '')}</div>
+</div>
 {$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
     </item>
   </item_list>

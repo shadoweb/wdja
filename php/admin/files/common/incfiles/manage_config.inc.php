@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 $nshow_path_str = stripslashes(ii_cstr($_GET['show_path']));
@@ -207,14 +207,14 @@ function wdja_cms_admin_manage_edit_file()
   return $tmpstr;
 }
 
-function get_npath_url($npath){
+function get_npath_url($npath) {
    $tftype = '.asp.aspx.css.cfm.htm.html.ini.inc.wdja.jsp.jspa.js.jtml.php.phtml.shtml.txt.vbs.xml.xsl.xslt';
 	$res = '<a href="?type=show_files&show_path=../.././">/</a>';
 	$v = '';
 	$npath_array = Array();
 	$npath_array = explode('/',$npath);
-	foreach ($npath_array as $tkey => $tval){
-		if(!ii_isnull($tval)){
+	foreach ($npath_array as $tkey => $tval) {
+		if (!ii_isnull($tval)) {
 		 $nval = $v.$tval;
          $tfstr = ii_get_lrstr($tval, '.', 'right');
          if (ii_cinstr($tftype, $tfstr, '.') && strpos($tval,'.') !== false) $res .= '<a href="?type=edit_file&file_path=../.././'.urlencode($nval).'">'.$tval.'</a>';
@@ -298,7 +298,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

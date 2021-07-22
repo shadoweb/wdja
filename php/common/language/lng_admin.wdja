@@ -24,7 +24,7 @@
     </item>
     <item>
       <disinfo><![CDATA[admin_backtime]]></disinfo>
-      <chinese><![CDATA[，2秒以后自动返回]]></chinese>
+      <chinese><![CDATA[，3秒以后自动返回]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[popedom_error]]></disinfo>
@@ -65,10 +65,6 @@
     <item>
       <disinfo><![CDATA[content_htmledit]]></disinfo>
       <chinese><![CDATA[HTML编辑器状态]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[content_ubbcode]]></disinfo>
-      <chinese><![CDATA[UBB状态]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[content_text]]></disinfo>

@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 
@@ -23,13 +23,22 @@ function wdja_cms_module_editdisp()
   {
   $tid = ii_get_num($_GET['id']);
   $tbackurl = $_GET['backurl'];
-  $tname = ii_get_safecode($_POST['name']);
-  $taddress = ii_get_safecode($_POST['address']);
-  $tcode = ii_get_safecode($_POST['code']);
-  $tphone = ii_get_safecode($_POST['phone']);
-  $temail = ii_get_safecode($_POST['email']);
+  $tname = ii_left(ii_cstr($_POST['name']), 50);
+  $tdictid = ii_left(ii_cstr($_POST['dictid']), 255);
+  $taddress = ii_left(ii_cstr($_POST['address']), 255);
+  $tcode = ii_left(ii_cstr($_POST['code']), 50);
+  $tphone = ii_left(ii_cstr($_POST['phone']), 50);
+  $temail = ii_left(ii_cstr($_POST['email']), 50);
   $ttime = ii_now();
-  $tsqlstr = "update $ndatabase set " . ii_cfname('name') . "='$tname'," . ii_cfname('address') . "='$taddress'," . ii_cfname('code') . "='$tcode'," . ii_cfname('phone') . "='$tphone'," . ii_cfname('email') . "='$temail'," . ii_cfname('time') . "='$ttime' where ".$nidfield."=".$tid;
+  $tsqlstr = "update $ndatabase set 
+      " . ii_cfname('name') . "='$tname',
+      " . ii_cfname('dictid') . "='$tdictid',
+      " . ii_cfname('address') . "='$taddress',
+      " . ii_cfname('code') . "='$tcode',
+      " . ii_cfname('phone') . "='$tphone',
+      " . ii_cfname('email') . "='$temail',
+      " . ii_cfname('update') . "='$ttime'
+      where ".$nidfield."=".$tid;
   $trs = ii_conn_query($tsqlstr, $conn);
   if ($trs)
   {
@@ -50,6 +59,7 @@ function wdja_cms_module_adddisp()
   global $ndatabase, $nidfield, $nfpre;
   global $nusername;
   global $nlng, $nuri;
+  $tbackurl = $_GET['backurl'];
   $tckstr = 'name:' . ii_itake('manage.name', 'lng') . ',address:' . ii_itake('manage.address', 'lng') . ',phone:' . ii_itake('manage.phone', 'lng');
   $tary = explode(',', $tckstr);
   foreach ($tary as $key => $val)
@@ -57,24 +67,29 @@ function wdja_cms_module_adddisp()
     $tvalary = explode(':', $val);
     if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
   }
+  if (is_array($Err)) mm_imessage($Err[0], $tbackurl);
   if (!is_array($Err))
   {
     $tsqlstr = "insert into $ndatabase (
     " . ii_cfname('name') . ",
+    " . ii_cfname('dictid') . ",
     " . ii_cfname('address') . ",
     " . ii_cfname('code') . ",
     " . ii_cfname('phone') . ",
     " . ii_cfname('email') . ",
     " . ii_cfname('lng') . ",
     " . ii_cfname('time') . ",
+    " . ii_cfname('update') . ",
     " . ii_cfname('username') . "
     ) values (
     '" . ii_left(ii_cstr($_POST['name']), 50) . "',
+    '" . ii_left(ii_cstr($_POST['dictid']), 200) . "',
     '" . ii_left(ii_cstr($_POST['address']), 200) . "',
     '" . ii_left(ii_cstr($_POST['code']), 50) . "',
     '" . ii_left(ii_cstr($_POST['phone']), 50) . "',
     '" . ii_left(ii_cstr($_POST['email']), 50) . "',
     '$nlng',
+    '" . ii_now() . "',
     '" . ii_now() . "',
     '$nusername'
     )";
@@ -157,7 +172,7 @@ function wdja_cms_module_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = str_replace('{$id}', $tid, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
@@ -208,6 +223,7 @@ function wdja_cms_module_edit()
     $tmpstr = ii_itake('module.edit', 'tpl');
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = str_replace('{$name}', ii_htmlencode($trs[ii_cfname('name')]), $tmpstr);
+    $tmpstr = str_replace('{$dictid}', ii_htmlencode($trs[ii_cfname('dictid')]), $tmpstr);
     $tmpstr = str_replace('{$address}', ii_htmlencode($trs[ii_cfname('address')]), $tmpstr);
     $tmpstr = str_replace('{$code}', ii_htmlencode($trs[ii_cfname('code')]), $tmpstr);
     $tmpstr = str_replace('{$phone}', ii_htmlencode($trs[ii_cfname('phone')]), $tmpstr);
@@ -253,7 +269,7 @@ function wdja_cms_module()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

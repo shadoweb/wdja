@@ -28,19 +28,11 @@
     </item>
     <item>
       <disinfo><![CDATA[email]]></disinfo>
-      <chinese><![CDATA[邮件]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[city]]></disinfo>
-      <chinese><![CDATA[城市]]></chinese>
+      <chinese><![CDATA[邮箱]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[sex]]></disinfo>
       <chinese><![CDATA[性别]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[old]]></disinfo>
-      <chinese><![CDATA[出生年]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[name]]></disinfo>
@@ -51,20 +43,8 @@
       <chinese><![CDATA[QQ]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[msn]]></disinfo>
-      <chinese><![CDATA[MSN]]></chinese>
-    </item>
-    <item>
       <disinfo><![CDATA[phone]]></disinfo>
       <chinese><![CDATA[电话]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[homepage]]></disinfo>
-      <chinese><![CDATA[个人主页]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[code]]></disinfo>
-      <chinese><![CDATA[邮政编码]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[address]]></disinfo>
@@ -103,22 +83,6 @@
       <chinese><![CDATA[头像]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[face_u]]></disinfo>
-      <chinese><![CDATA[使用网址]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[face_url]]></disinfo>
-      <chinese><![CDATA[头像网址]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[face_width]]></disinfo>
-      <chinese><![CDATA[头像宽]]></chinese>
-    </item>
-    <item>
-      <disinfo><![CDATA[face_height]]></disinfo>
-      <chinese><![CDATA[头像高]]></chinese>
-    </item>
-    <item>
       <disinfo><![CDATA[old_password]]></disinfo>
       <chinese><![CDATA[旧密码]]></chinese>
     </item>
@@ -129,6 +93,30 @@
     <item>
       <disinfo><![CDATA[hint]]></disinfo>
       <chinese><![CDATA[操作提示]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[money]]></disinfo>
+      <chinese><![CDATA[余额]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[recharge]]></disinfo>
+      <chinese><![CDATA[余额充值]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[recharge_low]]></disinfo>
+      <chinese><![CDATA[余额不足,请先充值.]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[buyvip]]></disinfo>
+      <chinese><![CDATA[开通会员]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[topvip]]></disinfo>
+      <chinese><![CDATA[顶级会员]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[upvip]]></disinfo>
+      <chinese><![CDATA[升级会员]]></chinese>
     </item>
   </language_list>
 </xml>

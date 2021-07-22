@@ -1,11 +1,11 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 $smodule = ii_htmlencode($_GET['module']);
-if(ii_isnull($smodule)) $smodule = pp_get_configure_select_default();
+if (ii_isnull($smodule)) $smodule = pp_get_configure_select_default();
 
 function pp_get_configure_select($module='')
 {
@@ -151,7 +151,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

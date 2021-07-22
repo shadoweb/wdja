@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 class cc_cache
@@ -108,7 +108,7 @@ class cc_cutepage
     }
   }
 
-  function get_pagestr()
+  function get_pagestr($type = 'list') 
   {
     global $nurltype, $ncreatefolder, $ncreatefiletype;
     $toffset = $this -> offset;
@@ -128,7 +128,8 @@ class cc_cutepage
     if ($tstate1)
     {
       $tstr = $tary[1];
-      $tstr = str_replace('{$URLfirst}', ii_iurl('listpage', 0, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      if ($type == 'search') $tstr = str_replace('{$URLfirst}', ii_iurl('searchpage', 0, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      else $tstr = str_replace('{$URLfirst}', ii_iurl('listpage', 0, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
     }
     else $tstr = $tary[0];
     $tmpstr = str_replace(WDJA_CINFO, $tstr, $tmpstr);
@@ -137,7 +138,8 @@ class cc_cutepage
     if ($tstate1)
     {
       $tstr = $tary[1];
-      $tstr = str_replace('{$URLpre}', ii_iurl('listpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      if ($type == 'search') $tstr = str_replace('{$URLpre}', ii_iurl('searchpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      else $tstr = str_replace('{$URLpre}', ii_iurl('listpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
     }
     else $tstr = $tary[0];
     $tmpstr = str_replace(WDJA_CINFO, $tstr, $tmpstr);
@@ -146,7 +148,8 @@ class cc_cutepage
     if ($tstate2)
     {
       $tstr = $tary[1];
-      $tstr = str_replace('{$URLnext}', ii_iurl('listpage', $toffset + $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      if ($type == 'search') $tstr = str_replace('{$URLnext}', ii_iurl('searchpage', $toffset + $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      else $tstr = str_replace('{$URLnext}', ii_iurl('listpage', $toffset + $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
     }
     else $tstr = $tary[0];
     $tmpstr = str_replace(WDJA_CINFO, $tstr, $tmpstr);
@@ -157,7 +160,8 @@ class cc_cutepage
       $tlastoffset = $trslimit - (($trslimit - $toffset) % $tpagesize);
       if ($tlastoffset == $trslimit) $tlastoffset = $trslimit - $tpagesize;
       $tstr = $tary[1];
-      $tstr = str_replace('{$URLlast}', ii_iurl('listpage', $tlastoffset, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      if ($type == 'search') $tstr = str_replace('{$URLlast}', ii_iurl('searchpage', $tlastoffset, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
+      else $tstr = str_replace('{$URLlast}', ii_iurl('listpage', $tlastoffset, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tstr);
     }
     else $tstr = $tary[0];
     $tmpstr = str_replace(WDJA_CINFO, $tstr, $tmpstr);
@@ -165,14 +169,15 @@ class cc_cutepage
     $tmpstr = str_replace('{$pagenums}', $tpagenums, $tmpstr);
     $tmpstr = str_replace('{$xpagenum}', $txpagenum, $tmpstr);
     $tmpstr = str_replace('{$pagesize}', $tpagesize, $tmpstr);
-    $tmpstr = str_replace('{$goURL}', ii_iurl('listpage', '\' + cc_cutepage(get_id(\'go-page-num\').value) + \'', $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmpstr);
+    if ($type == 'search') $tmpstr = str_replace('{$goURL}', ii_iurl('searchpage', '\' + cc_cutepage(get_id(\'go-page-num\').value) + \'', $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmpstr);
+    else $tmpstr = str_replace('{$goURL}', ii_iurl('listpage', '\' + cc_cutepage(get_id(\'go-page-num\').value) + \'', $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmpstr);
     $tmpstr = ii_creplace($tmpstr);
     return $tmpstr;
   }
-function get_pagenum() 
-    {
-        global $nurltype, $ncreatefolder, $ncreatefiletype;
-        $maxlength = 10;
+  function get_pagenum($type = 'list') 
+  {
+    global $nurltype, $ncreatefolder, $ncreatefiletype;
+    $maxlength = 10;
     $toffset = $this -> offset;
     $tpagesize = $this -> pagesize;
     $trslimit = $this -> rslimit;
@@ -184,40 +189,45 @@ function get_pagenum()
     if ($txpagenum > $tpagenums) $txpagenum = $tpagenums;
     $tstate1 = ($toffset > 0) ? 1 : 0;
     $tstate2 = (($toffset + $tpagesize) < $trslimit) ? 1 : 0;
-        $tmpstr = '';
-        if($tpagenums > 1)
-        {
-            $tmpstr = ii_itake('global.tpl_common.pagenum', 'tpl');
-            $tmpastr = ii_ctemplate($tmpstr, '{@}');
-            $tmprstr = '';
-            $tstr = $tary[1];
-            for($ti = 0;$ti < $tpagenums; $ti++)
-            {
-                $tmptstr = $tmpastr;
-                $tmptstr = str_replace('{$pageurl}', ii_iurl('listpage', $ti*$tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmptstr);
-                $tmptstr = str_replace('{$pagenum}', $ti + 1, $tmptstr);
-                $tmptstr = $ti + 1 == $tnpagenum ?  str_replace('{$current}', ' class="current-page"', $tmptstr) : str_replace('{$current}', '', $tmptstr);
-                if(($ti > $tpagenums - $maxlength - 1 || $ti > $tnpagenum - 6) && ($ti < $tnpagenum + $maxlength - 5 || $ti < $maxlength)) $tmprstr .= $tmptstr;
-            }
-            if ($tstate1)
-            {
-                $tmpstr = str_replace('{$pre}', '<a class="np-page" href="' . ii_iurl('listpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.prepage', 'lng') . '</a>', $tmpstr);
-            }
-            else $tmpstr = str_replace('{$pre}', '', $tmpstr);
-            if ($tstate2)
-            {
-                $tmpstr = str_replace('{$next}', '<a class="np-page" href="' . ii_iurl('listpage', $toffset + $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.nextpage', 'lng') . '</a>', $tmpstr);
-            }
-            else $tmpstr = str_replace('{$next}', '', $tmpstr);
-            $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
-            $tmpstr = str_replace('{$npagenum}', $tnpagenum, $tmpstr);
-            $tmpstr = str_replace('{$pagenums}', $tpagenums, $tmpstr);
-            $tmpstr = str_replace('{$xpagenum}', $txpagenum, $tmpstr);
-            $tmpstr = str_replace('{$pagesize}', $tpagesize, $tmpstr);
-            $tmpstr = ii_creplace($tmpstr);
-        }
-    return $tmpstr;
+    $tmpstr = '';
+    if ($tpagenums >= 1)
+    {
+      $tmpstr = ii_itake('global.tpl_common.pagenum', 'tpl');
+      $tmpastr = ii_ctemplate($tmpstr, '{@}');
+      $tmprstr = '';
+      $tstr = $tary[1];
+      for($ti = 0;$ti < $tpagenums; $ti++)
+      {
+        $tmptstr = $tmpastr;
+        if ($type == 'search') $tmptstr = str_replace('{$pageurl}', ii_iurl('searchpage', $ti*$tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmptstr);
+        else if ($type == 'detail') $tmptstr = str_replace('{$pageurl}', ii_iurl('detailpage', $ti*$tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmptstr);
+        else $tmptstr = str_replace('{$pageurl}', ii_iurl('listpage', $ti*$tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey), $tmptstr);
+        $tmptstr = str_replace('{$pagenum}', $ti + 1, $tmptstr);
+        $tmptstr = $ti + 1 == $tnpagenum ?  str_replace('{$current}', ' class="current"', $tmptstr) : str_replace('{$current}', '', $tmptstr);
+        if (($ti > $tpagenums - $maxlength - 1 || $ti > $tnpagenum - 6) && ($ti < $tnpagenum + $maxlength - 5 || $ti < $maxlength)) $tmprstr .= $tmptstr;
+      }
+      if ($tstate1)
+      {
+        if ($type == 'search') $tmpstr = str_replace('{$pre}', '<a class="np-page" href="' . ii_iurl('searchpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.prepage', 'lng') . '</a>', $tmpstr);
+        else if ($type == 'detail') $tmpstr = str_replace('{$pre}', '<a class="np-page" href="' . ii_iurl('detailpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.prepage', 'lng') . '</a>', $tmpstr);
+        else $tmpstr = str_replace('{$pre}', '<a class="np-page" href="' . ii_iurl('listpage', $toffset - $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.prepage', 'lng') . '</a>', $tmpstr);
+      }
+      else $tmpstr = str_replace('{$pre}', '', $tmpstr);
+      if ($tstate2)
+      {
+        if ($type == 'search') $tmpstr = str_replace('{$next}', '<a class="np-page" href="' . ii_iurl('searchpage', $toffset + $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.nextpage', 'lng') . '</a>', $tmpstr);
+        else $tmpstr = str_replace('{$next}', '<a class="np-page" href="' . ii_iurl('listpage', $toffset + $tpagesize, $nurltype, 'folder=' . $ncreatefolder . ';filetype=' . $ncreatefiletype . ';listkey=' . $tlistkey) . '">' . ii_itake('global.lng_cutepage.nextpage', 'lng') . '</a>', $tmpstr);
+      }
+      else $tmpstr = str_replace('{$next}', '', $tmpstr);
+      $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
+      $tmpstr = str_replace('{$npagenum}', $tnpagenum, $tmpstr);
+      $tmpstr = str_replace('{$pagenums}', $tpagenums, $tmpstr);
+      $tmpstr = str_replace('{$xpagenum}', $txpagenum, $tmpstr);
+      $tmpstr = str_replace('{$pagesize}', $tpagesize, $tmpstr);
+      $tmpstr = ii_creplace($tmpstr);
     }
+    return $tmpstr;
+  }
 
 }
 
@@ -252,7 +262,7 @@ class cc_socketmail
     $tmessage = $this -> message;
 
     if (empty($tsubject) || empty($tmessage)) {
-        return ['result' => false, 'msg' => '参数错误'];
+      return ['result' => false, 'msg' => '参数错误'];
     }
     $fromAddress = $tfrom;
     $pwd =  $tpassword;
@@ -301,10 +311,110 @@ class cc_socketmail
   }
 }
 
+ini_set('user_agent','Mozilla/5.0 (Windows NT 6.1; WOW64; rv:38.0) Gecko/20100101 Firefox/38.0');
+
+require('HtmlDom.php');
+
+function collects($url) {
+  $turl = parse_url($url,PHP_URL_HOST);
+  $tip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+  if (empty($tip))
+  {
+    $tip = $_SERVER['HTTP_CLIENT_IP'];
+    if (empty($tip)) $tip = $_SERVER['REMOTE_ADDR'];
+  }
+  $collect = array();
+  $collect = api_collect_array();
+  $opts = array(
+  'http' => array(
+     'timeout' => 5,
+     'method' => 'GET',
+     'protocol_version'=>'1.1',
+     'header' =>
+            "User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:7.0.1) Gecko/20100101 Firefox/7.0.1\r\n" .
+            "X-Forwarded-For:".$tip."\r\n" .
+            "Client-IP: ".$tip."\r\n" .
+            "Referer:http://".$turl."\r\n".
+            "Host: ".$turl."\r\n" .
+            "Accept-Language: zh-cn,zh;q=0.5\r\n" .
+            "Accept-Encoding: gzip, deflate\r\n" .
+            "Accept-Charset: GB2312,UTF-8;q=0.7,*;q=0.7\r\n" .
+            "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n" .
+            "Connection: keep-alive\r\n\r\n"
+    )
+  );
+  $context = stream_context_create($opts);
+  $dom = file_get_html($url,false,$content);
+  if (!$dom) {
+    return false;
+  }
+  $dom = wdja_iconv($dom);
+  if(!empty($collect)){
+    $burl = parse_url($url,PHP_URL_HOST);
+    foreach($collect as $rule){
+      if($rule['c_url'] == $burl){
+        foreach($rule as $k => $v){
+          $key = ii_get_lrstr($k, '_', 'rightr');
+          $$key = $rule[$k];
+        }
+      }
+    }
+    if(!ii_isnull($image)){
+      $timage = $dom->find($image, 0)->content;
+      $timage = wdja_iconv(trim(saveimage($timage)));
+      $data['image'] = ii_htmlclear($timage);
+    }
+    else $data['image'] = '';
+    if(!ii_isnull($title)){
+      $ttitle = $dom->find($title, 0)->innertext;
+      $ttitle = wdja_iconv(trim($ttitle));
+      $data['title'] = ii_htmlclear($ttitle);
+    }
+    else $data['title'] = '';
+    if(!ii_isnull($author)){
+      $tauthor = $dom->find($author, 0)->innertext;
+      $tauthor = wdja_iconv(trim($tauthor));
+      $data['author'] = ii_htmlclear($tauthor);
+    }
+    else $data['author'] = '';
+    if(!ii_isnull($content)){
+      $tcontent = $dom->find($content, 0)->innertext;
+      $tcontent = wdja_iconv(trim(saveimages($tcontent)));
+      if(!ii_isnull($replace)){
+        $replaces=explode("\r\n", trim($replace));
+        foreach($replaces as $k=>$v) {
+          if(!ii_isnull($v)){
+            $old = ii_get_lrstr($v, '|', 'left');
+            $new = ii_get_lrstr($v, '|', 'right');
+            $tcontent = str_replace($old, $new, $tcontent);
+          }
+        }
+      }
+      $data['content'] = ii_htmlclear($tcontent,'-1');
+    }
+    else $data['content'] = '';
+  }else{
+    $data['image'] = '';
+    $data['title'] = '';
+    $data['author'] = '';
+    $data['content'] = '';
+  }
+  return $data;
+}
+
+function wdja_iconv($str){
+    $s1 = iconv('gbk','utf-8//IGNORE',$str);
+    $s0 = iconv('utf-8','gbk//IGNORE',$s1);
+    if($s0 == $str){
+        return $s1;
+    }else{
+        return $str;
+    }
+}
 
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

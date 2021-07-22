@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -64,6 +64,16 @@ function wdja_cms_admin_manage_adddisp()
   $tbackurl = $_GET['backurl'];
   $ttopic = ii_cstr($_POST['topic']);
   $timage = ii_left(ii_cstr($_POST['image']), 255);
+  
+  $tckstr = 'topic:' . ii_itake('manage.topic', 'lng').',image:' . ii_itake('global.lng_config.image', 'lng').',url:' . ii_itake('manage.url', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   if (!(ii_isnull($ttopic)))
   {
     $tsqlstr = "insert into $ndatabase (
@@ -73,7 +83,8 @@ function wdja_cms_admin_manage_adddisp()
     " . ii_cfname('lng') . ",
     " . ii_cfname('intro') . ",
     " . ii_cfname('hidden') . ",
-    " . ii_cfname('time') . "
+    " . ii_cfname('time') . ",
+    " . ii_cfname('update') . "
     ) values (
     '" . ii_left($ttopic, 50) . "',
     '" . ii_left(ii_cstr($_POST['url']), 255) . "',
@@ -81,7 +92,8 @@ function wdja_cms_admin_manage_adddisp()
     '" . $nlng . "',
     '" . ii_left(ii_cstr($_POST['intro']), 255) . "',
     " . ii_get_num($_POST['hidden']) . ",
-    '" . ii_get_date(ii_cstr($_POST['time'])) . "'
+    '" . ii_get_date(ii_cstr($_POST['time'])) . "',
+    '" . ii_now() . "'
     )";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
@@ -106,6 +118,16 @@ function wdja_cms_admin_manage_editdisp()
   $ttopic = ii_cstr($_POST['topic']);
   $timage = ii_left(ii_cstr($_POST['image']), 255);
   $tid = ii_get_num($_GET['id']);
+  
+  $tckstr = 'topic:' . ii_itake('manage.topic', 'lng').',image:' . ii_itake('global.lng_config.image', 'lng').',url:' . ii_itake('manage.url', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
   if (!(ii_isnull($ttopic)))
   {
     $tsqlstr = "update $ndatabase set
@@ -114,7 +136,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('image') . "='$timage',
     " . ii_cfname('intro') . "='" . ii_left(ii_cstr($_POST['intro']), 255) . "',
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . ",
-    " . ii_cfname('time') . "='" . ii_now() . "'
+    " . ii_cfname('update') . "='" . ii_now() . "'
     where $nidfield=$tid";
     $trs = ii_conn_query($tsqlstr, $conn);
     if ($trs)
@@ -258,7 +280,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
@@ -287,7 +309,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

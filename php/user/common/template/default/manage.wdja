@@ -33,38 +33,44 @@
     <table cellpadding="10" cellspacing="1" class="tableL">
       <thead>
         <tr>
-          <th height="25" width="10"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
           <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
           <th width="*">{$=ii_itake('config.username','lng')}</th>
-          <th width="150">{$=ii_itake('config.email','lng')}</th>
-          <th width="50">{$=ii_itake('config.sex','lng')}</th>
-          <th width="50">{$=ii_itake('config.old','lng')}</th>
-          <th width="120">{$=ii_itake('config.time','lng')}</th>
+          <th width="*">{$=ii_itake('config.name','lng')}</th>
+          <th width="80">{$=ii_itake('config.sex','lng')}</th>
           <th width="80">{$=ii_itake('config.group','lng')}</th>
-          <th align="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th width="50">{$=ii_itake('config.money','lng')}</th>
+          <th width="100">{$=ii_itake('config.phone','lng')}</th>
+          <th width="100">{$=ii_itake('config.qq','lng')}</th>
+          <th width="100">{$=ii_itake('config.email','lng')}</th>
+          <th width="120">{$=ii_itake('config.time','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
         </tr>
       </thead>
       <tbody>{@recurrence_idb}
         <tr class="lock-0">
-          <td><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
-          <td>{$id}</td>
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
           <td><a href="?type=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">{$username}</a></td>
-          <td>{$email}</td>
+          <td>{$name}</td>
           <td>{$sex}</td>
-          <td>{$old}</td>
-          <td>{$time}</td>
           <td>{$group}</td>
+          <td>{$money}</td>
+          <td>{$phone}</td>
+          <td>{$qq}</td>
+          <td>{$email}</td>
+          <td>{$time}</td>
           <td>
               <icons>
               <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
-              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$username}]')"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}')"></a></icon>
               </icons>
            </td>
         </tr>{@recurrence_idb}
       </tbody>
     </table>
     <div class="control">
-      <div class="batch show-1" style="">{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
       <div class="pagi">{$cpagestr}</div>
     </div>
   </form>
@@ -74,55 +80,41 @@
     <item>
       <name><![CDATA[add]]></name>
       <tpl_default><![CDATA[
+<script type="text/javascript" src="{$=#global_images_route}js/preview_images.js?{$=ii_random(3)}"></script>
 <toplink>{$=pp_manage_navigation()}</toplink>
   <div class="table">
     <h3>{$=ii_itake('manage.add','lng')}</h3>
      <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}">
       <table cellpadding="10" cellspacing="0" class="tableF">
         <tbody><tr>
-  <th valign="top"><t>{$=ii_itake('config.username','lng')}</t></th>
+  <th valign="top"><t>{$=ii_itake('config.username','lng')}</t><r>*</r></th>
   <td><input type="text" name="username" class="i1"></td>
 </tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.password','lng')}</t></th>
+  <th valign="top"><t>{$=ii_itake('config.password','lng')}</t><r>*</r></th>
   <td><input type="password" name="password" size="40" class="i1"></td>
 	</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.email','lng')}</t></th>
   <td><input type="text" name="email" class="i1"></td>
-</tr>
-<tr>
-  <th valign="top"><t>{$=ii_itake('config.city','lng')}<r>*</r></t></th>
-  <td><select name="city" class="s1">{$=ii_show_xmlinfo_select('global.sel_city.all', '', 'select')}</select></td>
-	</tr>
-<tr>
-  <th valign="top"><t>{$=ii_itake('config.sex','lng')}<r>*</r></t></th>
-  <td><select name="sex" class="s1">{$=ii_show_xmlinfo_select('global.sel_sex.all', '', 'select')}</select></td>
-	</tr>
-<tr>
-  <th valign="top"><t>{$=ii_itake('config.old','lng')}<r>*</r></t></th>
-  <td><select name="old" class="s1">{$=ii_show_old_select('')}</select></td>
-	</tr><tr>
+</tr><tr>
   <td colspan="2" style="margin:0;padding:0;height:1px;background-color:#ececec;"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.name','lng')}</t></th>
   <td><input type="text" name="name" class="i1"></td>
 </tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.sex','lng')}</t></th>
+  <td><select name="sex" class="s1">{$=ii_show_xmlinfo_select('global.sel_sex.all', '', 'select')}</select></td>
+	</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.qq','lng')}</t></th>
   <td><input type="text" name="qq" class="i1"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.msn','lng')}</t></th>
-  <td><input type="text" name="msn" class="i1"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.phone','lng')}</t></th>
   <td><input type="text" name="phone" class="i1"></td>
 </tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.homepage','lng')}</t></th>
-  <td><input type="text" name="homepage" class="i1"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.code','lng')}</t></th>
-  <td><input type="text" name="code" class="i1"></td>
-</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.address','lng')}</t></th>
   <td><input type="text" name="address" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.money','lng')}</t></th>
+  <td><input type="text" name="money" class="i1"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_noun.emoney','lng')}</t></th>
   <td><input type="text" name="emoney" class="i1"></td>
@@ -139,29 +131,11 @@
   <td colspan="2" style="margin:0;padding:0;height:1px;background-color:#ececec;"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.face', 'lng')}</t></th>
-  <td>
-    <table border="0" cellSpacing="0" cellPadding="0" width="100%">
-      <tr>
-        <td width="50" height="40"><select class="s1" name="face" onchange="javascript:get_id('myface').src='{$=#global_images_route}face/' + this.options[this.selectedIndex].value + '.gif';">{$=ii_show_num_select(0, 1, 0)}</select></td>
-        <td width="*"><img id="myface" src="{$=#global_images_route}face/0.gif" border="0"></td>
-      </tr>
-    </table>
-    </td>
+  <td><input type="text" id="face" name="face" class="i1" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=face&upfname=/{$=#ngenre}/{$=#nuppath}noimg.gif&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.forum_admin', 'lng')}</t></th>
   <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="forum_admin" class="val" value="0" /></span><span class="info-1">{$=ii_itake('config.forum_admin_notice', 'lng')}</span></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_u', 'lng')}</t></th>
-  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="face_u" class="val" value="0" /></span></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_url', 'lng')}</t></th>
-  <td><input type="text" name="face_url" class="i1"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_width', 'lng')}</t></th>
-  <td><input type="text" name="face_width" class="i1"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_height', 'lng')}</t></th>
-  <td><input type="text" name="face_height" class="i1"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.sign', 'lng')}</t></th>
   <td><input type="text" name="sign" class="i1"></td>
@@ -175,6 +149,7 @@
     <item>
       <name><![CDATA[edit]]></name>
       <tpl_default><![CDATA[
+<script type="text/javascript" src="{$=#global_images_route}js/preview_images.js?{$=ii_random(3)}"></script>
 <toplink>{$=pp_manage_navigation()}</toplink>
   <div class="table">
     <h3>{$=ii_itake('manage.edit','lng')}</h3>
@@ -189,47 +164,33 @@
 	</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.email','lng')}</t></th>
   <td><input type="text" name="email" class="i1" value="{$email}"></td>
-</tr>
-<tr>
-  <th valign="top"><t>{$=ii_itake('config.city','lng')}<r>*</r></t></th>
-  <td><select name="city" class="s1">{$=ii_show_xmlinfo_select('global.sel_city.all', '{$city}', 'select')}</select></td>
-	</tr>
-<tr>
-  <th valign="top"><t>{$=ii_itake('config.sex','lng')}<r>*</r></t></th>
-  <td><select name="sex" class="s1">{$=ii_show_xmlinfo_select('global.sel_sex.all', '{$sex}', 'select')}</select></td>
-	</tr>
-<tr>
-  <th valign="top"><t>{$=ii_itake('config.old','lng')}<r>*</r></t></th>
-  <td><select name="old" class="s1">{$=ii_show_old_select({$old})}</select></td>
-	</tr><tr>
+</tr><tr>
   <td colspan="2" style="margin:0;padding:0;height:1px;background-color:#ececec;"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.name','lng')}</t></th>
   <td><input type="text" name="name" class="i1" value="{$name}"></td>
-</tr><tr>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('config.sex','lng')}</t></th>
+  <td><select name="sex" class="s1">{$=ii_show_xmlinfo_select('global.sel_sex.all', '{$sex}', 'select')}</select></td>
+	</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.qq','lng')}</t></th>
   <td><input type="text" name="qq" class="i1" value="{$qq}"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.msn','lng')}</t></th>
-  <td><input type="text" name="msn" class="i1" value="{$msn}"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.phone','lng')}</t></th>
   <td><input type="text" name="phone" class="i1" value="{$phone}"></td>
 </tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.homepage','lng')}</t></th>
-  <td><input type="text" name="homepage" class="i1" value="{$homepage}"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.code','lng')}</t></th>
-  <td><input type="text" name="code" class="i1" value="{$code}"></td>
-</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.address','lng')}</t></th>
   <td><input type="text" name="address" class="i1" value="{$address}"></td>
 </tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.money','lng')}</t></th>
+  <td>{$money}</td>
+</tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_noun.emoney','lng')}</t></th>
-  <td><input type="text" name="emoney" class="i1" value="{$emoney}"></td>
+  <td>{$emoney}</td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('global.lng_noun.integral','lng')}</t></th>
-  <td><input type="text" name="integral" class="i1" value="{$integral}"></td>
+  <td>{$integral}</td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.group','lng')}</t></th>
   <td><select name="utype" class="s1">{$=ii_show_xmlinfo_select('sel_group.all', '{$utype}', 'select')}</select></td>
@@ -240,29 +201,11 @@
   <td colspan="2" style="margin:0;padding:0;height:1px;background-color:#ececec;"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.face', 'lng')}</t></th>
-  <td>
-    <table border="0" cellSpacing="0" cellPadding="0" width="100%">
-      <tr>
-        <td width="50" height="40"><select class="s1" name="face" onchange="javascript:get_id('myface').src='{$=#global_images_route}face/' + this.options[this.selectedIndex].value + '.gif';">{$=ii_show_num_select(0, 1, '{$face}')}</select></td>
-        <td width="*"><img id="myface" src="{$=#global_images_route}face/{$face}.gif" border="0"></td>
-      </tr>
-    </table>
-    </td>
+  <td><input type="text" id="face" name="face" class="i1" value="{$face}" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=face&upfname=&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.forum_admin', 'lng')}</t></th>
   <td><span onclick="inputSwitch(this)" class="switch switch-{$forum_admin}" bind="1"><b></b><u></u><em></em><input type="hidden" name="forum_admin" class="val" value="{$forum_admin}" /></span><span class="info-1">{$=ii_itake('config.forum_admin_notice', 'lng')}</span></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_u', 'lng')}</t></th>
-  <td><span onclick="inputSwitch(this)" class="switch switch-{$face_u}" bind="1"><b></b><u></u><em></em><input type="hidden" name="face_u" class="val" value="{$face_u}" /></span></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_url', 'lng')}</t></th>
-  <td><input type="text" name="face_url" class="i1" value="{$face_url}"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_width', 'lng')}</t></th>
-  <td><input type="text" name="face_width" class="i1" value="{$face_width}"></td>
-</tr><tr>
-  <th valign="top"><t>{$=ii_itake('config.face_height', 'lng')}</t></th>
-  <td><input type="text" name="face_height" class="i1" value="{$face_height}"></td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.sign', 'lng')}</t></th>
   <td><input type="text" name="sign" class="i1" value="{$sign}"></td>

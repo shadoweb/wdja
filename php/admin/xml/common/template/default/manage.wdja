@@ -42,6 +42,9 @@
   <div class="table">
     <h3><span class="hand nodeadd show-1"><a href="?type=add&burl={$burl}&backurl={$=urlencode($GLOBALS['nurl'])}">+</a></span> {$=ii_itake('manage.symbol','lng')}[ {$item} ]</h3>
 <script language="javascript">
+  window.onload=function(){
+  if(get_id('xml').value == '') get_id('xml').value='.tpl.module';
+  }
 function tgroups(obj){
   get_id('group').value=obj.value;
   get_id('module').value='';
@@ -69,7 +72,10 @@ function titems(obj){
         <input type="hidden" name="module" id="tmodule" size="20" value="{$=ii_htmlencode($_GET['module'])}">
         <input type="hidden" name="group" id="group" size="20" value="{$=ii_htmlencode($_GET['group'])}">
         <select onchange="tgroups(this)" class="s1">{$=ii_show_xmlinfo_select('sel_group.all', ii_htmlencode($_GET['group']), 'select')}</select>
-        <select onchange="tmodules(this)" class="s1">{$=pp_get_template_select()}</select>
+        <select onchange="tmodules(this)" class="s1">
+        	<option value="">({$=ii_itake('manage.template_index','lng')})</option>
+        	{$=pp_get_template_select()}
+        </select>
         <select onchange="titems(this)" class="s1">{$item_option}</select>
         <div class="searchbox"><input class="keyword" type="text" id="xml" name="xml" value="{$=ii_htmlencode($_GET['xml'])}"><input id="submit" type="submit" class="search" value=""></div>
       </form>
@@ -91,7 +97,7 @@ function titems(obj){
           <tr>
             <td colspan="2">
             <input type="hidden" name="name" value="{$name}">
-            <div id="CodeMirrorContent" class="CodeMirrorContent" style="width:100%;"><textarea rows="25" class="hide" id="edit" rows="{$rows}" name="{$name}" cols="50" ondblclick='this.rows+=3;'>{$value}</textarea></div></td>
+            <div id="CodeMirrorContent" class="CodeMirrorContent" style="width:100%;"><textarea id="edit" rows="25" class="hide" rows="{$rows}" name="{$name}" cols="50" ondblclick='this.rows+=3;'>{$value}</textarea></div></td>
           </tr><tr>
             <td colspan="2" height="20"></td>
           </tr>
@@ -119,8 +125,8 @@ function titems(obj){
 <script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/javascript/javascript.js"></script>
 <script>
 var myWidth = document.body.scrollWidth - 80; 
-document.getElementById('CodeMirrorContent').style.width = myWidth+'px';
-var myTextarea = document.getElementById('edit');
+document.getElementById("CodeMirrorContent").style.width = myWidth+"px";
+var myTextarea = document.getElementById("edit");
 var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
      mode: "php",
      lineNumbers: true,
@@ -132,7 +138,7 @@ var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
          'Esc': function(cm) { if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false); }
          }
      });
-     var fileContent =myTextarea.val();
+     //var fileContent = myTextarea.val();
 </script>
 ]]></tpl_default>
     </item>

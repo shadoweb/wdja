@@ -4,7 +4,7 @@
   Phone : /^((\(\d{3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}$/,
   Mobile : /^((\(\d{3}\))|(\d{3}\-))?1\d{10}$/,
   Url : /^http:\/\/[A-Za-z0-9]+\.[A-Za-z0-9]+[\/=\?%\-&_~`@[\]\':+!]*([^<>\"\"])*$/,
-  IdCard : /^\d{15}(\d{2}[A-Za-z0-9])?$/,
+  IdCard : /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
   Currency : /^\d+(\.\d+)?$/,
   Number : /^\d+$/,
   Zip : /^[1-9]\d{5}$/,
@@ -25,7 +25,7 @@
   Custom : "this.Exec(value, getAttribute('regexp'))",
   Group : "this.MustChecked(getAttribute('name'), getAttribute('min'), getAttribute('max'))",
   ErrorItem : [document.forms[0]],
-  ErrorMessage : ["\t"],
+  ErrorMessage : ["Tips:"],
   Validate : function(theForm, mode){
     var obj = theForm || event.srcElement;
     var count = obj.elements.length;

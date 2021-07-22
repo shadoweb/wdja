@@ -38,9 +38,5 @@
       <disinfo><![CDATA[intro]]></disinfo>
       <chinese><![CDATA[介绍]]></chinese>
     </item>
-    <item>
-      <disinfo><![CDATA[keyword]]></disinfo>
-      <chinese><![CDATA[链接关键字]]></chinese>
-    </item>
   </language_list>
 </xml>

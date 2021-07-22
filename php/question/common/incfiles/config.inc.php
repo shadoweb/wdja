@@ -2,12 +2,12 @@
 /*
 判断是否作为网站首页使用
 */
-if(ii_strlen(dirname($_SERVER['PHP_SELF']))>1){
+if (ii_strlen(dirname($_SERVER['PHP_SELF']))>1) {
   $nroute = 'node';
   $ngenre = ii_get_actual_genre(__FILE__, $nroute);
 }else{
   $nroute = '';
-  $ngenre = 'aboutus';
+  $ngenre = 'question';
 }
 wdja_cms_init($nroute);
 $nhead = $variable[ii_cvgenre($ngenre) . '.nhead'];
@@ -23,11 +23,13 @@ $nuptype = $variable[ii_cvgenre($ngenre) . '.nuptype'];
 $nlisttopx = $variable[ii_cvgenre($ngenre) . '.nlisttopx'];
 $nurltype = $variable[ii_cvgenre($ngenre) . '.nurltype'];
 $nclstype = $variable[ii_cvgenre($ngenre) . '.nclstype'];
-$nbasehref = $variable[ii_cvgenre($ngenre) . '.nbasehref'];
 $nsaveimages = $variable[ii_cvgenre($ngenre) . '.nsaveimages'];
 $nupsimg = $variable[ii_cvgenre($ngenre) . '.thumbnail.upsimg'];
 $nupsimgs = $variable[ii_cvgenre($ngenre) . '.thumbnail.upsimgs'];
 $ncreatefolder = $variable[ii_cvgenre($ngenre) . '.ncreatefolder'];
 $ncreatefiletype = $variable[ii_cvgenre($ngenre) . '.ncreatefiletype'];
-//$ntitle = ii_itake('module.channel_title', 'lng');
+$ntitles = $variable[ii_cvgenre($ngenre) . '.ntitles'];
+if(ii_isnull($ntitles)) $ntitles = ii_itake('module.channel_title', 'lng');
+$nkeywords = $variable[ii_cvgenre($ngenre) . '.nkeywords'];
+$ndescription = $variable[ii_cvgenre($ngenre) . '.ndescription'];
 ?>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xml mode="wdjafgf" author="wdja">
   <configure>
-    <item varstr="morder" strvalue="support,expansion,user,news,product,download,shop,shopcart,forum,message,question,aboutus,contactus,help" />
-    <item varstr="norder" strvalue="cache,global,note,files,xml,configure,upload,user,userlog" />
+    <item varstr="morder" strvalue="support,expansion,user,tutorial,aboutus,news,product,download,shop,forum,message,question,ask,check,pages" />
+    <item varstr="norder" strvalue="cache,note,files,xml,configure,upload,user,userlog" />
   </configure>
 </xml>

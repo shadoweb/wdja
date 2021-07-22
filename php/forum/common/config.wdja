@@ -32,7 +32,7 @@
     <item varstr="nint_topic" strvalue="10" />
     <item varstr="nint_reply" strvalue="2" />
     <item varstr="nmax_vote_option" strvalue="10" />
-    <item varstr="nuser_upload" strvalue="0" />
+    <item varstr="nuser_upload" strvalue="1" />
     <item varstr="nnew_user_release_timeout" strvalue="360" />
     <item varstr="nuninstall" strvalue="1|0|1" />
   </configure>

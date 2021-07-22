@@ -14,5 +14,9 @@
       <disinfo><![CDATA[{$folder}:icon]]></disinfo>
       <chinese><![CDATA[4]]></chinese>
     </item>
+    <item>
+      <disinfo><![CDATA[/search/manage.php]]></disinfo>
+      <chinese><![CDATA[搜索记录]]></chinese>
+    </item>
   </item_list>
 </xml>

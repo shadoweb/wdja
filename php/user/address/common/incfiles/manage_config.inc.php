@@ -1,7 +1,7 @@
 <?php
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 wdja_cms_admin_init();
@@ -19,13 +19,32 @@ function wdja_cms_admin_manage_editdisp()
   global $ndatabase, $nidfield, $nfpre;
   $tid = ii_get_num($_GET['id']);
   $tbackurl = $_GET['backurl'];
-  $tname = ii_get_safecode($_POST['name']);
-  $taddress = ii_get_safecode($_POST['address']);
-  $tcode = ii_get_safecode($_POST['code']);
-  $tphone = ii_get_safecode($_POST['phone']);
-  $temail = ii_get_safecode($_POST['email']);
+  
+  $tckstr = 'name:' . ii_itake('manage.name', 'lng');
+  $tary = explode(',', $tckstr);
+  foreach ($tary as $key => $val)
+  {
+    $tvalary = explode(':', $val);
+    if (ii_isnull($_POST[$tvalary[0]])) $Err[count($Err)] = str_replace('[]', '[' . $tvalary[1] . ']', ii_itake('global.lng_error.insert_empty', 'lng'));
+  }
+  if (is_array($Err)) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
+  
+  $tname = ii_left(ii_cstr($_POST['name']), 50);
+  $tdictid = ii_left(ii_cstr($_POST['dictid']), 255);
+  $taddress = ii_left(ii_cstr($_POST['address']), 255);
+  $tcode = ii_left(ii_cstr($_POST['code']), 50);
+  $tphone = ii_left(ii_cstr($_POST['phone']), 50);
+  $temail = ii_left(ii_cstr($_POST['email']), 50);
   $ttime = ii_now();
-  $tsqlstr = "update $ndatabase set " . ii_cfname('name') . "='$tname'," . ii_cfname('address') . "='$taddress'," . ii_cfname('code') . "='$tcode'," . ii_cfname('phone') . "='$tphone'," . ii_cfname('email') . "='$temail'," . ii_cfname('time') . "='$ttime' where ".$nidfield."=".$tid;
+  $tsqlstr = "update $ndatabase set 
+      " . ii_cfname('name') . "='$tname',
+      " . ii_cfname('dictid') . "='$tdictid',
+      " . ii_cfname('address') . "='$taddress',
+      " . ii_cfname('code') . "='$tcode',
+      " . ii_cfname('phone') . "='$tphone',
+      " . ii_cfname('email') . "='$temail',
+      " . ii_cfname('update') . "='$ttime'
+      where ".$nidfield."=".$tid;
   $trs = ii_conn_query($tsqlstr, $conn);
   if ($trs)
   {
@@ -93,6 +112,7 @@ function wdja_cms_admin_manage_edit()
     $tmpstr = ii_itake('manage.edit', 'tpl');
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = str_replace('{$name}', ii_htmlencode($trs[ii_cfname('name')]), $tmpstr);
+    $tmpstr = str_replace('{$dictid}', ii_htmlencode($trs[ii_cfname('dictid')]), $tmpstr);
     $tmpstr = str_replace('{$address}', ii_htmlencode($trs[ii_cfname('address')]), $tmpstr);
     $tmpstr = str_replace('{$code}', ii_htmlencode($trs[ii_cfname('code')]), $tmpstr);
     $tmpstr = str_replace('{$phone}', ii_htmlencode($trs[ii_cfname('phone')]), $tmpstr);
@@ -149,7 +169,7 @@ function wdja_cms_admin_manage_list()
       $tmprstr .= $tmptstr;
     }
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagestr(), $tmpstr);
+  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = str_replace('{$id}', $tid, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
@@ -173,7 +193,7 @@ function wdja_cms_admin_manage()
 }
 //****************************************************
 // WDJA CMS Power by wdja.net
-// Email: shadoweb@qq.com
+// Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
 ?>

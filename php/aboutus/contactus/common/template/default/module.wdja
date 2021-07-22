@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="title"><h1>{$=ii_itake('module.topic','lng')}</h1></div>
+  <div class="data"></div>
+  <div class="content">
+    {$=mm_encode_content($GLOBALS['RS_content'])}
+  </div>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', '')}</div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>
