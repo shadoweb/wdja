@@ -15,10 +15,10 @@ class AliyunOss
     public function __construct()
     {
         $oss_config=array(
-        'accessKeyId' => 'LTAI4G6TQ8RCWPTQbzaiK63N',
-        'accessKeySecret' => 'e9McPhm0pmNJlHAJOJq4AMcllxCKPg',
+        'accessKeyId' => '',
+        'accessKeySecret' => '',
         'endpoint' => 'oss-cn-shenzhen.aliyuncs.com',
-        'bucket' => 'wdja'
+        'bucket' => ''
         );
         $this->accessKeyId = $oss_config['accessKeyId'];
         $this->accessKeySecret = $oss_config['accessKeySecret'];
