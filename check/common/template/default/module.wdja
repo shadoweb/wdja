@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=mm_echo_error()}
+<script src="{$=#global_images_route}js/validator.js" type="text/javascript"></script>
+<div class="detail">
+  <div class="title"><h1>{$=ii_itake('config.sign','lng')}</h1></div>
+  <div class="data"><span><a href="./?type=list">{$=ii_itake('config.view','lng')}</a></span></div>
+  <div class="table">
+    <form method="post" action="{$=#nuri}?action=add&token={$=mm_get_token()}">
+    <input type="hidden" name="token" value="{$=mm_get_token()}" />
+    <input type="hidden" name="genre" value="{$genre}" />
+    <input type="hidden" name="gid" value="{$gid}" />
+      <table width="100%" cellpadding="10" cellspacing="0" border="0" class="tableF" style="max-width:750px;margin:0 auto;">
+        <tr>
+          <th><t>{$=ii_itake('config.url', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="url" value="{$url}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th style="vertical-align: top;"><t>{$=ii_itake('config.content', 'lng')}<r>*</r></t></th>
+          <td><textarea name="content" class="t1">{$=ii_htmlencode($_POST['content'], 1)}</textarea></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.name', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="name" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.mobile', 'lng')}</t></th>
+          <td><input type="text" size="20" name="mobile" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.email', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="40" name="email" class="i1" /></td>
+        </tr>{@recurrence_valcode}
+        <tr>
+          <th><t>{$=ii_itake('global.lng_config.valcode', 'lng')}<r>*</r></t></th>
+          <td><input type="text" style="width:80px;" name="valcode" size="4" dtype="Require" dmsg="{$=ii_itake('validator.valcode', 'lng')}" class="i1" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
+        </tr>{@recurrence_valcode}
+        <tr>
+          <td height="35"></td>
+          <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('config.sign','lng')}</div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('config.view','lng')}</h1>
+  <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('config.view','lng')}</nav>
+  <ol class="area-lists">
+    {@recurrence_ida}
+    <li class="area-lists-item">
+      <div class="lists-item-main">
+        <div class="lists-item-title"> 
+          <strong>{$name}&nbsp;&nbsp;{$time}</strong>
+        </div>
+        <div class="lists-item-infos"><a href="{$=ii_get_actual_route('{$genre}')}" target="_blank">{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</a>: <a href="{$url}" target="_blank">{$=mm_get_field('{$genre}','{$gid}','topic')}</a>({$url})</div>
+        <div class="lists-item-con">{$=ii_creplace(ii_encode_article(ii_htmlencode($GLOBALS['RS_content'])))}</div>
+      </div>
+      {@admin_reply}
+      <ul class="area-lists-child">
+        <li class="lists-child-item">
+          <div class="lists-item-main">
+            <div class="lists-item-title"> 
+              <strong>{$=ii_itake('config.reply', 'lng')}:&nbsp;&nbsp;{$replytime}</strong>
+            </div>
+            <div class="lists-item-con">{$=ii_creplace(ii_encode_article(ii_htmlencode($GLOBALS['RS_reply'])))}</div>
+          </div>
+        </li>
+      </ul>
+      {@admin_reply}
+    </li>
+    {@recurrence_ida}
+  </ol>
+  <div class="clear"></div>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    
+    <item>
+      <name><![CDATA[detail_check_history]]></name>
+      <tpl_default><![CDATA[<ol class="area-lists">
+  {@recurrence_ida}
+  <li class="area-lists-item">
+    <div class="lists-item-main">
+      <div class="lists-item-title"> 
+        <strong>{$name}&nbsp;&nbsp;{$time}</strong>
+      </div>
+      <div class="lists-item-infos"><a href="{$=ii_get_actual_route('{$genre}')}" target="_blank">{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</a>: <a href="{$url}" target="_blank" >{$=mm_get_field('{$genre}','{$gid}','topic')}</a>({$url})</div>
+      <div class="lists-item-con">{$=mm_encode_content($GLOBALS['RS_content'])}</div>
+    </div>
+    {@admin_reply}
+    <ul class="area-lists-child">
+      <li class="lists-child-item">
+        <div class="lists-item-main">
+          <div class="lists-item-title"> 
+            <strong>{$=ii_itake('global.check:config.reply', 'lng')}:&nbsp;&nbsp;{$replytime}</strong>
+          </div>
+          <div class="lists-item-con">{$=ii_encode_article($GLOBALS['RS_reply'])}</div>
+        </div>
+      </li>
+    </ul>
+    {@admin_reply}
+  </li>
+  {@recurrence_ida}
+</ol>
+<div class="clear"></div>
+<div id="cutepage" class="listpage">{$cpagestr}</div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail_check]]></name>
+      <tpl_default><![CDATA[  <div class="areas">
+    <div class="area-menu"><span><a href="/check/?type=add&genre={$genre}&gid={$id}&url={$=urlencode('{$url}')}&token={$=mm_get_token()}">{$=ii_itake('global.check:module.channel_title', 'lng')}</a></span> <span><a href="/check/?type=list">{$=ii_itake('global.check:config.view','lng')}</a></span></div>
+    <div class="clear"></div>
+    <div class="area-title"><span>{$=ii_itake('global.check:config.history','lng')}</span></div>
+    {$=mm_get_detail_check_history('{$genre}','{$id}')}
+  </div>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>
