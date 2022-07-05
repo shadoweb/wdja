@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>value,chinese</field>
+    <base>sel_list</base>
+  </configure>
+  <sel_list>
+    <item>
+      <value><![CDATA[0]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/0.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[1]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/1.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[2]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/2.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[3]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/3.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[4]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/4.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[5]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/5.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[6]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/6.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[7]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/7.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[8]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/8.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[9]]></value>
+      <chinese><![CDATA[<img src="{$=#images_route}tp/9.gif" border="0" class="absmiddle" />]]></chinese>
+    </item>
+  </sel_list>
+</xml>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjaf" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <disinfo><![CDATA[{$folder}:description]]></disinfo>
+      <chinese><![CDATA[公共管理]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$folder}:icon]]></disinfo>
+      <chinese><![CDATA[4]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=#nurlpre}/search/manage.php]]></disinfo>
+      <chinese><![CDATA[搜索记录]]></chinese>
+    </item>
+  </item_list>
+</xml>

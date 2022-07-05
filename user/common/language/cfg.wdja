@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[register_close]]></disinfo>
+      <chinese><![CDATA[注册用户功能是否关闭(0:否/1:是)]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[lostpassword_close]]></disinfo>
+      <chinese><![CDATA[忘记密码功能是否关闭(0:否/1:是)]]></chinese>
+    </item>
+  </language_list>
+</xml>

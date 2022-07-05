@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+          <a id="nav_list" href="?hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a>
+          <a id="nav_default" href="?keyword=0&field=default&hspan=nav_default">{$=ii_itake('manage.nav_default','lng')}</a>
+          <a id="nav_lock" href="?keyword=1&field=lock&hspan=nav_lock">{$=ii_itake('manage.nav_lock','lng')}</a>
+          <a id="nav_out" href="?keyword=1&field=out&hspan=nav_out">{$=ii_itake('manage.nav_out','lng')}</a>
+          <a id="nav_add" href="?type=add&hspan=nav_add">{$=ii_itake('manage.nav_add','lng')}</a>
+          <a id="sql_add" href="?type=sql&hspan=sql_add">{$=ii_itake('manage.sql_add','lng')}</a>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_list','lng')}</h3>
+    <rightarea>
+      <form method="get" name="search">
+        <select name="field" class="s1">{$=mm_get_admin_search()}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="submit" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+<form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="95">{$=ii_itake('manage.come','lng')}</th>
+          <th width="95">{$=ii_itake('global.lng_config.ip','lng')}</th>
+          <th width="45">{$=ii_itake('manage.robots','lng')}</th>
+          <th width="40">{$=ii_itake('manage.count','lng')}</th>
+          <th width="30">{$=ii_itake('manage.lock','lng')}</th>
+          <th width="50">{$=ii_itake('manage.out','lng')}</th>
+          <th width="110">{$=ii_itake('manage.update','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td>{$come}</td>
+          <td>{$ip}({$area})</td>
+          <td>{$robots}</td>
+          <td>{$count}</td>
+          <td class="center"><img src="{$=#global_images_route}public/small/lock_{$lock}.gif" border="0"></td>
+          <td class="center"><img src="{$=#global_images_route}public/small/out_{$out}.gif" border="0"></td>
+          <td>{$update}</td>
+          <td class="center">
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}')"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_add','lng')}</h3>
+     <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+        <th valign="top"><t>{$=ii_itake('manage.ip','lng')}</t><r>*</r></th>
+        <td><input type="text" name="ip" class="i1"></td>
+      	  </tr><tr>
+        <th valign="top"><t>{$=ii_itake('manage.area','lng')}</t></th>
+        <td><input type="text" name="area" class="i1"></td>
+        </tr><tr class="show-1">
+        <th valign="top"><t>{$=ii_itake('manage.robots','lng')}</t></th>
+        <td><select name="robots" class="s1">{$=ii_show_xmlinfo_select('sel_robots.all', 'robots', 'select')}</select></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+          <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="content" cols="60" class="t1"></textarea></td>
+        </tr><tr>
+        <th valign="top"><t>{$=ii_itake('manage.lock','lng')}</t></th>
+        <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="lock" class="val" value="0" /></span></td>
+        </tr><tr>
+        <th valign="top"><t>{$=ii_itake('manage.out','lng')}</t></th>
+        <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="out" class="val" value="0" /></span></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+    <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+          <th valign="top"><t>{$=ii_itake('manage.ip','lng')}</t><r>*</r></th>
+          <td><input type="text" name="ip" class="i1" value="{$ip}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.area','lng')}</t></th>
+          <td><input type="text" name="area" class="i1" value="{$area}"></td>
+        </tr><tr class="show-1">
+          <th valign="top"><t>{$=ii_itake('manage.robots','lng')}</t></th>
+          <td><select name="robots" class="s1">{$=ii_show_xmlinfo_select('sel_robots.all', '{$robots}', 'select')}</select></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+          <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="content" cols="60" class="t1">{$content}</textarea></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.lock','lng')}</t></th>
+          <td><span onclick="inputSwitch(this)" class="switch switch-{$lock}" bind="1"><b></b><u></u><em></em><input type="hidden" name="lock" class="val" value="{$lock}" /></span></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.out','lng')}</t></th>
+          <td><span onclick="inputSwitch(this)" class="switch switch-{$out}" bind="1"><b></b><u></u><em></em><input type="hidden" name="out" class="val" value="{$out}" /></span></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+          <td><input type="text" name="time" class="i1" value="{$time}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.update','lng')}</t></th>
+          <td><input type="text" name="update" class="i1" value="{$update}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.count','lng')}</t></th>
+          <td><input type="text" name="count" class="i1" value="{$count}"></td>
+        </tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button>
+      </div>
+    </form>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sql]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.sql_add','lng')}</h3>
+     <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr class="show-1">
+        <th valign="top"><t>{$=ii_itake('manage.robots','lng')}</t></th>
+        <td><select name="robots" class="s1">{$=ii_show_xmlinfo_select('sel_robots.all', 'robots', 'select')}</select></td>
+        </tr><tr>
+        <th valign="top"><t>{$=ii_itake('manage.lock','lng')}</t></th>
+        <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="lock" class="val" value="0" /></span></td>
+        </tr><tr>
+        <th valign="top"><t>{$=ii_itake('manage.out','lng')}</t></th>
+        <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="out" class="val" value="0" /></span></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.ips','lng')}</t></th>
+          <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="ips" cols="60" class="t1"></textarea></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

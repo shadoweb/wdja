@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafgf" author="wdja">
+  <configure>
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="norder" strvalue="sitemap,iplock,baidupush,fields,label,mysql,timer,cthtm,vuser" />
+    <item varstr="nuninstall" strvalue="0|0|0" />
+  </configure>
+</xml>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_ask_answer" />
+    <item varstr="nidfield" strvalue="aid" />
+    <item varstr="nfpre" strvalue="a_" />
+    <item varstr="nuninstall" strvalue="1|0|0" />
+    <item varstr="timeout" strvalue="2" />
+    <item varstr="nxml" strvalue="1" />
+  </configure>
+</xml>

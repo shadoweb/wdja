@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.ask:module.channel_title', 'lng')}</h1>
+</div>
+<div class="detail">
+  <div class="title"><h1>{$=ii_itake('module.channel_title', 'lng')}《<a href="{$=ii_get_actual_route('ask')}/?type=detail&id={$fid}">{$ask}</a>》</h1></div>
+  <div class="content">
+    <p>{$=ii_itake('module.announce','lng')}</p>
+    {$=ii_encode_article(ii_itake('module.announce_content','lng'))}
+    <p></p>
+  </div>
+  <div class="areas">
+    <div class="area-title">
+      <a>《<a href="{$=ii_get_actual_route('ask')}/?type=detail&id={$fid}">{$ask}</a>》{$=ii_itake('api.answer_list', 'lng')}</a>
+    </div>
+    {@recurrence_ida}
+    <ol class="area-lists">
+      <li class="area-lists-item">
+        <div class="lists-item-main">
+          <div class="lists-item-title"><strong>{$author}&nbsp;&nbsp;{$time}&nbsp;&nbsp;[{$=ii_format_ip(ii_htmlencode($GLOBALS['RS_authorip']), 2)}]</strong></div>
+          <div class="lists-item-con">{$=ii_creplace(ii_encode_article($GLOBALS['RS_content']))}</div>
+          {$best}
+        </div>
+      </li>
+    </ol>
+    {@recurrence_ida}
+    <div id="cutepage" class="listpage">{$cpagestr}</div>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

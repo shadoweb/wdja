@@ -1,0 +1,74 @@
+@charset "UTF-8";
+.tags_input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 490px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    overflow: hidden;
+    border: #d1d1d1 1px solid;
+    border-radius: 2px;
+    box-shadow: inset 0px 1px 2px rgb(0 0 0 / 8%);
+    transition: all .3s ease;
+}
+#tagsInputs {
+    display:flex;
+    flex-wrap:nowrap;
+    border:0;
+}
+#tagsInput{
+    width:100%;
+    border:0;
+}
+/* 删除选中标签 */
+.tag-checked-name {
+    max-width:100px;
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    border-radius: 1px;
+    color: #4abee0;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 0 20px 0 3px;
+    background-color: #f7fdff;
+    border: solid 1px #4abee0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 3px;
+}
+.tag-checked-name:first-of-type {
+    margin-left: 0px;
+}
+.tag-checked-name em {
+    display:block;
+    position:absolute;
+    top:3px;
+    right:4px;
+    width:13px;
+    height: 13px;
+    cursor:pointer;
+    transform: rotate(45deg);
+}
+.tag-checked-name em:after {
+    display:block;
+    position:absolute;
+    content:'';
+    top:6px;
+    width:13px;
+    height:1px;
+    background:#4abee0;
+}
+.tag-checked-name em:before {
+    display:block;
+    position:absolute;
+    content:'';
+    top:0px;
+    left:6px;
+    width:1px;
+    height: 13px;
+    background:#4abee0;
+}

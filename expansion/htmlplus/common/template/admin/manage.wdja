@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+      <button class="b2 empty show-1" onclick="window.location.href='?hspan=fileslist'">{$=ii_itake('manage.fileslist','lng')}</button>
+      <button class="b2 empty show-1" onclick="window.location.href='?type=add_file&show_path={$=urlencode($GLOBALS['nshow_path_str'])}&hspan=filesadd'">{$=ii_itake('manage.filesadd','lng')}</button>
+      <button class="b2 empty show-1" onclick="window.location.href='?type=add_folder&show_path={$=urlencode($GLOBALS['nshow_path_str'])}&hspan=folderadd'">{$=ii_itake('manage.folderadd','lng')}</button>
+    <div style="display:inline-block;"><form method="post" action="?action=upload&path={$npath}&backurl={$=urlencode($GLOBALS['nuri'] . '?show_path=' . urlencode($GLOBALS['nshow_path_str']))}" enctype="multipart/form-data"><input type="file" name="file1" class="hide" id="browse" onchange="get_id('up_button').click();"> <input type="submit" class="button hide" name="up_button" id="up_button" value="{$=ii_itake('global.lng_config.upload','lng')}"><input style="display: inline-block;width: 60px;height: 28px;line-height: 28px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" onclick="get_id('browse').click();" value="{$=ii_itake('global.lng_config.upload','lng')}" readonly="readonly"></form></div>
+
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[config]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+    <form name="form" method="post" action="?action=config&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+          <th valign="top"><t>{$=ii_itake('manage.url','lng')}</t></th>
+          <td><input type="text" name="url" class="i1" value="{$url}">
+          <pre><span class="info-1">{$=ii_itake('manage.url_tips','lng')}</span></pre>
+          </td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.sort','lng')}</t></th>
+          <td><span onclick="inputSwitch(this)" class="switch switch-{$sort}" bind="1"><b></b><u></u><em></em><input type="hidden" name="sort" class="val" value="{$sort}" /></span></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.module','lng')}</t></th>
+          <td><input type="text" name="module" class="i1" value="{$module}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.pages','lng')}</t></th>
+          <td><input type="text" name="pages" class="i1" value="{$pages}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.tags','lng')}</t></th>
+          <td><input type="text" name="tags" class="i1" value="{$tags}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.singlepage','lng')}</t></th>
+          <td><input type="text" name="singlepage" class="i1" value="{$singlepage}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.web_folder','lng')}</t></th>
+          <td><input type="text" name="web_folder" class="i1" value="{$web_folder}">
+          <pre><span class="info-1"> {$=ii_itake('manage.tips','lng')}</span></pre>
+          </td>
+        </tr></tbody>
+      </table>
+      <div class="form_button">
+      <button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button>
+      </div>
+    </form>
+    <h3>{$=ii_itake('manage.create','lng')}</h3>
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+          <th valign="top"><t></t></th>
+          <td>
+    <form style="display:inline-block;margin-right:10px;" name="form" method="post" action="?action=create&backurl={$=urlencode($GLOBALS['nurl'])}">
+      <button class="b2 submit" onclick="click_go();">{$=ii_itake('manage.create','lng')}</button>
+    </form>
+    <form style="display:inline-block;margin-right:10px;" name="form" method="post" action="?action=upload_oss&backurl={$=urlencode($GLOBALS['nurl'])}">
+      <button class="b2 submit" onclick="click_go();">{$=ii_itake('manage.upload_oss','lng')}</button>
+    </form>
+          </td>
+        </tr></tbody>
+      </table>
+<script src="{$=#global_images_route}js/click_go.js" type="text/javascript"></script>
+      ]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

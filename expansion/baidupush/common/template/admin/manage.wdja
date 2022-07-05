@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+                      <a id="nav_list" href="?hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a>
+                      <a id="nav_export" href="?action=export&hspan=nav_export">{$=ii_itake('manage.nav_export','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_list','lng')}</h3>
+    <rightarea>
+      <form method="get" name="search">
+        <select name="field" class="s1">{$=mm_get_admin_search()}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="submit" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+    
+<form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="60">{$=ii_itake('config.genre','lng')}</th>
+          <th width="150">{$=ii_itake('config.topic','lng')}</th>
+          <th width="150">{$=ii_itake('config.url','lng')}</th>
+          <th width="60">{$=ii_itake('config.count','lng')}</th>
+          <th width="60">{$=ii_itake('config.type','lng')}</th>
+          <th width="60">{$=ii_itake('config.state','lng')}</th>
+          <th width="120">{$=ii_itake('config.time','lng')}</th>
+          <th width="120">{$=ii_itake('config.update','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('config.view','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td>{$genre}</td>
+          <td>{$topic}</td>
+          <td>{$url}</td>
+          <td>{$count}</td>
+          <td>{$type}</td>
+          <td>{$state}</td>
+          <td>{$time}</td>
+          <td>{$update}</td>
+          <td class="center">
+              <icons>
+              <icon class="category show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=view&id={$id}"></a></icon>
+              </icons>
+           </td>
+          <td class="center">
+              <icons>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[view]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.view','lng')}</h3>
+    <rightarea>
+    </rightarea>
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="60">{$=ii_itake('config.genre','lng')}</th>
+          <th width="80">{$=ii_itake('global.lng_config.topic','lng')}</th>
+          <th width="60">{$=ii_itake('config.gid','lng')}</th>
+          <th width="150">{$=ii_itake('config.url','lng')}</th>
+          <th width="*">{$=ii_itake('config.content','lng')}</th>
+          <th width="60">{$=ii_itake('config.count','lng')}</th>
+          <th width="60">{$=ii_itake('config.type','lng')}</th>
+          <th width="60">{$=ii_itake('config.state','lng')}</th>
+          <th width="120">{$=ii_itake('config.time','lng')}</th>
+          <th width="120">{$=ii_itake('config.update','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="lock-0">
+          <td>{$genre}</td>
+          <td>{$topic}</td>
+          <td>{$gid}</td>
+          <td>{$url}</td>
+          <td>{$content}</td>
+          <td>{$count}</td>
+          <td>{$type}</td>
+          <td>{$state}</td>
+          <td>{$time}</td>
+          <td>{$update}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table>
+        <tr><td colspan="10" height="10"></td></tr>
+    </table>
+    <h3>{$=ii_itake('manage.push_list','lng')}</h3>
+    <table cellpadding="10" cellspacing="1" class="tableL">
+        <tr>
+          <th width="60">{$=ii_itake('config.order','lng')}</th>
+          <th width="60">{$=ii_itake('config.type','lng')}</th>
+          <th width="60">{$=ii_itake('config.state','lng')}</th>
+          <th width="*">{$=ii_itake('config.content','lng')}</th>
+          <th width="120">{$=ii_itake('config.pushtime','lng')}</th>
+        </tr>
+        {$list_data}
+      </table>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[data]]></name>
+      <tpl_default><![CDATA[{@recurrence_ida}
+                    <tr>
+                      <td>{$order}</td>
+                      <td>{$type}</td>
+                      <td>{$state}</td>
+                      <td>{$content}</td>
+                      <td>{$time}</td>
+                    </tr>{@recurrence_ida}
+                    <tr>
+                      <td width="100%" height="25" class="center" colspan="5">
+                        <div class="control">
+                          <div id="cutepage" class="pagi">{$cpagestr}</div>
+                        </div></td>
+                    </tr>
+    ]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

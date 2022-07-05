@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[channel_title]]></disinfo>
+      <chinese><![CDATA[首页]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[管理后台]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[web_title]]></disinfo>
+      <chinese><![CDATA[WDJA网站内容管理系统]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[web_keywords]]></disinfo>
+      <chinese><![CDATA[WDJA(CMS)2.1]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[web_description]]></disinfo>
+      <chinese><![CDATA[WDJA(CMS)2.1网站内容管理系统]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[set_homepage]]></disinfo>
+      <chinese><![CDATA[设为首页]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[add_favorite]]></disinfo>
+      <chinese><![CDATA[加入收藏]]></chinese>
+    </item>
+  </language_list>
+</xml>

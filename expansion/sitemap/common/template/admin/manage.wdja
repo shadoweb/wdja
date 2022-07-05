@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[config]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+    <form name="form" method="post" action="?action=config&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+          <th valign="top"><t>{$=ii_itake('manage.url','lng')}</t></th>
+          <td><input type="text" name="url" class="i1" value="{$url}"> {$=ii_itake('manage.url_tips','lng')}</td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.sort','lng')}</t></th>
+          <td><span onclick="inputSwitch(this)" class="switch switch-{$sort}" bind="1"><b></b><u></u><em></em><input type="hidden" name="sort" class="val" value="{$sort}" /></span></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.module','lng')}</t></th>
+          <td><input type="text" name="module" class="i1" value="{$module}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.pages','lng')}</t></th>
+          <td><input type="text" name="pages" class="i1" value="{$pages}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.tags','lng')}</t></th>
+          <td><input type="text" name="tags" class="i1" value="{$tags}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.singlepage','lng')}</t></th>
+          <td><input type="text" name="singlepage" class="i1" value="{$singlepage}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.page_num','lng')}</t></th>
+          <td><input type="text" name="page_num" class="i1" value="{$page_num}"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.save','lng')}</t></th>
+          <td><span style="vertical-align: middle;" onclick="inputSwitch(this)" class="switch switch-{$save}" bind="1"><b></b><u></u><em></em><input type="hidden" name="save" class="val" value="{$save}" /></span> {$=ii_itake('manage.save_tips','lng')}</td>
+        </tr></tbody>
+      </table>
+      <div class="form_button">
+      <button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button>
+      </div>
+    </form>
+    <h3>{$=ii_itake('manage.create','lng')}</h3>
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+          <th valign="top"><t>{$=ii_itake('manage.sitemap','lng')}</t></th>
+          <td>
+    <form name="form" method="post" action="?action=create&backurl={$=urlencode($GLOBALS['nurl'])}">
+            <a href="{$sitemap}" target="_blank" >{$sitemap}</a>&nbsp;&nbsp;<button class="b2 submit" onclick="click_go();">{$=ii_itake('manage.create','lng')}</button>
+    </form>
+          </td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.sitemap_html','lng')}</t></th>
+          <td>
+    <form name="form" method="post" action="?action=create_html&backurl={$=urlencode($GLOBALS['nurl'])}">
+            <a href="{$sitemap_html}" target="_blank" >{$sitemap_html}</a>&nbsp;&nbsp;<button class="b2 submit" onclick="click_go();">{$=ii_itake('manage.create_html','lng')}</button>
+    </form>
+          </td>
+        </tr></tbody>
+      </table>
+<script src="{$=#global_images_route}js/click_go.js" type="text/javascript"></script>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[header]]></name>
+      <tpl_default><![CDATA[
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{$=ii_itake('global.expansion/sitemap:module.sitemap', 'lng')}_{$=ii_itake('global.module.web_title','lng')}</title>
+<style type="text/css">
+	body {font-family: Verdana;FONT-SIZE: 12px;MARGIN: 0;color: #000000;background: #ffffff;}
+	li {margin-top: 8px;}
+	#nav, #content, #footer {padding: 8px; border: 1px solid #EEEEEE; clear: both; width: 95%; margin: auto; margin-top: 10px;}
+</style>
+</head>
+<body vlink="#333333" link="#333333">
+<h2 style="text-align: center; margin-top: 20px">{$=ii_itake('global.support/global:basic.web_name','lng')}'s SiteMap </h2>
+<center></center>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[footer]]></name>
+      <tpl_default><![CDATA[
+<div id="footer">{$=ii_itake('global.expansion/sitemap:module.viewhome', 'lng')}: <strong><a href="{$=ii_itake('global.expansion/sitemap:config.url', 'lng')}">{$=ii_itake('global.support/global:basic.web_name','lng')}</a></strong></div><br />
+<center>
+<div style="text-algin: center; font-size: 11px"><strong><a href="{$=ii_itake('global.expansion/sitemap:config.url', 'lng')}/sitemap.xml" target="_blank">Baidu-SiteMap</a></strong> &nbsp;
+Latest Update: {$=ii_format_date(ii_now(),1)}<br /><br /></div>
+</center>
+</body>
+</html>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

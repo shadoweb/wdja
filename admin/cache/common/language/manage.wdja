@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[文件缓存]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[title]]></disinfo>
+      <chinese><![CDATA[文件缓存管理]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[name]]></disinfo>
+      <chinese><![CDATA[缓存名]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[delete_success]]></disinfo>
+      <chinese><![CDATA[缓存删除成功]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[delete_error]]></disinfo>
+      <chinese><![CDATA[因某种原因导致缓存删除失败]]></chinese>
+    </item>
+  </language_list>
+</xml>

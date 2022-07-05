@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[channel_title]]></disinfo>
+      <chinese><![CDATA[友情链接]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[文字链接]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_list]]></disinfo>
+      <chinese><![CDATA[全部链接列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_add]]></disinfo>
+      <chinese><![CDATA[添加一个新的链接]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[edit]]></disinfo>
+      <chinese><![CDATA[编辑链接属性]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[topic]]></disinfo>
+      <chinese><![CDATA[链接标题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[url]]></disinfo>
+      <chinese><![CDATA[链接地址]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[intro]]></disinfo>
+      <chinese><![CDATA[介绍]]></chinese>
+    </item>
+  </language_list>
+</xml>

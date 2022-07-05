@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[buy]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('module.buy', 'lng')}</div>
+              <form method="post" name="sel_form" action="{$=#nuri}?action=order">
+            <table cellspacing="0" cellpadding="10" class="tableF">
+              <tr><th>{$=ii_itake('module.uname', 'lng')}</th><td>{$username}</td>
+             </tr>
+             <tr><th>{$=ii_itake('module.money', 'lng')}</th><td>{$=ii_show_xmlinfo_select('sel_money.all', '1', 'money:radio')}</td>
+             </tr>
+              <tr>
+                <th valign="top" height="25">{$=ii_itake('global.user/shopcart:config.payment','lng')}</th>
+                <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|{$pay_type}', '{$payment}', 'payment:radio_img')}</td>
+              </tr>
+             <tr><th></th><td>{$=ii_itake('module.buy_tips', 'lng')}</td>
+             </tr>
+             <tr><th></th><td><input type="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button"></td>
+             </tr>
+            </table>
+              </form>
+      </div>
+     </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[order]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('module.order', 'lng')}</div>
+              <form method="post" name="sel_form" action="{$=#nurlpre}/user/?type=pay&backurl={$=urlencode($GLOBALS['nurl'])}">
+          <input type="hidden" name="price" value="{$price}">
+          <input type="hidden" name="orderid" value="{$orderid}">
+          <input type="hidden" name="id" value="{$id}">
+            <table cellspacing="0" cellpadding="10" class="tableF">
+              <tr><th>{$=ii_itake('module.uname', 'lng')}</th><td>{$username}</td>
+             </tr>
+             <tr><th>{$=ii_itake('module.money', 'lng')}</th><td>{$price}</td>
+             </tr>
+              <tr>
+                <th valign="top" style="vertical-align: top;">{$=ii_itake('global.user/shopcart:config.payment','lng')}</th>
+                <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|{$pay_type}', '{$payment}', 'payment:radio_img')}</td>
+              </tr>
+             <tr><th></th><td>{$=ii_itake('module.buy_tips', 'lng')}</td>
+             </tr>
+             <tr><th></th><td><input type="submit" value="{$=ii_itake('global.user/shopcart:config.paynow','lng')}" class="button"></td>
+             </tr>
+            </table>
+              </form>
+      </div>
+     </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    
+    
+  </item_list>
+</xml>

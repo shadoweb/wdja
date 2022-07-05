@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[幻灯管理]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_list]]></disinfo>
+      <chinese><![CDATA[全部图片列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_add]]></disinfo>
+      <chinese><![CDATA[添加一个新的图片]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[edit]]></disinfo>
+      <chinese><![CDATA[编辑图片属性]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[topic]]></disinfo>
+      <chinese><![CDATA[图片标题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[images]]></disinfo>
+      <chinese><![CDATA[幻灯图片]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[image-tips]]></disinfo>
+      <chinese><![CDATA[图片尺寸1280px*420px]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[url]]></disinfo>
+      <chinese><![CDATA[幻灯链接]]></chinese>
+    </item>
+  </language_list>
+</xml>

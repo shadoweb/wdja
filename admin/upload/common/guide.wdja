@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <disinfo><![CDATA[{$folder}:{$path}/manage.php?hspan=list]]></disinfo>
+      <chinese><![CDATA[上传管理]]></chinese>
+    </item>
+  </item_list>
+</xml>

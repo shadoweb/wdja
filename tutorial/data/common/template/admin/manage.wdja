@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+                  <a class="btn" href="?tutorial_id={$=ii_get_num($_GET['tutorial_id'])}">{$=ii_itake('manage.nav_list','lng')}</a>
+                  <a class="btn" href="?keyword=1&field=hidden&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}">{$=ii_itake('manage.nav_hidden','lng')}</a>
+                  <a class="btn" href="?keyword=1&field=good&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}">{$=ii_itake('manage.nav_good','lng')}</a>
+                  <a class="btn" href="?type=add&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}">{$=ii_itake('manage.nav_add','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+      <h2 style="text-align:center;width:100%;margin:20px auto;"><a href="/tutorial/manage.php?type=list&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}" title="{$=ii_itake('manage.back_tutorial','lng')}">{$=mm_get_field('tutorial',$_GET['tutorial_id'],'topic')}</a></h2>
+  <div class="table">
+    <h3>{$=pp_manage_navigation()}&nbsp;<a class="btn" href="/tutorial/chapter/manage.php?type=list&tutorial_id={$tutorial_id}">{$=ii_itake('manage.back_chapter','lng')}</a></h3>
+    <rightarea>
+      <form method="get" name="search">
+        <input type="hidden" name="tutorial_id" value="{$=ii_get_num($_GET['tutorial_id'])}">
+        <select name="field" class="s1">{$=mm_get_admin_search()}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="btn_search" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+<form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="*">{$=ii_itake('global.lng_config.topic','lng')}</th>
+          <th width="150">{$=ii_itake('manage.chapter','lng')}</th>
+          <th width="150">{$=ii_itake('manage.tutorial','lng')}</th>
+          <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
+          <th width="50" class="center">{$=ii_itake('global.lng_config.edit','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td><a href="{$url}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" border="0"></a>&nbsp;<a href="?type=edit&id={$id}&tutorial_id={$tutorial_id}&chapter_id={$chapter_id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
+          <td><a href="?tutorial_id={$tutorial_id}&chapter_id={$chapter_id}">{$chapter}</a></td>
+          <td><a href="?tutorial_id={$tutorial_id}">{$tutorial}</a></td>
+          <td>{$time}</td>
+          <td>
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[
+<link href="{$=#global_images_route}js/ySelect/ySelect.css" type="text/css" type="text/css" rel="stylesheet" >
+<script src="{$=#global_images_route}js/ySelect/ySelect.js" type="text/javascript"></script>
+<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
+  get_id("chapter_id").value = $("#chapter").ySelectedValues(",");
+}
+</script>
+      <h2 style="text-align:center;width:100%;margin:20px auto;"><a href="/tutorial/manage.php?type=list&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}" title="{$=ii_itake('manage.back_tutorial','lng')}">{$=mm_get_field('tutorial',$_GET['tutorial_id'],'topic')}</a></h2>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_add','lng')}</h3>
+    <rightarea>{$=pp_manage_navigation()}</rightarea>
+     <form name="form" method="post" action="?action=add&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.tutorial','lng')}</t></th>
+  <td><input class="i1" value="{$=mm_get_field('tutorial',ii_get_num($_GET['tutorial_id']),'topic')}" disabled><input type="hidden" name="tutorial_id" value="{$=ii_get_num($_GET['tutorial_id'])}"</td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.ischapter','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-1" bind="1"><b></b><u></u><em></em><input type="hidden" name="ischapter" class="val" value="1" /></span>&nbsp;<span class="info-1">{$=ii_itake('manage.ischapter_tips','lng')}</span></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.chapter','lng')}</t></th>
+  <td><input type="hidden" name="chapter_id" id="chapter_id"><select id="chapter" class="s1">{$=mm_sel_genre_topic('tutorial/chapter','id='.ii_get_num($_GET['chapter_id']).';fid='.ii_get_num($_GET['tutorial_id']).';ffield=tutorial_id')}</select></td>
+</tr>
+<script type="text/javascript">
+$(function(){$('#chapter').ySelect();});
+</script><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="topic" id="topic" class="i1" oninput="jscheck_topic(get_id('topic').value)" onpropertychange="jscheck_topic(get_id('topic').value)" > <div id="view_topic" style="display:none;" class="red">{$=ii_itake('global.lng_config.topic_tips','lng')}</div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.file','lng')}</t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="file" class="i1 fileurl" name="file" size="40">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=file&upfname=" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>&nbsp;<span class="info-1">{$=ii_itake('manage.file_tips','lng')}</span>
+  </div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.titles','lng')}</t></th>
+  <td><input type="text" name="titles" size="40" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.keywords','lng')}</t></th>
+  <td><input type="text" name="keywords" size="40" class="i1"></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.description','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="description" cols="60" class="t1"></textarea></td>
+</tr>
+{$=api_tags_add()}
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}</t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="image" size="40" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=image&upfname={$=#nuppath}noimg.gif&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+  </div></td>
+</tr>
+{$=api_fields_add()}
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+  <td>{$=mm_html_content('content','')}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="content_atts_list" id="content_atts_list"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)"></select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_img(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_img('content', get_id('content_atts').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.edit','lng')}" onclick="edit_img('content_atts',get_id('content_atts').value)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" type="button" onclick="pop_display('content_atts')" value="{$=ii_itake('global.lng_config.upload','lng')}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.ucode','lng')}</t></th>
+  <td><input style="width:100px;" type="text" name="ucode" size="40" class="i1"><span class="info-1">{$=ii_itake('manage.ucode_tips','lng')}</span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.expansion/vuser:manage.vuser','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="vuser" class="val" value="0" /></span></td>
+</tr>
+{$=api_timer_add()}
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="0" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.good','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="good" class="val" value="0" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.tpl','lng')}</t></th>
+  <td><input type="text" name="tpl" class="i1"><span class="info-1">{$=ii_itake('global.lng_config.tpl-tips','lng')}</span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.gourl','lng')}</t></th>
+  <td><input type="text" name="gourl" class="i1"> <span class="info-1">{$=ii_itake('global.lng_config.gourl-tips','lng')}</span></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    
+<script src="{$=#global_images_route}js/pop.js" type="text/javascript"></script>
+{$=mm_get_pop_upload()}
+    </form>
+    </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[
+<link href="{$=#global_images_route}js/ySelect/ySelect.css" type="text/css" rel="stylesheet" >
+<script src="{$=#global_images_route}js/ySelect/ySelect.js" type="text/javascript"></script>
+<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
+  get_id("chapter_id").value = $("#chapter").ySelectedValues(",");
+}
+</script>
+      <h2 style="text-align:center;width:100%;margin:20px auto;"><a href="/tutorial/manage.php?type=list&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}" title="{$=ii_itake('manage.back_tutorial','lng')}">{$=mm_get_field('tutorial',$_GET['tutorial_id'],'topic')}</a></h2>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+    <rightarea>{$=pp_manage_navigation()}</rightarea>
+     <form name="form" method="post" action="?action=edit&tutorial_id={$=ii_get_num($_GET['tutorial_id'])}&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.tutorial','lng')}<r>*</r></t></th>
+  <td><input class="i1" value="{$=mm_get_field('tutorial',{$tutorial_id},'topic')}" disabled></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.ischapter','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$ischapter}" bind="1"><b></b><u></u><em></em><input type="hidden" name="ischapter" class="val" value="{$ischapter}" /></span>&nbsp;<span class="info-1">{$=ii_itake('manage.ischapter_tips','lng')}</span></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.chapter','lng')}</t></th>
+  <td><input type="hidden" name="chapter_id" id="chapter_id"><select id="chapter" class="s1">{$=mm_sel_genre_topic('tutorial/chapter','id={$chapter_id};fid={$tutorial_id};ffield=tutorial_id')}</select></td>
+</tr>
+<script type="text/javascript">
+$(function(){$('#chapter').ySelect();});
+</script><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="topic" id="topic" class="i1" value="{$topic}" oninput="jscheck_topic(get_id('topic').value,{$id})" onpropertychange="jscheck_topic(get_id('topic').value,{$id})"> <div id="view_topic" style="display:none;" class="red">{$=ii_itake('global.lng_config.topic_tips','lng')}</div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.file','lng')}</t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="file" class="i1 fileurl" name="file" size="40" value="{$file}">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=file&upfname=" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>&nbsp;<span class="info-1">{$=ii_itake('manage.file_tips','lng')}</span>
+  </div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.titles','lng')}</t></th>
+  <td><input type="text" name="titles" size="40" value="{$titles}" class="i1"></td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.keywords','lng')}</t></th>
+  <td><input type="text" name="keywords" size="40" value="{$keywords}" class="i1"></td>
+	</tr>
+	<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.description','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="description" cols="60" class="t1">{$description}</textarea></td>
+</tr>
+{$=api_tags_edit()}
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}</t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="image" size="40" value="{$image}" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=image&upfname=&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+  </div></td>
+</tr>
+  {$=api_fields_edit()}
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+  <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']))}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="content_atts_list" id="content_atts_list"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_img_list('{$content_atts_list}')}</select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_img(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_img('content', get_id('content_atts').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.edit','lng')}" onclick="edit_img('content_atts',get_id('content_atts').value)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" type="button" onclick="pop_display('content_atts')" value="{$=ii_itake('global.lng_config.upload','lng')}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.ucode','lng')}</t></th>
+  <td><input style="width:100px;" type="text" name="ucode" class="i1" value="{$ucode}"><span class="info-1">{$=ii_itake('manage.ucode_tips','lng')}</span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.expansion/vuser:manage.vuser','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$vuser}" bind="1"><b></b><u></u><em></em><input type="hidden" name="vuser" class="val" value="{$vuser}" /></span></td>
+</tr>
+{$=api_timer_edit()}
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.good','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$good}" bind="1"><b></b><u></u><em></em><input type="hidden" name="good" class="val" value="{$good}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+  <td><input type="text" name="time" class="i1" value="{$time}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.count','lng')}</t></th>
+  <td><input type="text" name="count" class="i1" value="{$count}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.tpl','lng')}</t></th>
+  <td><input type="text" name="tpl" class="i1" value="{$tpl}"><span class="info-1">{$=ii_itake('global.lng_config.tpl-tips','lng')}</span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.gourl','lng')}</t></th>
+  <td><input type="text" name="gourl" class="i1" value="{$gourl}" > <span class="info-1">{$=ii_itake('global.lng_config.gourl-tips','lng')}</span></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    
+<script src="{$=#global_images_route}js/pop.js" type="text/javascript"></script>
+{$=mm_get_pop_upload()}
+    </form>
+    </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[batch_menu]]></name>
+      <tpl_default><![CDATA[
+                  <a id="batch_shift" href="?type=displace&mtype=batch_shift&hspan=batch_shift" target="_self">{$=ii_itake('manage.batch_shift', 'lng')}</a>
+                  <a id="batch_delete" href="?type=displace&mtype=batch_delete&hspan=batch_delete" target="_self">{$=ii_itake('manage.batch_delete', 'lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[batch_shift]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_batch_menu()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.batch_shift','lng')}</h3>
+    <rightarea></rightarea>
+<form name="form" method="post" action="?action=batch_shift&backurl={$=urlencode($GLOBALS['nurl'])}">
+  <table cellpadding="10" cellspacing="0" class="tableF">
+    <tr>
+    <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}</t></th>
+    <td><select name="sort1" class="s1">{$=mm_sel_sort($GLOBALS['ngenre'],$GLOBALS['slng'],0)}</select></td>
+    </tr>
+    <tr>
+    <th valign="top"><t></t></th>
+    <td><label class="checkbox"><input type="checkbox" class="checkbox" name="child" value="all"><vicon></vicon><span>{$=ii_itake('manage.batch_child_sort','lng')}</span></label></td>
+    </tr>
+    <tr>
+    <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}</t></th>
+    <td><select name="sort2" class="s1">{$=mm_sel_sort($GLOBALS['ngenre'],$GLOBALS['slng'],0)}</select></td>
+    </tr>
+  </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+</form>
+</div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[batch_delete]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_batch_menu()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.batch_delete','lng')}</h3>
+    <rightarea></rightarea>
+<form name="form" method="post" action="?action=batch_delete&backurl={$=urlencode($GLOBALS['nurl'])}">
+  <table cellpadding="10" cellspacing="0" class="tableF">
+    <tr>
+    <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}</t></th>
+    <td><select name="sort1" class="s1">{$=mm_sel_sort($GLOBALS['ngenre'],$GLOBALS['slng'],0)}</select></td>
+    </tr>
+    <tr>
+    <th valign="top"><t></t></th>
+    <td><label class="checkbox"><input type="checkbox" class="checkbox" name="child" value="all"><vicon></vicon><span>{$=ii_itake('manage.batch_child_sort','lng')}</span></label></td>
+    </tr>
+  </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+</form>
+</div>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

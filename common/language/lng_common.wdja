@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[browse]]></disinfo>
+      <chinese><![CDATA[浏览..]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[sure]]></disinfo>
+      <chinese><![CDATA[您确认执行此操作吗？]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[noout]]></disinfo>
+      <chinese><![CDATA[在处理提交时候发生意外，可能是非正常的提交或者是您的浏览器或者防火墙的安全级别过高的缘故]]></chinese>
+    </item>
+  </language_list>
+</xml>

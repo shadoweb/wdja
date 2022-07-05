@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[网站留言]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_list]]></disinfo>
+      <chinese><![CDATA[全部留言列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_hidden]]></disinfo>
+      <chinese><![CDATA[隐藏的留言列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_add]]></disinfo>
+      <chinese><![CDATA[添加新的留言]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[edit]]></disinfo>
+      <chinese><![CDATA[编辑留言]]></chinese>
+    </item>
+  </language_list>
+</xml>

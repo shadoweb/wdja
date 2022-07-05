@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[channel_title]]></disinfo>
+      <chinese><![CDATA[站内搜索]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[condition_error]]></disinfo>
+      <chinese><![CDATA[错误的搜索条件]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nodata]]></disinfo>
+      <chinese><![CDATA[结果为空,请重新搜索.]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[keyword_error]]></disinfo>
+      <chinese><![CDATA[没有输入关键字]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[complex_error]]></disinfo>
+      <chinese><![CDATA[超出复合查询范围]]></chinese>
+    </item>
+  </language_list>
+</xml>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+<a id="home" href="/support/themes/default/manage.php?type=home&hspan=home" target="_self">{$=ii_itake('manage.home','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[home]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
+}
+</script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.home','lng')}</h3>
+    <form name="form" method="post" action="?action=home&backurl={$=urlencode($GLOBALS['nurl'])}&token={$=mm_get_token()}" onsubmit="bfsubmit()">
+    <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.slide_num','lng')}<r>*</r></t></th>
+  <td><input type="text" name="slide_num" class="i1" value="{$slide_num}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.sort_list','lng')}</t></th>
+  <td><select name="sort_list" class="s1">{$=pp_get_module_select('{$sort_list}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.sort_list_num','lng')}<r>*</r></t></th>
+  <td><input type="text" name="sort_list_num" class="i1" value="{$sort_list_num}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.images_list','lng')}</t></th>
+  <td><select name="images_list" class="s1">{$=pp_get_module_select('{$images_list}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.images_list_num','lng')}<r>*</r></t></th>
+  <td><input type="text" name="images_list_num" class="i1" value="{$images_list_num}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.imagestext_list','lng')}</t></th>
+  <td><select name="imagestext_list" class="s1">{$=pp_get_module_select('{$imagestext_list}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.imagestext_list_num','lng')}<r>*</r></t></th>
+  <td><input type="text" name="imagestext_list_num" class="i1" value="{$imagestext_list_num}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.text_list','lng')}</t></th>
+  <td><select name="text_list" class="s1">{$=pp_get_module_select('{$text_list}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.text_list_num','lng')}<r>*</r></t></th>
+  <td><input type="text" name="text_list_num" class="i1" value="{$text_list_num}"></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+      ]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

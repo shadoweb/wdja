@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>value,chinese</field>
+    <base>sel_list</base>
+  </configure>
+  <sel_list>
+    <item>
+      <value><![CDATA[Win9X]]></value>
+      <chinese><![CDATA[Win9X]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[WinME]]></value>
+      <chinese><![CDATA[WinME]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[WinNT]]></value>
+      <chinese><![CDATA[WinNT]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[Win2K]]></value>
+      <chinese><![CDATA[Win2K]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[Win2003]]></value>
+      <chinese><![CDATA[Win2003]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[WinXP]]></value>
+      <chinese><![CDATA[WinXP]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[Linux]]></value>
+      <chinese><![CDATA[Linux]]></chinese>
+    </item>
+    <item>
+      <value><![CDATA[Unix]]></value>
+      <chinese><![CDATA[Unix]]></chinese>
+    </item>
+  </sel_list>
+</xml>

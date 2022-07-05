@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[insert_empty]]></disinfo>
+      <chinese><![CDATA[必填项[]为空]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[sort]]></disinfo>
+      <chinese><![CDATA[请选择类别]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[valcode]]></disinfo>
+      <chinese><![CDATA[验证码对比错误]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[login]]></disinfo>
+      <chinese><![CDATA[用户名或者密码错误]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[token_error]]></disinfo>
+      <chinese><![CDATA[安全校验失败]]></chinese>
+    </item>
+  </language_list>
+</xml>

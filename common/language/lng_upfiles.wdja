@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[file_null]]></disinfo>
+      <chinese><![CDATA[发生意外]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[file_max]]></disinfo>
+      <chinese><![CDATA[文件大小超过了所允许的最大值[{$=#nupmaxsize}]B]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[file_uptype]]></disinfo>
+      <chinese><![CDATA[当前只允许上传[{$=#nuptype}]类型的文件]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[file_sudd]]></disinfo>
+      <chinese><![CDATA[发生意外]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[file_loader]]></disinfo>
+      <chinese><![CDATA[正在尝试上传中..]]></chinese>
+    </item>
+  </language_list>
+</xml>

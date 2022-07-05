@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+                  <a id="nav_list" href="?hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a>
+                  <a id="nav_export" href="?action=export&hspan=nav_export">{$=ii_itake('manage.nav_export','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.mgtitle','lng')}</h3>
+    <rightarea>
+      <form method="get" name="search">
+        <select name="field" class="s1">{$=mm_get_admin_search()}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="btn_search" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+    
+<form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="100">{$=ii_itake('manage.topic','lng')}</th>
+          <th width="100">{$=ii_itake('manage.count','lng')}</th>
+          <th width="180">{$=ii_itake('manage.ip','lng')}</th>
+          <th width="*">{$=ii_itake('manage.content','lng')}</th>
+          <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
+          <th class="center" width="30">{$=ii_itake('manage.view','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td><a href="?type=view&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
+          <td>{$count}</td>
+          <td>{$ip}</td>
+          <td>{$content}</td>
+          <td>{$time}</td>
+          <td>
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('manage.view','lng')}"><a class="link" href="?type=view&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[view]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('manage.view','lng')}</h3>
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.topic','lng')}<r>*</r></t></th>
+  <td>{$topic}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.ip','lng')}</t></th>
+  <td>{$ip}</td>
+	</tr>
+	<tr>
+  <th valign="top"><t>{$=ii_itake('manage.content','lng')}</t></th>
+  <td><textarea type="text" rows="3" ncols="60" class="t1">{$content}</textarea></td>
+</tr>
+	<tr>
+  <th valign="top"><t>{$=ii_itake('manage.infos','lng')}</t></th>
+  <td><textarea type="text" rows="3" ncols="60" class="t1">{$infos}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+  <td>{$time}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.count','lng')}</t></th>
+  <td>{$count}</td>
+</tr><tr>
+  <th valign="top"><t></t></th>
+  <td><a style="display: inline-block;width: 60px;height: 28px;line-height: 28px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" href="?type=list" class="button">返回</a></td>
+</tr></tbody>
+      </table>
+      
+    </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[batch_menu]]></name>
+      <tpl_default><![CDATA[
+                  <a id="batch_shift" href="?type=displace&mtype=batch_shift&hspan=batch_shift" target="_self">{$=ii_itake('manage.batch_shift', 'lng')}</a>
+                  <a id="batch_delete" href="?type=displace&mtype=batch_delete&hspan=batch_delete" target="_self">{$=ii_itake('manage.batch_delete', 'lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[batch_shift]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_batch_menu()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.batch_shift','lng')}</h3>
+    <rightarea></rightarea>
+<form name="form" method="post" action="?action=batch_shift&backurl={$=urlencode($GLOBALS['nurl'])}">
+  <table cellpadding="10" cellspacing="0" class="tableF">
+    <tr>
+    <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}</t></th>
+    <td><select name="sort1" class="s1">{$=mm_sel_sort($GLOBALS['ngenre'],$GLOBALS['slng'],0)}</select></td>
+    </tr>
+    <tr>
+    <th valign="top"><t></t></th>
+    <td><label class="checkbox"><input type="checkbox" class="checkbox" name="child" value="all"><vicon></vicon><span>{$=ii_itake('manage.batch_child_sort','lng')}</span></label></td>
+    </tr>
+    <tr>
+    <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}</t></th>
+    <td><select name="sort2" class="s1">{$=mm_sel_sort($GLOBALS['ngenre'],$GLOBALS['slng'],0)}</select></td>
+    </tr>
+  </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+</form>
+</div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[batch_delete]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_batch_menu()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.batch_delete','lng')}</h3>
+    <rightarea></rightarea>
+<form name="form" method="post" action="?action=batch_delete&backurl={$=urlencode($GLOBALS['nurl'])}">
+  <table cellpadding="10" cellspacing="0" class="tableF">
+    <tr>
+    <th valign="top"><t>{$=ii_itake('global.lng_config.sort','lng')}</t></th>
+    <td><select name="sort1" class="s1">{$=mm_sel_sort($GLOBALS['ngenre'],$GLOBALS['slng'],0)}</select></td>
+    </tr>
+    <tr>
+    <th valign="top"><t></t></th>
+    <td><label class="checkbox"><input type="checkbox" class="checkbox" name="child" value="all"><vicon></vicon><span>{$=ii_itake('manage.batch_child_sort','lng')}</span></label></td>
+    </tr>
+  </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+</form>
+</div>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

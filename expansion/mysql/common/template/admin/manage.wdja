@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+                  <a id="nav_list" href="?hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a>
+                  <a id="nav_restore" href="?type=restore&hspan=nav_restore">{$=ii_itake('manage.restoredb','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_list','lng')}</h3>
+    <rightarea><button class="b2 empty show-1" onclick="window.location.href='?type=add&backurl={$=urlencode($GLOBALS['nurl'])}'">{$=ii_itake('manage.add_table','lng')}</button>&nbsp;&nbsp;<button class="b2 empty show-1" onclick="click_go();window.location.href='?action=backup&backurl={$=urlencode($GLOBALS['nurl'])}'">{$=ii_itake('manage.backupdb','lng')}</button></rightarea>
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="*">{$=ii_itake('config.table','lng')}</th>
+          <th class="center" width="200">{$=ii_itake('global.lng_config.edit','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+          <td>{$topic}</td>
+          <td>
+              <icons>
+              <a class="link" href="?type=add_field&table={$topic}&backurl={$=urlencode($GLOBALS['nurl'])}"><icon class="category show-1" title="{$=ii_itake('global.lng_config.view','lng')}"></icon>{$=ii_itake('manage.add_field','lng')}</a>&nbsp;&nbsp;
+              <a class="link" href="?type=list_field&table={$topic}"><icon class="category show-1" title="{$=ii_itake('global.lng_config.view','lng')}"></icon>{$=ii_itake('global.lng_config.view','lng')}</a>&nbsp;&nbsp;
+              <a class="link" href="?action=backup&table={$topic}&backurl={$=urlencode($GLOBALS['nurl'])}"><icon class="oss show-1" title="{$=ii_itake('manage.backup','lng')}"></icon>{$=ii_itake('manage.backup','lng')}</a>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+  </div>
+<script src="{$=#global_images_route}js/click_go.js" type="text/javascript"></script>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list_field]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('config.table','lng')}[{$table}]</h3>
+    <rightarea><button class="b2 empty show-1" onclick="click_go();window.location.href='?type=add_field&table={$table}&backurl={$=urlencode($GLOBALS['nurl'])}'">{$=ii_itake('manage.add_field','lng')}</button>&nbsp;&nbsp;<button class="b2 empty show-1" onclick="click_go();window.location.href='?action=backup&table={$table}&backurl={$=urlencode($GLOBALS['nurl'])}'">{$=ii_itake('manage.backup','lng')}{$=ii_itake('config.table','lng')}</button></rightarea>
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="100">{$=ii_itake('config.field','lng')}</th>
+          <th width="100">{$=ii_itake('config.type','lng')}</th>
+          <th width="100">{$=ii_itake('config.null','lng')}</th>
+          <th width="100">{$=ii_itake('config.key','lng')}</th>
+          <th width="100">{$=ii_itake('config.default','lng')}</th>
+          <th width="100">{$=ii_itake('config.extra','lng')}</th>
+          <th width="100">{$=ii_itake('config.collation','lng')}</th>
+          <th width="100">{$=ii_itake('config.comment','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+          <td>{$Field}</td>
+          <td>{$Type}</td>
+          <td>{$Null}</td>
+          <td>{$Key}</td>
+          <td>{$Default}</td>
+          <td>{$Extra}</td>
+          <td>{$Collation}</td>
+          <td>{$Comment}</td>
+          <td>
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit_field&table={$table}&field={$Field}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              </icons>
+           </td>
+          <td>
+              <icons>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete_field&table={$table}&field={$Field}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$Field}]')"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+  </div>
+<script src="{$=#global_images_route}js/click_go.js" type="text/javascript"></script>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_add','lng')}</h3>
+     <form name="form" method="post" action="?action=add&type=table&backurl={$backurl}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.ctable_type','lng')}</t></th>
+  <td onclick="typeSwitch(this)">{$=ii_show_xmlinfo_select('sel_ctable_type.all', 0, 'ctable_type:radio')}</td>
+	</tr><tr id="otable" style="display:none;">
+  <th valign="top"><t>{$=ii_itake('manage.otable','lng')}<r>*</r></t></th>
+  <td><select name="otable" class="s1">{$=mm_sel_table_list()}</select></td>
+</tr><tr id="copy_type" style="display:none;">
+  <th valign="top"><t>{$=ii_itake('manage.copy_type','lng')}</t></th>
+  <td>{$=ii_show_xmlinfo_select('sel_copy_type.all', 0, 'copy_type:radio')}</td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.ctable','lng')}<r>*</r></t></th>
+  <td><input type="text" name="ctable" class="i1"></td>
+</tr><tr id="cid">
+  <th valign="top"><t>{$=ii_itake('manage.cid','lng')}<r>*</r></t></th>
+  <td><input type="text" name="id" class="i1"></td>
+</tr><tr id="cfpre">
+  <th valign="top"><t>{$=ii_itake('manage.cfpre','lng')}<r>*</r></t></th>
+  <td><input type="text" name="fpre" class="i1"></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+<script type="text/javascript">
+<!--
+function typeSwitch(obj)
+{
+  var pobj = obj.getElementsByTagName('label');
+   for(var i = 0; i<pobj.length; i++){
+        var item = pobj[i].querySelector("label input");
+        if(item.checked){
+        $('#otable').css('display','none');
+        $('#copy_type').css('display','none');
+        $('#cid').css('display','none');
+        $('#cfpre').css('display','none');
+            if(item.value == '0'){
+              $('#cid').css('display','');
+              $('#cfpre').css('display','');
+            }else if(item.value == '1'){
+              $('#otable').css('display','');
+              $('#copy_type').css('display','');
+            }else{
+              $('#copy_type').css('display','');
+              $('#cid').css('display','');
+              $('#cfpre').css('display','');
+            }
+      }
+    }
+}
+//-->
+</script>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
+}
+</script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+     <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="topic" class="i1" value="{$topic}"> <button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.gourl','lng')}</t></th>
+  <td><input type="text" name="gourl" class="i1" value="{$gourl}" > <span class="info-1">{$=ii_itake('global.lng_config.gourl-tips','lng')}</span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.keywords','lng')}</t></th>
+  <td><input type="text" name="keywords" size="40" value="{$keywords}" class="i1"></td>
+	</tr>
+	<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.description','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="description" cols="60" class="t1">{$description}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+  <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']))}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="content_atts_list" id="content_atts_list"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_images_list('{$content_atts_list}')}</select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_images(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_images('content', get_id('content_atts').value, 0, -1, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <iframe style="display: inline-block;overflow: hidden;width: 60px;height: 30px;margin-top: -3px;padding: 0;vertical-align: middle;" src="?type=upload&upform=form&uptext=content_atts&upftype=1&upsimg={$upsimgs}" width="100%" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[add_field]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.add_field','lng')}[{$table}]</h3>
+     <form name="form" method="post" action="?action=add_field&table={$table}&backurl={$backurl}">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="100">{$=ii_itake('config.field','lng')}</th>
+          <th width="100">{$=ii_itake('config.type','lng')}</th>
+          <th width="100">{$=ii_itake('config.long','lng')}</th>
+          <th width="100">{$=ii_itake('config.null','lng')}</th>
+          <th width="100">{$=ii_itake('config.collation','lng')}</th>
+          <th width="100">{$=ii_itake('config.key','lng')}</th>
+          <th width="100">{$=ii_itake('config.default','lng')}</th>
+          <th width="100">{$=ii_itake('config.extra','lng')}</th>
+          <th width="100">{$=ii_itake('config.comment','lng')}</th>
+          <th width="100">{$=ii_itake('config.field_after','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input name="field" value="" class="i2"></td>
+          <td><select name="type" class="s1">{$=ii_show_xmlinfo_select('sel_type.all', 'varchar', 'select')}</select></td>
+          <td><input name="long" value="" class="i2"></td>
+          <td><select name="null" class="s1">{$=ii_show_xmlinfo_select('sel_null.all', 'NULL', 'select')}</select></td>
+          <td></td>
+          <td></td>
+          <td><select name="default" class="s1">{$=ii_show_xmlinfo_select('sel_default.all', '', 'select')}</select></td>
+          <td></td>
+          <td><input name="comment" value="" class="i2"></td>
+          <td><select name="after" class="s1">{$=mm_sel_field_list('{$table}')}</select></td>
+        </tr>
+      </tbody>
+      </table>
+    <div class="control" style="margin:15px 0;">
+      <button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button>
+    </div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit_field]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit_field','lng')}{$Field}[{$table}]</h3>
+     <form name="form" method="post" action="?action=edit_field&table={$table}&field={$field}&backurl={$backurl}">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="80">{$=ii_itake('config.field','lng')}</th>
+          <th width="80">{$=ii_itake('config.type','lng')}</th>
+          <th width="80">{$=ii_itake('config.long','lng')}</th>
+          <th width="80">{$=ii_itake('config.null','lng')}</th>
+          <th width="80">{$=ii_itake('config.collation','lng')}</th>
+          <th width="80">{$=ii_itake('config.key','lng')}</th>
+          <th width="300">{$=ii_itake('config.default','lng')}</th>
+          <th width="100">{$=ii_itake('config.extra','lng')}</th>
+          <th width="*">{$=ii_itake('config.comment','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input name="field" value="{$Field}" class="i2"></td>
+          <td><select name="type" class="s1">{$=ii_show_xmlinfo_select('sel_type.all', '{$Type}', 'select')}</select></td>
+          <td><input name="long" value="{$Long}" class="i2"></td>
+          <td><select name="null" class="s1">{$=ii_show_xmlinfo_select('sel_null.all', '{$Null}', 'select')}</select></td>
+          <td>{$Collation}</td>
+          <td>{$Key}</td>
+          <td><select name="default" class="s1" style="width:49%;margin-right:2%;">{$=ii_show_xmlinfo_select('sel_default.all', '{$Default}', 'select')}</select><input name="diy" value="{$diy}" class="i2" style="width:49%;"></td>
+          <td><input type="hidden" name="extra" value="{$Extra}" class="i2"></td>
+          <td><input name="comment" value="{$Comment}" class="i2"></td>
+        </tr>
+      </tbody>
+      </table>
+    <div class="control" style="margin:15px 0;">
+      <button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button>
+    </div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[restore]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.restore','lng')}</h3>
+    <rightarea><button class="b2 empty show-1" onclick="click_go();window.location.href='?action=restore&backurl={$=urlencode($GLOBALS['nurl'])}'">{$=ii_itake('manage.restoredb','lng')}</button></rightarea>
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="100">{$=ii_itake('config.name','lng')}</th>
+          <th width="100">{$=ii_itake('config.size','lng')}</th>
+          <th width="100">{$=ii_itake('config.path','lng')}</th>
+          <th width="100">{$=ii_itake('config.time','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('manage.restore','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.delete','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {@recurrence_ida}
+          <td>{$name}</td>
+          <td>{$size}</td>
+          <td>{$path}</td>
+          <td>{$time}</td>
+          <td>
+              <icons>
+              <icon class="db show-1" title="{$=ii_itake('manage.restore','lng')}"><a class="link" href="?action=restore&type=table&file={$name}&table={$table}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              </icons>
+           </td>
+          <td>
+              <icons>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete_file&file={$name}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$name}]')"></a></icon>
+              </icons>
+           </td>
+        </tr>
+        {@recurrence_ida}
+      </tbody>
+    </table>
+  </div>
+<script src="{$=#global_images_route}js/click_go.js" type="text/javascript"></script>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

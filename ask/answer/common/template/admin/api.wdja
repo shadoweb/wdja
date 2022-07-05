@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[input_form]]></name>
+      <tpl_default><![CDATA[
+      <div class="area-lists-more">
+      <span><a href="{$=ii_get_actual_route(AP_SUPPORT_REVIEW_GENRE)}/?type=list&amp;fid={$fid}" target="_blank">{$=ii_itake('global.' . AP_SUPPORT_REVIEW_GENRE . ':api.view', 'lng')}</a></span>
+      </div>
+      <div class="area-title">
+      <a>{$=ii_itake('global.' . AP_SUPPORT_REVIEW_GENRE . ':config.content', 'lng')}</a>
+      </div>
+    <form name="form" method="post" action="{$=ii_get_actual_route(AP_SUPPORT_REVIEW_GENRE)}/index.php?action=add&fid={$fid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+    <textarea rows="5" name="content" cols="75" class="t1" style="width:100%;"></textarea>
+    <p style="margin:20px auto;"><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button">&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button"></p>
+
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[output_note]]></name>
+      <tpl_default><![CDATA[
+      <div class="area-title">
+      <a>{$=ii_itake('global.' . AP_SUPPORT_REVIEW_GENRE . ':api.answer_list', 'lng')}</a>
+      </div>
+{@recurrence_ida}
+<ol class="area-lists">
+  <li class="area-lists-item">
+   <div class="lists-item-main">
+    <div class="lists-item-title"> 
+     <strong>{$author}&nbsp;&nbsp;{$time}&nbsp;&nbsp;[{$=ii_format_ip(ii_htmlencode($GLOBALS['RS_authorip']), 2)}]</strong> 
+    </div>
+    <div class="lists-item-con">{$=ii_creplace(ii_encode_article($GLOBALS['RS_content']))}</div>
+    {$best}
+   </div>
+  </li>
+</ol>
+{@recurrence_ida}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

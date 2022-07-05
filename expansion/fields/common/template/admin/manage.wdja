@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+                  <a id="nav_list" href="?genre={$tgenre}&hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a>
+                  <a id="nav_add" href="?type=add&genre={$tgenre}&hspan=nav_add">{$=ii_itake('manage.nav_add','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+  <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_list','lng')}</h3>
+    <rightarea>
+      <form method="get" name="search">
+        <input type="hidden" id="tgenre" name="genre" value="{$tgenre}">
+        <select class="s1" onchange="bsearch('tgenre',this)">{$=pp_get_genre_select('{$tgenre}')}</select>
+        <select name="field" class="s1">{$=mm_get_admin_search()}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="btn_search" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+<form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="40" class="center">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="60">{$=ii_itake('manage.name','lng')}</th>
+          <th width="*">{$=ii_itake('manage.topic','lng')}</th>
+          <th width="60">{$=ii_itake('manage.type','lng')}</th>
+          <th width="100">{$=ii_itake('manage.genre','lng')}</th>
+          <th width="80">{$=ii_itake('manage.hidden_list','lng')}</th>
+          <th width="80">{$=ii_itake('manage.hidden_detail','lng')}</th>
+          <th width="60">{$=ii_itake('global.lng_config.hidden','lng')}</th>
+          <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td>{$name}</td>
+          <td><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
+          <td>{$=ii_itake('sel_config_type.{$type}', 'sel')}</td>
+          <td>{$genre}</td>
+          <td>{$hidden_list}</td>
+          <td>{$hidden_detail}</td>
+          <td>{$hidden}</td>
+          <td>{$time}</td>
+          <td>
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_add','lng')}</h3>
+     <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}">
+     <input type="hidden" id="fields_date_option" name="fields_date_option" value="2">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.genre','lng')}</t></th>
+  <td><select name="genre" class="s1">{$=pp_get_genre_select('{$tgenre}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.name','lng')}</t><r>*</r></th>
+  <td><input type="text" name="name" class="i1"><pre><span class="info-1">{$=ii_itake('manage.name_tips','lng')}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.topic','lng')}</t><r>*</r></th>
+  <td><input type="text" name="topic" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.type','lng')}</t></th>
+  <td onclick="typeSwitch(this)">{$=ii_show_xmlinfo_select('sel_config_type.all', 0, 'type:radio')}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="0" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_list','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_list" class="val" value="0" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_detail','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_detail" class="val" value="0" /></span></td>
+</tr><tr id="type_input" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.input_tips','lng')}</span></td>
+  </tr><tr id="type_textarea" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.textarea_tips','lng')}</span></td>
+  </tr><tr id="type_upload" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.upload_tips','lng')}</span></td>
+  </tr><tr id="type_gallery" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.gallery_tips','lng')}</span></td>
+  </tr><tr id="type_other" >
+  <th valign="top"><t>{$=ii_itake('manage.count','lng')}</t></th>
+  <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
+</tr></tbody>
+      </table>
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px;">
+        <tr id="fields_date_option1" >
+          <th valign="top"><t>{$=ii_itake('manage.option','lng')}[1]</t></th>
+          <td><input type="text" name="option1" class="i1"></td>
+        </tr>
+        <tr id="fields_date_option2">
+          <th valign="top"><t>{$=ii_itake('manage.option','lng')}[2]</t></th>
+          <td><input type="text" name="option2" class="i1"></td>
+        </tr>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
+<script src="{$=#global_images_route}js/calendar.js" type="text/javascript"></script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+      <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">
+      <input type="hidden" id="fields_date_option" name="fields_date_option" value="{$count}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.genre','lng')}</t></th>
+  <td><select name="genre" class="s1">{$=pp_get_genre_select('{$genre}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.name','lng')}</t><r>*</r></th>
+  <td><input type="text" name="name" value="{$name}" class="i1"><pre><span class="info-1">{$=ii_itake('manage.name_tips','lng')}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.topic','lng')}</t><r>*</r></th>
+  <td><input type="text" name="topic" value="{$topic}" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.type','lng')}</t></th>
+  <td onclick="typeSwitch(this)">{$=ii_show_xmlinfo_select('sel_config_type.all', {$type}, 'type:radio')}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_list','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_list}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_list" class="val" value="{$hidden_list}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_detail','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_detail}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_detail" class="val" value="{$hidden_detail}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+  <td><input type="text" name="time" id="time" class="i1" style="width:135px;" value="{$time}" onclick="Calendar.display('time', event)"></td>
+</tr><tr id="type_input" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.input_tips','lng')}</span></td>
+  </tr><tr id="type_textarea" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.textarea_tips','lng')}</span></td>
+  </tr><tr id="type_upload" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.upload_tips','lng')}</span></td>
+  </tr><tr id="type_gallery" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.gallery_tips','lng')}</span></td>
+  </tr><tr id="type_other">
+  <th valign="top"><t>{$=ii_itake('manage.count','lng')}</t></th>
+  <td><input type="text" id="count" name="count" value="{$count}" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
+</tr></tbody>
+      </table>
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px;">{@recurrence_ida}
+        <tr id="fields_date_option{$oid}">
+          <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+        </tr>{@recurrence_ida}
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit_input]]></name>
+      <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
+<script src="{$=#global_images_route}js/calendar.js" type="text/javascript"></script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+      <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">
+      <input type="hidden" id="fields_date_option" name="fields_date_option" value="{$count}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.genre','lng')}</t></th>
+  <td><select name="genre" class="s1">{$=pp_get_genre_select('{$genre}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.name','lng')}</t><r>*</r></th>
+  <td><input type="text" name="name" value="{$name}" class="i1"><pre><span class="info-1">{$=ii_itake('manage.name_tips','lng')}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.topic','lng')}</t></th>
+  <td><input type="text" name="topic" value="{$topic}" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.type','lng')}</t></th>
+  <td onclick="typeSwitch(this)">{$=ii_show_xmlinfo_select('sel_config_type.all', {$type}, 'type:radio')}</td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_list','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_list}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_list" class="val" value="{$hidden_list}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_detail','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_detail}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_detail" class="val" value="{$hidden_detail}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+  <td><input type="text" name="time" id="time" class="i1" style="width:135px;" value="{$time}" onclick="Calendar.display('time', event)"></td>
+</tr><tr id="type_input">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.input_tips','lng')}</span></td>
+  </tr><tr id="type_textarea" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.textarea_tips','lng')}</span></td>
+  </tr><tr id="type_upload" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.upload_tips','lng')}</span></td>
+  </tr><tr id="type_gallery" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.gallery_tips','lng')}</span></td>
+  </tr><tr id="type_other" style="display:none;">
+  <th valign="top"><t>{$=ii_itake('manage.count','lng')}</t></th>
+  <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
+</tr></tbody>
+      </table>
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+        <tr id="fields_date_option{$oid}">
+          <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+        </tr>{@recurrence_ida}
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit_textarea]]></name>
+      <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
+<script src="{$=#global_images_route}js/calendar.js" type="text/javascript"></script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+      <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">
+      <input type="hidden" id="fields_date_option" name="fields_date_option" value="{$count}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.genre','lng')}</t></th>
+  <td><select name="genre" class="s1">{$=pp_get_genre_select('{$genre}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.name','lng')}</t><r>*</r></th>
+  <td><input type="text" name="name" value="{$name}" class="i1"><pre><span class="info-1">{$=ii_itake('manage.name_tips','lng')}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.topic','lng')}</t></th>
+  <td><input type="text" name="topic" value="{$topic}" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.type','lng')}</t></th>
+  <td onclick="typeSwitch(this)">{$=ii_show_xmlinfo_select('sel_config_type.all', {$type}, 'type:radio')}</td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_list','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_list}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_list" class="val" value="{$hidden_list}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_detail','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_detail}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_detail" class="val" value="{$hidden_detail}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+  <td><input type="text" name="time" id="time" class="i1" style="width:135px;" value="{$time}" onclick="Calendar.display('time', event)"></td>
+</tr><tr id="type_input" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.input_tips','lng')}</span></td>
+  </tr><tr id="type_textarea">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.textarea_tips','lng')}</span></td>
+  </tr><tr id="type_upload" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.upload_tips','lng')}</span></td>
+  </tr><tr id="type_gallery" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.gallery_tips','lng')}</span></td>
+  </tr><tr id="type_other" style="display:none;">
+  <th valign="top"><t>{$=ii_itake('manage.count','lng')}</t></th>
+  <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
+</tr></tbody>
+      </table>
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+        <tr id="fields_date_option{$oid}">
+          <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+        </tr>{@recurrence_ida}
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit_upload]]></name>
+      <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
+<script src="{$=#global_images_route}js/calendar.js" type="text/javascript"></script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+      <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">
+      <input type="hidden" id="fields_date_option" name="fields_date_option" value="{$count}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.genre','lng')}</t></th>
+  <td><select name="genre" class="s1">{$=pp_get_genre_select('{$genre}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.name','lng')}</t><r>*</r></th>
+  <td><input type="text" name="name" value="{$name}" class="i1"><pre><span class="info-1">{$=ii_itake('manage.name_tips','lng')}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.topic','lng')}</t></th>
+  <td><input type="text" name="topic" value="{$topic}" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.type','lng')}</t></th>
+  <td onclick="typeSwitch(this)">{$=ii_show_xmlinfo_select('sel_config_type.all', {$type}, 'type:radio')}</td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_list','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_list}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_list" class="val" value="{$hidden_list}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_detail','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_detail}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_detail" class="val" value="{$hidden_detail}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+  <td><input type="text" name="time" id="time" class="i1" style="width:135px;" value="{$time}" onclick="Calendar.display('time', event)"></td>
+</tr><tr id="type_input" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.input_tips','lng')}</span></td>
+  </tr><tr id="type_textarea" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.textarea_tips','lng')}</span></td>
+  </tr><tr id="type_upload">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.upload_tips','lng')}</span></td>
+  </tr><tr id="type_gallery" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.gallery_tips','lng')}</span></td>
+  </tr><tr id="type_other" style="display:none;">
+  <th valign="top"><t>{$=ii_itake('manage.count','lng')}</t></th>
+  <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
+</tr></tbody>
+      </table>
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+        <tr id="fields_date_option{$oid}">
+          <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+        </tr>{@recurrence_ida}
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit_gallery]]></name>
+      <tpl_default><![CDATA[
+{$=ii_ireplace('manage.js_fields_set_date', 'tpl')}
+<script src="{$=#global_images_route}js/calendar.js" type="text/javascript"></script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+      <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">
+      <input type="hidden" id="fields_date_option" name="fields_date_option" value="{$count}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.genre','lng')}</t></th>
+  <td><select name="genre" class="s1">{$=pp_get_genre_select('{$genre}')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.name','lng')}</t><r>*</r></th>
+  <td><input type="text" name="name" value="{$name}" class="i1"><pre><span class="info-1">{$=ii_itake('manage.name_tips','lng')}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.topic','lng')}</t></th>
+  <td><input type="text" name="topic" value="{$topic}" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.type','lng')}</t></th>
+  <td onclick="typeSwitch(this)">{$=ii_show_xmlinfo_select('sel_config_type.all', {$type}, 'type:radio')}</td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_list','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_list}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_list" class="val" value="{$hidden_list}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.hidden_detail','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden_detail}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden_detail" class="val" value="{$hidden_detail}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.time','lng')}</t></th>
+  <td><input type="text" name="time" id="time" class="i1" style="width:135px;" value="{$time}" onclick="Calendar.display('time', event)"></td>
+</tr><tr id="type_input" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.input_tips','lng')}</span></td>
+  </tr><tr id="type_textarea" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.textarea_tips','lng')}</span></td>
+  </tr><tr id="type_upload" style="display:none;">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.upload_tips','lng')}</span></td>
+  </tr><tr id="type_gallery">
+    <th valign="top"><t>{$=ii_itake('manage.option','lng')}</t></th>
+    <td><span class="info-1">{$=ii_itake('manage.gallery_tips','lng')}</span></td>
+  </tr><tr id="type_other" style="display:none;">
+  <th valign="top"><t>{$=ii_itake('manage.count','lng')}</t></th>
+  <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
+</tr></tbody>
+      </table>
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+        <tr id="fields_date_option{$oid}">
+          <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+        </tr>{@recurrence_ida}
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[js_fields_set_date]]></name>
+      <tpl_default><![CDATA[<script type="text/javascript">
+function fields_set_date()
+{
+  var tobj, tvalue;
+  tobj = get_id("count");
+  tvalue = get_num(tobj.value);
+  if (tvalue < 0) tvalue = 0;
+  var tdobj, tdvalue;
+  tdobj = get_id("fields_date_option");
+  tdvalue = get_num(tdobj.value);
+  if (tdvalue < 0) tdvalue = 0;
+  if (tvalue && tdvalue)
+  {
+    var tnums = tvalue - tdvalue ;
+    if (tnums < 0)
+    {
+      for (i = tdvalue; i > tvalue; i--)
+      {
+        if (get_id("fields_date_option" + i))
+        {
+          get_id("fields_date_option" + i).style.display = "none";
+        }
+      }
+    }
+    else
+    {
+      var tobjdate, tobjstr, tstrfields;
+      tobjdate = get_id("fields_date");
+      tstrfields = "{$=ii_itake('manage.option','lng')}";
+      tobjstr = ""
+      for (i = tdvalue; i <= tvalue; i++)
+      {
+        if (get_id("fields_date_option" + i))
+        {
+          get_id("fields_date_option" + i).style.display = "";
+        }
+        else
+        {
+          tobjstr += "<tr id=\"fields_date_option" + i + "\"><th valign=\"top\"><t>" + tstrfields + "[" + i + "]</t></th><td><input type=\"text\" name=\"option" + i + "\"  class=\"i1\"></td></tr>"
+        }
+      }
+      tobjdate.innerHTML += tobjstr;
+    }
+    tdobj.value = tvalue;
+  }
+}
+</script>
+<script type="text/javascript">
+<!--
+function typeSwitch(obj)
+{
+  var pobj = obj.getElementsByTagName('label');
+  var tinput = get_id("type_input");
+  var ttextarea = get_id("type_textarea");
+  var tupload = get_id("type_upload");
+  var tgallery = get_id("type_gallery");
+  var tother = get_id("type_other");
+  var tfields = get_id("fields_date");
+   for(var i = 0; i<pobj.length; i++){
+        var item = pobj[i].querySelector("label input");
+        if(item.checked){
+              tinput.style.display = "none";
+              ttextarea.style.display = "none";
+              tupload.style.display = "none";
+              tgallery.style.display = "none";
+              tother.style.display = "none";
+              tfields.style.display = "none";
+            if(item.value == '3'){
+              tinput.style.display = "";
+            }else if(item.value == '4'){
+              ttextarea.style.display = "";
+            }else if(item.value == '5'){
+              tupload.style.display = "";
+            }else if(item.value == '6'){
+              tgallery.style.display = "";
+            }else{
+              tother.style.display = "";
+              tfields.style.display = "";
+            }
+      }
+    }
+}
+//-->
+</script>
+]]></tpl_default>
+    </item>
+  <item>
+    <name><![CDATA[getinput]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" name="fields_{$oid}" value="{$data}" class="i1"></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[gettextarea]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{$=mm_html_content('fields_{$oid}',ii_htmlencode($GLOBALS['RS_data']))}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getupload]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" id="fields_{$oid}" name="fields_{$oid}" value="{$data}" class="i1" ondblclick="preview_images(this.value, event)">
+<iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getgallery]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>
+              <div id="fields_{$oid}" class="gallery"></div>
+              <input type="hidden" name="fields_{$oid}" value="{$data}">
+              <iframe style="padding:5px;background-color: #5cb85c;border: 1px solid #5cb85c;display:inline-block;width:80px;height:80px;vertical-align: middle;margin-top: -3px;" src="?type=uploads&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+      <script type="text/javascript">
+      var gallery_fields_{$oid} = '{$data}';
+      if(gallery_fields_{$oid} != ''){
+          var galleryary = gallery_fields_{$oid}.split("#:#");
+          var str = '';
+          for(i=0;i < galleryary.length;i++){
+            if(galleryary[i] != '') str +='<span onclick="del_gallery_fields_{$oid}(this,\'' + galleryary[i]+ '\');"><img width="80" src="' + galleryary[i]+ '"/></span>';
+          }
+          get_id('fields_{$oid}').innerHTML = str;
+      }
+      function del_gallery_fields_{$oid}(obj,val){
+          if(confirm('确认删除图片?'))
+          {
+              var imgval = document.form.fields_{$oid}.value;
+              var imgary = imgval.split("#:#");
+              var nimgval = '';
+              obj.remove();
+              for(i=0;i < imgary.length;i++){
+                  if(imgary[i] != val && imgary[i] != '') nimgval += imgary[i] + '#:#';
+              }
+              document.form.fields_{$oid}.value = nimgval;
+          }
+      }
+      </script>
+</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getradio]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="radio"><input type="radio" class="radio" name="fields_{$oid}" value="{$id}" {$checked}><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getcheckbox]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="checkbox"><input type="checkbox" class="checkbox" name="fields_{$oid}[]" value="{$id}" {$checked}><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getselect]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><select name="fields_{$oid}" class="s1"><option value="0">{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}" {$selected}>{$topic}</option>{@}</select></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[input]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" name="fields_{$oid}" value="" class="i1"></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[textarea]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{$=mm_html_content('fields_{$oid}','')}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[upload]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" id="fields_{$oid}" name="fields_{$oid}" value="" class="i1">
+<iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[gallery]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>
+              <div id="fields_{$oid}" class="gallery"></div>
+              <input type="hidden" name="fields_{$oid}" value="">
+              <iframe style="padding:5px;background-color: #5cb85c;border: 1px solid #5cb85c;display:inline-block;width:80px;height:80px;vertical-align: middle;margin-top: -3px;" src="?type=uploads&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+      <script type="text/javascript">
+      var gallery_fields_{$oid} = '';
+      function del_gallery_fields_{$oid}(obj,val){
+          if(confirm('确认删除图片?'))
+          {
+              var imgval = document.form.fields_{$oid}.value;
+              var imgary = imgval.split("#:#");
+              var nimgval = '';
+              obj.remove();
+              for(i=0;i < imgary.length;i++){
+                  if(imgary[i] != val && imgary[i] != '') nimgval += imgary[i] + '#:#';
+              }
+              document.form.fields_{$oid}.value = nimgval;
+          }
+      }
+      </script>
+</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[radio]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="radio"><input type="radio" class="radio" name="fields_{$oid}" value="{$id}"><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[checkbox]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="checkbox"><input type="checkbox" class="checkbox" name="fields_{$oid}[]" value="{$id}"><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[select]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><select name="fields_{$oid}" class="s1"><option value="0" selected>{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}">{$topic}</option>{@}</select></td>
+</tr>
+]]></tpl_default>
+  </item>
+  </item_list>
+</xml>

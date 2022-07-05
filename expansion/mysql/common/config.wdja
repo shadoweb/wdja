@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="nbackuppath" strvalue="common/backup/" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="nuninstall" strvalue="1|1|1" />
+  </configure>
+</xml>

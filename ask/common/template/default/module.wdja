@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="text-list">
+    <div class="text-list-con">
+      {@recurrence_ida}
+      <div class="list-con-item"><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'])}" title="{$topic}"><h4>{$topic}</h4></a></div>
+      {@recurrence_ida}
+    </div>
+  </div>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
+<div class="detail">
+  <h1 class="left" style="padding:0;">{$topic}</h1>
+  <div class="content" style="padding:0;">
+    {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+  </div>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  <div class="data left" style="padding:0;">{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:{$count}</div>
+  <hr>
+  <div class="areas">
+    {$=ap_review_output_note($_GET['id'], 5)}
+    {$=ap_review_input_form($_GET['id'])}
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

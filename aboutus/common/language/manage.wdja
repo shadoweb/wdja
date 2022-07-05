@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[关于我们]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_list]]></disinfo>
+      <chinese><![CDATA[全部记录列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_hidden]]></disinfo>
+      <chinese><![CDATA[隐藏的记录列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_good]]></disinfo>
+      <chinese><![CDATA[推荐的记录列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_add]]></disinfo>
+      <chinese><![CDATA[添加新的记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[add]]></disinfo>
+      <chinese><![CDATA[添加记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[edit]]></disinfo>
+      <chinese><![CDATA[编辑记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[ucode]]></disinfo>
+      <chinese><![CDATA[自定义url]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[ucode_tips]]></disinfo>
+      <chinese><![CDATA[访问格式 : http://www.xxxx.cn/genre/ucode.html 其中ucode为自定义url填写的内容]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[ucode_failed]]></disinfo>
+      <chinese><![CDATA[自定义url重复]]></chinese>
+    </item>
+  </language_list>
+</xml>

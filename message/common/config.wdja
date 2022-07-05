@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_message" />
+    <item varstr="nidfield" strvalue="mid" />
+    <item varstr="nfpre" strvalue="m_" />
+    <item varstr="maxpostswitch" strvalue="1" />
+    <item varstr="maxpostnum" strvalue="5" />
+    <item varstr="nxml" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|0|0" />
+  </configure>
+</xml>

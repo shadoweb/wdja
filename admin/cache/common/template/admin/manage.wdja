@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+      <toplink><a class="link mid-list-1 on">{$=ii_itake('manage.title','lng')}</a></toplink>
+      <div class="table">
+    <h3>{$=ii_itake('manage.title','lng')}</h3>
+    <rightarea><button class="b2 empty show-1" class="red" onclick="window.location.href='?action=removeall'">{$=ii_itake('global.lng_config.removeall','lng')}</button></rightarea>
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th>{$=ii_itake('manage.name','lng')}</th>
+          <th width="60">{$=ii_itake('manage.edit','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>
+      {#recurrence_ida}
+        <tr>
+          <td><span class="mainlink">{$cache_name}</span></td>
+          <td><a href="?action=delete&file={$file_name}">{$=ii_itake('global.lng_config.delete','lng')}</a></td>
+        </tr>{#recurrence_ida}
+      </tbody>
+    </table>
+    </div>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

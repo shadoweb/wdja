@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[web_topic]]></disinfo>
+      <chinese><![CDATA[WDJA网站内容管理系统(PHP免费开源CMS系统)]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[web_keywords]]></disinfo>
+      <chinese><![CDATA[CMS系统,开源CMS,PHP CMS,免费CMS]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[web_description]]></disinfo>
+      <chinese><![CDATA[WDJA网站内容管理系统是一套可对现有模块进行扩充与克隆的PHP开源CMS系统，采用UTF-8编码，采取语言/代码/程序 两两分离的技术模式，全面使用了模板包与语言包结构，为用户的修改提供方便，网站内容的每一个角落都可以在后台予以管理，是一套非常适合用做系统建站或者进行二次开发的开源免费CMS系统。]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[baidupush_url]]></disinfo>
+      <chinese><![CDATA[www.wdja.net]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[baidupush_token]]></disinfo>
+      <chinese><![CDATA[0]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[baidupush_switch]]></disinfo>
+      <chinese><![CDATA[0]]></chinese>
+    </item>
+  </language_list>
+</xml>

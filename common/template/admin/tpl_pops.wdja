@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[pop_list_add]]></name>
+      <tpl_default><![CDATA[
+    <tr>
+      <th valign="top"><t>{$=ii_itake('global.{$source}:module.channel_title', 'lng')}</t></th>
+      <td>
+         <div style="margin-bottom:5px;"><input type="text" name="{$source}_title" size="40" class="i1" placeholder="{$=ii_itake('global.lng_pops.diytitle', 'lng')}"></div>
+         <div class="att">
+          <div class="icons"><icons><icon class="db" onclick="pop_iframe('{$source}')"></icon></icons></div>
+          <h6>{$=ii_itake('global.lng_pops.lists', 'lng')}</h6>
+          <input type="hidden" name="source[]" value="{$source}">
+          <input type="hidden" id="{$source}_sid" name="{$source}_sid" value="">
+          <ul id="{$source}_list"></ul>
+        </div>
+    {$=mm_get_pop_iframe('{$source}')}
+    </td>
+    </tr>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_list_edit]]></name>
+      <tpl_default><![CDATA[
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.{$source}:module.channel_title', 'lng')}</t></th>
+  <td>
+     <div style="margin-bottom:5px;"><input type="text" name="{$source}_title" value="{${$source}_title}" size="40" class="i1" placeholder="{$=ii_itake('global.lng_pops.diytitle', 'lng')}"></div>
+     <div class="att">
+      <div class="icons"><icons><icon class="db" onclick="pop_iframe('{$source}')"></icon></icons></div>
+      <h6>{$=ii_itake('global.lng_pops.lists', 'lng')}</h6>
+      <input type="hidden" name="source[]" value="{$source}">
+      <input type="hidden" id="{$source}_sid" name="{$source}_sid" value="{${$source}_sid}">
+      <ul id="{$source}_list">
+      {$=mm_get_pop_lists('{$source}','{${$source}_sid}')}
+      </ul>
+    </div>
+   {$=mm_get_pop_iframe('{$source}','list')}
+</td>
+</tr>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_input_add]]></name>
+      <tpl_default><![CDATA[
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.{$source}:module.channel_title', 'lng')}</t></th>
+  <td>
+      <div style="margin-bottom:5px;">
+      <input type="text" name="{$source}_title" size="40" class="i1" placeholder="{$=ii_itake('global.lng_pops.diytitle', 'lng')}" style="width:150px;margin-right:3px;">
+      <input type="text" class="i1" id="{$source}_topic" name="{$source}_sid" value="" readonly style="width:345px;">
+      <icons onclick="pop_iframe('{$source}')"><icon class="db" ></icon>点击选择</icons>
+      </div>
+      <input type="hidden" name="source[]" value="{$source}">
+      <input type="hidden" id="{$source}_sid" name="{$source}_sid" value="">
+      {$=mm_get_pop_iframe('{$source}','input')}
+</td>
+</tr>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_input_edit]]></name>
+      <tpl_default><![CDATA[
+<tr>
+  <th valign="top"><t>{$=ii_itake('global.{$source}:module.channel_title', 'lng')}</t></th>
+  <td>
+      <div style="margin-bottom:5px;">
+      <input type="text" name="{$source}_title" value="{${$source}_title}" size="40" class="i1" placeholder="{$=ii_itake('global.lng_pops.diytitle', 'lng')}" style="width:150px;margin-right:3px;">
+      <input type="text" class="i1" id="{$source}_topic" name="{$source}_sid" value="{$=api_get_pop_topic('{$source}','{${$source}_sid}')}" readonly style="width:345px;">
+      <icons onclick="pop_iframe('{$source}')"><icon class="db" ></icon>点击选择</icons>
+      </div>
+      <input type="hidden" name="source[]" value="{$source}">
+      <input type="hidden" id="{$source}_sid" name="{$source}_sid" value="{${$source}_sid}">
+      {$=mm_get_pop_iframe('{$source}','input')}
+</td>
+</tr>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[li]]></name>
+      <tpl_default><![CDATA[
+{@}
+<li class=""><input type="hidden" id="{$source}_{$id}" name="{$source}_{$id}" value="{$topic}"/><span class="tit">{$topic}</span><icons><icon class="delete" onclick="pop_del_li('{$source}_{$id}');"></icon></icons></li>
+{@}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_list_iframe]]></name>
+      <tpl_default><![CDATA[
+<div class="popup_mask" id="pop_mask_{$source}" style="display:none;"></div>
+<div class="popup_page" id="pop_page_{$source}" style="display:none;">
+<a href="javascript:pop_iframe_close('{$source}');" target="_self"><span class="close"></span></a>
+<div class="content">
+<div class="title">
+<input type="text" class="title" value="{$=ii_itake('global.{$source}:module.channel_title', 'lng')}">
+</div>
+<iframe id="iframe_{$source}" data-src="/{$=ADMIN_FOLDER}/api.php?type=list&ctype={$ctype}&source={$source}" frameborder="0" scrolling="auto" style="width:850px;min-height:450px;" ></iframe>
+</div>
+</div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_upload]]></name>
+      <tpl_default><![CDATA[
+  <div class="popup_mask" id="pop_mask" style="display:none;"></div>
+<div class="popup_page" id="pop_page" style="display:none;">
+<a href="javascript:pop_close();" target="_self"><span class="close"></span></a>
+<div class="content">
+<div class="title">
+<input type="text" class="title" value="{$=ii_itake('global.lng_pops.att_upload', 'lng')}"><input type="hidden" id="strid" value="">
+</div>
+
+<div id="pop_add" style="display:none;">
+<table cellpadding="10" cellspacing="0" class="tableF"><tr>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_title', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="img_title" name="img_title" msg="{$=ii_itake('global.lng_pops.att_title_tips', 'lng')}" size="25" value=""></td>
+</tr><tr>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_desc', 'lng')}</t></th><td><textarea style="width:350px;" type="text" rows="3" name="img_desc" id="img_desc" cols="60" class="t1"></textarea></td>
+</tr><tr>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_url', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="img_url" name="img_url" msg="{$=ii_itake('global.lng_pops.att_url_tips', 'lng')}"  msgok="{$=ii_itake('global.lng_pops.att_url_tips_addok', 'lng')}"  msgerr="{$=ii_itake('global.lng_pops.att_url_tips_err', 'lng')}" size="30" value=""> <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=img_url&upsimg=0" style="vertical-align: middle;" width="250" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr><tr>
+<th valign="top"><t></t></th><td><a onclick="add_ok(get_id('strid').value);" style="display: inline-block;padding: 6px 16px;border: 0px;line-height: 100%;font-size: 1.4rem;color: #fff;border: #666 1px solid;cursor: pointer;transition: all .1s ease;background-color: #e7505a;border-color: #e7505a;">{$=ii_itake('global.lng_pops.ok', 'lng')}</a></td>
+</tr></table>
+</div>
+
+<div id="pop_edit" style="display:none;">
+<table cellpadding="10" cellspacing="0" class="tableF"><tr>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_title', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="edit_title" name="edit_title" msg="{$=ii_itake('global.lng_pops.att_title_tips', 'lng')}" size="25" value=""></td>
+</tr><tr>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_desc', 'lng')}</t></th><td><textarea style="width:350px;" type="text" rows="3" name="edit_desc" id="edit_desc" cols="60" class="t1"></textarea></td>
+</tr><tr>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_url', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="edit_url" name="edit_url" msg="{$=ii_itake('global.lng_pops.att_url_tips', 'lng')}"  msgok="{$=ii_itake('global.lng_pops.att_url_tips_editok', 'lng')}"  msgerr="{$=ii_itake('global.lng_pops.att_url_tips_err', 'lng')}" size="30" value=""> <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=edit_url&upsimg=0" style="vertical-align: middle;" width="250" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr><tr>
+<th valign="top"><t></t></th><td><a onclick="edit_ok(get_id('strid').value);" style="display: inline-block;padding: 6px 16px;border: 0px;line-height: 100%;font-size: 1.4rem;color: #fff;border: #666 1px solid;cursor: pointer;transition: all .1s ease;background-color: #e7505a;border-color: #e7505a;">{$=ii_itake('global.lng_pops.ok', 'lng')}</a></td>
+</tr></table>
+</div>
+</div>
+</div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_list]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('global.lng_pops.lists', 'lng')}</h3>
+    <rightarea>
+      <form method="get" name="search" action="/{$=ADMIN_FOLDER}/api.php">
+        <input type="hidden" name="source" value="{$=urlencode($_GET['source'])}">
+        <div class="searchbox">
+        <input type="hidden" name="ctype" value="list">
+        <input class="keyword" type="text" name="keyword" value="{$=urldecode($_GET['keyword'])}">
+        <input id="btn_search" type="submit" class="search" value="">
+        </div>
+      </form>
+    </rightarea>
+    <script>
+    function send_source_list(){
+      var frm = eval("document.sel_form");
+      if (frm.sel_id.length)
+      {
+        var sel_ids = '';
+        var slength = frm.sel_id.length;
+        for (var i = 0; i < slength; i++)
+        {
+          if (frm.sel_id[i].checked)
+          {
+            if (sel_ids == '')
+            {
+              sel_ids = frm.sel_id[i].value;
+            }
+            else
+            {
+              sel_ids = sel_ids + ',' + frm.sel_id[i].value;
+            }
+          }
+        }
+      }
+      else
+      {
+        if (frm.sel_id.value)
+        {
+          if (frm.sel_id.checked) sel_ids = frm.sel_id.value;
+        }
+      }
+      //console.log(sel_ids);
+      var oval = parent.document.form.{$source}_sid.value;
+      var oary = oval.split(',');
+      var nary = sel_ids.split(',');
+      var oarys = oary.concat(nary);
+      var narys = [];
+      var tarys = [];
+      for (var i = 0, l = oarys.length; i < l; i++) {
+      if(oarys[i] != 0 && oarys[i] != '' && oarys[i] != null){
+        for (var j = i + 1; j < l; j++)
+          if (oarys[i] === oarys[j]) j = ++i;
+          narys.push(oarys[i]);
+       }
+      }
+      for (var k = 0; k < narys.length; k++) {
+        if(narys[k] != '' && narys[k] != null){
+          var oname = '{$source}_' + narys[k];
+          if(parent.document.all(oname)){
+              var otitle = parent.document.getElementById(oname).value;
+              tarys.push(otitle);
+          }
+          else tarys.push(get_id('{$source}_' + narys[k]).title);
+        }
+      }
+    var nval = narys.join(',')
+    parent.get_id("{$source}_sid").value = nval;
+    parent.get_id("pop_mask_{$source}").style.display = 'none';
+    parent.get_id("pop_page_{$source}").style.display = 'none';
+    parent.get_id("pop_mask_{$source}").className = 'popup_mask';
+    parent.get_id("pop_page_{$source}").className = 'popup_page';
+    parent.get_id("{$source}_list").innerHTML ='';
+    for (var l = 0; l < tarys.length; l++) {
+        parent.get_id("{$source}_list").innerHTML += '<li class=""><input type="hidden" id="{$source}_'+narys[l]+'" name="{$source}_'+narys[l]+'" value="'+tarys[l]+'"/><span class="tit">'+tarys[l]+'</span><icons><icon class="delete" onclick="pop_del_li(\'{$source}_'+narys[l]+'\');"></icon></icons></li>';
+    }
+    }
+    </script>
+<form method="post" name="sel_form" onSubmit="send_source_list()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="*">{$=ii_itake('global.lng_config.topic','lng')}</th>
+          <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" id="{$source}_{$id}" title="{$title}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td><a href="{$url}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" border="0"></a>&nbsp;{$topic}</td>
+          <td>{$time}</td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;<input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.submit','lng')}" class="btn" style="height: 22px;line-height: 22px;width: 40px;font-size: 12px;margin-right: 5px;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pop_input]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('global.lng_pops.lists', 'lng')}</h3>
+    <rightarea>
+      <form method="get" name="search" action="/{$=ADMIN_FOLDER}/api.php">
+        <input type="hidden" name="source" value="{$=urlencode($_GET['source'])}">
+        <div class="searchbox">
+        <input class="keyword" type="text" name="keyword" value="{$=urldecode($_GET['keyword'])}">
+        <input id="btn_search" type="submit" class="search" value="">
+        </div>
+      </form>
+    </rightarea>
+    <script>
+    function send_source_input(){
+      var frm = eval("document.sel_form");
+      if (frm.sel_id.length)
+      {
+        var sel_ids = '';
+        var slength = frm.sel_id.length;
+        for (var i = 0; i < slength; i++)
+        {
+          if (frm.sel_id[i].checked)
+          {
+            if (sel_ids == '')
+            {
+              sel_ids = frm.sel_id[i].value;
+            }
+            else
+            {
+              sel_ids = sel_ids + ',' + frm.sel_id[i].value;
+            }
+          }
+        }
+      }
+      else
+      {
+        if (frm.sel_id.value)
+        {
+          if (frm.sel_id.checked) sel_ids = frm.sel_id.value;
+        }
+      }
+      //console.log(sel_ids);
+      var oval = '';
+      var oary = oval.split(',');
+      var nary = sel_ids.split(',');
+      var oarys = oary.concat(nary);
+      var narys = [];
+      var tarys = [];
+      for (var i = 0, l = oarys.length; i < l; i++) {
+      if(oarys[i] != '' && oarys[i] != null){
+        for (var j = i + 1; j < l; j++)
+          if (oarys[i] === oarys[j]) j = ++i;
+          narys.push(oarys[i]);
+       }
+      }
+      for (var k = 0; k < narys.length; k++) {
+        if(narys[k] != '' && narys[k] != null){
+          parent.document.form.name.value = get_id('{$source}_' + narys[k]).title;
+          parent.document.form.{$source}_topic.value = get_id('{$source}_' + narys[k]).alt;
+          tarys.push(get_id('{$source}_' + narys[k]).alt);
+        }
+      }
+    var nval = narys.join(',')
+    parent.get_id("{$source}_sid").value = nval;
+    parent.get_id("pop_mask_{$source}").style.display = 'none';
+    parent.get_id("pop_page_{$source}").style.display = 'none';
+    parent.get_id("pop_mask_{$source}").className = 'popup_mask';
+    parent.get_id("pop_page_{$source}").className = 'popup_page';
+    }
+    
+    function getdata(id){
+        get_id(id).checked = true;
+        get_id('btn_batch').click();
+    }
+    </script>
+<form method="post" name="sel_form" onSubmit="send_source_input()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center hide"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="*">{$=ii_itake('global.lng_config.topic','lng')}</th>
+          <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0" onclick="getdata('{$source}_{$id}');">
+          <td class="center hide"><input type="hidden" id="{$source}_{$id}_data" name="{$source}_{$id}_data" value='{$data}' ><input type="checkbox" name="sel_id" value="{$id}" id="{$source}_{$id}" title="{$name}-{$mobile}" alt="{$topic}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td>{$topic}</td>
+          <td>{$time}</td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1 hide" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;<input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.submit','lng')}" class="btn" style="height: 22px;line-height: 22px;width: 40px;font-size: 12px;margin-right: 5px;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

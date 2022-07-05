@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="ntitles" strvalue="标题" />
+    <item varstr="nkeywords" strvalue="建站系统下载" />
+    <item varstr="ndescription" strvalue="WDJA网站内容管理系统下载." />
+    <item varstr="nuppath" strvalue="common/upload/" />
+    <item varstr="nuptype" strvalue=".bmp.jpg.gif.png.pdf.zip.word.xlsx.xls.txt.rar" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_download" />
+    <item varstr="nidfield" strvalue="did" />
+    <item varstr="nfpre" strvalue="d_" />
+    <item varstr="nclstype" strvalue="1" />
+    <item varstr="nsaveimages" strvalue="1" />
+    <item varstr="thumbnail.upsimg" strvalue="0" />
+    <item varstr="thumbnail.upsimgs" strvalue="1" />
+    <item varstr="nindex" strvalue="index.php" />
+    <item varstr="nfields" strvalue="1" />
+    <item varstr="nglobal" strvalue="1" />
+    <item varstr="nsort" strvalue="1" />
+    <item varstr="nxml" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|1|1" />
+  </configure>
+</xml>

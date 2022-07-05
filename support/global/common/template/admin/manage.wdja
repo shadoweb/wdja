@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+<a id="basic" href="?type=basic&hspan=basic" target="_self">{$=ii_itake('manage.basic','lng')}</a>
+<a id="core" href="?type=core&hspan=core" target="_self">{$=ii_itake('manage.core','lng')}</a>
+<a id="seo" href="?type=seo&hspan=seo" target="_self">{$=ii_itake('manage.seo','lng')}</a>
+<a id="pay" href="?type=pay&hspan=pay" target="_self">{$=ii_itake('manage.pay','lng')}</a>
+<a id="email" href="?type=email&hspan=email" target="_self">{$=ii_itake('manage.email','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[basic]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.basic','lng')}</h3>
+    <form name="form" method="post" action="?action=basic&backurl={$=urlencode($GLOBALS['nurl'])}&token={$=mm_get_token()}">
+    <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_name','lng')}<r>*</r></t></th>
+  <td><input type="text" name="web_name" class="i1" value="{$web_name}"><pre><span class="info-1">{$global_web_name}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.default_url','lng')}<r>*</r></t></th>
+  <td><input type="text" name="default_url" class="i1" value="{$=DEFAULT_URL}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.mobile_url','lng')}<r>*</r></t></th>
+  <td><input type="text" name="mobile_url" class="i1" value="{$=MOBILE_URL}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.subweb_switch','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$subweb_switch}" bind="1"><b></b><u></u><em></em><input type="hidden" name="subweb_switch" class="val" value="{$subweb_switch}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.subweb_folder','lng')}<r>*</r></t></th>
+  <td><input type="text" name="subweb_folder" class="i1" value="{$subweb_folder}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_logo','lng')}<r>*</r></t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="web_logo" class="i1 fileurl" name="web_logo" size="40" value="{$web_logo}" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=web_logo" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe><pre><span class="info-1">{$global_web_logo}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_icon','lng')}<r>*</r></t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="web_icon" class="i1 fileurl" name="web_icon" size="40" value="{$web_icon}" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=web_icon" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe><pre><span class="info-1">{$global_web_icon}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_state','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$web_state}" bind="1"><b></b><u></u><em></em><input type="hidden" name="web_state" class="val" value="{$web_state}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_state_tips','lng')}</t></th>
+  <td><textarea type="text" rows="6" name="web_state_tips" cols="60" class="t1">{$web_state_tips}</textarea><pre><span class="info-1">{$global_web_state_tips}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_tongji','lng')}</t></th>
+  <td><textarea type="text" rows="6" name="web_tongji" cols="60" class="t1">{$web_tongji}</textarea><pre><span class="info-1">{$global_web_tongji}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_beian','lng')}<r>*</r></t></th>
+  <td><input type="text" name="web_beian" class="i1" value="{$web_beian}"><pre><span class="info-1">{$global_web_beian}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_copyright','lng')}</t></th>
+  <td><textarea type="text" rows="6" name="web_copyright" cols="60" class="t1">{$web_copyright}</textarea><pre><span class="info-1">{$global_web_copyright}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.runtime_switch','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$runtime_switch}" bind="1"><b></b><u></u><em></em><input type="hidden" name="runtime_switch" class="val" value="{$runtime_switch}" /></span><pre><span class="info-1">{$global_runtime_switch}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.mirror_switch','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$mirror_switch}" bind="1"><b></b><u></u><em></em><input type="hidden" name="mirror_switch" class="val" value="{$mirror_switch}" /></span><pre><span class="info-1">{$global_mirror_switch}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.mirror_url','lng')}</t></th>
+  <td><input type="text" name="mirror_url" class="i1" value="{$mirror_url}"><pre><span class="info-1">{$global_mirror_url}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t></t></th>
+  <td><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.web_contacts','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.contacts_name','lng')}<r>*</r></t></th>
+  <td><input type="text" name="contacts_name" class="i1" value="{$contacts_name}"><pre><span class="info-1">{$global_contacts_name}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.contacts_tel','lng')}<r>*</r></t></th>
+  <td><input type="text" name="contacts_tel" class="i1" value="{$contacts_tel}"><pre><span class="info-1">{$global_contacts_tel}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.contacts_qq','lng')}<r>*</r></t></th>
+  <td><input type="text" name="contacts_qq" class="i1" value="{$contacts_qq}"><pre><span class="info-1">{$global_contacts_qq}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.contacts_weixin','lng')}<r>*</r></t></th>
+  <td><input type="text" name="contacts_weixin" class="i1" value="{$contacts_weixin}"><pre><span class="info-1">{$global_contacts_weixin}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.contacts_email','lng')}<r>*</r></t></th>
+  <td><input type="text" name="contacts_email" class="i1" value="{$contacts_email}"><pre><span class="info-1">{$global_contacts_email}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.contacts_address','lng')}<r>*</r></t></th>
+  <td><input type="text" name="contacts_address" class="i1" value="{$contacts_address}"><pre><span class="info-1">{$global_contacts_address}</span></pre></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[core]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.core','lng')}</h3>
+    <form name="form" method="post" action="?action=core&backurl={$=urlencode($GLOBALS['nurl'])}&token={$=mm_get_token()}">
+    <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.default_language','lng')}</t></th>
+  <td><select name="default_language" class="s1">{$=ii_show_xmlinfo_select('global.sel_lng.all', DEFAULT_LANGUAGE, 'select')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.default_skin','lng')}</t></th>
+  <td><select name="default_skin" class="s1">{$=get_skin_list(DEFAULT_SKIN)}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.mobile_skin','lng')}</t></th>
+  <td><select name="mobile_skin" class="s1">{$=get_skin_list(MOBILE_SKIN)}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.robots_skin','lng')}</t></th>
+  <td><select name="robots_skin" class="s1">{$=get_skin_list(ROBOTS_SKIN)}</select></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.db','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.db_host','lng')}<r>*</r></t></th>
+  <td><input type="text" name="db_host" class="i1" value="{$=DB_HOST}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.db_username','lng')}<r>*</r></t></th>
+  <td><input type="text" name="db_username" class="i1" value="{$=DB_USERNAME}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.db_password','lng')}<r>*</r></t></th>
+  <td><input type="text" name="db_password" class="i1" value="{$=DB_PASSWORD}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.db_database','lng')}<r>*</r></t></th>
+  <td><input type="text" name="db_database" class="i1" value="{$=DB_DATABASE}"></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.api','lng')}</h3></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.api_id','lng')}<r>*</r></t></th>
+  <td><input type="text" name="api_id" class="i1" value="{$=API_ID}"><pre><span class="info-1">{$=ii_itake('manage.api_id_tips','lng')}</span></pre></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.api_key','lng')}<r>*</r></t></th>
+  <td><input type="text" name="api_key" class="i1" value="{$=API_KEY}"><pre><span class="info-1">{$=ii_itake('manage.api_key_tips','lng')}</span></pre></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.oss','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.oss_switch','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$=OSS_SWITCH}" bind="1"><b></b><u></u><em></em><input type="hidden" name="oss_switch" class="val" value="{$=OSS_SWITCH}" /></span></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.oss_id','lng')}<r>*</r></t></th>
+  <td><input type="text" name="oss_id" class="i1" value="{$=OSS_ID}"></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.oss_key','lng')}<r>*</r></t></th>
+  <td><input type="text" name="oss_key" class="i1" value="{$=OSS_KEY}"></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.oss_point','lng')}<r>*</r></t></th>
+  <td><input type="text" name="oss_point" class="i1" value="{$=OSS_POINT}"></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.oss_bucket','lng')}<r>*</r></t></th>
+  <td><input type="text" name="oss_bucket" class="i1" value="{$=OSS_BUCKET}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.oss_back','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$=OSS_BACK}" bind="1"><b></b><u></u><em></em><input type="hidden" name="oss_back" class="val" value="{$=OSS_BACK}" /></span></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[seo]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.seo','lng')}</h3>
+    <form name="form" method="post" action="?action=seo&backurl={$=urlencode($GLOBALS['nurl'])}&token={$=mm_get_token()}">
+    <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="web_topic" class="i1" value="{$web_topic}"><pre><span class="info-1">{$global_web_topic}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_keywords','lng')}<r>*</r></t></th>
+  <td><input type="text" name="web_keywords" class="i1" value="{$web_keywords}"><pre><span class="info-1">{$global_web_keywords}</span></pre></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.web_description','lng')}</t></th>
+  <td><textarea type="text" rows="6" name="web_description" cols="60" class="t1">{$web_description}</textarea><pre><span class="info-1">{$global_web_description}</span></pre></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.baidupush','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.baidupush_url','lng')}</t></th>
+  <td><input type="text" name="baidupush_url" class="i1" value="{$baidupush_url}"><span class="info-1">{$=ii_itake('manage.baidupush_url_tips','lng')}</span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.baidupush_token','lng')}</t></th>
+  <td><input type="text" name="baidupush_token" class="i1" value="{$baidupush_token}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.baidupush_switch','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$baidupush_switch}" bind="1"><b></b><u></u><em></em><input type="hidden" name="baidupush_switch" class="val" value="{$baidupush_switch}" /></span></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pay]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.pay','lng')}</h3>
+    <form name="form" method="post" action="?action=pay&backurl={$=urlencode($GLOBALS['nurl'])}&token={$=mm_get_token()}">
+    <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <table cellpadding="10" cellspacing="0" class="tableF">
+  <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage.pay_type','lng')}</t></th>
+  <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|1,2,3', '{$pay_type}', 'pay_type[]:checkbox')}</td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.user_price','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.vip_user_price','lng')}<r>*</r></t></th>
+  <td><input type="text" name="vip_user_price" class="i1" value="{$vip_user_price}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.svip_user_price','lng')}<r>*</r></t></th>
+  <td><input type="text" name="svip_user_price" class="i1" value="{$svip_user_price}"></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.payjs','lng')}</h3></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpayjs_id','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpayjs_id" class="i1" value="{$wxpayjs_id}"></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpayjs_key','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpayjs_key" class="i1" value="{$wxpayjs_key}"></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpayjs_notify','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpayjs_notify" class="i1" value="{$wxpayjs_notify}"></td>
+</tr>
+<tr>
+  <th valign="top"><t></t></th>
+  <td><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></td>
+</tr>
+<tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.alipay','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.alipay_appid','lng')}<r>*</r></t></th>
+  <td><input type="text" name="alipay_appid" class="i1" value="{$alipay_appid}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.alipay_public_key','lng')}<r>*</r></t></th>
+  <td><textarea type="text" rows="6" name="alipay_public_key" cols="60" class="t1">{$alipay_public_key}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.alipay_private_key','lng')}<r>*</r></t></th>
+  <td><textarea type="text" rows="6" name="alipay_private_key" cols="60" class="t1">{$alipay_private_key}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.alipay_notify_url','lng')}<r>*</r></t></th>
+  <td><input type="text" name="alipay_notify_url" class="i1" value="{$alipay_notify_url}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.alipay_return_url','lng')}<r>*</r></t></th>
+  <td><input type="text" name="alipay_return_url" class="i1" value="{$alipay_return_url}"></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.wxpay','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_token','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpay_token" class="i1" value="{$wxpay_token}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_appid','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpay_appid" class="i1" value="{$wxpay_appid}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_appsecret','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpay_appsecret" class="i1" value="{$wxpay_appsecret}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_encodingaeskey','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpay_encodingaeskey" class="i1" value="{$wxpay_encodingaeskey}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_notify','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpay_notify" class="i1" value="{$wxpay_notify}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_mch_id','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpay_mch_id" class="i1" value="{$wxpay_mch_id}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_mch_key','lng')}<r>*</r></t></th>
+  <td><input type="text" name="wxpay_mch_key" class="i1" value="{$wxpay_mch_key}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_ssl_key','lng')}</t></th>
+  <td><input type="text" name="wxpay_ssl_key" class="i1" value="{$wxpay_ssl_key}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_ssl_cer','lng')}</t></th>
+  <td><input type="text" name="wxpay_ssl_cer" class="i1" value="{$wxpay_ssl_cer}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.wxpay_cache_path','lng')}</t></th>
+  <td><input type="text" name="wxpay_cache_path" class="i1" value="{$wxpay_cache_path}"></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[email]]></name>
+      <tpl_default><![CDATA[
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.email','lng')}</h3>
+    <form name="form" method="post" action="?action=email&backurl={$=urlencode($GLOBALS['nurl'])}&token={$=mm_get_token()}">
+    <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.email_config','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.smtptype','lng')}<r>*</r></t></th>
+  <td><input type="text" name="smtptype" class="i1" value="{$=SMTPTYPE}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.smtpcharset','lng')}<r>*</r></t></th>
+  <td><input type="text" name="smtpcharset" class="i1" value="{$=SMTPCHARSET}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.smtpserver','lng')}<r>*</r></t></th>
+  <td><input type="text" name="smtpserver" class="i1" value="{$=SMTPSERVER}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.smtpport','lng')}<r>*</r></t></th>
+  <td><input type="text" name="smtpport" class="i1" value="{$=SMTPPORT}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.smtpusername','lng')}<r>*</r></t></th>
+  <td><input type="text" name="smtpusername" class="i1" value="{$=SMTPUSERNAME}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.smtppassword','lng')}<r>*</r></t></th>
+  <td><input type="text" name="smtppassword" class="i1" value="{$=SMTPPASSWORD}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.smtpfromname','lng')}<r>*</r></t></th>
+  <td><input type="text" name="smtpfromname" class="i1" value="{$=SMTPFROMNAME}"></td>
+</tr><tr>
+  <th valign="top"><t></t></th>
+  <td><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.message_email','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.message_mail','lng')}<r>*</r></t></th>
+  <td><input type="text" name="message_mail" class="i1" value="{$message_mail}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.message_title','lng')}<r>*</r></t></th>
+  <td><input type="text" name="message_title" class="i1" value="{$message_title}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.message_body','lng')}<r>*</r></t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="6" name="message_body" cols="60" class="t1">{$message_body}</textarea></td>
+</tr><tr>
+  <th valign="top"><t></t></th>
+  <td><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></td>
+</tr><tr>
+  <td height="22" colspan="2" align="left" style="margin:0;padding:0;"><h3 style="margin:0;padding:10px 5px;background-color:#eeeeee;">{$=ii_itake('manage.order_email','lng')}</h3></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.order_mail','lng')}<r>*</r></t></th>
+  <td><input type="text" name="order_mail" class="i1" value="{$order_mail}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.order_title','lng')}<r>*</r></t></th>
+  <td><input type="text" name="order_title" class="i1" value="{$order_title}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.order_body','lng')}<r>*</r></t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="6" name="order_body" cols="60" class="t1">{$order_body}</textarea></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+      ]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

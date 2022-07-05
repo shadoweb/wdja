@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  get_id("att").value = get_selects_list(get_id('content_atts'));
+}
+</script>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+     <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="topic" class="i1" value="{$topic}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.titles','lng')}</t></th>
+  <td><input type="text" name="titles" size="40" value="{$titles}" class="i1"></td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.keywords','lng')}</t></th>
+  <td><input type="text" name="keywords" size="40" class="i1" value="{$keywords}"></td>
+	</tr>
+	<tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.description','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="description" cols="60" class="t1">{$description}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+  <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']))}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="att" id="att"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_img_list('{$att}')}</select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_img(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_img('content', get_id('content_atts').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.edit','lng')}" onclick="edit_img('content_atts',get_id('content_atts').value)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" type="button" onclick="pop_display('content_atts')" value="{$=ii_itake('global.lng_config.upload','lng')}"></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    
+<script src="{$=#global_images_route}js/pop.js" type="text/javascript"></script>
+{$=mm_get_pop_upload()}
+    </form>
+    </div>
+      ]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

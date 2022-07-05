@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[username]]></disinfo>
+      <chinese><![CDATA[黑名用户]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[admin]]></disinfo>
+      <chinese><![CDATA[加入者]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[time]]></disinfo>
+      <chinese><![CDATA[加入时间]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[remark]]></disinfo>
+      <chinese><![CDATA[备注]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[add]]></disinfo>
+      <chinese><![CDATA[增加黑名用户]]></chinese>
+    </item>
+  </language_list>
+</xml>

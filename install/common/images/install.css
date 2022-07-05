@@ -1,0 +1,111 @@
+﻿html {
+    width: 100%;
+    overflow-y: scroll;
+    font-size: 10px;
+}
+body {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    color: #000;
+    font-size: 1.2rem;
+    font-family: "Tahoma", "Microsoft YaHei", 微软雅黑, Arial, sans-serif,'MS PGothic';
+}
+*, :after, :before {
+    box-sizing: border-box;
+}
+p {
+    line-height: 2;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+img {
+    border: 0px;
+}
+b {
+    font-weight: bold;
+}
+ul, ol {
+    list-style: none;
+}
+input.btn,
+a.button {
+    line-height: 30px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0 18px;
+    box-sizing: border-box;
+    background: #2F8ABF;
+    border: 1px solid #2F8ABF;
+    border-radius: 2px;
+}
+input.i1 {
+  width: 500px; height: 30px; line-height: 30px; padding: 0px 10px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
+}
+input.i1:focus {
+  border-color: #5b9dd9; box-shadow: 0px 0px 2px rgba(30, 140, 190, 0.8)
+}
+a:active, a:focus, a:hover, a:link, a:visited {
+    text-decoration: none;
+    cursor: pointer;
+}
+.left{
+    text-align:left;
+}
+.install{
+    width: 100%;
+    max-width: 750px;
+    margin: 10px auto;
+}
+.logo {
+    width: 100%;
+    margin: 20px auto;
+    text-align: center;
+    height: 65px;
+    line-height: 65px;
+}
+.logo a{
+    vertical-align: middle;
+}
+.nav{
+    font-size: 1.7rem;
+    text-align: center;
+    color: #000;
+}
+.nav .on{
+    color: #0067B8;
+}
+.content {
+    margin: 20px auto;
+    padding: 10px;
+    font-weight: 200;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    overflow: hidden;
+    border: 1px solid #eee;
+    border-right: 2px solid #eee;
+    border-bottom: 2px solid #eee;
+}
+
+ul li{
+    margin:15px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+

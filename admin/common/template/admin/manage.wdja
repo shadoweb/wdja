@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[login]]></name>
+      <tpl_default><![CDATA[
+      <style>
+      .table{border: 0 !important;}
+      .container {}
+      nav{display:none;}
+      a.back{
+      font-size: 1.4rem;
+      font: 400 13.3333px Arial;
+      color: #fff;
+      display: inline-block;padding: 6px 16px;line-height: 100%;font-size: 1.4rem;border: #666 1px solid;cursor: pointer;transition: all .1s ease;background-color: #555;border-color: #555;border-radius: 2px;
+      }
+      a.back:hover{
+      background-color: #333; border-color: #333
+      }
+      </style>
+      <div class="login">
+  <h1>{$=ii_itake('config.login','lng')}</h1>
+  <form method="post" name="login" action="{$=#nuri}?action=login">
+    <div class="field">
+      <em class="u"></em>
+      <input type="text" name="uname" class="username" placeholder="{$=ii_itake('config.uname','lng')}">
+    </div>
+    <div class="field">
+      <em class="p"></em>
+      <input type="password" name="password" class="password" placeholder="{$=ii_itake('config.upassword','lng')}">
+    </div>
+    <div style="text-align: center;" class="button clear_float">
+    <button style="float:none;" class="b1">{$=ii_itake('config.ulogin','lng')}</button>
+    <a class="back" href="{$=#nurlpre}">{$=ii_itake('config.backhome','lng')}</a>
+    </div>
+  </form>
+</div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[frame]]></name>
+      <tpl_default><![CDATA[<!doctype html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta http-equiv="Content-Type" content="text/html; charset={$=CHARSET}" />
+<title>{$=ii_itake('global.module.web_title', 'lng')}</title>
+<link href="{$=#images_route}global.css" type="text/css" rel="stylesheet" />
+<script src="{$=#global_images_route}js/jquery-1.7.min.js" type="text/javascript"></script>
+<script src="{$=#global_images_route}js/main.js" type="text/javascript"></script>
+<script type="text/javascript">
+<!--
+if(top.location!=self.location) top.location=self.location;
+
+var tlogo, tlists, timages;
+$(document).ready(function ()
+{
+  var tcontainer = get_id("container");
+  var ttopbar = get_id("topbar");
+  var myWidth = document.body.scrollWidth - 180; 
+  document.getElementById('main').style.cssText = 'width:'+myWidth+'px;height:'+(getClientHeight() - ttopbar.offsetHeight) + 'px';
+  tcontainer.style.height = (getClientHeight() - ttopbar.offsetHeight) + 'px';
+  tlogo = get_id("logo");
+  tlists = get_id("lists");
+  timages = get_id("images");
+});
+
+function startscroll(strt, strnum)
+{
+  var tmpbase=5;
+  if (strt == "up") tmpbase = -tmpbase;
+  scrolling(tmpbase, strnum, 0);
+}
+
+function scrolling(strnum, strk, strn)
+{
+  if (strn >= strk) return;
+  parent.list.window.scrollBy(0, strnum);
+  setTimeout("scrolling("+strnum+", "+strk+", "+(strn+1)+")", 15);
+}
+
+function switch_menu(obj)
+{
+  var tmpclass = 'leftmenu min';
+  var tmpstyle = 'none';
+  var tmpimg = '{$=#images_route}smenu.png';
+  var pobj = tlists.getElementsByTagName('dl');
+   for(var i = 0; i<pobj.length; i++){
+        pobj[i].className = '';
+        get_id("menuTitle" + i).className = 'tit t1';
+    }
+  if (tlists.className == "leftmenu min" || tlogo.style.display == "none")
+  {
+    var myWidth = document.body.scrollWidth - 180; 
+    document.getElementById('main').style.cssText = 'width:'+myWidth+'px';
+    tmpclass = 'leftmenu';
+    tmpstyle = '';
+    tmpobj = "135px";
+    tmpimg = '{$=#images_route}smenu.png';
+  }else{
+    var myWidth = document.body.scrollWidth - 40; 
+    document.getElementById('main').style.cssText = 'width:'+myWidth+'px';
+    tmpobj = "0px";
+  }
+  tlists.className = tmpclass;
+  tlogo.style.display = tmpstyle;
+  obj.style.left = tmpobj;
+  timages.src = tmpimg;
+}
+
+function setIframeHeight(iframe) {
+if (iframe) {
+var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+if (iframeWin.document.body) {
+iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+}
+}
+};
+
+function getClientHeight()
+{
+  var clientHeight=0;
+  if(document.body.clientHeight&&document.documentElement.clientHeight)
+  {
+  var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.documentElement.clientHeight:document.body.clientHeight;
+  }
+  else
+  {
+  var clientHeight = (document.body.clientHeight<document.documentElement.clientHeight)?document.documentElement.clientHeight:document.body.clientHeight;
+  }
+  return clientHeight;
+}
+//-->
+</script>
+</head>
+<body>
+<div class="console">
+  <div id="topbar" class="topbar">
+    <h1 id="logo" ><img src="{$=#images_route}top_logo.png" border="0"></h1>
+    <span class="menu hand" onclick="switch_menu(this);"><img id="images" name="images" src="{$=#images_route}smenu.png" width="30" border="0"></span>
+    <div class="topright">
+      <div class="section"><b>{$admin_user}</b><ul><li><a href="./?action=logout" target="_top"><b>{$=ii_itake('module.logout','lng')}</b></a></li></ul></div>
+      <lang class="section"><b>{$=wdja_cms_top_lng_view()}</b><em></em>
+		<ul>
+       {$=wdja_cms_top_lng()}
+		</ul>
+      </lang>
+      <admin class="hand"><a href="admin_main.php" target="_top" title="{$=ii_itake('module.main','lng')}"></a></admin>
+      <home class="hand"><a href="{$=#nurlpre}" target="_blank" title="{$=ii_itake('module.home','lng')}"></a></home>
+      <logout class="hand"><a href="./?action=logout" target="_self" title="{$=ii_itake('module.logout','lng')}"></a></logout>
+    </div>
+  </div>
+  <div id="container" class="container">
+    <div class="leftmenu" id="lists">{$=wdja_cms_left()}</div>
+    <div class="maincontent">
+      <div class="main">
+      <iframe id="main" name="main" src="admin_manage.php" onload="iframe_onload(this)" frameborder="0" scrolling="auto" height="100%"></iframe>
+  </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[manage]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('global.' . ADMIN_FOLDER . '/note:manage.channel_title', 'lng')}</h3>
+    {$=ii_ireplace('global.' . ADMIN_FOLDER . '/note:manage.api','tpl')}
+  </div>
+  <div class="table">
+    <h3>{$=ii_itake('module.condition','lng')}</h3>
+    <ul class="para">
+      <li><b>{$=ii_itake('module.language','lng')}</b>{$=getenv('HTTP_ACCEPT_LANGUAGE')?getenv('HTTP_ACCEPT_LANGUAGE'):'Null'}</li>
+      <li><b>{$=ii_itake('module.name','lng')}</b>{$=getenv('SERVER_NAME')?getenv('SERVER_NAME'):'Null'}</li>
+      <li><b>{$=ii_itake('module.ip','lng')}</b>{$=getenv('SERVER_ADDR')?getenv('SERVER_ADDR'):'Null'}</li>
+      <li><b>{$=ii_itake('module.port','lng')}</b>{$=getenv('SERVER_PORT')?getenv('SERVER_PORT'):'Null'}</li>
+      <li><b>{$=ii_itake('module.time','lng')}</b>{$=ii_now()}</li>
+      <li><b>{$=ii_itake('module.engine','lng')}</b>{$=getenv('SERVER_SOFTWARE')?getenv('SERVER_SOFTWARE'):'Null'}</li>
+      <li><b>{$=ii_itake('module.protocol','lng')}</b>{$=getenv('SERVER_PROTOCOL')?getenv('SERVER_PROTOCOL'):'Null'}</li>
+      <li><b>{$=ii_itake('module.os','lng')}</b>{$=PHP_OS}</li>
+    </ul>
+  </div>
+  <div class="table">
+    <h3>{$=ii_itake('module.phpother','lng')}</h3>
+    <ul class="para">
+      <li><b>{$=ii_itake('module.ver','lng')}</b>{$=PHP_VERSION}</li>
+      <li><b>{$=ii_itake('module.runs','lng')}</b>{$=strtoupper(php_sapi_name())}</li>
+      <li><b>{$=ii_itake('module.zendver','lng')}</b>{$=zend_version()}</li>
+      <li><b>{$=ii_itake('module.timeout','lng')}</b>{$=get_cfg_var("max_execution_time")}s</li>
+      <li><b>{$=ii_itake('module.post_max_size','lng')}</b>{$=get_cfg_var('post_max_size')}</li>
+      <li><b>{$=ii_itake('module.memory_limit','lng')}</b>{$=get_cfg_var('memory_limit')}</li>
+      <li><b>{$=ii_itake('module.stag','lng')}</b>{$=get_cfg_var('short_open_tag')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.smtp','lng')}</b>{$=get_cfg_var('SMTP')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.com','lng')}</b>{$=function_exists('com_set')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.pdf','lng')}</b>{$=function_exists('pdf_close')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.ftp','lng')}</b>{$=function_exists('ftp_login')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+      <li><b>{$=ii_itake('module.session','lng')}</b>{$=function_exists('session_start')?'<font color="green">√</font>':'<font color="red">×</font>'}</li>
+    </ul>
+  </div>
+      <p style="text-align:center;padding:5px 0;">{$=ii_itake('module.admin_tips','lng')}</p>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[left]]></name>
+      <tpl_default><![CDATA[<ul>
+{@recurrence_ida}
+  <li>
+  <em class="line"></em><span class="tit t1" id="menuTitle{$id}" onclick="switch_display(this,'submenu{$id}')"><em class="e{$icon}"></em><b>{$description}</b><d class=""></d></span>
+  <dl class="" id="submenu{$id}">
+  {@recurrence_idb}
+  <dd><span class="tit t2"><a href="{$ahref}" onclick="switch_display_a(this)" target="main"><b>{$topic}</b></a></span></dd>
+  {@recurrence_idb}
+</dl>
+</li>
+{@recurrence_ida}
+</ul>]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

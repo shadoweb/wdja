@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('manage.title','lng')}</h3>
+<script type="text/javascript">
+function tmodules(obj){
+  get_id('module').value=obj.value;
+  get_id('submit').click();
+}
+</script>
+    <rightarea>
+      <form name="form" method="get">
+        <input type="hidden" name="type" value="edit">
+        <select name="modules" id="modules" onchange="tmodules(this)" class="s1">{$=pp_get_configure_select('{$module}')}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="module" id="module" size="20" value="{$module}"><input id="submit" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+     <form name="form" method="post" action="?action=edit&module={$module}&backurl={$=urlencode($GLOBALS['nurl'])}">
+      <input type="hidden" name="xmlconfig_order" value="{$order}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody>
+          <tr>
+            <td colspan="2"><span class="info-1" title="{$module}">{$module}</span></td>
+          </tr>
+          {@recurrence_ida}
+            <tr>
+              <th valign="top"><t>{$explain}</t></th>
+              <td><input class="i1" type="text" name="{$varstr}" size="30" value="{$strvalue}"></td>
+            </tr>
+          {@recurrence_ida}
+        </tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+     </form>
+  </div>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

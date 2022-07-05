@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="ntitles" strvalue="站内搜索" />
+    <item varstr="nkeywords" strvalue="站内搜索" />
+    <item varstr="ndescription" strvalue="站内搜索" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_search" />
+    <item varstr="nidfield" strvalue="sid" />
+    <item varstr="nfpre" strvalue="s_" />
+    <item varstr="nsearch_genre" strvalue="news,product" />
+    <item varstr="nsearch_field" strvalue="topic" />
+    <item varstr="nxml" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|0|0" />
+  </configure>
+</xml>

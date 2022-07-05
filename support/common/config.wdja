@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafgf" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="norder" strvalue="global,theme,sort,menu,slide,linktext" />
+    <item varstr="nuninstall" strvalue="0|0|0" />
+  </configure>
+</xml>

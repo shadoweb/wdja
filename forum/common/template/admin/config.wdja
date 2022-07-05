@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[new]]></name>
+      <tpl_default><![CDATA[<img src="{$=#images_route}icon/new.gif" class="absmiddle" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[hidden]]></name>
+      <tpl_default><![CDATA[<img src="{$=#images_route}icon/hidden.gif" class="absmiddle" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[htop]]></name>
+      <tpl_default><![CDATA[<img src="{$=#images_route}topic/htop.gif" class="absmiddle" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[top]]></name>
+      <tpl_default><![CDATA[<img src="{$=#images_route}topic/top.gif" class="absmiddle" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[elite]]></name>
+      <tpl_default><![CDATA[<img src="{$=#images_route}topic/elite.gif" class="absmiddle" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[lock]]></name>
+      <tpl_default><![CDATA[<img src="{$=#images_route}topic/lock.gif" class="absmiddle" />]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

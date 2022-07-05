@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[登录日志]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[manage]]></disinfo>
+      <chinese><![CDATA[登录日志列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[userlist]]></disinfo>
+      <chinese><![CDATA[用户列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[username]]></disinfo>
+      <chinese><![CDATA[管理用户名]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nislogin]]></disinfo>
+      <chinese><![CDATA[登录未成功的列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[ip]]></disinfo>
+      <chinese><![CDATA[登录IP]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[time]]></disinfo>
+      <chinese><![CDATA[登录时间]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[islogin]]></disinfo>
+      <chinese><![CDATA[成功登录]]></chinese>
+    </item>
+  </language_list>
+</xml>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="ntitles" strvalue="常见问题" />
+    <item varstr="nkeywords" strvalue="关键字" />
+    <item varstr="ndescription" strvalue="描述" />
+    <item varstr="nuppath" strvalue="common/upload/" />
+    <item varstr="nuptype" strvalue=".bmp.jpg.gif.png" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_question" />
+    <item varstr="nidfield" strvalue="qid" />
+    <item varstr="nfpre" strvalue="q_" />
+    <item varstr="nclstype" strvalue="1" />
+    <item varstr="nsaveimages" strvalue="1" />
+    <item varstr="thumbnail.upsimg" strvalue="0" />
+    <item varstr="thumbnail.upsimgs" strvalue="1" />
+    <item varstr="nindex" strvalue="index.php" />
+    <item varstr="nfields" strvalue="1" />
+    <item varstr="ncontentcutepage" strvalue="1" />
+    <item varstr="nxml" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|1|1" />
+  </configure>
+</xml>

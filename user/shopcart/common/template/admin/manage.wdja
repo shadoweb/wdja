@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+                  <a id="nav_list" href="?hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a>
+                  <a id="hprepaid1" href="?keyword=1&field=prepaid&hspan=hprepaid1">{$=ii_itake('manage.payed','lng')}</a>
+                  <a id="hprepaid0" href="?keyword=0&field=prepaid&hspan=hprepaid0">{$=ii_itake('manage.unpay','lng')}</a>
+                  <a id="status" href="?type=status&hspan=status">{$=ii_itake('manage.status','lng')}</a>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nav_list','lng')}</h3>
+    <rightarea>
+      <form method="get" name="search">
+        {$=ii_itake('manage.state','lng')}<input type="hidden" id="tstate" name="state" value="{$tstate}">
+        <select class="s1" onchange="bsearch('tstate',this);">{$=pp_manage_state_select({$tstate})}</select>
+        <select name="field" class="s1">{$=mm_get_admin_search()}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="btn_search" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+    
+<form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="40" class="center">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="*">{$=ii_itake('config.username','lng')}</th>
+          <th width="*">{$=ii_itake('config.name','lng')}</th>
+          <th width="120">{$=ii_itake('config.phone','lng')}</th>
+          <th width="120">{$=ii_itake('config.email','lng')}</th>
+          <th width="120">{$=ii_itake('config.orderid','lng')}</th>
+          <th width="120">{$=ii_itake('config.allprice','lng')}</th>
+          <th width="100">{$=ii_itake('config.paystate','lng')}</th>
+          <th width="100">{$=ii_itake('config.state','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_idb}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td><a href="?type=list&username={$username}">{$username}</a></td>
+          <td><a href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$name}</a></td>
+          <td>{$phone}</td>
+          <td>{$email}</td>
+          <td>{$orderid}</td>
+          <td>{$allprice}</td>
+          <td>{$paystate}</td>
+          <td>{$state}</td>
+          <td>
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}')"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_idb}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('config.prolist','lng')}</h3>
+    <rightarea></rightarea>
+    
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="*" height="25">{$=ii_itake('global.' . $GLOBALS['nshop'] . ':config.topic','lng')}</th>
+          <th width="100">{$=ii_itake('config.num','lng')}</th>
+          <th width="100">{$=ii_itake('global.' . $GLOBALS['nshop'] . ':config.price','lng')}({$=ii_itake('global.lng_unit.money','lng')})</th>
+          <th width="100">{$=ii_itake('global.' . $GLOBALS['nshop'] . ':config.wprice','lng')}({$=ii_itake('global.lng_unit.money','lng')})</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td height="25"><a href="{$url}" target="_blank">{$topic}</a></td>
+          <td>{$num}</td>
+          <td>{$price}</td>
+          <td class="red">{$wprice}</td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style="">{$=ii_itake('config.merchandiseprice','lng')} {$tallprice}({$=ii_itake('global.lng_unit.money','lng')})<span class="ok"></span></div>
+      <div class="pagi"></div>
+    </div>
+    </div>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+     <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}">
+     <input name="merchandiseprice" type="hidden" value="{$merchandiseprice}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('config.orderid','lng')}</t></th>
+  <td><r>{$orderid}</r></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.merchandiseprice','lng')}</t></th>
+  <td>{$merchandiseprice}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.trafficprice','lng')}</t></th>
+  <td>{$trafficprice}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.allprice','lng')}</t></th>
+  <td><r>{$allprice} ({$=ii_itake('global.lng_unit.money','lng')})</r></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.name','lng')}</t></th>
+  <td>{$name}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.address','lng')}</t></th>
+  <td>{$address}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.code','lng')}</t></th>
+  <td>{$code}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.phone','lng')}</t></th>
+  <td>{$phone}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.email','lng')}</t></th>
+  <td>{$email}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.remark','lng')}</t></th>
+  <td>{$=ii_encode_article(ii_htmlencode($GLOBALS['RS_remark']))}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.traffic','lng')}</t></th>
+  <td><select name="traffic" class="s1">{$=ii_show_xmlinfo_select('sel_traffic.all', '{$traffic}', 'select')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.state','lng')}</t></th>
+  <td><select name="state" class="s1">{$=ii_show_xmlinfo_select('sel_state.all', '{$state}', 'select')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.express','lng')}</t></th>
+  <td><select name="express" class="s1">{$=ii_show_xmlinfo_select('sel_express.all', '{$express}', 'select')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.expressid','lng')}</t></th>
+  <td><input type="text" name="expressid" value="{$expressid}" class="i1"/>&nbsp;<a style="display:none{$expressid};" href="https://www.baidu.com/s?word={$expressid}" target="_blank">查询</a></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.payment','lng')}</t></th>
+  <td><select name="payment" class="s1">{$=ii_show_xmlinfo_select('sel_payment.all|5', '5', 'select')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.prepaid','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$prepaid}" bind="1"><b></b><u></u><em></em><input type="hidden" name="prepaid" class="val" value="{$prepaid}" /></span></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.payid','lng')}</t></th>
+  <td>{$payid}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.username','lng')}</t></th>
+  <td>{$username}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.time','lng')}</t></th>
+  <td>{$time}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.dtime','lng')}</t></th>
+  <td>{$dtime}</td>
+</tr><tr>
+  <th valign="top"><t></t></th>
+  <td><r>{$=ii_itake('manage.notice','lng')}</r></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[status]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$year}{$=ii_itake('manage.status','lng')}</h3>
+    <rightarea>
+      <form method="get" name="search">
+        <input type="hidden" name="type" value="status">
+        <input type="hidden" name="status" value="{$status}">
+        {$=ii_itake('manage.state','lng')}<input type="hidden" id="tstate" name="state" value="{$tstate}">
+        <select class="s1" onchange="bsearch('tstate',this);">{$=pp_manage_state_select({$tstate})}</select>
+        {$=ii_itake('manage.year','lng')}
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="btn_search" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+   <table cellpadding="10" cellspacing="0" class="tableF">
+      <tbody>
+    {@recurrence_idb}
+    <tr>
+      <th valign="top"><t>{$month}{$=ii_itake('manage.month','lng')} ({$sum})</t></th>
+      <td><hr size="6" color="{$color}" width="{$width}%" align="left"></td>
+    </tr>
+    {@recurrence_idb}
+      </tbody>
+    </table>
+
+    <div class="control">
+      <div class="pagi">{$=ii_itake('manage.totalize','lng')}{$totalize}({$unit})</div>
+    </div>
+  </div>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

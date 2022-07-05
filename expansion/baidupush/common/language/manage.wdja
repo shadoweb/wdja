@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[mgtitle]]></disinfo>
+      <chinese><![CDATA[百度推送]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_list]]></disinfo>
+      <chinese><![CDATA[全部记录列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_hidden]]></disinfo>
+      <chinese><![CDATA[隐藏的记录列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_good]]></disinfo>
+      <chinese><![CDATA[推荐的记录列表]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_add]]></disinfo>
+      <chinese><![CDATA[添加新的记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nav_export]]></disinfo>
+      <chinese><![CDATA[导出记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[edit]]></disinfo>
+      <chinese><![CDATA[编辑记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[view]]></disinfo>
+      <chinese><![CDATA[查看记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[push_list]]></disinfo>
+      <chinese><![CDATA[推送历史]]></chinese>
+    </item>
+  </language_list>
+</xml>

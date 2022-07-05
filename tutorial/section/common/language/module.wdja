@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[channel_title]]></disinfo>
+      <chinese><![CDATA[小节]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[good]]></disinfo>
+      <chinese><![CDATA[推荐]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[push_time]]></disinfo>
+      <chinese><![CDATA[发布时间]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[edit_time]]></disinfo>
+      <chinese><![CDATA[修订时间]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[nodetail]]></disinfo>
+      <chinese><![CDATA[没有权限!]]></chinese>
+    </item>
+  </language_list>
+</xml>

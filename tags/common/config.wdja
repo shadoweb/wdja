@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="ntitles" strvalue="标题" />
+    <item varstr="nkeywords" strvalue="关键字" />
+    <item varstr="ndescription" strvalue="描述" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_tags" />
+    <item varstr="nidfield" strvalue="tid" />
+    <item varstr="nfpre" strvalue="t_" />
+    <item varstr="ndatabase_data" strvalue="wdja_tags_data" />
+    <item varstr="nidfield_data" strvalue="tdid" />
+    <item varstr="nfpre_data" strvalue="td_" />
+    <item varstr="nsearch_genre" strvalue="news,product,shop,ask" />
+    <item varstr="nsearch_field" strvalue="topic" />
+    <item varstr="ncontentcutepage" strvalue="1" />
+    <item varstr="nxml" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|1|1" />
+  </configure>
+</xml>

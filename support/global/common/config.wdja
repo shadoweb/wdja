@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="nuppath" strvalue="common/upload/" />
+    <item varstr="nuptype" strvalue=".bmp.jpg.gif.png.zip.rar.gz.ico" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="nsaveimages" strvalue="1" />
+    <item varstr="ncontentcutepage" strvalue="1" />
+    <item varstr="thumbnail.switch" strvalue="0" />
+    <item varstr="nuninstall" strvalue="1|1|1" />
+  </configure>
+</xml>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+  <item varstr="npagesize" strvalue="20" />
+  <item varstr="ndatabase" strvalue="wdja_support_menu" />
+  <item varstr="nidfield" strvalue="mid" />
+  <item varstr="nfpre" strvalue="m_" />
+  <item varstr="nuppath" strvalue="common/upload/" />
+  <item varstr="nuptype" strvalue=".bmp.jpg.gif.png" />
+  <item varstr="thumbnail.upsimg" strvalue="0" />
+  <item varstr="thumbnail.switch" strvalue="0" />
+  </configure>
+</xml>

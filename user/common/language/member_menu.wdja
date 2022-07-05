@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?type=manage&mtype=userinfo]]></disinfo>
+      <chinese><![CDATA[我的信息]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?type=manage&mtype=information]]></disinfo>
+      <chinese><![CDATA[资料修改]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?type=manage&mtype=password]]></disinfo>
+      <chinese><![CDATA[密码修改]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/shopcart/?type=order_list]]></disinfo>
+      <chinese><![CDATA[我的订单]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/address/?type=list]]></disinfo>
+      <chinese><![CDATA[我的地址]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/recharge/?type=buy]]></disinfo>
+      <chinese><![CDATA[余额充值]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[{$=ii_get_actual_route(USER_FOLDER)}/?action=logout]]></disinfo>
+      <chinese><![CDATA[退出登录]]></chinese>
+    </item>
+  </language_list>
+</xml>

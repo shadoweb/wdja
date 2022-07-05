@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[data_login]]></name>
+      <tpl_default><![CDATA[{@recurrence_ida}
+<form id="data_login" action="{$=ii_get_actual_route(USER_FOLDER)}/index.php?action=login&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+  <input type="hidden" name="token" value="{$=mm_get_token()}" />
+  <table width="100%" cellpadding="10" cellspacing="0" border="0">
+    <tr>
+      <td>
+        <span>{$=ii_itake('global.lng_config.username','lng')} <input type="text" name="username" size="20" style="width:150px;" class="i1" /></span>
+        <span>{$=ii_itake('global.lng_config.password','lng')} <input type="password" name="password" size="20" style="width:150px;" class="i1" /></span>
+        <span>{@recurrence_valcode} {$=ii_itake('global.lng_config.valcode', 'lng')} <input type="text" name="valcode" size="4" style="width:80px;" class="i1" /> {$=mm_valcode()}{@recurrence_valcode}</span>
+        <span><input type="submit" value="{$=ii_itake('global.' . USER_FOLDER . ':api.login','lng')}" class="button" /> <img src="{$=#global_images_route}public/small/sico.gif" border="0" /> <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=register">{$=ii_itake('global.' . USER_FOLDER . ':api.register_newuser','lng')}</a> <img src="{$=#global_images_route}public/small/sico.gif" border="0" /> <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=lostpassword">{$=ii_itake('global.' . USER_FOLDER . ':api.lost_password', 'lng')}</a></span>
+      </td>
+    </tr>
+  </table>
+</form>{@@}
+<table width="100%" cellpadding="10" cellspacing="0" border="0">
+  <tr>
+    <td>
+      <span>
+        {$=#nusername}, <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=manage">{$=ii_itake('global.' . USER_FOLDER . ':api.membercenter','lng')}</a>,<a href="{$=ii_get_actual_route(USER_FOLDER)}/?action=logout&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.' . USER_FOLDER . ':api.logoutstr', 'lng')}')">{$=ii_itake('global.' . USER_FOLDER . ':api.logout','lng')}</a>
+      </span>
+    </td>
+  </tr>
+</table>
+{@recurrence_ida}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[data_top]]></name>
+      <tpl_default><![CDATA[    <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'strers=module;strurl=' . $GLOBALS['ngenre'])}</nav>
+    {$=ap_user_login('module.data_login')}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[data_foot]]></name>
+      <tpl_default><![CDATA[    <table id="data_foot" cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('module.img', 'lng')}</td>
+      </tr>
+      <tr>
+        <td class="center"><img src="{$=#images_route}state/forum.gif" border="0" class="absmiddle" />&nbsp;{$=ii_itake('module.forum', 'lng')}&nbsp;<img src="{$=#images_route}state/forum_new.gif" border="0" class="absmiddle" />&nbsp;{$=ii_itake('module.forum_new', 'lng')}&nbsp;<img src="{$=#images_route}state/forum_lock.gif" border="0" class="absmiddle" />&nbsp;{$=ii_itake('module.forum_lock', 'lng')}</td>
+      </tr>
+    </table>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[data_manage_menu]]></name>
+      <tpl_default><![CDATA[    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('config.manage', 'lng')}</td>
+      </tr>
+      <tr>
+        <td><img src="{$=#images_route}icon/icon2.gif" border="0" class="absmiddle" />&nbsp;<a href="?type=manage&amp;mtype=topic&amp;sid={$sid}">{$=ii_itake('config.manage_topic', 'lng')}</a>&nbsp;&nbsp;<img src="{$=#images_route}icon/icon2.gif" border="0" class="absmiddle" />&nbsp;<a href="?type=manage&amp;mtype=blacklist&amp;sid={$sid}">{$=ii_itake('config.manage_blacklist', 'lng')}</a></td>
+      </tr>
+    </table>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[data_forum_info]]></name>
+      <tpl_default><![CDATA[{@recurrence_ida}
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td height="20" colspan="3"><img src="{$=#images_route}icon/topic.gif" border="0" /> <a href="?type=detail&sid={$sid}&tid={$tid}" target="_blank">{$topic}</a></td>
+              </tr>
+              <tr>
+                <td height="20" colspan="3"><img src="{$=#images_route}icon/time.gif" border="0" /> {$time}</td>
+              </tr>
+              <tr>
+                <td width="33%" height="20"><img src="{$=#images_route}icon/num_new.gif" border="0" class="absmiddle" /> {$num_new}</td>
+                <td width="33%"><img src="{$=#images_route}icon/num_topic.gif" border="0" class="absmiddle" /> {$num_topic}</td>
+                <td width="33%"><img src="{$=#images_route}icon/num_note.gif" border="0" class="absmiddle" /> {$num_note}</td>
+              </tr>
+            </table>{@@}
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td align="center" class="ash">{$=ii_itake('module.popedom', 'lng')}</td>
+              </tr>
+            </table>{@recurrence_ida}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[index]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="forum-detail">
+  <div class="content">
+    {$=pp_module_data_top()}{@recurrence_forum}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="3">{$sort}</td>
+      </tr>{@recurrence_ida}
+      <tr>
+        <td width="120" class="center">{$forum_images}</td>
+        <td>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td height="20"><a href="./?type=list&amp;sid={$id}" target="_self"><img style="width:20px;margin-right:5px;" src="{$=#images_route}state/{$pic}.gif" border="0" /><b>{$sort}</b></a></td>
+            </tr>
+            <tr>
+              <td class="ash">{$explain}</td>
+            </tr>
+            <tr>
+              <td height="20">{$=ii_itake('config.admin', 'lng')}: {$admin}</td>
+            </tr>
+          </table>
+        </td>
+        <td width="250" style="display:none;">{$forum_info}</td>
+      </tr>{@recurrence_ida}
+    </table>{@recurrence_forum}{$=pp_module_data_foot()}
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[topic_list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<script type="text/javascript">
+var mystrsid, mystrtid, mystrarea;
+
+function loadreply(strsid, strtid, strarea)
+{
+  mystrsid = strsid;
+  mystrtid = strtid;
+  mystrarea = strarea;
+  switch_display_default("tr_" + strarea);
+  if (!(get_id("tr_" + strarea).style.display == "none"))
+  {igets("interface.php?type=reply&sid=" + mystrsid + "&tid=" + mystrtid, nloadreply);}
+};
+
+function nloadreply(strers)
+{
+  var tobj, tstr;
+  tstr = strers;
+  tobj = get_id("td_" + mystrarea);
+  if (!(tstr == "$error$"))
+  {tobj.innerHTML = tstr;}
+};
+</script>
+<div class="forum-detail">
+  <div class="content">
+    {$=pp_module_data_top()}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('module.rule', 'lng')}</td>
+      </tr>
+      <tr>
+        <td>{$rule}</td>
+      </tr>
+    </table>{@child_forum}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="3">{$sort}</td>
+      </tr>{@recurrence_ida}
+      <tr>
+        <td width="120" class="center">{$forum_images}</td>
+        <td>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td height="20"><a href="./?type=list&amp;sid={$id}" target="_self"><img style="width:20px;margin-right:5px;" src="{$=#images_route}state/{$pic}.gif" border="0" /><b>{$sort}</b></a></td>
+            </tr>
+            <tr>
+              <td>{$explain}</td>
+            </tr>
+            <tr>
+              <td height="20">{$=ii_itake('config.admin', 'lng')}: {$admin}</td>
+            </tr>
+          </table>
+        </td>
+        <td width="250"style="display:none;">{$forum_info}</td>
+      </tr>{@recurrence_ida}
+    </table>{@child_forum}{@topic_list}
+    <table cellpadding="5" cellspacing="0" class="tables">
+      <tr>
+        <td class="tbn"><a class="button" href="./?type=release&amp;sid={$sid}">{$=ii_itake('module.newtopic', 'lng')}</a>&nbsp;&nbsp;&nbsp;<a class="button" href="?type=release&sid={$sid}&vote=1">{$=ii_itake('module.newvote', 'lng')}</a></td>
+        <td class="tbn" align="right"><a class="button" href="./?type=manage&amp;sid={$sid}">{$=ii_itake('module.manage', 'lng')}</a> {$forum_admin}</td>
+      </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td colspan="6" align="right" width="*">
+          <form method="get">
+          <input type="hidden" name="type" value="search" />
+          <input type="hidden" name="sid" value="{$sid}" />
+          <input type="text" name="keyword" style="WIDTH: 120px" class="i1" /> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+          </form>
+        </td>
+        <td width="*"></td>
+      </tr>
+    </table>
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="7">{$=ii_itake('module.topiclist', 'lng')}</td>
+      </tr>
+    </table>
+    <table cellpadding="10" cellspacing="0" class="tableL">
+      <tr>
+        <th width="50" style="text-align:center;"><img src="{$=#images_route}topic/ico.gif" class="absmiddle" /></th>
+        <th width="*">{$=ii_itake('config.topic', 'lng')}</th>
+        <th width="80">{$=ii_itake('config.author', 'lng')}</th>
+        <th width="100" class="center">{$=ii_itake('config.reply', 'lng')}/{$=ii_itake('config.count', 'lng')}</th>
+        <th width="180" style="display:none;">{$=ii_itake('config.lastreply', 'lng')}</th>
+      </tr>{@recurrence_idb}
+      <tr>
+        <td class="center"><a href="javascript:loadreply('{$sid}','{$tid}','{$tid}');" title="{$=ii_itake('module.loadreply', 'lng')}"><img src="{$=#images_route}topic/{$ico}.gif" class="absmiddle" /></a></td>
+        <td><a href="./?type=detail&amp;sid={$sid}&amp;tid={$tid}">{$topic}</a> {$topicpic}</td>
+        <td><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$author}')}">{$author}</a></td>
+        <td class="center">{$reply}/{$count}</td>
+        <td style="display:none;">{$lasttime} <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$lastuser}')}">{$lastuser}</a></td>
+      </tr>
+      <tr id="tr_{$tid}" style="display:none;">
+        <td colspan="1">&nbsp;</td>
+        <td colspan="5" id="td_{$tid}"><img src="{$=#images_route}loading.gif" alt="Loading" class="absmiddle" />{$=ii_itake('module.loadreply', 'lng')}</td>
+      </tr>{@recurrence_idb}
+    </table>
+    <div id="cutepage" class="listpage">{$cpagestr}</div>
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td width="25"><img src="{$=#images_route}topic/normal.gif" border="0" /></td>
+        <td width="35">{$=ii_itake('topic.normal', 'lng')}</td>
+        <td width="27"><img src="{$=#images_route}topic/hot.gif" border="0" /></td>
+        <td width="35">{$=ii_itake('topic.hot', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/elite.gif" border="0" /></td>
+        <td width="35">{$=ii_itake('topic.elite', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/lock.gif" border="0" /></td>
+        <td width="35">{$=ii_itake('topic.lock', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/top.gif" border="0" /></td>
+        <td width="35">{$=ii_itake('topic.top', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/htop.gif" border="0" /></td>
+        <td width="35">{$=ii_itake('topic.htop', "lng")}</td>
+        <td width="*"></td>
+      </tr>
+    </table>{@topic_list}
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[topic_detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<script type="text/javascript">
+  var mystrarea;
+  function forum_quote(strsid, strtid, strarea)
+  {
+    mystrarea = strarea;
+    igets("interface.php?type=quote&sid=" + strsid + "&tid=" + strtid, forum_quotes)
+  };
+
+  function forum_quotes(strers)
+  {
+    var tstr = strers;
+    if (!(tstr == "$error$"))
+    {editor_insert(mystrarea, tstr);}
+  };
+</script>
+<div class="forum-detail">
+  <div class="content">
+    {$=pp_module_data_top()}
+    {@recurrence_vote}
+    <form action="{$=#nuri}?action=vote&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+      <table cellpadding="10" cellspacing="1" class="tables">
+        <tr>
+          <td class="tbt">{$=ii_itake('module.votedetail', 'lng')}</td>
+        </tr>
+        <tr>
+          <td>{$topic}</td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              {@recurrence_voa}
+              <tr>
+                <td width="30" height="20" class="center"><input type="{$=pp_change_forum_vote_type({$type})}" name="votes[]" value="{$id}" class="radio"></td>
+                <td>{$topic}</td>
+                <td width="50">
+                  <table width="{$per}%" cellpadding="0" cellspacing="0" border="0" style="margin-left:0px;">
+                    <tr>
+                      <td width="{$per}%" height="10" style="background: url({$=#images_route}/bar.gif)"></td>
+                    </tr>
+                  </table>
+                </td>
+                <td width="40" class="center">{$per}%</td>
+              </tr>
+              {@recurrence_voa}
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top">
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td>{$=ii_itake('vote.all_1', 'lng')}<b>{$count}</b>{$=ii_itake('vote.all_2', 'lng')}{$endtime}</td>
+                <td align="right"><input type="submit" value="{$=ii_itake('vote.submit', 'lng')}" class="button" /></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </form>
+    {@recurrence_vote}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="2">{$=ii_itake('module.topicdetail', 'lng')}</td>
+      </tr>
+      {@recurrence_idb}
+       <tr style="margin-bottom:10px;padding-bottom:10px;border-bottom:10px solid #f9f9f9;">
+        <td colspan="2" valign="top">
+          <table style="border-bottom:2px solid #d8d8d8;" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr style="margin-bottom:10px;padding-bottom:10px;border-bottom:10px solid #fff;">
+              <td width="*" height="25">
+                <h1 style="margin:0;font-size:22px;font-weight:bold;">{$topic}</h1>
+                <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><u>{$username}</u></a>发表于{$time}<!--{$floor} {$=ii_itake('global.lng_unit.floor', 'lng')}--> <a onclick="forum_quote('{$sid}','{$tid}','content');"><img src="{$=#images_route}icon/quote.gif" border="0" /></a> <a href="./?type=edit&amp;tid={$tid}&amp;sid={$sid}&amp;backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#images_route}icon/edit.gif" border="0" /></a>
+              </td>
+              <td class="top_face" width="80" height="25"><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><img src="{$face}" height="25" border="0"/></a></td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed">
+            <tr>
+              <td><div class="contents">
+                {$content}
+                <p style="text-align:right;">{$edit_info}</p>
+                </div></td>
+            </tr>
+            <tr>
+              <td><img src="{$=#images_route}icon/sign.gif" border="0" /> {$sign}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {@recurrence_idb}
+      {@recurrence_ida}
+      <tr style="margin-bottom:10px;padding-bottom:10px;border-bottom:10px solid #f9f9f9;">
+        <td class="user_face" style="vertical-align: top;">
+          <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><img src="{$face}" border="0"/></a>
+        </td>
+        <td valign="top">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td width="50" height="25">
+                <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><u>{$username}</u></a>发表于{$time},{$floor} {$=ii_itake('global.lng_unit.floor', 'lng')} <a onclick="forum_quote('{$sid}','{$tid}','content');"><img src="{$=#images_route}icon/quote.gif" border="0" /></a> <a href="./?type=edit&amp;tid={$tid}&amp;sid={$sid}&amp;backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#images_route}icon/edit.gif" border="0" /></a></td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed">
+            <tr>
+              <td height="25"><img src="{$=#images_route}tp/{$icon}.gif" border="0" class="absmiddle" /> <b>{$topic}</b></td>
+            </tr>
+            <tr>
+              <td height="10"></td>
+            </tr>
+            <tr>
+              <td><div class="contents">
+                {$content}
+                <p style="text-align:right;">{$edit_info}</p>
+                </div></td>
+            </tr>
+            <tr>
+              <td><img src="{$=#images_route}icon/sign.gif" border="0" /> {$sign}</td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {@recurrence_ida}
+      <tr>
+        <td colspan="2"><div id="cutepage" class="listpage">{$cpagestr}</div></td>
+      </tr>
+    </table>
+    <table cellpadding="0" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('module.topicreply', 'lng')}</td>
+      </tr>
+      <tr>
+        <td valign="top">
+          {@topic_reply}
+          <form action="{$=#nuri}?action=reply&tid={$tid}&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+            <table width="100%" cellpadding="10" cellspacing="0" border="0">
+              <tr>
+                <td><input type="text" class="i1" name="topic" size="40" placeholder="{$=ii_itake('config.replytopic', 'lng')}" maxlength="50" /></td>
+              </tr>
+              <tr>
+                <td>{$=mm_html_content2('content','')}</td>
+              </tr>
+              {@recurrence_user_upload}
+              <tr>
+                <td>{$=ii_itake('global.forum:config.files','lng')}<input type="hidden" name="content_files_list" id="content_files_list"><select name="content_files" id="content_files" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_get_hstr(ii_htmlencode($_POST['content_files_list'], 1), ii_htmlencode($GLOBALS['RS_content_files_list'])))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))"> <input type="button" class="button" value="{$=ii_itake('global.forum:config.insert','lng')}" onclick="insert_images2('content', get_id('content_files').value, 0,-1, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')"> <iframe style="vertical-align: middle;width:65px;height:32px;" src="?type=upload&upform=form&uptext=content_files&upftype=1" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+              </tr>
+              {@recurrence_user_upload}
+              {@recurrence_valcode}
+              <tr>
+                <td><input type="text" class="i1" style="width:80px;" name="valcode" placeholder="{$=ii_itake('global.lng_config.valcode', 'lng')}" size="4" /> {$=mm_valcode()}</td>
+              </tr>
+              {@recurrence_valcode}
+              <tr>
+                <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /></td>
+              </tr>
+            </table>
+          </form>
+          {@@}
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td class="red">{$=ii_itake('config.lockinfo', 'lng')}</td>
+            </tr>
+          </table>
+          {@topic_reply}
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[topic_release]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=mm_echo_error()}
+<script src="{$=#global_images_route}js/selects.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  {@recurrence_user_upload_script}get_id("content_files_list").value = get_selects_list(get_id('content_files'));{@recurrence_user_upload_script}
+};
+</script>
+<div class="forum-detail">
+  <div class="content">
+    {$=pp_module_data_top()}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('module.newtopic', 'lng')}</td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <form action="{$=#nuri}?action=release&sid={$sid}&vote={$=ii_get_num($_GET['vote'])}" method="post" onsubmit="bfsubmit()">
+          <table width="100%" cellpadding="10" cellspacing="0" border="0">
+            <tr>
+              <td>{$=ii_itake('config.author', 'lng')}:{$=#nusername}</td>
+            </tr>
+            <tr>
+              <td><select name="topictype" id="topictype" class="s1" onchange="get_id('topic').value += this.options[this.selectedIndex].text;">{$=ii_show_xmlinfo_select('sel_topictype.all', 0, 'select')}</select> <input type="text" name="topic" id="topic" size="40" class="i1" placeholder="{$=ii_itake('config.topic', 'lng')}" maxlength="50" value="{$=ii_htmlencode($_POST['topic'], 1)}" /></td>
+            </tr>{@recurrence_vote}
+            <tr>
+              <td>{$=ii_itake('config.voteop', 'lng')}:{$=ii_show_xmlinfo_select('sel_vote_type.all', ii_get_num($_POST['vote_type'], 0), 'vote_type:radio')} {$=ii_itake('config.backday', 'lng')} <select name="vote_day" class="s1">{$=ii_show_xmlinfo_select('sel_vote_day.all', ii_get_num($_POST['vote_day'], 0), 'select')}</select></td>
+            </tr>
+            <tr>
+              <td><textarea rows="5" name="vote_content" id="vote_content" cols="60" class="t1">{$=ii_htmlencode($_POST['vote_content'], 1)}</textarea></td>
+            </tr>
+            <tr>
+              <td>{$=ii_itake('config.votenot', 'lng')}:{$=ii_ireplace('config.votenotice', 'lng')}</td>
+            </tr>{@recurrence_vote}
+            <tr>
+              <td>{$=mm_html_content2('content','')}</td>
+            </tr>{@recurrence_user_upload}
+            <tr>
+              <td>{$=ii_itake('config.files','lng')}:<input type="hidden" name="content_files_list" id="content_files_list" /><select name="content_files" id="content_files" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_htmlencode($_POST['content_files_list'], 1))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))" /> <input type="button" class="button" value="{$=ii_itake('config.insert','lng')}" onclick="insert_images2('content', get_id('content_files').value, 0,-1, '')" /> <iframe style="vertical-align: middle;width:100px;height:32px;" src="?type=upload&upform=form&uptext=content_files&upftype=1" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+            </tr>{@recurrence_user_upload}{@recurrence_valcode}
+            <tr>
+              <td><input type="text" class="i1" style="width:80px;" name="valcode" size="4" placeholder="{$=ii_itake('global.lng_config.valcode', 'lng')}" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
+            </tr>{@recurrence_valcode}
+            <tr>
+              <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[topic_reply]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=mm_echo_error()}
+<div class="forum-detail">
+  <div class="content">
+    {$=pp_module_data_top()}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('module.newreply', 'lng')}</td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <form action="{$=#nuri}?action=reply&tid={$tid}&sid={$sid}&backurl={$=urlencode('?type=detail&tid={$tid}&sid={$sid}')}" method="post">
+          <table width="100%" cellpadding="10" cellspacing="0" border="0">
+            <tr>
+              <td width="100" height="25" align="right">{$=ii_itake('config.replytopic', 'lng')}</td>
+              <td><input type="text" name="topic" size="40" class="i1" maxlength="50" placeholder="{$=ii_itake('config.replytopic', 'lng')}" value="{$=ii_htmlencode($_POST['topic'], 1)}" /></td>
+            </tr>
+            <tr>
+              <td height="25" align="right"><font class="red">*</font> {$=ii_itake('config.replycontent', 'lng')}</td>
+              <td>{$=mm_html_content2('content',ii_htmlencode($_POST['content']))}</td>
+            </tr>{@recurrence_valcode}
+            <tr>
+              <td height="25" align="right">{$=ii_itake('global.lng_config.valcode', 'lng')}</td>
+              <td><input type="text" class="i1" style="widht:60px;" name="valcode" size="4" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
+            </tr>{@recurrence_valcode}
+            <tr>
+              <td height="35"></td>
+              <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[topic_edit]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=mm_echo_error()}
+<script src="{$=#global_images_route}js/selects.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  {@recurrence_user_upload_script}get_id("content_files_list").value = get_selects_list(get_id('content_files'));{@recurrence_user_upload_script}
+};
+</script>
+<div class="forum-detail">
+  <div class="content">
+    {$=pp_module_data_top()}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('module.newtopic', 'lng')}</td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <form action="{$=#nuri}?action=edit&sid={$sid}&tid={$tid}&backurl={$backurl}" method="post" onsubmit="bfsubmit();">
+          <table width="100%" cellpadding="10" cellspacing="0" border="0">
+            <tr>
+              <td width="100" height="25" align="right">{$=ii_itake('config.author', 'lng')}</td>
+              <td>{$=#nusername}</td>
+            </tr>
+            <tr>
+              <td height="25" align="right"><font class="red">*</font> {$=ii_itake('config.topic', 'lng')}</td>
+              <td><select name="topictype" class="s1" onchange="javascript:get_id('topic').value += this.options[this.selectedIndex].text;">{$=ii_show_xmlinfo_select('sel_topictype.all', 0, 'select')}</select> <input type="text" class="i1" name="topic" id="topic" size="40" maxlength="50" value="{$=ii_get_hstr(ii_htmlencode($_POST['topic'], 1), ii_htmlencode($GLOBALS['RS_topic']))}"></td>
+            </tr>
+            <tr>
+              <td height="25" align="right"><font class="red">*</font> {$=ii_itake('config.content', 'lng')}</td>
+              <td>{$=mm_html_content2('content',ii_htmlencode($GLOBALS['RS_content']))}</td>
+            </tr>{@recurrence_user_upload}
+            <tr>
+              <td height="25" align="right">{$=ii_itake('config.files','lng')}</td>
+              <td><input type="hidden"  name="content_files_list" id="content_files_list"><select name="content_files" id="content_files" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=pp_get_forum_files_list(ii_get_hstr(ii_htmlencode($_POST['content_files_list'], 1), ii_htmlencode($GLOBALS['RS_content_files_list'])))}</select> <input type="button" class="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_files'))"> <input type="button" class="button" value="{$=ii_itake('config.insert_url','lng')}" onclick="insert_images2('content', get_id('content_files').value, 0,-1, '')"> <iframe style="vertical-align: middle;width:100px;height:32px;" src="?type=upload&upform=form&uptext=content_files&upftype=1"  scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+            </tr>{@recurrence_user_upload}{@recurrence_valcode}
+            <tr>
+              <td height="25" align="right">{$=ii_itake('global.lng_config.valcode', 'lng')}</td>
+              <td><input type="text" class="i1" style="width:60px;" name="valcode" size="4" value="{$=ii_htmlencode($_POST['valcode'])}" class="text" /> {$=mm_valcode()}</td>
+            </tr>{@recurrence_valcode}
+            <tr>
+              <td height="35"></td>
+              <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" /></td>
+            </tr>
+          </table>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[search_list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="forum-detail">
+  <div class="content">
+    {$=pp_module_data_top()}
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="3">{$=ii_itake('module.search', 'lng')}</td>
+      </tr>
+      <tr>
+        <td>
+          <form method="get">
+          <input type="hidden" name="type" value="search">
+          {$=ii_itake('module.search_sid', 'lng')}<select name="sid" class="select"><option value="" >{$=ii_itake('global.lng_config.all', 'lng')}</option>{$=pp_sel_forum_sort({$sid}, $GLOBALS['nlng'])}</select> {$=ii_itake('module.search_author', 'lng')}<input type="text" name="author" size="20" class="text" value="{$author}" /> {$=ii_itake('module.search_keyword', 'lng')}<input type="text" name="keyword" size="20" class="text" value="{$keyword}" /> <input type="submit" value="{$=ii_itake('global.lng_config.search','lng')}" class="button" />
+          </form>
+        </td>
+      </tr>
+    </table>
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="7">{$=ii_itake('module.topiclist', 'lng')}</td>
+      </tr>
+      <tr>
+        <td width="50" class="center"><img src="{$=#images_route}topic/ico.gif" /></td>
+        <td width="*">{$=ii_itake('config.topic', 'lng')}</td>
+        <td width="80">{$=ii_itake('config.author', 'lng')}</td>
+        <td width="100" class="center">{$=ii_itake('config.reply', 'lng')}/{$=ii_itake('config.count', 'lng')}</td>
+        <td width="180" style="display:none;">{$=ii_itake('config.lastreply', 'lng')}</td>
+      </tr>{@recurrence_idb}
+      <tr>
+        <td class="center"><img src="{$=#images_route}topic/{$ico}.gif" /></td>
+        <td><a href="./?type=detail&amp;sid={$sid}&amp;tid={$tid}">{$topic}</a> {$topicpic}</td>
+        <td><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$author}')}">{$author}</a></td>
+        <td class="center">{$reply}/{$count}</td>
+        <td style="display:none;">{$lasttime} <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$lastuserstr}">{$lastuser}</a></td>
+      </tr>{@recurrence_idb}
+      <tr>
+        <td colspan="7"><div id="cutepage" class="listpage">{$cpagestr}</div></td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[manage_topic]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="forum-detail">
+  <div class="content">{$=pp_module_data_top()}{$=pp_module_data_manage_menu()}
+    <form method="post" name="sel_form" action="{$=#nuri}?action=manage&mtype=topic&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id();">
+    <input type="hidden" name="sel_ids" />
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="7">{$=ii_itake('module.topiclist', 'lng')}</td>
+      </tr>
+    </table>
+    <table cellpadding="10" cellspacing="0" class="tableL">
+      <tr>
+        <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onclick="select_all();" /></th>
+        <th width="*">{$=ii_itake('config.topic', 'lng')}</th>
+        <th width="80">{$=ii_itake('config.author', 'lng')}</th>
+        <th width="100" class="center">{$=ii_itake('config.reply', 'lng')}/{$=ii_itake('config.count', 'lng')}</th>
+        <th style="display:none;" width="180">{$=ii_itake('config.lastreply', 'lng')}</th>
+      </tr>{@recurrence_ida}
+      <tr>
+        <td class="center"><input type="checkbox" name="sel_id" value="{$tid}" class="checkbox" /></td>
+        <td><a href="./?type=manage&amp;mtype=detail&amp;sid={$sid}&amp;tid={$tid}">{$topic}</a> {$topicpic}</td>
+        <td><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$author}')}">{$author}</a></td>
+        <td class="center">{$reply}/{$count}</td>
+        <td style="display:none;">{$lasttime} <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$lastuser}')}">{$lastuser}</a></td>
+      </tr>{@recurrence_ida}
+      </table>
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td colspan="7"><div id="cutepage" class="listpage">{$cpagestr}</div></td>
+      </tr>
+      <tr>
+        <td colspan="7">
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td width="25"><img src="{$=#images_route}topic/normal.gif" border="0" /></td>
+        <td width="90">{$=ii_itake('topic.normal', 'lng')}</td>
+        <td width="27"><img src="{$=#images_route}topic/hot.gif" border="0" /></td>
+        <td width="90">{$=ii_itake('topic.hot', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/elite.gif" border="0" /></td>
+        <td width="90">{$=ii_itake('topic.elite', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/lock.gif" border="0" /></td>
+        <td width="90">{$=ii_itake('topic.lock', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/top.gif" border="0" /></td>
+        <td width="90">{$=ii_itake('topic.top', 'lng')}</td>
+        <td width="25"><img src="{$=#images_route}topic/htop.gif" border="0" /></td>
+        <td width="90">{$=ii_itake('topic.htop', "lng")}</td>
+        <td width="*"></td>
+      </tr>
+    </table>
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td width="*"></td>
+        <td align="right" colspan="6">
+        <input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;
+          <select name="control" class="s1">{$=mm_sel_control()}</select>
+          <select name="color" class="s1">{$=ii_show_xmlinfo_select('sel_color.all', '', 'select')}</select>
+          <select name="b" class="s1">{$=ii_show_xmlinfo_select('sel_b.all', '', 'select')}</select>
+          <input type="submit" name="submit" value="{$=ii_itake('global.lng_config.control','lng')}" class="button" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" />
+        </td>
+      </tr>
+    </table>
+        </td>
+      </tr>
+    </table>
+    </form>
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[manage_detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="forum-detail">
+  <div class="content">{$=pp_module_data_top()}{$=pp_module_data_manage_menu()}
+    <form method="post" name="sel_form" action="{$=#nuri}?action=manage&mtype=detail&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+    <input type="hidden" name="sel_ids" />
+    <table cellpadding="10" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt" colspan="2"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"> {$=ii_itake('module.topicdetail', 'lng')}</td>
+      </tr>
+      {@recurrence_idb}
+       <tr style="margin-bottom:10px;padding-bottom:10px;border-bottom:10px solid #f9f9f9;">
+        <td colspan="2" valign="top">
+          <table style="border-bottom:2px solid #d8d8d8;" width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr style="margin-bottom:10px;padding-bottom:10px;border-bottom:10px solid #fff;">
+              <td width="*" height="25">
+                <h1 style="margin:0;font-size:22px;font-weight:bold;">{$topic}</h1>
+                <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><u>{$username}</u></a>发表于{$time}<!--{$floor} {$=ii_itake('global.lng_unit.floor', 'lng')}--> <input type="checkbox" name="sel_id" value="{$tid}" class="checkbox" /> {$topicpic}
+              </td>
+              <td class="top_face" width="80" height="25"><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><img src="{$face}" height="25" border="0"/></a></td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed">
+            <tr>
+              <td><div class="contents">
+                {$content}
+                </div></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {@recurrence_idb}
+      {@recurrence_ida}
+      <tr style="margin-bottom:10px;padding-bottom:10px;border-bottom:10px solid #f9f9f9;">
+        <td class="user_face" style="vertical-align: top;">
+          <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><img src="{$face}" border="0"/></a>
+        </td>
+        <td valign="top">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td width="50" height="25">
+                <a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}" target="_blank"><u>{$username}</u></a>发表于{$time},{$floor} {$=ii_itake('global.lng_unit.floor', 'lng')} <input type="checkbox" name="sel_id" value="{$tid}" class="checkbox" /> {$topicpic}</td>
+            </tr>
+          </table>
+          <table width="100%" cellpadding="0" cellspacing="0" border="0" style="table-layout:fixed">
+            <tr>
+              <td height="25"><b>{$topic}</b></td>
+            </tr>
+            <tr>
+              <td height="10"></td>
+            </tr>
+            <tr>
+              <td><div class="contents">
+                {$content}
+                </div></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+      {@recurrence_ida}
+      <tr>
+        <td colspan="2"><div id="cutepage" class="listpage">{$cpagestr}</div></td>
+      </tr>
+      <tr>
+        <td height="35" colspan="2" align="right"><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;<select name="control" class="s1">{$=mm_sel_control()}</select> <input type="submit" name="submit" value="{$=ii_itake('global.lng_config.control','lng')}" class="button" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" /></td>
+      </tr>
+    </table>
+    </form>
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[manage_blacklist]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="forum-detail">
+  <div class="content">{$=pp_module_data_top()}{$=pp_module_data_manage_menu()}
+    <form method="post" name="sel_form" action="{$=#nuri}?action=manage&mtype=blacklist&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+    <input type="hidden" name="sel_ids" />
+    <table cellpadding="10" cellspacing="0" class="tables">
+      <tr>
+        <td class="tbt" colspan="5">{$=ii_itake('config.blacklist_list', 'lng')}</td>
+      </tr>
+    </table>
+    <table cellpadding="10" cellspacing="0" class="tableL">
+      <tr>
+        <th width="30" class="center"><input type="checkbox" name="sel_all" class="checkbox" onclick="select_all();" /></th>
+        <th width="100">{$=ii_itake('blacklist.username', 'lng')}</th>
+        <th style="display:none;" width="40">{$=ii_itake('blacklist.admin', 'lng')}</th>
+        <th width="*">{$=ii_itake('blacklist.time', 'lng')}</th>
+        <th style="display:none;" width="180">{$=ii_itake('blacklist.remark', 'lng')}</th>
+      </tr>{@recurrence_ida}
+      <tr>
+        <td width="30" class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox" /></td>
+        <td width="100"><a href="{$=ii_get_actual_route(USER_FOLDER)}/?type=user_detail&amp;username={$=urlencode('{$username}')}">{$username}</a></td>
+        <td style="display:none;" width="40">{$admin}</td>
+        <td width="*">{$time}</td>
+        <td style="display:none;" width="180">{$remark}</td>
+      </tr>{@recurrence_ida}
+    </table>
+    <table cellpadding="10" cellspacing="0" class="tables">
+      <tr>
+        <td colspan="5"><div id="cutepage" class="listpage">{$cpagestr}</div></td>
+      </tr>
+      <tr>
+        <td colspan="5" align="right"><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;<select name="control" class="s1">{$=mm_sel_control()}</select> <input type="submit" name="submit" value="{$=ii_itake('global.lng_config.control','lng')}" class="button" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" /></td>
+      </tr>
+    </table>
+    </form>
+    <form action="{$=#nuri}?action=manage&mtype=add_blacklist&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+    <table cellpadding="5" cellspacing="1" class="tables">
+      <tr>
+        <td class="tbt">{$=ii_itake('blacklist.add', 'lng')}</td>
+      </tr>
+      <tr>
+        <td valign="top">
+          <table width="100%" cellpadding="10" cellspacing="0" border="0">
+            <tr>
+              <td width="70" height="25" align="right">{$=ii_itake('global.lng_config.username', 'lng')}</td>
+              <td><input type="text" name="username" size="20" class="i1" /></td>
+            </tr>
+            <tr>
+              <td height="25" align="right">{$=ii_itake('blacklist.remark', 'lng')}</td>
+              <td><input type="text" name="remark" size="40" class="i1" /></td>
+            </tr>
+            <tr>
+              <td height="25" align="right"></td>
+              <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" />&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    </form>
+    <table cellpadding="0" cellspacing="0" class="tables">
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

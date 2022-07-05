@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+<item_list>
+  <item>
+    <name><![CDATA[listform]]></name>
+    <tpl_default><![CDATA[
+  <form id="filterForm" name="form1" genre="{$ngenre}" method="get" action="{$=#nurl}">
+    <input id="type" type="hidden" value="list" name="type" to="filter">
+    <input id="classid" type="hidden" value="{$classid}" name="classid" to="filter">
+    <input id="offset" type="hidden" value="{$offset}" name="offset" to="filter">
+    {$=api_list_fields_input()}
+    <div id="list_fields">
+      <ul>
+        {$=api_list_sorts()}
+        {$=api_list_fields()}
+      </ul>
+    </div>
+    <script src="{$=#global_images_route}js/list_fields.js" type="text/javascript"></script>
+  </form>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[listsort]]></name>
+    <tpl_default><![CDATA[
+<li>
+  <span>{$=ii_itake('global.lng_config.sort','lng')}</span>
+  <strong onclick="delClick(this);">{$=ii_itake('global.expansion/fields:manage.list_all','lng')}</strong>
+  {@}<a href="javascript:;" id="classid|{$id}">{$sort}</a>{@}
+</li>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[listinput]]></name>
+    <tpl_default><![CDATA[
+<input id="f{$oid}" type="hidden" value="{$=ii_get_num(ii_htmlencode($_GET['f{$oid}']),0)}" name="f{$oid}" to="filter">
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[listradio]]></name>
+    <tpl_default><![CDATA[
+<li>
+  <span>{$ctopic}</span>
+  <strong onclick="delClick(this);">{$=ii_itake('global.expansion/fields:manage.list_all','lng')}</strong>
+  {@}<a href="javascript:;" id="f{$oid}|{$id}">{$topic}</a>{@}
+</li>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getinput]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" name="fields_{$oid}" value="{$data}" class="i1"></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[gettextarea]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{$=mm_html_content('fields_{$oid}',ii_htmlencode($GLOBALS['RS_data']))}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getupload]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" id="fields_{$oid}" name="fields_{$oid}" value="{$data}" class="i1" ondblclick="preview_images(this.value, event)">
+<iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getgallery]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>
+              <div id="fields_{$oid}" class="gallery"></div>
+              <input type="hidden" name="fields_{$oid}" value="{$data}">
+              <iframe style="padding:5px;background-color: #5cb85c;border: 1px solid #5cb85c;display:inline-block;width:80px;height:80px;vertical-align: middle;margin-top: -3px;" src="?type=uploads&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+      <script type="text/javascript">
+      var gallery_fields_{$oid} = '{$data}';
+      if(gallery_fields_{$oid} != ''){
+          var galleryary = gallery_fields_{$oid}.split("#:#");
+          var str = '';
+          for(i=0;i < galleryary.length;i++){
+            if(galleryary[i] != '') str +='<span onclick="del_gallery_fields_{$oid}(this,\'' + galleryary[i]+ '\');"><img width="80" src="' + galleryary[i]+ '"/></span>';
+          }
+          get_id('fields_{$oid}').innerHTML = str;
+      }
+      function del_gallery_fields_{$oid}(obj,val){
+          if(confirm('确认删除图片?'))
+          {
+              var imgval = document.form.fields_{$oid}.value;
+              var imgary = imgval.split("#:#");
+              var nimgval = '';
+              obj.remove();
+              for(i=0;i < imgary.length;i++){
+                  if(imgary[i] != val && imgary[i] != '') nimgval += imgary[i] + '#:#';
+              }
+              document.form.fields_{$oid}.value = nimgval;
+          }
+      }
+      </script>
+</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getradio]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="radio"><input type="radio" class="radio" name="fields_{$oid}" value="{$id}" {$checked}><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getcheckbox]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="checkbox"><input type="checkbox" class="checkbox" name="fields_{$oid}[]" value="{$id}" {$checked}><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[getselect]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><select name="fields_{$oid}" class="s1"><option value="0">{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}" {$selected}>{$topic}</option>{@}</select></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[input]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" name="fields_{$oid}" value="" class="i1"></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[textarea]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{$=mm_html_content('fields_{$oid}','')}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[upload]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><input type="text" id="fields_{$oid}" name="fields_{$oid}" value="" class="i1">
+<iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[gallery]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>
+              <div id="fields_{$oid}" class="gallery"></div>
+              <input type="hidden" name="fields_{$oid}" value="">
+              <iframe style="padding:5px;background-color: #5cb85c;border: 1px solid #5cb85c;display:inline-block;width:80px;height:80px;vertical-align: middle;margin-top: -3px;" src="?type=uploads&upform=form&uptext=fields_{$oid}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+      <script type="text/javascript">
+      var gallery_fields_{$oid} = '';
+      function del_gallery_fields_{$oid}(obj,val){
+          if(confirm('确认删除图片?'))
+          {
+              var imgval = document.form.fields_{$oid}.value;
+              var imgary = imgval.split("#:#");
+              var nimgval = '';
+              obj.remove();
+              for(i=0;i < imgary.length;i++){
+                  if(imgary[i] != val && imgary[i] != '') nimgval += imgary[i] + '#:#';
+              }
+              document.form.fields_{$oid}.value = nimgval;
+          }
+      }
+      </script>
+</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[radio]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="radio"><input type="radio" class="radio" name="fields_{$oid}" value="{$id}"><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[checkbox]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td>{@}<label class="checkbox"><input type="checkbox" class="checkbox" name="fields_{$oid}[]" value="{$id}"><vicon></vicon><span>{$topic}</span></label>{@}</td>
+</tr>
+]]></tpl_default>
+  </item>
+  <item>
+    <name><![CDATA[select]]></name>
+    <tpl_default><![CDATA[
+<tr>
+<th valign="top"><t>{$ctopic}</t></th>
+<td><select name="fields_{$oid}" class="s1"><option value="0" selected>{$=ii_itake('global.lng_config.unselect', 'lng')}</option>{@}<option value="{$id}">{$topic}</option>{@}</select></td>
+</tr>
+]]></tpl_default>
+  </item>
+</item_list>
+</xml>

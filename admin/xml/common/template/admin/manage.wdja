@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[
+  <toplink>
+  <a class="link mid-list-1" id="module" href="?xml=.tpl.module&hspan=module" target="_self">{$=ii_itake('manage.template_index','lng')}</a>
+  <a class="link mid-list-2" id="tpl_public" href="?xml=.tpl.tpl_public&hspan=tpl_public" target="_self">{$=ii_itake('manage.template_headfoot','lng')}</a>
+  <a class="link mid-list-3" id="tpl_transfer" href="?xml=.tpl.tpl_transfer&hspan=tpl_transfer" target="_self">{$=ii_itake('manage.template_transfer','lng')}</a>
+  </toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.nodeadd','lng')}</h3>
+    <form method="post" action="?action=add&backurl={$backurl}">
+    <input type="hidden" name="xmlconfig_burl" size="55" value="{$xmlconfig_burl}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody>
+              <tr>
+            <th valign="top"><t>{$=ii_itake('manage.nodename','lng')}<r>*</r></t></th>
+            <td><input type="text" name="nodename" size="55" value="" class="i1"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+</div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[template]]></name>
+      <tpl_default><![CDATA[
+  <toplink>
+  <a class="link mid-list-1" id="module" href="?xml=.tpl.module&hspan=module" target="_self">{$=ii_itake('manage.template_index','lng')}</a>
+  <a class="link mid-list-2" id="tpl_public" href="?xml=.tpl.tpl_public&hspan=tpl_public" target="_self">{$=ii_itake('manage.template_headfoot','lng')}</a>
+  <a class="link mid-list-3" id="tpl_transfer" href="?xml=.tpl.tpl_transfer&hspan=tpl_transfer" target="_self">{$=ii_itake('manage.template_transfer','lng')}</a>
+  </toplink>
+  <div class="table">
+    <h3><span class="hand nodeadd show-1"><a href="?type=add&burl={$burl}&backurl={$=urlencode($GLOBALS['nurl'])}">+</a></span> {$=ii_itake('manage.symbol','lng')}[ {$item} ]</h3>
+<script type="text/javascript">
+  window.onload=function(){
+  if(get_id('xml').value == '') get_id('xml').value='.tpl.module';
+  }
+function tgroups(obj){
+  get_id('group').value=obj.value;
+  get_id('module').value='';
+  get_id('item').value='';
+  get_id('xml').value='.tpl.module';
+  get_id('submit').click();
+}
+function tmodules(obj){
+  get_id('tmodule').value=obj.value;
+  if(get_id('group').value == '') get_id('group').value = 'tpl';
+  get_id('xml').value = obj.value + '.' + get_id('group').value + '.module';
+  get_id('item').value='';
+  get_id('submit').click();
+}
+function titems(obj){
+  get_id('item').value=obj.value;
+  if(get_id('group').value == '') get_id('group').value = 'tpl';
+  get_id('submit').click();
+}
+</script>
+    <rightarea>
+      <form name="form" method="get">
+        <input type="hidden" name="type" value="edit">
+        <input type="hidden" name="item" id="item" size="20" value="{$=ii_htmlencode($_GET['item'])}">
+        <input type="hidden" name="module" id="tmodule" size="20" value="{$=ii_htmlencode($_GET['module'])}">
+        <input type="hidden" name="group" id="group" size="20" value="{$=ii_htmlencode($_GET['group'])}">
+        <select onchange="tgroups(this)" class="s1">{$=ii_show_xmlinfo_select('sel_group.all', ii_htmlencode($_GET['group']), 'select')}</select>
+        <select onchange="tmodules(this)" class="s1">
+            <option value="">({$=ii_itake('manage.template_index','lng')})</option>
+            {$=pp_get_template_select()}
+        </select>
+        <select onchange="titems(this)" class="s1">{$item_option}</select>
+        <div class="searchbox"><input class="keyword" type="text" id="xml" name="xml" value="{$=ii_htmlencode($_GET['xml'])}"><input id="submit" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+    <form action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}" method="post">
+      <input type="hidden" name="xmlconfig_node" value="{$node}">
+      <input type="hidden" name="xmlconfig_field" value="{$field}">
+      <input type="hidden" name="xmlconfig_base" value="{$base}">
+      <input type="hidden" name="xmlconfig_burl" value="{$burl}">
+      <input type="hidden" name="xmlconfig_order" value="{$order}">
+      {@xml_recurrence_ida}
+      <table cellpadding="0" cellspacing="0" class="tableF">
+        <tbody>
+          <tr>
+            <td colspan="2"><span class="info-1" title="{$disinfo}">{$file_url}</span></td>
+          </tr><tr>
+            <td colspan="2" height="20"></td>
+          </tr>
+          <tr>
+            <td colspan="2">
+            <input type="hidden" name="name" value="{$name}">
+            <div id="CodeMirrorContent" class="CodeMirrorContent" style="width:100%;"><textarea id="edit" rows="25" class="hide" rows="{$rows}" name="{$name}" cols="50" ondblclick='this.rows+=3;'>{$value}</textarea></div></td>
+          </tr><tr>
+            <td colspan="2" height="20"></td>
+          </tr>
+          <tr>
+            <td><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button>
+            </td>
+            <td class="right"><a href="?action=delete&node={$namestr}&backurl={$=urlencode($GLOBALS['nurl'])}&xml={$burl}" onclick="return click_return('{$delete_notice}')" style="display: inline-block;padding: 6px 16px;line-height: 100%;font-size: 1.4rem;background-color: #e1e5ec;color: #333;border: #e1e5ec 1px solid;cursor: pointer;transition: all .1s ease;">{$=ii_itake('global.lng_config.delete','lng')}</a></td>
+          </tr>
+        </tbody>
+      </table>
+      {@xml_recurrence_ida}
+    </form>
+  </div>
+<link href="{$=ii_get_actual_route('common')}/editor/codemirror/lib/codemirror.css" type="text/css" rel="stylesheet" />
+<link href="{$=ii_get_actual_route('common')}/editor/codemirror/theme/monokai.css" type="text/css" rel="stylesheet" />
+<link href="{$=ii_get_actual_route('common')}/editor/codemirror/addon/display/fullscreen.css" type="text/css" rel="stylesheet" />
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/lib/codemirror.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/addon/selection/active-line.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/addon/display/fullscreen.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/htmlmixed/htmlmixed.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/xml/xml.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/css/css.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/clike/clike.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/php/php.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/codemirror/mode/javascript/javascript.js" type="text/javascript"></script>
+<script type="text/javascript">
+var myWidth = document.body.scrollWidth - 80; 
+document.getElementById("CodeMirrorContent").style.width = myWidth+"px";
+var myTextarea = document.getElementById("edit");
+var CodeMirrorEditor = CodeMirror.fromTextArea(myTextarea, {
+     mode: "php",
+     lineNumbers: true,
+     lineWrapping: true,
+     styleActiveLine: true,
+     theme: 'monokai',
+     extraKeys: {
+         'F11': function(cm) { cm.setOption('fullScreen', !cm.getOption('fullScreen')); },
+         'Esc': function(cm) { if (cm.getOption('fullScreen')) cm.setOption('fullScreen', false); }
+         }
+     });
+     //var fileContent = myTextarea.val();
+</script>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

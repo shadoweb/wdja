@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="imgtxt-list">
+    <div class="imgtxt-list-con">
+      <ul>
+        {@recurrence_ida}
+        <li>
+          <div class="imgtxt-details">
+            <div class="img"><img src="{$image}"></div>
+            <span class="title">{$topic}</span>
+            <div class="desc">{$=ii_left('{$description}',80)}</div>
+            <a class="view" href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'])}"><span>{$=ii_itake('global.lng_config.view_detail','lng')}</span></a>
+          </div>
+        </li>
+        {@recurrence_ida}
+      </ul>
+    </div>
+  </div>
+
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
+<div class="detail">
+  <h1>{$topic}</h1>
+  <div class="data">{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></div>
+  <div class="content">
+    <div>
+      <ul id="images" class="gallery">
+        {$=mm_get_gallery('{$gallery}')}
+      </ul>
+      <script>
+        const gallery = new Viewer(document.getElementById('images'));
+      </script>
+    </div>
+    {$=ii_get_Infos($GLOBALS['RS_infos'])}
+
+    {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+    <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], '{$id}')}</div>
+  </div>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_view_pop_input('news','{$id}')}
+  {$=mm_view_pop_input('shop','{$id}')}
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

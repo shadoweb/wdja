@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="imgtxt-list">
+    <div class="imgtxt-list-con">
+      <ul>
+        {@recurrence_ida}
+        <li>
+          <div class="imgtxt-details">
+            <div class="img"><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'])}"><img src="{$simage}"></a></div>
+            <span class="title"><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'])}">{$topic}</a></span>
+          </div>
+        </li>
+        {@recurrence_ida}
+      </ul>
+    </div>
+  </div>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
+<div class="detail">
+  <div class="content">
+    <div class="content-info">
+      <div class="content-img"><img src="{$image}"></div>
+      <div class="content-text">
+        <h1 class="content-topic"><i class="iconfont icon-microsoft"></i>{$topic}</h1>
+        <div class="content-desc">{$=ii_left('{$description}',120)}</div>
+      </div>
+      <div class="content-parms">
+        <div class="content-parms-item"><span class="parms-item-left"><i class="iconfont icon-lock"></i>{$=ii_itake('global.lng_config.view_user','lng')}</span><span>{$=ap_get_userGroup('{$utid}')}</span></div>
+        <div class="content-parms-item"><span class="parms-item-left"><i class="iconfont icon-calendarplus"></i>{$=ii_itake('global.lng_config.time','lng')}</span><span>{$=ii_format_date('{$time}',1)}</span></div>
+        <div class="content-parms-item"><span class="parms-item-left"><i class="iconfont icon-chartbar"></i>{$=ii_itake('global.lng_config.count','lng')}</span><span id="count">{$count}</span></div>
+      </div>
+    </div>
+    <div class="content-tab">
+      <div class="content-tab-title">
+        <span id="detail1" onclick="setTab('detail',1,3)" class="hover"><i class="iconfont icon-viewlist"></i>{$=ii_itake('global.{$genre}:module.list', 'lng')}</span>
+        <span id="detail2" onclick="setTab('detail',2,3)" class=""><i class="iconfont icon-viewlist"></i>{$=ii_itake('global.{$genre}:module.content', 'lng')}</span>
+        <span id="detail3" onclick="setTab('detail',3,3)" class=""><i class="iconfont icon-viewlist"></i>{$=ii_itake('global.{$genre}:module.data', 'lng')}</span>
+      </div>
+
+      <div id="con_detail_1">
+        <div class="content-tab-con">
+        <ul class="tab-con-list">
+          {$=vv_itransfer('old', 'global.tutorial:module.section-topic', 'topx=10;tnum=30;genre=tutorial/section;osql= and #_tutorial_id=\'{$id}\' and #_chapter_id=\'0\'')}
+          {$=vv_itransfer('old', 'global.tutorial:module.chapter-topic', 'topx=10;tnum=30;genre=tutorial/chapter;osql= and #_tutorial_id=\'{$id}\'')}
+        </ul>
+        </div>
+      </div>
+
+      <div id="con_detail_2" style="display:none;">
+        <div class="content-tab-con">
+          {$=mm_encode_content(api_tags_replace_tags($GLOBALS['RS_content']))}
+        </div>
+      </div>
+
+      <div id="con_detail_3" style="display:none;">
+        <div class="content-tab-con">
+        <ul class="tab-con-list">
+          {$=vv_itransfer('old', 'global.tutorial:module.data-topic', 'topx=10;tnum=30;genre=tutorial/data;osql= and #_tutorial_id=\'{$id}\' and #_chapter_id=\'0\'')}
+          {$=vv_itransfer('old', 'global.tutorial:module.chapter-topic2', 'topx=10;tnum=30;genre=tutorial/chapter;osql= and #_tutorial_id=\'{$id}\'')}
+        </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="detail">
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+</div>
+<script type="text/javascript">
+  $(function(){ 
+    $(".tab-con-list .tab-con-list-item").next("ul").css("display","none"); 
+    $(".tab-con-list .tab-con-list-item").find(".more").html("+");
+    $(".tab-con-list .tab-con-list-item").toggle(
+      function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      },function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      }); 
+    $(".tab-con-list .tab-con-list-item:first-child").toggle(
+      function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      },function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      }); 
+    $(".tab-con-list .tab-con-list-item:first-child").next("ul").css("display","block"); 
+    $(".tab-con-list .tab-con-list-item:first-child").find(".more").html("-");
+  }); 
+</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[chapter-topic]]></name>
+      <tpl_default><![CDATA[{@}
+<li class="tab-con-list-item">{$topic}<span style="float:right;" class="more">-</span></li>
+{$=vv_itransfer('old', 'global.tutorial:module.section-topic', 'topx=10;tnum=30;genre=tutorial/section;osql= and #_chapter_id=\'{$id}\'')}
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[section-topic]]></name>
+      <tpl_default><![CDATA[<ul>
+  {@}
+  <li id="tdParent-{$id}"><a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', '{$id}', '{$urltype}'))}">{$topic}</a>
+  </li>
+  {@}
+</ul>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[tutorial-topic]]></name>
+      <tpl_default><![CDATA[{@}
+<li>
+  <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', '{$id}', '{$urltype}'))}">{$topic}</a>
+</li>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[nodetail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=ii_ireplace('global.module.swiper','tpl')}
+<div class="detail">
+  <div class="content">
+    <div class="content-info">
+      <div class="content-img"><img src="{$image}"></div>
+      <div class="content-text">
+        <h1 class="content-topic"><i class="iconfont icon-microsoft"></i>{$topic}</h1>
+        <div class="content-desc">{$=ii_left('{$description}',120)}</div>
+      </div>
+      <div class="content-parms">
+        <div class="content-parms-item"><span class="parms-item-left"><i class="iconfont icon-lock"></i>{$=ii_itake('global.lng_config.view_user','lng')}</span><span>{$=ap_get_userGroup('{$utid}')}</span></div>
+        <div class="content-parms-item"><span class="parms-item-left"><i class="iconfont icon-calendarplus"></i>{$=ii_itake('global.lng_config.time','lng')}</span><span>{$=ii_format_date('{$time}',1)}</span></div>
+        <div class="content-parms-item"><span class="parms-item-left"><i class="iconfont icon-chartbar"></i>{$=ii_itake('global.lng_config.count','lng')}</span><span id="count">{$count}</span></div>
+      </div>
+    </div>
+    <div class="content-tab">
+      <div class="content-tab-title">
+        <span id="detail1" onclick="setTab('detail',1,3)" class="hover"><i class="iconfont icon-viewlist"></i>{$=ii_itake('global.{$genre}:module.content', 'lng')}</span>
+        <span id="detail2" onclick="setTab('detail',2,3)" class=""><i class="iconfont icon-viewlist"></i>{$=ii_itake('global.{$genre}:module.list', 'lng')}</span>
+        <span id="detail3" onclick="setTab('detail',3,3)" class=""><i class="iconfont icon-viewlist"></i>{$=ii_itake('global.{$genre}:module.data', 'lng')}</span>
+      </div>
+
+      <div id="con_detail_1">
+        <div class="content-tab-con">
+        {$=mm_encode_content(api_tags_replace_tags($GLOBALS['RS_content']))}
+        </div>
+      </div>
+
+      <div id="con_detail_2" style="display:none;">
+        <div class="content-tab-con">
+        <ul class="tab-con-list">
+          <li>{$=ii_itake('global.{$genre}:module.nodetail', 'lng')}[{$=ap_get_userGroup('{$utid}')}]</li>
+        </ul>
+        </div>
+      </div>
+
+      <div id="con_detail_3" style="display:none;">
+        <div class="content-tab-con">
+        <ul class="tab-con-list">
+          <li>{$=ii_itake('global.{$genre}:module.nodetail', 'lng')}[{$=ap_get_userGroup('{$utid}')}]</li>
+        </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="detail">
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
+<script type="text/javascript">
+  $(function(){ 
+    $(".tab-con-list .tab-con-list-item").next("ul").css("display","none"); 
+    $(".tab-con-list .tab-con-list-item").find(".more").html("+");
+    $(".tab-con-list .tab-con-list-item").toggle(
+      function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      },function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      }); 
+    $(".tab-con-list .tab-con-list-item:first-child").toggle(
+      function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      },function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      }); 
+    $(".tab-con-list .tab-con-list-item:first-child").next("ul").css("display","block"); 
+    $(".tab-con-list .tab-con-list-item:first-child").find(".more").html("-");
+  }); 
+</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[chapter-topic2]]></name>
+      <tpl_default><![CDATA[{@}
+<li class="tab-con-list-item">{$topic}<span style="float:right;" class="more">-</span></li>
+{$=vv_itransfer('old', 'global.tutorial:module.data-topic', 'topx=10;tnum=30;genre=tutorial/data;osql= and #_chapter_id=\'{$id}\'')}
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[data-topic]]></name>
+      <tpl_default><![CDATA[<ul>
+  {@}
+  <li id="tdParent-{$id}"><a href="{$=ii_curl('{$baseurl}', ii_iurl('detail','{$id}', '{$urltype}'))}">{$topic}</a>
+  </li>
+  {@}
+</ul>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[tutorial-topic-a]]></name>
+      <tpl_default><![CDATA[{@}
+<a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', '{$id}', '{$urltype}'))}">{$topic}</a>
+{@}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

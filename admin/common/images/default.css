@@ -1,0 +1,100 @@
+BODY {
+  BACKGROUND: none; MARGIN: 0px; FONT-FAMILY: arial,verdana,sans-serif
+}
+TABLE {
+  BORDER-RIGHT: 0px; BORDER-TOP: 0px; FONT-SIZE: 12px; BORDER-LEFT: 0px; BORDER-BOTTOM: 0px
+}
+A {
+  COLOR: #000000; FONT-STYLE: normal; TEXT-DECORATION: none
+}
+A:hover {
+  COLOR: #666666; FONT-STYLE: normal; TEXT-DECORATION: underline
+}
+A:active {
+  COLOR: #000000; FONT-STYLE: normal; TEXT-DECORATION: underline
+}
+INPUT,SELECT,TEXTAREA {
+  VERTICAL-ALIGN: middle
+}
+INPUT {
+  BORDER-RIGHT: #c0c0c0 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #c0c0c0 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #c0c0c0 1px solid; PADDING-TOP: 1px; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 20px; BACKGROUND-COLOR: #ffffff
+}
+INPUT.checkbox {
+  BORDER-RIGHT: 0px; PADDING-RIGHT: 1px; BORDER-TOP: 0px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: 0px; PADDING-TOP: 1px; BORDER-BOTTOM: 0px
+}
+INPUT.radio {
+  BORDER-RIGHT: 0px; PADDING-RIGHT: 1px; BORDER-TOP: 0px; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: 0px; PADDING-TOP: 1px; BORDER-BOTTOM: 0px
+}
+a.button,
+INPUT.button {
+  BORDER-RIGHT: #c0c0c0 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #c0c0c0 1px solid; PADDING-LEFT: 12px; BACKGROUND: url(bg_button.gif); PADDING-BOTTOM: 1px; BORDER-LEFT: #c0c0c0 1px solid; PADDING-TOP: 2px; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 20px
+}
+SELECT.select {
+  BORDER-RIGHT: #c0c0c0 1px solid; BORDER-TOP: #c0c0c0 1px solid; BORDER-LEFT: #c0c0c0 1px solid; COLOR: #173667; BORDER-BOTTOM: #c0c0c0 1px solid; HEIGHT: 20px; BACKGROUND-COLOR: #ffffff
+}
+.table {
+  BORDER-RIGHT: #ffffff 1px solid; BORDER-LEFT: #ffffff 1px solid
+}
+.foot {
+  BORDER-RIGHT: #ffffff 1px solid; PADDING-RIGHT: 1px; BORDER-TOP: #ffffff 1px solid; PADDING-LEFT: 1px; PADDING-BOTTOM: 1px; BORDER-LEFT: #ffffff 1px solid; COLOR: #ffffff; PADDING-TOP: 1px; BORDER-BOTTOM: #ffffff 1px solid; LETTER-SPACING: 1px; BACKGROUND-COLOR: #173667
+}
+.red {
+  COLOR: #ff0000
+}
+.red A {
+  COLOR: #ff0000; FONT-STYLE: normal; TEXT-DECORATION: none
+}
+.red A:hover {
+  COLOR: #336633; FONT-STYLE: normal; TEXT-DECORATION: underline
+}
+.red A:active {
+  COLOR: #ff0000; FONT-STYLE: normal; TEXT-DECORATION: underline
+}
+.green {
+  COLOR: #336633
+}
+.green A {
+  COLOR: #336633; FONT-STYLE: normal; TEXT-DECORATION: none
+}
+.green A:hover {
+  COLOR: #cc0066; FONT-STYLE: normal; TEXT-DECORATION: underline
+}
+.green A:active {
+  COLOR: #336633; FONT-STYLE: normal; TEXT-DECORATION: underline
+}
+.ash {
+  COLOR: #a7a6aa
+}
+.tbg {
+  BACKGROUND: #173667; COLOR: #ffffff; TEXT-DECORATION: none
+}
+.tbtop {
+  PADDING-LEFT: 10px; FONT-WEIGHT: bold; BACKGROUND: #3eb4fa; COLOR: #ffffff
+}
+.trr {
+  BACKGROUND: #d6dff7
+}
+.trw {
+  BACKGROUND: none;
+}
+.lrbtline {
+  BORDER: #3eb4fa 1px solid; 
+}
+.sec_menu {
+  BORDER: #3eb4fa 1px solid
+}
+.menu_title {
+  CURSOR: pointer;background: #3eb4fa;
+}
+.menu_title SPAN {
+  FONT-WEIGHT: bold; LEFT: 5px; COLOR: #ffffff; POSITION: relative; TOP: 2px
+}
+
+.menu_title SPAN::before {
+    content:'\039E';
+    font-size: 14px;
+    padding-right:2px;
+}
+.hrs {
+  COLOR: #f6f6f6; HEIGHT: 1px
+}

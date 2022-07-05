@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_expansion_baidupush" />
+    <item varstr="nidfield" strvalue="bid" />
+    <item varstr="nfpre" strvalue="b_" />
+    <item varstr="ndatabase_data" strvalue="wdja_expansion_baidupush_data" />
+    <item varstr="nidfield_data" strvalue="bdid" />
+    <item varstr="nfpre_data" strvalue="bd_" />
+    <item varstr="ncontentcutepage" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|1|1" />
+  </configure>
+</xml>

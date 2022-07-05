@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>sel_list</base>
+  </configure>
+  <sel_list>
+    <item>
+      <disinfo><![CDATA[all]]></disinfo>
+      <chinese><![CDATA[所有的主题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[elite]]></disinfo>
+      <chinese><![CDATA[精华的主题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[lock]]></disinfo>
+      <chinese><![CDATA[锁定的主题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[top]]></disinfo>
+      <chinese><![CDATA[置顶的主题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[htop]]></disinfo>
+      <chinese><![CDATA[固顶的主题]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[hidden]]></disinfo>
+      <chinese><![CDATA[隐藏的主题]]></chinese>
+    </item>
+  </sel_list>
+</xml>

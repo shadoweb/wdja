@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="img-list">
+    <div class="img-list-con">
+      <div class="img-lists">
+        {@recurrence_ida}
+        <div class="img-list-item">
+          <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'])}">
+            <div class="img-list-info">
+              <span class="img-list-img" style="padding-bottom: 80.185758513932%;"><img src="{$image}" max-width="323" max-height="259"></span>
+              <div class="img-list-details">
+                <div class="img-list-name">{$topic}</div>
+                <div class="img-list-price">
+                  <span>{$=ii_itake('config.size','lng')}:{$size}M</span>
+                </div>
+                <div class="img-list-desc">{$=ii_left('{$description}',70)}</div>
+              </div>
+              <button class="b2" type="button" title="立即下载"><span>立即下载</span></button>
+            </div>
+          </a>
+        </div>
+        {@recurrence_ida}
+      </div>
+    </div>
+  </div>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
+<div class="detail">
+  <div class="content">
+    <div class="content-info">
+      <div class="content-img"><img alt="" src="{$image}"></div>
+      <div class="content-text">
+        <h1 class="content-topic">{$topic}</h1>
+        <div class="content-desc">{$=ii_left('{$description}',120)}</div>
+      </div>
+      <div class="content-buyinfo">
+        <div class="content-price">
+          <span>{$=ii_itake('config.size','lng')}:{$size}M</span>
+          <span class="num" style="margin:10px 0;">{$=ii_itake('global.lng_config.count','lng')}:{$count}</span>
+        </div>
+        <div class="content-btn">
+          <button type="button" title="立即下载" onclick="setTab('download',2,2)"><span>立即下载</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="content-tab">
+      <div class="content-tab-title">
+        <span id="download1" onclick="setTab('download',1,2)" class="hover">文件详情</span>
+        <span id="download2" onclick="setTab('download',2,2)">下载地址</span>
+      </div>
+      <div class="content-tab-con">
+        <div id="con_download_1">{$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+          <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], '{$id}')}</div>
+        </div>
+        <div id="con_download_2" style="display:none;">
+          {$=ii_get_Infos($GLOBALS['RS_urls'],'urls')}
+          {@recurrence_idb}
+          <p><img src="{$=#images_route}download.gif" align="absmiddle"> <a href="{$file}" target="_blank" download>{$=ii_itake('config.localdown','lng')}</a></p>
+          {@recurrence_idb}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    
+  </item_list>
+</xml>

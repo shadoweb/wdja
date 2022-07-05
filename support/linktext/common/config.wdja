@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="ndatabase" strvalue="wdja_support_linktext" />
+    <item varstr="nidfield" strvalue="lid" />
+    <item varstr="nfpre" strvalue="l_" />
+    <item varstr="nuninstall" strvalue="1|0|0" />
+  </configure>
+</xml>

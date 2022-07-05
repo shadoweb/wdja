@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[buyvip]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('module.buy', 'lng')}</div>
+              <form method="post" name="sel_form" action="{$=#nuri}?action=order">
+            <table cellspacing="0" cellpadding="10" class="tableF">
+              <tr><th>{$=ii_itake('module.uname', 'lng')}</th><td>{$username}</td>
+             </tr>
+             <tr id="utype" onclick="typeSwitch(this)"><th>{$=ii_itake('module.utype', 'lng')}</th><td>
+             {$=ii_show_xmlinfo_select('global.user:sel_group.all|1,2', '1', 'utype:radio')}</td>
+             </tr>
+              <tr><th>{$=ii_itake('module.umoney', 'lng')}</th><td><input style="border:0;background:none;padding-left:10px;font-size:20px;color:red;" type="text" id="umoney" name="umoney" value="180" disabled="disabled"/></td>
+             </tr>
+              <tr>
+                <th valign="top" height="25">{$=ii_itake('global.user/shopcart:config.payment','lng')}</th>
+                <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|5', '5', 'payment:radio_img')}</td>
+              </tr>
+             <tr><th></th><td>{$=ii_itake('module.buy_tips', 'lng')}</td>
+             </tr>
+             <tr><th></th><td><input type="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button"></td>
+             </tr>
+            </table>
+              </form>
+      </div>
+     </div>
+    <div class="clear"></div>
+            <script type="text/javascript">
+            <!--
+            //get_id('utype').getElementsByTagName('label')[0].style.display = "none";
+            function typeSwitch(obj)
+            {
+              var pobj = obj.getElementsByTagName('label');
+              var tinput = get_id("umoney");
+               for(var i = 0; i<pobj.length; i++){
+                    var item = pobj[i].querySelector("label input");
+                    if(item.checked){
+                        tinput.value = "{$=#vip_user_price}";
+                        if(item.value == '1') tinput.value = "{$=#vip_user_price}";
+                        if(item.value == '2') tinput.value = "{$=#svip_user_price}";
+                  }
+                }
+            }
+            //-->
+            </script>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[upvip]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('module.buy', 'lng')}</div>
+              <form method="post" name="sel_form" action="{$=#nuri}?action=order">
+            <table cellspacing="10" cellpadding="0" class="tableF">
+              <tr><th>{$=ii_itake('module.uname', 'lng')}</th><td>{$username}</td>
+             </tr>
+             <tr id="utype" onclick="typeSwitch(this)"><th>{$=ii_itake('module.utype', 'lng')}</th><td>
+             {$=ii_show_xmlinfo_select('global.user:sel_group.all|2', '2', 'utype:radio')}</td>
+             </tr>
+              <tr><td>{$=ii_itake('module.umoney', 'lng')}</td><td><input style="border:0;background:none;padding-left:10px;font-size:20px;color:red;" type="text" name="umoney" value="{$umoney}" disabled="disabled"/></td>
+             </tr>
+              <tr>
+                <th valign="top" height="25">{$=ii_itake('global.user/shopcart:config.payment','lng')}</th>
+                <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|5', '5', 'payment:radio_img')}</td>
+              </tr>
+             <tr><th></th><td>{$=ii_itake('module.buy_tips', 'lng')}</td>
+             </tr>
+             <tr><th></th><td><input type="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button"></td>
+             </tr>
+            </table>
+              </form>
+      </div>
+     </div>
+    <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[order]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+        {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+            <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('module.order', 'lng')}</div>
+          <form method="post" action="/user/vip/?type=pay">
+          <input type="hidden" name="price" value="{$price}">
+          <input type="hidden" name="orderid" value="{$orderid}">
+          <input type="hidden" name="id" value="{$id}">
+          <table cellspacing="0" cellpadding="10" class="tableF">
+              <tr><th>{$=ii_itake('module.uname', 'lng')}</th><td>{$username}</td>
+             </tr>
+             <tr id="utype" onclick="typeSwitch(this)"><th>{$=ii_itake('module.utype', 'lng')}</th><td>{$utype}</td>
+             </tr>
+               <tr><th>{$=ii_itake('module.umoney', 'lng')}</th><td>{$price}</td>
+             </tr>
+              <tr><th valign="top" style="vertical-align: top;">{$=ii_itake('global.user/shopcart:config.payment','lng')}</th><td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|5', '5', 'payment:radio_img')}</td>
+             </tr>
+              <tr><th></th><td>{$=ii_itake('module.buy_tips', 'lng')}</td>
+             </tr>
+              <tr><th></th><td><input type="submit" value="{$=ii_itake('global.user/shopcart:config.paynow','lng')}" class="button"></td>
+             </tr>
+            </table>
+        </form>
+      </div>
+     </div>
+    <div class="clear"></div>
+            <script type="text/javascript">
+            <!--
+            //get_id('utype').getElementsByTagName('label')[0].style.display = "none";
+            function typeSwitch(obj)
+            {
+              var pobj = obj.getElementsByTagName('label');
+              var tinput = get_id("umoney");
+               for(var i = 0; i<pobj.length; i++){
+                    var item = pobj[i].querySelector("label input");
+                    if(item.checked){
+                        tinput.value = "180";
+                        if(item.value == '1') tinput.value = "180";
+                        if(item.value == '2') tinput.value = "380";
+                  }
+                }
+            }
+            //-->
+            </script>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[wxpayjs]]></name>
+      <tpl_default><![CDATA[
+{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="title"><h1>在线支付</h1></div>
+  <div class="data"><img src="{$qrcode}"></div>
+  <div class="data">{$payjs_order_id}</div>
+  <div class="data">{$out_trade_no}</div>
+  <div class="data">{$total_fee}</div>
+  <div class="content">
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[alipayjs]]></name>
+      <tpl_default><![CDATA[
+{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="title"><h1>在线支付</h1></div>
+  <div class="data"><img src="{$qrcode}"></div>
+  <div class="data">{$payjs_order_id}</div>
+  <div class="data">{$out_trade_no}</div>
+  <div class="data">{$total_fee}</div>
+  <div class="content">
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pay]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+          {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+          <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation(ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'), 'classid=-1;strers=module;strurl=' . ii_get_lrstr($GLOBALS['ngenre'], '/', 'left'))}{$=NAV_SP_STR}{$=ii_itake('member.message', 'lng')}</div>
+          <table width="100%" cellspacing="10" cellpadding="0" border="0">
+            <tr>
+              <td height="50">
+                <table width="160" cellspacing="0" cellpadding="10" border="0" align="center">
+                  <tr>
+                    <td width="40"><a href="./?type=list"><img src="{$=#images_route}inbox.gif" border="0" class="absmiddle" /></a></td>
+                    <td width="40"><a href="./?type=listb"><img src="{$=#images_route}issend.gif" border="0" class="absmiddle" /></a></td>
+                    <td width="40"><a href="{$=ii_get_actual_route(USER_FOLDER)}/friend/?type=list"><img src="{$=#images_route}address.gif" border="0" class="absmiddle" /></a></td>
+                    <td width="40"><a href="./?type=send"><img src="{$=#images_route}write.gif" border="0" class="absmiddle" /></a></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          <table width="100%" cellspacing="10" cellpadding="0" border="0">
+            <tr>
+              <td height="10"></td>
+            </tr>
+            <tr>
+              <td valign="top">
+                <table width="96%" cellspacing="10" cellpadding="0" border="0" align="center">
+                  <tr>
+                    <td height="25"><img src="{$=#global_images_route}public/small/bico.gif" border="0" class="absmiddle" /> {$topic}</td>
+                  </tr>
+                  <tr>
+                    <td height="5"></td>
+                  </tr>
+                  <tr>
+                    <td height="25" align="right">{$=ii_itake('manage.addresser','lng')}: <a href="{$=ii_get_actual_route(USER_FOLDER)}?type=user_detail&amp;username={$addresser}" target="_blank">{$addresser}</a>, {$=ii_itake('manage.time','lng')}: {$time}</td>
+                  </tr>
+                  <tr>
+                    <td height="5"></td>
+                  </tr>
+                  <tr>
+                    <td align="left">{$=ii_encode_article(ii_htmlencode($GLOBALS['RS_content']), 0)}</td>
+                  </tr>
+                  <tr>
+                    <td height="25"></td>
+                  </tr>
+                  <tr>
+                    <td height="50" align="right"><a href="./?type=send&amp;username={$=urlencode($GLOBALS['RS_addresser'])}&topic=Reply:{$=urlencode($GLOBALS['RS_topic'])}"><img src="{$=#images_route}reply.gif" border="0" class="absmiddle" /></a>&nbsp;&nbsp;&nbsp;<a href="./?action=delete&amp;id={$id}&amp;backurl={$=urlencode($GLOBALS['nuri'] . '?type=list')}" onclick="return click_return('{$=ii_itake('global.lng_common.sure', 'lng')}')"><img src="{$=#images_route}delete.gif" border="0" class="absmiddle" /></a></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td height="10"></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[order_list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+          {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+          <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.user:member.shopcart', 'lng')}</div>
+            <table class="tableL" style="margin-top:10px;" border="0" width="98%" cellSpacing="0" cellPadding="10">
+              <tr>
+                <th width="150">{$=ii_itake('global.user/shopcart:config.orderid','lng')}</th>
+                <th width="*">{$=ii_itake('global.user/shopcart:global.user/shopcart:config.name','lng')}</th>
+                <th width="100">{$=ii_itake('global.user/shopcart:config.allprice','lng')}</th>
+                <th width="100">{$=ii_itake('global.user/shopcart:config.paystate','lng')}</th>
+                <th width="100">{$=ii_itake('global.user/shopcart:config.state','lng')}</th>
+              </tr>{@recurrence_idb}
+              <tr>
+                <td><a href="{$=#nurlpre}/user/shopcart/?type=order_detail&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$orderid}</a></td>
+                <td>{$name}</td>
+                <td>{$allprice}</td>
+                <td>{$paystate}</td>
+                <td>{$state}</td>
+              </tr>{@recurrence_idb}
+            </table>
+            <div id="cutepage" class="listpage">{$cpagestr}</div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[order_detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+          {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+          <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.user:member.shopcart', 'lng')}</div>
+          <form method="post" action="/user/shopcart/?type=pay">
+          <input type="hidden" name="price" value="{$allprice}">
+          <input type="hidden" name="orderid" value="{$orderid}">
+          <input type="hidden" name="id" value="{$id}">
+          <input type="hidden" name="username" value="{$username}">
+          <table border="0" width="100%" cellSpacing="0" cellPadding="10" class="lrbtline">
+            <tr>
+              <td width="100%" height="15" class="tbtop">{$=ii_itake('config.prolist','lng')}</td>
+            </tr>
+            <tr>
+              <td width="100%" class="center">
+                <table class="table" border="0" width="98%" cellSpacing="0" cellPadding="10">
+                  <tr>
+                    <td width="*" height="25">{$=ii_itake('global.shop:config.topic','lng')}</td>
+                    <td width="100">{$=ii_itake('global.user/shopcart:config.num','lng')}</td>
+                    <td width="100">{$=ii_itake('global.shop:config.price','lng')}({$=ii_itake('global.lng_unit.money','lng')})</td>
+                    <td width="200">{$=ii_itake('global.shop:config.wprice','lng')}({$=ii_itake('global.lng_unit.money','lng')})</td>
+                  </tr>
+                  {@recurrence_ida}
+                  <tr>
+                    <td height="25"><a href="{$url}" target="_blank">{$topic}</a></td>
+                    <td>{$num}</td>
+                    <td>{$price}</td>
+                    <td class="green">{$wprice}</td>
+                  </tr>
+                  {@recurrence_ida}
+                </table>
+
+                <table border="0" width="98%" cellSpacing="0" cellPadding="10">
+                  <tr>
+                    <td width="120" height="25">{$=ii_itake('global.user/shopcart:config.orderid','lng')}</td>
+                    <td width="*" class="red">{$orderid}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.merchandiseprice','lng')}</td>
+                    <td>{$merchandiseprice}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.trafficprice','lng')}</td>
+                    <td>{$trafficprice}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.allprice','lng')}</td>
+                    <td class="red">{$allprice} ({$=ii_itake('global.lng_unit.money','lng')})</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.name','lng')}</td>
+                    <td>{$name}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.address','lng')}</td>
+                    <td>{$address}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.code','lng')}</td>
+                    <td>{$code}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.phone','lng')}</td>
+                    <td>{$phone}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.email','lng')}</td>
+                    <td>{$email}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.remark','lng')}</td>
+                    <td>{$=ii_encode_article(ii_htmlencode($GLOBALS['RS_remark']))}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.traffic','lng')}</td>
+                    <td>{$=ii_itake('global.user/shopcart:sel_traffic.{$traffic}','lng')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.time','lng')}</td>
+                    <td>{$time}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.dtime','lng')}</td>
+                    <td>{$dtime}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.state','lng')}</td>
+                    <td>{$=ii_itake('global.user/shopcart:sel_state.{$state}','lng')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.express','lng')}</td>
+                    <td>{$=ii_itake('global.user/shopcart:sel_express.{$express}','lng')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.expressid','lng')}</td>
+                    <td>{$expressid}&nbsp;<a style="display:none{$expressid};" href="https://www.baidu.com/s?word={$expressid}" target="_blank">查询</a></td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.prepaid','lng')}</td>
+                    <td>{$=ii_itake('global.sel_yesno.{$prepaid}','lng')}</td>
+                  </tr>
+                  <tr style="DISPLAY: none">
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.payid','lng')}</td>
+                    <td>{$payid}</td>
+                  </tr>
+                  <tr>
+                    <td height="25" style="vertical-align:top;">{$=ii_itake('global.user/shopcart:config.payment','lng')}</td>
+                    <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|5', '5', 'payment:radio_img')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25"></td>
+                    <td><input type="submit" value="{$=ii_itake('global.user/shopcart:config.paynow','lng')}" class="button"></td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+          </form>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+<form name="sel_form" method="post" action="{$=#nuri}?type=buy" onsubmit="get_sel_id('buy');">
+<input type="hidden" name="sel_ids" />
+<table id="cart_list" cellpadding="10" cellspacing="1" class="tableL">
+  <tr>
+    <th width="30" height="25"><input type="checkbox" name="sel_all" class="checkbox" onclick="select_all()" /></th>
+    <th>{$=ii_itake('global.' . $GLOBALS['nshop'] . ':config.topic','lng')}</th>
+    <th width="100" class="center">{$=ii_itake('config.num','lng')}</th>
+    <th width="100" class="center">{$=ii_itake('global.' . $GLOBALS['nshop'] . ':config.wprice','lng')}({$=ii_itake('global.lng_unit.money','lng')})</th>
+  </tr>
+</table>
+<table width="100%" cellpadding="10" cellspacing="1">
+  <tr>
+    <td width="30" ><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()"></td>
+    <td>{$=ii_itake('module.merchandiseprice','lng')}</td>
+    <td width="100" height="25" align="center" id="cart_num"><span></span></td>
+    <td width="100" height="25" align="center" id="cart_price"><span></span></td>
+  </tr>
+  <tr>
+    <td height="25" colspan="4"><input id="form_submit" type="submit" value="{$=ii_itake('module.pay','lng')}" class="button" /> <a class="button" href="{$continue}">{$=ii_itake('module.continue','lng')}</a> <a class="button" onclick="delCart()">{$=ii_itake('module.clear','lng')}</a></td>
+  </tr>
+</table>
+</form>
+  <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'strers=module;strurl=' . $GLOBALS['ngenre'])}</nav>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[buy]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+<form name="sel_form" method="post" action="{$=#nuri}?action=buy">
+<input type="hidden" id="cart_ids" name="cart_ids"/>
+<input type="hidden" id="cart_prices" name="merchandiseprice">
+<table id="buy_list" cellpadding="10" cellspacing="1" class="tableL">
+  <tr>
+    <th>{$=ii_itake('global.' . $GLOBALS['nshop'] . ':config.topic','lng')}</th>
+    <th width="100" class="center">{$=ii_itake('config.num','lng')}</th>
+    <th width="100" class="center">{$=ii_itake('global.' . $GLOBALS['nshop'] . ':config.wprice','lng')}({$=ii_itake('global.lng_unit.money','lng')})</th>
+  </tr>
+</table>
+ <table cellspacing="0" cellpadding="10" class="tableF" id="buying">
+              <tr>
+                <th height="25">{$=ii_itake('module.merchandiseprice','lng')}</th>
+                <td id="cart_price"><span></span>({$=ii_itake('global.lng_unit.money','lng')})</td>
+              </tr>
+              <tr>
+                <th height="25">{$=ii_itake('config.myaddress','lng')}</th>
+                <td><select style="vertical-align: top;" name="myaddress" id="myaddress" class="s1" onchange="changeAddress(this.value);">
+                  <option value="0" selected>请选择</option>
+                  {$=mm_sel_address($GLOBALS['nusername'])}
+                </select></td>
+              </tr>
+              <tr>
+                <th width="100" height="25">{$=ii_itake('config.name','lng')}</th>
+                <td><input type="text" name="name" id="name" size="15" class="i1" maxlength="50" dtype="Require" dmsg="{$=ii_itake('module.val_name', 'lng')}" value="{$=ii_htmlencode($_POST['name'], 1)}" /></td>
+              </tr>
+              <tr>
+                <th height="25">{$=ii_itake('config.address','lng')}</th>
+                <td><input type="text" name="address" id="address" size="30" class="i1" maxlength="50" dtype="Require" dmsg="{$=ii_itake('module.val_address', 'lng')}" value="{$=ii_htmlencode($_POST['address'], 1)}" /></td>
+              </tr>
+              <tr>
+                <th height="25">{$=ii_itake('config.code','lng')}</th>
+                <td><input type="text" name="code" id="code" size="15" class="i1" maxlength="50" dtype="Require" dmsg="{$=ii_itake('module.val_code', 'lng')}" value="{$=ii_htmlencode($_POST['code'], 1)}" /></td>
+              </tr>
+              <tr>
+                <th height="25">{$=ii_itake('config.phone','lng')}</th>
+                <td><input type="text" name="phone" id="phone" size="15" class="i1" maxlength="50" dtype="Require" dmsg="{$=ii_itake('module.val_phone', 'lng')}" value="{$=ii_htmlencode($_POST['phone'], 1)}" /></td>
+              </tr>
+              <tr>
+                <th height="25">{$=ii_itake('config.email','lng')}</th>
+                <td><input type="text" name="email" id="email" size="15" class="i1" maxlength="50" value="{$=ii_htmlencode($_POST['email'], 1)}" /></td>
+              </tr>
+              <tr>
+                <th height="25" style="vertical-align:top;">{$=ii_itake('config.remark','lng')}</th>
+                <td><textarea name="remark" cols="60" rows="5" class="t1">{$=ii_htmlencode($_POST['remark'], 1)}</textarea></td>
+              </tr>
+              <tr>
+                <th height="25">{$=ii_itake('config.traffic','lng')}</th>
+                <td><select name="traffic" class="s1">{$=ii_show_xmlinfo_select('sel_traffic.all', ii_get_num($_POST['traffic'], 0), 'select')}</select></td>
+              </tr>
+              <tr>
+                <th height="25">{$=ii_itake('global.user/shopcart:config.payment','lng')}</th>
+                <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|5', '5', 'payment:radio_img')}</td>
+              </tr>
+              <tr>
+                <th height="35"></th>
+                <td><input type="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" />&nbsp;<input type="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
+              </tr>
+            </table>
+</form>
+  <nav class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'strers=module;strurl=' . $GLOBALS['ngenre'])}</nav>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[succeed]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div id="middle">
+  <div id="middleContent">
+    <table width="90%" cellpadding="0" cellspacing="0" border="0">
+      <tr>
+        <td width="100%" class="center"><img src="{$=#images_route}ok.gif" border="0" /></td>
+      </tr>
+      <tr>
+        <td width="100%" height="200" class="center">
+          <table width="100%" cellpadding="0" cellspacing="0" border="0">
+            <tr>
+              <td width="100%" align="center" height="25" class="red">{$=ii_itake('module.orderid', 'lng')}<a href="/user/shopcart/?type=order_detail&id={$id}">{$orderid}</a></td>
+            </tr>
+            <tr>
+              <td width="100%" align="center" height="25">{$orderuser},{$=ii_itake('module.paysucceed', 'lng')}</td>
+            </tr>
+            <tr>
+              <td width="100%" align="center" height="25"><a href="./?type=list">{$=ii_itake('module.back', 'lng')}</a></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<script>setTimeout("clearCart()","2000");</script>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[order_detail_paid]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <main class="user_list">
+      <div class="user_list_menu">
+        <div class="user_list_menu_sidebar">
+          <div class="user_sidebar_title"><i class="iconfont icon-microsoft"></i>{$=ii_itake('global.user:member.topic', 'lng')}</div>
+          {$=ap_user_data_member_side()}
+        </div>
+      </div>
+      <div class="user_list_con">
+        <div class="user_list_con_content">
+          <div class="user_list_con_content_title"><i class="iconfont icon-microsoft"></i>{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('global.user:member.shopcart', 'lng')}</div>
+          <table border="0" width="100%" cellSpacing="0" cellPadding="10" class="lrbtline">
+            <tr>
+              <td width="100%" height="15" class="tbtop">{$=ii_itake('config.prolist','lng')}</td>
+            </tr>
+            <tr>
+              <td width="100%" class="center">
+                <table class="table" border="0" width="98%" cellSpacing="0" cellPadding="10">
+                  <tr>
+                    <td width="*" height="25">{$=ii_itake('global.shop:config.topic','lng')}</td>
+                    <td width="100">{$=ii_itake('global.user/shopcart:config.num','lng')}</td>
+                    <td width="100">{$=ii_itake('global.shop:config.price','lng')}({$=ii_itake('global.lng_unit.money','lng')})</td>
+                    <td width="200">{$=ii_itake('global.shop:config.wprice','lng')}({$=ii_itake('global.lng_unit.money','lng')})</td>
+                  </tr>
+                  {@recurrence_ida}
+                  <tr>
+                    <td height="25"><a href="{$url}" target="_blank">{$topic}</a></td>
+                    <td>{$num}</td>
+                    <td>{$price}</td>
+                    <td class="green">{$wprice}</td>
+                  </tr>
+                  {@recurrence_ida}
+                </table>
+
+                <table border="0" width="98%" cellSpacing="0" cellPadding="10">
+                  <tr>
+                    <td width="120" height="25">{$=ii_itake('global.user/shopcart:config.orderid','lng')}</td>
+                    <td width="*" class="red">{$orderid}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.merchandiseprice','lng')}</td>
+                    <td>{$merchandiseprice}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.trafficprice','lng')}</td>
+                    <td>{$trafficprice}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.allprice','lng')}</td>
+                    <td class="red">{$allprice} ({$=ii_itake('global.lng_unit.money','lng')})</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.name','lng')}</td>
+                    <td>{$name}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.address','lng')}</td>
+                    <td>{$address}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.code','lng')}</td>
+                    <td>{$code}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.phone','lng')}</td>
+                    <td>{$phone}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.email','lng')}</td>
+                    <td>{$email}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.remark','lng')}</td>
+                    <td>{$=ii_encode_article(ii_htmlencode($GLOBALS['RS_remark']))}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.traffic','lng')}</td>
+                    <td>{$=ii_itake('global.user/shopcart:sel_traffic.{$traffic}','lng')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.time','lng')}</td>
+                    <td>{$time}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.dtime','lng')}</td>
+                    <td>{$dtime}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.state','lng')}</td>
+                    <td>{$=ii_itake('global.user/shopcart:sel_state.{$state}','lng')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.express','lng')}</td>
+                    <td>{$=ii_itake('global.user/shopcart:sel_express.{$express}','lng')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.expressid','lng')}</td>
+                    <td>{$expressid}&nbsp;<a style="display:none{$expressid};" href="https://www.baidu.com/s?word={$expressid}" target="_blank">查询</a></td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.prepaid','lng')}</td>
+                    <td>{$=ii_itake('global.sel_yesno.{$prepaid}','lng')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25" style="vertical-align:top;">{$=ii_itake('global.user/shopcart:config.payment','lng')}</td>
+                    <td>{$=ii_show_xmlinfo_select('global.user/shopcart:sel_payment.all|5', '5', 'payment:radio_img')}</td>
+                  </tr>
+                  <tr>
+                    <td height="25">{$=ii_itake('global.user/shopcart:config.payid','lng')}</td>
+                    <td>{$payid}</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </main>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

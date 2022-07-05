@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  {$=api_list_form('{$classid}','{$offset}')}
+  <div class="img-list">
+    <div class="img-list-con">
+      <div class="img-lists">
+        {@recurrence_ida}
+        <div class="img-list-item">
+          <a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'])}">
+            <div class="img-list-info">
+              <span class="img-list-img" style="padding-bottom: 80.185758513932%;"><img src="{$image}" max-width="323" max-height="259"></span>
+              <div class="img-list-details">
+                <div class="img-list-name">{$topic}</div>
+                <div class="img-list-price">
+                  <span>{$=ii_itake('config.wprice', 'lng')}:￥&nbsp;{$wprice}{$=ii_itake('global.lng_unit.money','lng')}</span>
+                </div>
+                <div class="img-list-desc">{$=ii_left('{$description}',70)}</div>
+              </div>
+              <button class="b2" type="button" title="立即购买" onclick="addCart('{$id}','{$topic}','1','{$=api_get_userGroupPrice('{$id}','{$ugid}')}','{$limitnum}');return false;"><span>立即购买</span></button>
+            </div>
+          </a>
+        </div>
+        {@recurrence_ida}
+      </div>
+    </div>
+  </div>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+  <nav class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$classid};strers=module;strurl={$genre}')}</nav>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation('{$genre}', 'classid={$class};strers=module;strurl={$genre}')}</div>
+</div>
+<div class="detail">
+  <div class="content">
+    <div class="content-info">
+      <div class="content-img"><img alt="" src="{$image}"></div>
+      <div class="content-text">
+        <h1 class="content-topic">{$topic}</h1>
+        <div class="content-desc">{$=ii_left('{$description}',120)}</div>
+      </div>
+      <div class="content-buyinfo">
+        <div class="content-price">
+          <span>{$=ii_itake('config.wprice', 'lng')}:￥&nbsp;{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</span>
+          {$=api_view_userGroupPrice('{$id}')}
+          <span class="num"><input type="text" id="buynum" name="buynum" value="1" size="4" /></span>
+        </div>
+        <div class="content-btn">
+          <button type="button" title="立即购买" onclick="addCart('{$id}','{$topic}','1','{$=api_get_userGroupPrice('{$id}','{$ugid}')}','{$limitnum}');return false;"><span>立即购买</span></button>
+        </div>
+      </div>
+    </div>
+    <div class="content-tab">
+      <div class="content-tab-title">
+        <span id="shop1" onclick="setTab('shop',1,2)" class="hover">商品详情</span>
+        <span id="shop2" onclick="setTab('shop',2,2)">参数规格</span>
+      </div>
+      <div class="content-tab-con">
+        <div id="con_shop_1">{$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+          <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], '{$id}')}</div>
+        </div>
+
+        <div id="con_shop_2" style="display:none;">
+          <table width="100%" class="content-table">
+            <tr>
+              <td align="right">{$=ii_itake('config.snum', 'lng')}</td>
+              <td width="5"></td>
+              <td>{$snum}</td>
+            </tr>
+            <tr>
+              <td align="right">{$=ii_itake('config.topic', 'lng')}</td>
+              <td></td>
+              <td>{$topic}</td>
+            </tr>
+            <tr>
+              <td align="right">{$=ii_itake('config.price', 'lng')}</td>
+              <td></td>
+              <td class="del">{$price}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
+            </tr>
+            <tr>
+              <td align="right">{$=ii_itake('config.wprice', 'lng')}</td>
+              <td></td>
+              <td>{$wprice}{$=ii_itake('global.lng_unit.money', 'lng')}</td>
+            </tr>
+            <tr>
+              <td align="right">{$=ii_itake('config.limitnum', 'lng')}</td>
+              <td></td>
+              <td>{$limitnum}{$unit}</td>
+            </tr>
+           {$=ii_get_Infos($GLOBALS['RS_infos'],'infos_table')}
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

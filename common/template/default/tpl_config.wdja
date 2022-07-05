@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[images_route]]></name>
+      <tpl_default><![CDATA[common/images/]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[html_kong]]></name>
+      <tpl_default><![CDATA[&nbsp;]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[html_br]]></name>
+      <tpl_default><![CDATA[<br />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[html_p]]></name>
+      <tpl_default><![CDATA[<p style="height:15px;margin:0;padding:0;">&nbsp;</p>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[a_href_self]]></name>
+      <tpl_default><![CDATA[<a href="{$value}" target="_self">{$explain}</a>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[a_href_blank]]></name>
+      <tpl_default><![CDATA[<a href="{$value}" target="_blank">{$explain}</a>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[select]]></name>
+      <tpl_default><![CDATA[<select name="{$name}">{$option}</select>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[option_unselect]]></name>
+      <tpl_default><![CDATA[<option value="{$value}">{$explain}</option>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[option_select]]></name>
+      <tpl_default><![CDATA[<option value="{$value}" selected>{$explain}</option>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[option_unradio]]></name>
+      <tpl_default><![CDATA[<input type="radio" class="radio" name="{$explain}" value="{$value}" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[option_radio]]></name>
+      <tpl_default><![CDATA[<input type="radio" class="radio" name="{$explain}" value="{$value}" checked="checked" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[option_uncheckbox]]></name>
+      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="radio" name="{$explain}" value="{$value}"><vicon></vicon><span>{$modulestr}</span></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[option_checkbox]]></name>
+      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="radio" name="{$explain}" value="{$value}" checked><vicon></vicon><span>{$modulestr}</span></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_unselect]]></name>
+      <tpl_default><![CDATA[<option value="{$value}">{$explain}</option>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_select]]></name>
+      <tpl_default><![CDATA[<option value="{$value}" selected>{$explain}</option>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlinput_input]]></name>
+      <tpl_default><![CDATA[<tr>
+  <th valign="top"><t>{$ugname}</t></th>
+  <td><input name="ugid_{$ugid}" value="{$value}" class="i1"></td>
+</tr>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[shop_price]]></name>
+      <tpl_default><![CDATA[
+      <span id="ugid_{$ugid}">{$ugname}:￥&nbsp;{$value}{$=ii_itake('global.lng_unit.money', 'lng')}</span>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_unradio]]></name>
+      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="radio" name="{$name}" value="{$value}"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_radio]]></name>
+      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="radio" name="{$name}" value="{$value}" checked="checked"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_unradio_img]]></name>
+      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="hidden" name="{$name}" value="{$value}"><img src="{$=#global_images_route}public/label/{$name}_{$value}.png"></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_radio_img]]></name>
+      <tpl_default><![CDATA[<label class="radio"><input type="radio" class="hidden" name="{$name}" value="{$value}" checked="checked"><img src="{$=#global_images_route}public/label/{$name}_{$value}.png"></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_uncheckbox]]></name>
+      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="checkbox" name="{$name}" value="{$value}"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[xmlselect_checkbox]]></name>
+      <tpl_default><![CDATA[<label class="checkbox"><input type="checkbox" class="checkbox" name="{$name}" value="{$value}" checked="checked"><vicon></vicon><span>{$explain}</span></label>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[textarea]]></name>
+      <tpl_default><![CDATA[<textarea rows="2" name="{$explain}" cols="50">{$value}</textarea>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[image]]></name>
+      <tpl_default><![CDATA[<img src="{$value}" border="0">]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[font_disabled]]></name>
+      <tpl_default><![CDATA[<font class="ash">{$explain}</font>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[font_red]]></name>
+      <tpl_default><![CDATA[<font class="red">{$explain}</font>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[font_green]]></name>
+      <tpl_default><![CDATA[<font class="green">{$explain}</font>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[a_href_sort]]></name>
+      <tpl_default><![CDATA[&nbsp;<img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<a href="{$value}" target="_self">{$explain}</a>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[span_href_self]]></name>
+      <tpl_default><![CDATA[<span>{$explain}</span>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[postfix_good]]></name>
+      <tpl_default><![CDATA[&nbsp;<img src="{$=#global_images_route}public/small/good.gif" border="0">]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[postfix_finish]]></name>
+      <tpl_default><![CDATA[&nbsp;<img src="{$=#global_images_route}public/small/finish.gif" border="0">]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[postfix_spprice]]></name>
+      <tpl_default><![CDATA[&nbsp;<img src="{$=#global_images_route}public/small/spprice.gif" border="0">]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[table_html]]></name>
+      <tpl_default><![CDATA[
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+{@}
+  <tr>{@@}
+    <td>{$value}</td>{@@}
+  </tr>{@}
+</table>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sys_spsort]]></name>
+      <tpl_default><![CDATA[├]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[admin_un_lng]]></name>
+      <tpl_default><![CDATA[<li val="{$i}" text="{$explain}"><flag class="f{$i}"></flag><span class="hand"><a target="_self" href="/{$=ADMIN_FOLDER}/?slng={$value}">{$explain}</a></span></li>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[admin_lng]]></name>
+      <tpl_default><![CDATA[<flag class="f{$i}" title="{$explain}"></flag><span>{$explain}</span>]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

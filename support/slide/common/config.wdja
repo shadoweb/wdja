@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nuppath" strvalue="common/upload/" />
+    <item varstr="nuptype" strvalue=".bmp.jpg.gif.png" />
+    <item varstr="ndatabase" strvalue="wdja_support_slide" />
+    <item varstr="nidfield" strvalue="sid" />
+    <item varstr="nfpre" strvalue="s_" />
+    <item varstr="thumbnail.upsimg" strvalue="0" />
+    <item varstr="thumbnail.upsimgs" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|0|1" />
+  </configure>
+</xml>

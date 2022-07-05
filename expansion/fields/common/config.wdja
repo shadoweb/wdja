@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="ndatabase" strvalue="wdja_expansion_fields" />
+    <item varstr="nidfield" strvalue="fid" />
+    <item varstr="nfpre" strvalue="f_" />
+    <item varstr="ndatabase_data" strvalue="wdja_expansion_fields_data" />
+    <item varstr="nidfield_data" strvalue="fdid" />
+    <item varstr="nfpre_data" strvalue="fd_" />
+    <item varstr="ndatabase_gid" strvalue="wdja_expansion_fields_gid" />
+    <item varstr="nidfield_gid" strvalue="fgid" />
+    <item varstr="nfpre_gid" strvalue="fg_" />
+    <item varstr="nuninstall" strvalue="1|0|0" />
+  </configure>
+</xml>

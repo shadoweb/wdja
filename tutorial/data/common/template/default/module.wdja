@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.tutorial:module.channel_title', 'lng')}</h1>
+    <div class="foot-nav">{$=vv_inavigation('{$genre}', 'strers=module;strurl={$genre}')}</div>
+  </div>
+<div class="detail">
+  <div class="content">
+    <div class="content-left">
+      <div class="content-left-sidebar">
+        <div class="left-sidebar-title"><i class="iconfont icon-microsoft"></i>
+          {$=vv_itransfer('all', 'global.tutorial:module.tutorial-topic-a', 'topx=10;tnum=30;genre=tutorial;osql= and #id=\'{$tutorial_id}\'')}[{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}]</div>
+        <ul class="left-sidebar-list">
+          {$=vv_itransfer('old', 'global.{$genre}:module.sidebar-chapter', 'topx=10;tnum=30;genre=tutorial/chapter;osql= and #_tutorial_id=\'{$tutorial_id}\'')}
+        </ul>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="content-right-con">
+        <div class="right-con-title"><h3><i class="iconfont icon-microsoft"></i>{$topic}</h3></div>
+        <div class="right-con-info"><i class="iconfont icon-internetexplorer"></i>{$count}</div>
+        {@recurrence_file}
+        <div class="right-con-info"><i class="iconfont icon-download"></i><a href="{$file}" download>{$=ii_itake('global.lng_config.download', 'lng')}</a></div>
+        {@recurrence_file}
+        <div class="right-con-detail">
+          {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+          <div class="tags">{$=api_tags_list({$id})}</div>
+        </div>
+      </div>
+    </div>
+     {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $(".left-sidebar-list .left-sidebar-list-item").next("ul").css("display","none"); 
+    $(".left-sidebar-list .left-sidebar-list-item").find(".more").html("+");
+    $(".left-sidebar-list .left-sidebar-list-item").toggle(
+      function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      },function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      }); 
+    $(".left-sidebar-list .left-sidebar-list-item:first-child").toggle(
+      function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      },function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      }); 
+    $("#tdParent-{$id}").addClass("on");
+    $(".left-sidebar-list .left-sidebar-list-item:first-child").next("ul").css("display","block"); 
+    $(".left-sidebar-list .left-sidebar-list-item:first-child").find(".more").html("-");
+    $("#tdParent-{$id}").parent("ul").css("display","block"); //parent是获取父级，siglings是获取同级
+    $("#tdParent-{$id}").parent("ul").prev("li").find(".more").html("-");
+    $("#tdParent-{$id}").parent("ul").prev("li").toggle(
+      function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      },function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      }); 
+  }); 
+</script>
+
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sidebar-chapter]]></name>
+      <tpl_default><![CDATA[<ul>
+  {$=vv_itransfer('id', 'global.tutorial/data:module.sidebar-data', 'topx=10;tnum=30;genre=tutorial/data;osql= and #_tutorial_id='.$GLOBALS['RS_tutorial_id'].' and #_chapter_id=\'0\'')}
+</ul>
+{@}
+<li id="tdSelf-{$id}" class="left-sidebar-list-item"><strong>{$topic}</strong><span style="float:right;" class="more">+</span></li>
+<ul>
+  {$=vv_itransfer('id', 'global.tutorial/data:module.sidebar-data', 'topx=10;tnum=30;genre=tutorial/data;osql= and #_chapter_id=\'{$id}\'')}
+</ul>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sidebar-data]]></name>
+      <tpl_default><![CDATA[{@}
+<li id="tdParent-{$id}"><a href="/tutorial/data/{$=ii_curl('{$baseurl}', ii_iurl('detail',' {$id}',' {$urltype}'))}">{$topic}</a>
+</li>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[nodetail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="detail">
+  <div class="content">
+    <div class="content-left">
+      <div class="content-left-sidebar">
+        <div class="left-sidebar-title"><i class="iconfont icon-microsoft"></i>
+          {$=vv_itransfer('all', 'global.tutorial:module.tutorial-topic-a', 'topx=10;tnum=30;genre=tutorial;osql= and #id=\'{$tutorial_id}\'')}[{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}]</div>
+        <ul class="left-sidebar-list">
+          {$=vv_itransfer('old', 'global.{$genre}:module.sidebar-chapter', 'topx=10;tnum=30;genre=tutorial/chapter;osql= and #_tutorial_id=\'{$tutorial_id}\'')}
+        </ul>
+      </div>
+    </div>
+    <div class="content-right">
+      <div class="content-right-con">
+        <div class="right-con-title"><h3><i class="iconfont icon-microsoft"></i>{$topic}</h3></div>
+        <div class="right-con-info"><i class="iconfont icon-internetexplorer"></i>{$count}</div>
+        <div class="right-con-detail">
+              {$=ii_itake('global.{$genre}:module.nodetail', 'lng')}
+          <div class="tags">{$=api_tags_list({$id})}</div>
+        </div>
+      </div>
+    </div>
+    {$=mm_get_detail_check('{$genre}','{$id}','{$url}')}
+    <div class="foot-nav">{$=vv_inavigation('{$genre}', 'strers=module;strurl={$genre}')}</div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function(){
+    $(".left-sidebar-list .left-sidebar-list-item").next("ul").css("display","none"); 
+    $(".left-sidebar-list .left-sidebar-list-item").find(".more").html("+");
+    $(".left-sidebar-list .left-sidebar-list-item").toggle(
+      function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      },function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      }); 
+    $(".left-sidebar-list .left-sidebar-list-item:first-child").toggle(
+      function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      },function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      }); 
+    $("#tdParent-{$id}").addClass("on");
+    $(".left-sidebar-list .left-sidebar-list-item:first-child").next("ul").css("display","block"); 
+    $(".left-sidebar-list .left-sidebar-list-item:first-child").find(".more").html("-");
+    $("#tdParent-{$id}").parent("ul").css("display","block"); //parent是获取父级，siglings是获取同级
+    $("#tdParent-{$id}").parent("ul").prev("li").find(".more").html("-");
+    $("#tdParent-{$id}").parent("ul").prev("li").toggle(
+      function(){ 
+        $(this).next("ul").css("display","none"); 
+        $(this).find(".more").html("+");
+      },function(){ 
+        $(this).next("ul").css("display","block"); 
+        $(this).find(".more").html("-");
+      }); 
+  }); 
+</script>
+
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

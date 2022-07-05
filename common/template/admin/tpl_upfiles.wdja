@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[upload_html]]></name>
+      <tpl_default><![CDATA[
+<script type="text/javascript">
+var upftype = "{$=#upftype}";
+var upsimg = "{$=#upsimg}";
+var upfname = "{$=#upfname}" ;
+if (upftype == "" || upftype == "0")
+{
+  if (upfname.length) {parent.document.{$=#upform}.{$=#uptext}.value = upfname;}
+}
+else
+{
+  if (upfname.length) {selects.add(parent.get_id("{$=#uptext}"), upfname, upfname);}
+}
+</script>
+<style type="text/css">
+html,body,form{
+margin:0;
+padding:0;
+}
+.hide
+{
+display:none !important;
+}
+.fileroute {
+    WIDTH: 144px
+}
+.filebrowse {
+    WIDTH: 63px
+}
+.filebrowseDiv {
+    POSITION: relative
+}
+.filebrowseDiv DIV {
+    POSITION: absolute; TOP: 2px; LEFT: -65px; 
+}
+.filebrowseDiv DIV SPAN {
+    POSITION: relative; DISPLAY: block; WIDTH: 63px; HEIGHT: 22px; OVERFLOW: hidden
+}
+.filebrowseDiv DIV SPAN INPUT.file {
+    POSITION: absolute; TOP: 0px; RIGHT: 0px; FILTER: Alpha(Opacity=0); OPACITY: 0
+}
+</style>
+<script type="text/javascript">
+  function upload(){
+  $("#browse").click();
+  $("#browse").bind('input propertychange',function(e){
+  var files = $("#browse")[0].files;
+  if(files.length >0){
+      $("#file1-route").val($("#browse").val());
+      $("#up_button").click();
+      }
+  })
+  }
+</script>
+<form method="post" action="?action=upload&upform={$=#upform}&uptext={$=#uptext}&upftype={$=#upftype}&upsimg={$=#upsimg}&upfname={$=#upfname}&upbasefname={$=#upbasefname}&upbasefolder={$=#upbasefolder}" enctype="multipart/form-data">
+<input type="text" name="file1-route" id="file1-route" class="text fileroute hide" readonly="readonly" />
+<input type="button" class="button filebrowse hide" value="{$=ii_itake('global.lng_common.browse','lng')}" />
+<input type="file" name="file1" class="file hide" id="browse" />
+<input type="submit" class="button hide" name="up_button" id="up_button" value="{$=ii_itake('global.lng_config.upload','lng')}" />
+<input style="display: inline-block;width: 60px;height: 28px;line-height: 28px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" onclick="upload();" value="{$=ii_itake('global.lng_config.upload','lng')}" readonly="readonly" />
+</form>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[uploads_html]]></name>
+      <tpl_default><![CDATA[
+<script type="text/javascript">
+var upftype = "{$=#upftype}";
+var upsimg = "{$=#upsimg}";
+var upfname = "{$=#upfname}" ;
+var nimg = '';
+if (upftype == "" || upftype == "0")
+{
+  nimg = '<span onclick="del_gallery_{$=#uptext}(this,\'' + upfname + '\');"><img width="80" src="' + upfname + '" /></span>';
+  if(upfname.length) {
+      parent.get_id('{$=#uptext}').innerHTML += nimg;
+      parent.document.{$=#upform}.{$=#uptext}.value += upfname + '#:#';
+  }
+}
+</script>
+<style type="text/css">
+html,body,form{
+margin:0;
+padding:0;
+}
+.hide
+{
+    display:none !important;
+}
+.fileroute {
+    WIDTH: 144px
+}
+.filebrowse {
+    WIDTH: 63px
+}
+.filebrowseDiv {
+    POSITION: relative
+}
+.filebrowseDiv DIV {
+    POSITION: absolute; TOP: 2px; LEFT: -65px; 
+}
+.filebrowseDiv DIV SPAN {
+    POSITION: relative; DISPLAY: block; WIDTH: 63px; HEIGHT: 22px; OVERFLOW: hidden
+}
+.filebrowseDiv DIV SPAN INPUT.file {
+    POSITION: absolute; TOP: 0px; RIGHT: 0px; FILTER: Alpha(Opacity=0); OPACITY: 0
+}
+</style>
+<script type="text/javascript">
+  function upload(){
+  $("#browse").click();
+  $("#browse").bind('input propertychange',function(e){
+  var files = $("#browse")[0].files;
+  if(files.length >0){
+      $("#file1-route").val($("#browse").val());
+      $("#up_button").click();
+      }
+  })
+  }
+</script>
+<form method="post" action="?action=uploads&upform={$=#upform}&uptext={$=#uptext}&upftype={$=#upftype}&upsimg={$=#upsimg}&upfname={$=#upfname}&upbasefname={$=#upbasefname}&upbasefolder={$=#upbasefolder}" enctype="multipart/form-data">
+<input type="text" name="file1-route" id="file1-route" class="text fileroute hide" readonly="readonly" />
+<input type="button" class="button filebrowse hide" value="{$=ii_itake('global.lng_common.browse','lng')}" />
+<input type="file" name="file1" class="file hide" id="browse" />
+<input type="submit" class="button hide" name="up_button" id="up_button" value="{$=ii_itake('global.lng_config.upload','lng')}" />
+<a style="display: inline-block;width: 80px;height: 80px;line-height: 80px;font-size: 40px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" onclick="upload();" />+</a>
+</form>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

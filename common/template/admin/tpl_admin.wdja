@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[gallery]]></name>
+      <tpl_default><![CDATA[
+              <div id="{$name}" class="gallery"></div>
+              <input type="hidden" name="{$name}" value="{$value}">
+              <iframe style="padding:5px;background-color: #5cb85c;border: 1px solid #5cb85c;display:inline-block;width:80px;height:80px;vertical-align: middle;margin-top: -3px;" src="?type=uploads&upform=form&uptext={$name}&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+      <script type="text/javascript">
+      var gallery_{$name} = '{$value}';
+      if(gallery_{$name} != ''){
+          var galleryary = gallery_{$name}.split("#:#");
+          var str = '';
+          for(i=0;i < galleryary.length;i++){
+            if(galleryary[i] != '') str +='<span onclick="del_gallery_{$name}(this,\'' + galleryary[i]+ '\');"><img width="80" src="' + galleryary[i]+ '"/></span>';
+          }
+          get_id('{$name}').innerHTML = str;
+      }
+      
+      function del_gallery_{$name}(obj,val){
+          if(confirm('确认删除图片?'))
+          {
+              var imgval = document.form.{$name}.value;
+              var imgary = imgval.split("#:#");
+              var nimgval = '';
+              obj.remove();
+              for(i=0;i < imgary.length;i++){
+                  if(imgary[i] != val && imgary[i] != '') nimgval += imgary[i] + '#:#';
+              }
+              document.form.{$name}.value = nimgval;
+          }
+      }
+      </script>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[msg]]></name>
+      <tpl_default><![CDATA[
+<script type="text/javascript">
+setTimeout("location.href='{$backurl}';",3000);
+</script>
+  <div class="table">
+    <h3>{$=ii_itake('global.lng_admin.admin_info','lng')}</h3>
+    <p class="center">{$msginfo}{$=ii_itake('global.lng_admin.admin_backtime','lng')}</p>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[msgs]]></name>
+      <tpl_default><![CDATA[
+  <div class="table">
+    <h3>{$=ii_itake('global.lng_admin.admin_info','lng')}</h3>
+    <p class="center">{$msginfo}</p>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[slng]]></name>
+      <tpl_default><![CDATA[
+            <table border="0" width="100%" cellSpacing="0" cellPadding="0" class="lrbtline">
+              <tr>
+                <td width="100%" height="25" class="tbtop">{$=ii_itake('global.lng_admin.admin_slng','lng')}</td>
+              </tr>
+              <tr>
+                <td width="100%" class="center">
+                  <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+                    <tr>
+                      <td width="100%" height="5"></td>
+                    </tr>{@recurrence_ida}
+                    <tr>
+                      <td width="100%" height="20">&nbsp;<img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<a href="{$href}" target="_self">{$topic}</a></td>
+                    </tr>{@recurrence_ida}
+                    <tr>
+                      <td width="100%" height="5"></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[content_html]]></name>
+      <tpl_default><![CDATA[<input type="hidden" name="cttype" value="3">
+<textarea rows="15" name="{$name}" cols="75">{$value}</textarea>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[content_htmledit]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/tinymce.min.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/wdja.edit.js" type="text/javascript"></script>
+<link href="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.css" type="text/css" rel="stylesheet" />
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.js" type="text/javascript"></script>
+<textarea class="wdjaedit" id="{$name}" name="{$name}">{$value}</textarea>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[content2_htmledit]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/tinymce.min.js" type="text/javascript"></script>
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/wdja2.edit.js" type="text/javascript"></script>
+<link href="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.css" type="text/css" rel="stylesheet" />
+<script src="{$=ii_get_actual_route('common')}/editor/tinymce5/prism.js" type="text/javascript"></script>
+<textarea class="wdjaedit" id="{$name}" name="{$name}" placeholder="{$=ii_itake('global.forum:config.content', 'lng')}">{$value}</textarea>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[content_text]]></name>
+      <tpl_default><![CDATA[<input type="hidden" name="cttype" value="2">
+<textarea rows="15" name="{$name}" cols="55">{$value}</textarea>
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

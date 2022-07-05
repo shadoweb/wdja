@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <nav class="foot-nav">{$=mm_nav_topic(ii_get_num($_GET['classid'], 0))}</nav>
+  <div class="">
+  {$=mm_encode_content(api_tags_replace_tags('{$content}'))}
+  </div>
+  
+  <div class="text-list">
+    <div class="text-list-con">
+      <div id="list_fields" {$display}>
+      <ul>
+        <li>
+      <span>{$=ii_itake('global.lng_config.sort','lng')}</span>
+      {@recurrence_ida}
+          <a href="{$url}">{$topic}</a>
+      {@recurrence_ida}
+        </li>
+      </ul>
+    </div>
+      {@recurrence_idb}
+      <div class="list-con-item"><a href="{$=ii_iurl('detail', {$id}, $GLOBALS['nurltype'])}" title="{$topic}"><h4>{$topic}</h4></a></div>
+      {@recurrence_idb}
+    </div>
+  </div>
+  <div id="cutepage" class="listpage">{$cpagestr}</div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[detail]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=mm_nav_topic(ii_get_num($_GET['id'], 0))}</div>
+</div>
+<div class="detail">
+  <h1>{$topic}</h1>
+  <div class="data">{$=ii_itake('global.lng_config.time','lng')}:{$time},{$=ii_itake('global.lng_config.count','lng')}:<span>{$count}</span></div>
+  <div class="content">
+    {$=mm_encode_content(mm_cutepage_content(api_tags_replace_tags($GLOBALS['RS_content'])))}
+    <div class="page">{$=mm_cutepage_content_page_sel($GLOBALS['RS_content'], '{$id}')}</div>
+  </div>
+  <div class="tags">{$=api_tags_list({$id})}</div>
+  {$=mm_view_pop_lists('news','{$id}')}
+  {$=mm_view_pop_lists('product','{$id}')}
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

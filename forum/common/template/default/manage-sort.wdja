@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[
+  <toplink class="path"><img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<a href="?slng={$=#slng}">{$=ii_itake('manage-sort.all','lng')}</a>{$nav_forum_sort}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage-sort.sort','lng')}</h3>
+    <rightarea></rightarea>
+    
+<form method="post" name="sel_form" action="?action=control&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="30">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th width="*">{$=ii_itake('manage-sort.name','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.edit','lng')}</th>
+          <th class="center" width="50">{$=ii_itake('global.lng_config.order','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_idb}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$sid}" class="checkbox"></td>
+          <td class="id center">{$sid}</td>
+          <td><a style='display:none{$nav_forum_sort};' href="/{$=#ngenre}/?type=list&sid={$sid}" target="_blank"><img src="{$=#global_images_route}public/small/url.gif" border="0"></a>&nbsp;<a href="?slng={$=#slng}&sid={$sid}">{$sort}</a></td>
+          <td>
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?slng={$=#slng}&type=edit&sid={$sid}"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('manage-sort.deletenotice','lng')}[{$sortstr}]')"></a></icon>
+              </icons>
+           </td>
+           <td class="center"><a href="?action=order&at=up&id={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/up.gif" border="0"></a>&nbsp;<a href="?action=order&at=down&id={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}"><img src="{$=#global_images_route}public/small/down.gif" border="0"></a></td>
+        </tr>{@recurrence_idb}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+{@recurrence_idc}
+  <div class="table">
+    <h3>{$=ii_itake('manage-sort.add','lng')}</h3>
+     <form method="post" name="sform" action="?action=add&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+    <input type="hidden" name="lng" value="{$=#slng}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('config.sort','lng')}</t></th>
+  <td><input type="text" name="sort" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.type','lng')}</t></th>
+  <td><select name="type" class="s1">{$=ii_show_xmlinfo_select('sel_type.all', '', 'select')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.mode','lng')}</t></th>
+  <td><select name="mode" class="s1">{$=ii_show_xmlinfo_select('sel_mode.all', '', 'select')}</select></td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('config.popedom','lng')}</t></th>
+  <td>{$=ap_sel_usergroup('popedom[]', 'checkbox', '')}</td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('config.images','lng')}</t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="images" size="40" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="/{$=#ngenre}/?type=upload&upform=sform&uptext=images&upfname={$=#nuppath}noimg.gif&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+  </div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.admin','lng')}</t></th>
+  <td><input type="text" name="admin" size="40" class="i1"></td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.rule','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="rule" cols="60" class="t1"></textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.explain','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="explain" cols="60" class="t1"></textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.attestation','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="attestation" cols="60" class="t1"></textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.hidden','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="0" /></span></td>
+</tr><tr>
+  <th valign="top"><t></t></th>
+  <td class="red">{$=ii_itake('config.notice','lng')}</td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+    </div>{@@}
+  <div class="table">
+    <h3>{$=ii_itake('manage-sort.add_sort','lng')}</h3>
+     <form method="post" name="sform" action="?action=add&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+    <input type="hidden" name="lng" value="{$=#slng}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage-sort.sort_name','lng')}</t></th>
+  <td><input type="text" name="sort" class="i1"></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+    </div>
+  {@recurrence_idc}
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[
+  <toplink class="path"><img src="{$=#global_images_route}public/small/sico.gif" border="0">&nbsp;<a href="?slng={$=#slng}">{$=ii_itake('manage-sort.all','lng')}</a>{$nav_forum_sort}</toplink>
+{@recurrence_idc}
+  <div class="table">
+    <h3>{$=ii_itake('manage-sort.edit','lng')}</h3>
+     <form name="eform" method="post" action="?action=edit&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+    <input type="hidden" name="lng" value="{$=#slng}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('config.sort','lng')}</t></th>
+  <td><input type="text" name="sort" class="i1" value="{$sort}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.type','lng')}</t></th>
+  <td><select name="type" class="s1">{$=ii_show_xmlinfo_select('sel_type.all', '{$type}', 'select')}</select></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.mode','lng')}</t></th>
+  <td><select name="mode" class="s1">{$=ii_show_xmlinfo_select('sel_mode.all', '{$mode}', 'select')}</select></td>
+</tr>
+<tr>
+  <th height="25"><t>{$=ii_itake('config.popedom','lng')}</t></th>
+  <td>{$=ap_sel_usergroup('popedom[]', 'checkbox', '{$popedom}')}</td>
+</tr>
+<tr>
+  <th valign="top"><t>{$=ii_itake('config.images','lng')}<r>*</r></t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="images" size="40" value="{$images}" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="/{$=#ngenre}/?type=upload&upform=sform&uptext=images&upfname=&upsimg=0" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+  </div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.admin','lng')}</t></th>
+  <td><input type="text" name="admin" size="40" class="i1" value="{$admin}"></td>
+	</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.rule','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="rule" cols="60" class="t1">{$rule}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.explain','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="explain" cols="60" class="t1">{$explain}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.attestation','lng')}</t></th>
+  <td><textarea onpropertychange="if(value.length>250) value=value.substr(0,250)" onkeydown="if(value.length>250) value=value.substr(0,250)" onkeyup="if(value.length>250) value=value.substr(0,250)" type="text" rows="3" name="attestation" cols="60" class="t1">{$attestation}</textarea></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('config.hidden', 'lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$hidden}" bind="1"><b></b><u></u><em></em><input type="hidden" name="hidden" class="val" value="{$hidden}" /></span></td>
+</tr><tr>
+  <th valign="top"><t></t></th>
+  <td class="red">{$=ii_itake('config.notice','lng')}</td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+    </div>{@@}
+  <div class="table">
+    <h3>{$=ii_itake('manage-sort.edit','lng')}</h3>
+     <form name="eform" method="post" action="?action=edit&sid={$sid}&backurl={$=urlencode($GLOBALS['nurl'])}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('manage-sort.sort_name','lng')}</t></th>
+  <td><input type="text" name="sort" class="i1" value="{$sort}"></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+    </form>
+    </div>
+  {@recurrence_idc}
+]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

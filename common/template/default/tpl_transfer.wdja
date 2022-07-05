@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[menu]]></name>
+      <tpl_default><![CDATA[{@}
+<div class="menu-con">
+  <a class="menu-link" href="{$gourl}" title="{$title}">{$topic}</a>
+  <div class="menu-sub">{$=vv_itransfer('order', 'menu_sub', 'topx=12;tnum=30;genre=support/menu;osql= and #_fsid=\'{$id}\'')}</div>
+</div>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[menu_sub]]></name>
+      <tpl_default><![CDATA[{@}
+  <a class="nav-sub-link" href="{$gourl}" title="{$title}">{$topic}</a>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[swiper-slide]]></name>
+      <tpl_default><![CDATA[{@}
+        <div class="swiper-slide"><a href="{$url}" target="_blank"><img src="{$=ii_get_actual_route('support/slide/')}{$image}" /></a></div>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sort-list]]></name>
+      <tpl_default><![CDATA[{@}
+<li role="presentation">
+  <div class="class_icon">
+    <img src="{$=ii_get_actual_route('support/sort/')}{$image}" width="75" height="75" alt="{$sort}">
+    <a href="{$genre}/{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}))}"><h2>{$sort}</h2></a>
+    <p>{$desc}</p>
+  </div>
+</li>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[imgtxt-list]]></name>
+      <tpl_default><![CDATA[{@}
+<li>
+  <div class="imgtxt-details">
+  <div class="img"><img src="{$genre}/{$image}"></div>
+  <span class="title">{$topic}</span>
+  <div class="desc">{$=ii_left($GLOBALS['RST_description'],80)}</div>
+  <a class="view" href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}"><span>{$=ii_itake('global.lng_config.view_detail','lng')}</span></a>
+    </div>
+</li>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[img-list]]></name>
+      <tpl_default><![CDATA[{@}
+<div class="img-list-item">
+  <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}">
+    <div class="img-list-info">
+      <span class="img-list-img" style="padding-bottom: 80.185758513932%;"><img src="{$genre}/{$image}" max-width="323" max-height="259"></span>
+      <div class="img-list-details">
+        <div class="img-list-name">{$topic}</div>
+        <div class="img-list-desc">{$=ii_left($GLOBALS['RST_description'],70)}</div>
+      </div>
+      <button class="b2" type="button" title="立即购买"><span>立即购买</span></button>
+    </div>
+  </a>
+</div>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[text-list]]></name>
+      <tpl_default><![CDATA[{@}
+<div class="list-con-item"><a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}">{$topic}</a></div>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list_menu]]></name>
+      <tpl_default><![CDATA[{@}<li id="lm{$id}"><a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}"><strong>{$topic}</strong></a></li>{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[2]]></name>
+      <tpl_default><![CDATA[<ul>{@}
+  <li><span><a href="{$link}" target="_blank">{$title}</a></span></li>{@}
+</ul>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sort]]></name>
+      <tpl_default><![CDATA[{@}
+  <li id="lm{$id}"><a href="/{$genre}/{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}))}"><strong>{$sort}</strong></a></li>{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[m1]]></name>
+      <tpl_default><![CDATA[{@}<li><a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}">{$topic}</a></li>{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[3]]></name>
+      <tpl_default><![CDATA[{@}
+<div class="col-3">
+<div class="card">
+    <img src="{$image}" class="card-img-top" alt="{$topic}">
+  <div class="card-body justify-content-center text-center">
+    <h5 class="card-title">{$topic}</h5>
+    <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}" class="btn btn-primary btn-sm">{$=ii_itake('global.lng_config.view_detail','lng')}</a>
+  </div>
+</div>
+</div>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[news-list]]></name>
+      <tpl_default><![CDATA[<dl class="news">
+{@}
+   <dt><i class="pre_dot"></i>
+       <span>{$=ii_format_date('{$time}',1)}</span>
+       <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}">{$topic}</a>
+    </dt>
+{@}
+</dl>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[link]]></name>
+      <tpl_default><![CDATA[{@}<li><a href="{$url}" title="{$intro}"><strong>{$topic}</strong></a></li>{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[updown]]></name>
+      <tpl_default><![CDATA[{@}<a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}"><strong>{$topic}</strong></a>{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[search_li]]></name>
+      <tpl_default><![CDATA[{@}
+   <li>
+       <a href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}">{$topic}</a>
+    </li>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[keywords_li]]></name>
+      <tpl_default><![CDATA[{@}
+   <li style="float:left;margin-left:15px;">
+       <a style="width:auto;" href="{$=ii_curl('{$baseurl}', ii_iurl('detail', {$id}, {$urltype}))}">{$topic}</a>
+    </li>
+{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sortask]]></name>
+      <tpl_default><![CDATA[{@}
+  <span><a href="/{$genre}/{$=ii_curl('{$baseurl}', ii_iurl('list', {$id}, {$urltype}))}"><b>{$sort}</b></a></span>{@}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[infos]]></name>
+      <tpl_default><![CDATA[<ul>
+  {@}<li id="li_{$id}"><strong>{$title}</strong>:<span>{$content}</span></li>{@}
+</ul>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[urls]]></name>
+      <tpl_default><![CDATA[<ul>
+  {@}<li id="li_{$id}"><a url="{$content}">{$title}</a></li>{@}
+</ul>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[infos_table]]></name>
+      <tpl_default><![CDATA[{@}
+            <tr>
+              <td align="right">{$title}</td>
+              <td></td>
+              <td>{$content}</td>
+            </tr>
+{@}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

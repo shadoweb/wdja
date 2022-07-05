@@ -1,0 +1,10 @@
+_CACHE
+_CACHE/*
+_CACHE/variable.inc.php
+sitemap.html
+sitemap.xml
+expansion/mysql/common/backup/*
+!wdja.sql
+upload/*
+.user.ini
+*.htaccess

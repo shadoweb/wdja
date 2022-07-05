@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[slide_num]]></disinfo>
+      <chinese><![CDATA[2]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[sort_list]]></disinfo>
+      <chinese><![CDATA[news]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[sort_list_num]]></disinfo>
+      <chinese><![CDATA[4]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[images_list]]></disinfo>
+      <chinese><![CDATA[shop]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[images_list_num]]></disinfo>
+      <chinese><![CDATA[8]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[imagestext_list]]></disinfo>
+      <chinese><![CDATA[product]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[imagestext_list_num]]></disinfo>
+      <chinese><![CDATA[8]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[text_list]]></disinfo>
+      <chinese><![CDATA[ask]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[text_list_num]]></disinfo>
+      <chinese><![CDATA[8]]></chinese>
+    </item>
+  </language_list>
+</xml>

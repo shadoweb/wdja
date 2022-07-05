@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=mm_echo_error()}
+<script src="{$=#global_images_route}js/validator.js" type="text/javascript"></script>
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('config.sign','lng')}</div>
+</div>
+<div class="detail">
+  <div class="title"><h1>{$=ii_itake('config.sign','lng')}</h1></div>
+  <div class="data"><span><a href="./?type=add">{$=ii_itake('config.sign','lng')}</a></span><span><a href="./?type=list">{$=ii_itake('config.view','lng')}</a></span></div>
+  <div class="table" style="margin:auto;max-width:700px;">
+    <form method="post" action="{$=#nuri}?action=add&token={$=mm_get_token()}" onSubmit="return Validator.Validate(this, 2)">
+      <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <input type="hidden" name="hidden" value="1" />
+      <table width="100%" cellpadding="10" cellspacing="0" border="0" class="tableF">
+        <tr>
+          <th><t>{$=ii_itake('config.name', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="name" maxlength="16" dtype="Limit" min="1" max="16" dmsg="{$=ii_itake('validator.name', 'lng')}" value="{$=ii_htmlencode($_POST['name'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.sex', 'lng')}</t></th>
+          <td><select name="sex" class="s1">{$=ii_show_xmlinfo_select('global.sel_sex.all', ii_get_num($_POST['sex']), 'select')}</select></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.mobile', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="mobile" dtype="Mobile" dmsg="{$=ii_itake('validator.mobile', 'lng')}" value="{$=ii_htmlencode($_POST['mobile'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.email', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="email" maxlength="40" require="false" dtype="Email" dmsg="{$=ii_itake('validator.email', 'lng')}" value="{$=ii_htmlencode($_POST['email'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.address', 'lng')}</t></th>
+          <td><input type="text" size="40" name="address" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.title', 'lng')}</t></th>
+          <td><input type="text" size="40" name="title" maxlength="50" dtype="Require" dmsg="{$=ii_itake('validator.title', 'lng')}" value="{$=ii_htmlencode($_POST['title'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th style="vertical-align: top;"><t>{$=ii_itake('config.content', 'lng')}<r>*</r></t></th>
+          <td><textarea name="content" id="content" dtype="Limit" min="1" max="1000" dmsg="{$=ii_itake('validator.content', 'lng')}" class="t1">{$=ii_htmlencode($_POST['content'], 1)}</textarea></td>
+        </tr>{@recurrence_valcode}
+        <tr>
+          <th><t>{$=ii_itake('global.lng_config.valcode', 'lng')}<r>*</r></t></th>
+          <td><input type="text" style="width:80px;" name="valcode" size="4" dtype="Require" dmsg="{$=ii_itake('validator.valcode', 'lng')}" class="i1" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
+        </tr>{@recurrence_valcode}
+        <tr>
+          <td height="35"></td>
+          <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" />&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}{$=NAV_SP_STR}{$=ii_itake('config.view','lng')}</div>
+</div>
+<div class="detail">
+  <div class="title"><h1>{$=ii_itake('config.view','lng')}</h1></div>
+  <div class="areas">
+    <div class="area-menu">
+      <span><a href="./?type=add">{$=ii_itake('config.sign','lng')}</a></span>
+      <span><a href="./?type=list">{$=ii_itake('config.view','lng')}</a></span>
+    </div>
+    <div class="clear"></div>
+    <div class="area-title"><span>{$=ii_itake('config.view','lng')}</span></div>
+    <ol class="area-lists">
+      {@recurrence_ida}
+      <li class="area-lists-item">
+        <div class="lists-item-main">
+          <div class="lists-item-title"> 
+            <strong>{$title}</strong>
+          </div>
+          <div class="lists-item-con">{$=ii_creplace(ii_encode_article(ii_htmlencode($GLOBALS['RS_content'])))}</div>
+          <div class="lists-item-infos">{$time}&nbsp;&nbsp;{$name}&nbsp;&nbsp;{$email}&nbsp;&nbsp;[{$ip}]</div>
+        </div>
+        {@admin_reply}
+        <ul class="area-lists-child">
+          <li class="lists-child-item">
+            <div class="lists-item-main">
+              <div class="lists-item-title"> 
+                <strong>{$=ii_itake('global.message:config.reply', 'lng')}:&nbsp;&nbsp;{$replytime}</strong>
+              </div>
+              <div class="lists-item-con">{$=ii_creplace(ii_encode_article(ii_htmlencode($GLOBALS['RS_reply'])))}</div>
+            </div>
+          </li>
+        </ul>
+        {@admin_reply}
+      </li>
+      {@recurrence_ida}
+    </ol>
+    <div id="cutepage" class="listpage">{$cpagestr}</div>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[index]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=mm_echo_error()}
+<script src="{$=#global_images_route}js/validator.js" type="text/javascript"></script>
+<div class="list">
+  <h1>{$=ii_itake('global.{$genre}:module.channel_title', 'lng')}</h1>
+  <div class="foot-nav">{$=vv_inavigation($GLOBALS['ngenre'], 'classid=-1;strers=module;strurl=' . $GLOBALS['ngenre'])}</div>
+</div>
+<div class="detail">
+  <div class="title"><h1>{$=ii_itake('config.sign','lng')}</h1></div>
+  <div class="data"><span><a href="./?type=add">{$=ii_itake('config.sign','lng')}</a></span><span><a href="./?type=list">{$=ii_itake('config.view','lng')}</a></span></div>
+  <div class="table" style="margin:auto;max-width:700px;">
+    <form method="post" action="{$=#nuri}?action=add&token={$=mm_get_token()}" onSubmit="return Validator.Validate(this, 2)">
+      <input type="hidden" name="token" value="{$=mm_get_token()}" />
+      <input type="hidden" name="hidden" value="1" />
+      <table width="100%" cellpadding="10" cellspacing="0" border="0" class="tableF">
+        <tr>
+          <th><t>{$=ii_itake('config.name', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="name" maxlength="16" dtype="Limit" min="1" max="16" dmsg="{$=ii_itake('validator.name', 'lng')}" value="{$=ii_htmlencode($_POST['name'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.sex', 'lng')}</t></th>
+          <td><select name="sex" class="s1">{$=ii_show_xmlinfo_select('global.sel_sex.all', ii_get_num($_POST['sex']), 'select')}</select></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.mobile', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="mobile" dtype="Mobile" dmsg="{$=ii_itake('validator.mobile', 'lng')}" value="{$=ii_htmlencode($_POST['mobile'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.email', 'lng')}<r>*</r></t></th>
+          <td><input type="text" size="20" name="email" maxlength="40" require="false" dtype="Email" dmsg="{$=ii_itake('validator.email', 'lng')}" value="{$=ii_htmlencode($_POST['email'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.address', 'lng')}</t></th>
+          <td><input type="text" size="40" name="address" class="i1" /></td>
+        </tr>
+        <tr>
+          <th><t>{$=ii_itake('config.title', 'lng')}</t></th>
+          <td><input type="text" size="40" name="title" value="{$=ii_htmlencode($_POST['title'], 1)}" class="i1" /></td>
+        </tr>
+        <tr>
+          <th style="vertical-align: top;"><t>{$=ii_itake('config.content', 'lng')}<r>*</r></t></th>
+          <td><textarea name="content" id="content" dtype="Limit" min="1" max="1000" dmsg="{$=ii_itake('validator.content', 'lng')}" class="t1">{$=ii_htmlencode($_POST['content'], 1)}</textarea></td>
+        </tr>{@recurrence_valcode}
+        <tr>
+          <th><t>{$=ii_itake('global.lng_config.valcode', 'lng')}<r>*</r></t></th>
+          <td><input type="text" style="width:80px;" name="valcode" size="4" dtype="Require" dmsg="{$=ii_itake('validator.valcode', 'lng')}" class="i1" value="{$=ii_htmlencode($_POST['valcode'], 1)}" /> {$=mm_valcode()}</td>
+        </tr>{@recurrence_valcode}
+        <tr>
+          <td height="35"></td>
+          <td><input type="submit" name="submit" value="{$=ii_itake('global.lng_config.submit','lng')}" class="button" />&nbsp;<input type="reset" name="reset" value="{$=ii_itake('global.lng_config.reset','lng')}" class="button" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

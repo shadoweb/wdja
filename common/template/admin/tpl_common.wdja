@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[valcode]]></name>
+      <tpl_default><![CDATA[<img src="{$=#global_images_route}code/code.php" onclick="this.src='{$=#global_images_route}code/code.php?' + Math.floor(Math.random() * 99999 + 1)" align="absmiddle" style="cursor:hand;cursor:pointer;vertical-align: middle;" />]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[client_alert]]></name>
+      <tpl_default><![CDATA[<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset={$=CHARSET}">
+<title>Alert</title>
+</head>
+<body>
+<script type="text/javascript">
+alert("{$alert}");
+{$dispose};
+</script>
+</body>
+</html>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[client_redirect]]></name>
+      <tpl_default><![CDATA[<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset={$=CHARSET}">
+<title>Redirect</title>
+</head>
+<body>
+<script type="text/javascript">
+location.href = "{$url}";
+</script>
+</body>
+</html>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[cutepage]]></name>
+      <tpl_default><![CDATA[<script type="text/javascript">
+function cc_cutepage(strers)
+{
+  var tstrers = get_num(strers) - 1;
+  if (tstrers < 0) tstrers = 0;
+  return tstrers * {$pagesize};
+}
+</script>
+{@firstpage}<span class="ash">{$=ii_itake('global.lng_cutepage.firstpage', 'lng')}</span>{|}<a href="{$URLfirst}">{$=ii_itake('global.lng_cutepage.firstpage', 'lng')}</a>{@firstpage} {@prepage}<span class="ash">{$=ii_itake('global.lng_cutepage.prepage', 'lng')}</span>{|}<a href="{$URLpre}">{$=ii_itake('global.lng_cutepage.prepage', 'lng')}</a>{@prepage} {@nextpage}<span class="ash">{$=ii_itake('global.lng_cutepage.nextpage', 'lng')}</span>{|}<a href="{$URLnext}">{$=ii_itake('global.lng_cutepage.nextpage', 'lng')}</a>{@nextpage} {@lastpage}<span class="ash">{$=ii_itake('global.lng_cutepage.lastpage', 'lng')}</span>{|}<a href="{$URLlast}">{$=ii_itake('global.lng_cutepage.lastpage', 'lng')}</a>{@lastpage} {$=ii_itake('global.lng_cutepage.chpage', 'lng')}<input type="text" id="go-page-num" class="i1" value="{$xpagenum}" maxlength="5" onkeyup="this.value=get_num(this.value);if (this.value>{$pagenums}) this.value={$pagenums};" style="width: 42px;text-align: center;vertical-align: middle;"> <input type="button" value="GO" onclick="location_href('{$goURL}');" class="button"> {$npagenum}/{$pagenums} {$pagesize}{$=ii_itake('global.lng_cutepage.perpage', 'lng')}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[pagenum]]></name>
+      <tpl_default><![CDATA[
+            <style type="text/css">
+                #cutepage {
+                    text-align: center;
+                }
+                #cutepage a {
+                    display: inline-block;
+                    width: 30px;
+                    height: 30px;
+                    line-height: 30px;
+                    font-size: 14px;
+                    font-family: Tahoma;
+                    background: #F8F8F8;
+                    margin: 0 5px;
+                    border: 1px solid #DDD;
+                    border-radius: 4px;
+                }
+                #cutepage a.np-page {width: 70px}
+                #cutepage a.current, #cutepage a:hover {
+                    background: #DDD;
+                    text-decoration: none;
+                }
+            </style>
+            {$pre}{@}<a{$current} href="{$pageurl}">{$pagenum}</a>{@}{$next}
+        ]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

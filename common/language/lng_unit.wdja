@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[ge]]></disinfo>
+      <chinese><![CDATA[个]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[money]]></disinfo>
+      <chinese><![CDATA[元]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[floor]]></disinfo>
+      <chinese><![CDATA[楼]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[gift]]></disinfo>
+      <chinese><![CDATA[积分]]></chinese>
+    </item>
+  </language_list>
+</xml>

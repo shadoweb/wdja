@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[reply_list]]></name>
+      <tpl_default><![CDATA[
+<table width="100%" cellpadding="0" cellspacing="0" border="0">{@recurrence_ida}
+  <tr>
+    <td><img src="{$=#images_route}icon/icon.gif" border="0" alt="icon" class="absmiddle" /> {$content} <font class="ash">- {$time} - {$author}</font></td>
+  </tr>{@recurrence_ida}
+</table>]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

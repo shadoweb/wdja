@@ -1,0 +1,1153 @@
+html {
+  width: 100%; overflow-y: scroll; font-size: 10px
+}
+body {
+  width: 100%; margin: 0px; padding: 0px; color: #000; font-size: 1.2rem; font-family: Arial, Verdana, "NSimSun"
+}
+div,p,span,em {
+  /*backface-visibility: hidden;*/
+}
+ul,ol {
+  list-style: none
+}
+form,dl,dt,dd,ul,ol,input,select,textarea,h1,h2,h3,h4,h5,h6 {
+  margin: 0px; padding: 0px
+}
+input,button,select,textarea {
+  box-sizing: border-box; font-size: 1.2rem; color: #000; resize: none; outline: none
+}
+img {
+  border: 0px
+}
+a {
+  color: #000; text-decoration: none
+}
+a:hover {
+  color: #000; text-decoration: none
+}
+a.link {
+  cursor: pointer
+}
+a.btn{display: inline-block;margin-top: -2px;padding: 5px 8px;font-size: 12px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;vertical-align: middle;}
+label.radio,
+label.checkbox {
+  display: inline-block; min-width: 16px; position: relative; line-height: 16px; color: #666
+}
+label.radio input[type=radio],
+label.checkbox input[type=checkbox] {
+  visibility: hidden
+}
+label.radio vicon {
+  display: inline-block; width: 14px; height: 14px; background-color: #fff; border: #ccc 1px solid; border-radius: 8px; position: absolute; top: 0px; left: 0px; z-index: 100
+}
+label.checkbox vicon {
+  display: inline-block; width: 14px; height: 14px; background-color: #fff; border: #ccc 1px solid; position: absolute; top: 0px; left: 0px; z-index: 100
+}
+label.radio input[type=radio]:checked + vicon {
+  background: url(icon/check.2.svg) center center no-repeat
+}
+label.checkbox input[type=checkbox]:checked + vicon {
+  background: url(icon/check.1.svg) #fff center center no-repeat
+}
+label.radio span,
+label.checkbox span {
+  padding-left: 10px; padding-right: 14px
+}
+label.radio span.text,
+label.checkbox span.text {
+  padding-right: 15px
+}
+span.b2,
+button {
+  display: inline-block; padding: 6px 16px; border: 0px; line-height: 100%; font-size: 1.4rem; color: #fff; border: #666 1px solid; cursor: pointer; transition: all .1s ease
+}
+button.b1 {
+  background-color: #555; border-color: #555
+}
+button.b1:hover {
+  background-color: #333; border-color: #333
+}
+button.b1:focus {
+  border-color: #000
+}
+span.b2,
+button.b2 {
+  background-color: #e7505a; border-color: #e7505a
+}
+span.b2:hover,
+button.b2:hover {
+  background-color: #e12330; border-color: #e12330
+}
+span.b2:focus,
+button.b2:focus {
+  border-color: #94000a
+}
+button.b3 {
+  background-color: #e1e5ec; border-color: #e1e5ec; color: #333
+}
+button.b3:hover {
+  background-color: #c2cad8; border-color: #c2cad8
+}
+button.b3:focus {
+  border-color: #9499a1
+}
+input.b4 {
+  background-color: #5cb85c; border-color: #5cb85c
+}
+button.b4 {
+  background-color: #5cb85c; border-color: #5cb85c
+}
+button.b4:hover {
+  background-color: #449d44; border-color: #449d44
+}
+button.b4:focus {
+  border-color: #275727
+}
+button.lock,
+button.lock:hover,
+button.lock:focus {
+  background-color: #bbb !important; border-color: #bbb !important
+}
+input.btn{display: inline-block;width: 60px;height: 28px;line-height: 28px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;}
+input.i1 {
+  width: 500px; height: 30px; line-height: 30px; padding: 0px 10px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
+}
+input.i1:focus,
+input.i2:focus {
+  border-color: #5b9dd9; box-shadow: 0px 0px 2px rgba(30, 140, 190, 0.8)
+}
+input.i2 {
+  width: 100%; height: 30px; line-height: 30px; padding: 0px 10px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
+}
+select.s1 {
+  padding: 6px; height: 30px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
+}
+select.s1:focus {
+  border-color: #5b9dd9; box-shadow: 0px 0px 2px rgba(30, 140, 190, 0.8)
+}
+select.full {
+  width: 100%
+}
+textarea.t1 {
+  width: 500px; height: 200px; line-height: 150%; padding: 10px; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); transition: all .3s ease
+}
+textarea.t1:focus {
+  border-color: #5b9dd9; box-shadow: 0px 0px 2px rgba(30, 140, 190, 0.8)
+}
+textarea.t1.editor {
+  height: 380px; visibility: hidden
+}
+icons {
+  display: inline-block; vertical-align: middle
+}
+icons btn {
+  display: inline-block; width: 28px; height: 28px; border: #d1d1d1 1px solid; cursor: pointer
+}
+icons btn.b1 {
+  background: url(icon/select.1.svg) center center no-repeat; background-size: 24px 24px
+}
+icons icon {
+  display: inline-block; width: 16px; height: 16px; margin-right: 2px; opacity: 0.6; cursor: pointer; transition: all .3s ease;vertical-align: middle;
+}
+icons icon:hover {
+  opacity: 1
+}
+icons icon.edit {
+  background: url(icon/edit.1.svg) center center no-repeat
+}
+icons icon.db {
+  background: url(icon/db.1.svg) center center no-repeat
+}
+icons icon.oss {
+  background: url(icon/oss.1.svg) center center no-repeat
+}
+icons icon.delete {
+  background: url(icon/delete.1.svg) center center no-repeat
+}
+icons icon.insert {
+  background: url(icon/insert.1.svg) center center no-repeat
+}
+icons icon.upload {
+  background: url(icon/upload.1.svg) center center no-repeat
+}
+icons icon.category {
+  background: url(icon/category.1.svg) center center no-repeat
+}
+icons icon a.link {
+  display: block; width: 100%; height: 100%
+}
+.red{
+	color:#f00;
+}
+.blue{
+	color:#00f;
+}
+.green{
+	color:#0f0;
+}
+.ash {
+  color: #999
+}
+.block {
+  display: block !important
+}
+.breakall {
+  word-break: break-all
+}
+.clear_float {
+  zoom: 1
+}
+.clear_float:after {
+  display: block; clear: both; content: ""; visibility: hidden; height: 0
+}
+.center {
+  text-align: center !important
+}
+.status {
+  display: inline-block; width: 16px; height: 16px; background: url(icon/status.0.svg)
+}
+.status-1 {
+  background-image: url(icon/status.1.svg)
+}
+.hide {
+  display: none !important
+}
+.hand {
+  cursor: pointer
+}
+.highlight {
+  background-color: #ffff00
+}
+.info-1 {
+  background: url(icon/info.1.svg) left center no-repeat; background-size: 14px 14px; color: #999; padding-left: 20px; line-height: 16px
+}
+.move {
+  cursor: move !important
+}
+.noselect {
+  user-select: none; -ms-user-select: none; -moz-user-select: none; -webkit-user-select: none
+}
+.right {
+  text-align: right !important
+}
+.show-0 {
+  display: none !important
+}
+.text-lock-1 {
+  color: #999
+}
+.console {
+  width: 100%; position: relative; z-index: 100
+}
+.topbar {
+  width: 100%; height: 50px; background: #2b3643; position: relative; z-index: 1000
+}
+.topbar h1 {
+  padding-left: 10px; line-height: 50px; font-size: 2rem; font-family: arial; font-weight: normal; color: #fff
+}
+.topbar span.menu {
+  display: block; width: 40px; height: 40px; text-align: center; position: absolute; top: 5px; left: 135px; z-index: 100
+}
+.topbar span.menu l1 {
+  display: block; width: 20px; height: 2px; background: #fff; margin: auto; margin-top: 12px
+}
+.topbar span.menu l2 {
+  display: block; width: 20px; height: 2px; background: #fff; margin: auto; margin-top: 5px
+}
+.topbar span.menu l3 {
+  display: block; width: 20px; height: 2px; background: #fff; margin: auto; margin-top: 5px
+}
+.topbar .topright {
+  display: block; height: 50px; text-align: right; position: absolute; top: 0px; right: 20px; z-index: 100
+}
+.topbar .topright .section {
+  display: inline-block; height: 50px; line-height: 50px; padding: 0px 10px; font-size: 1.4rem; color: #fff; vertical-align: top; position: relative; z-index: 100; transition: background-color .3s ease
+}
+.topbar .topright .section em {
+  display: inline-block; width: 14px; height: 14px; margin-left: 5px; background: url(icon/arrow.1.svg) center center no-repeat; vertical-align: middle
+}
+.topbar .topright .section ul {
+  min-width: 100%; position: absolute; top: 50px; right: -1px; background: #fff; border: #364150 1px solid; border-top: 0px; padding: 5px 0px; box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3); display: none; z-index: 100
+}
+.topbar .topright .section ul li {
+  padding: 0px 20px; line-height: 30px; text-align: center; font-size: 1.4rem; color: #333; white-space: nowrap; cursor: pointer
+}
+.topbar .topright .section ul li:hover {
+  background: #ececec
+}
+.topbar .topright .section:hover {
+  background-color: #364150
+}
+.topbar .topright .section:hover ul {
+  display: block
+}
+.topbar .topright lang.section flag {
+  display: inline-block; width: 30px; height: 20px; margin-right: 10px; vertical-align: middle; background-position: center center; background-repeat: no-repeat
+}
+.topbar .topright lang.section flag.f0 {
+  background-image: url(icon/lang/cn.svg)
+}
+.topbar .topright lang.section flag.f1 {
+  background-image: url(icon/lang/en.svg)
+}
+.topbar .topright lang.section flag.f2 {
+  background-image: url(icon/lang/jp.svg)
+}
+.topbar .topright lang.section flag.f3 {
+  background-image: url(icon/lang/kr.svg)
+}
+.topbar .topright lang.section ul li {
+  padding: 0px 10px; text-align: left
+}
+.topbar .topright admin a{
+  display: inline-block; width: 50px; height: 50px; background: url(icon/setting.1.svg) center center no-repeat; background-size: 20px; vertical-align: top; transition: background-color .3s ease
+}
+.topbar .topright admin a:hover {
+  background-color: #364150
+}
+.topbar .topright home a{
+  display: inline-block; width: 50px; height: 50px; background: url(icon/universal.1.svg) center center no-repeat; background-size: 20px; vertical-align: top; transition: background-color .3s ease
+}
+.topbar .topright home a:hover {
+  background-color: #364150
+}
+.topbar .topright logout a{
+  display: inline-block; width: 50px; height: 50px; background: url(icon/logout.1.svg) center center no-repeat; background-size: 20px; vertical-align: top; transition: background-color .3s ease
+}
+.topbar .topright logout a:hover {
+  background-color: #364150
+}
+.topbar.min h1 {
+  opacity: 0
+}
+.topbar.min span.menu {
+  left: 0px
+}
+.container {
+  width: 100%; height:100%; display: table; background: #fff; position: relative; z-index: 100
+}
+.container div.leftmenu {
+  width: 180px; min-width: 180px; display: table-cell; background: #364150; vertical-align: top; position: relative; z-index: 200
+}
+.container div.leftmenu ul {
+  border-top: #3d4957 1px solid
+}
+.container div.leftmenu ul li {
+  border-bottom: #3d4957 1px solid; position: relative; z-index: 100; transition: background-color .3s ease
+}
+.container div.leftmenu ul li:hover {
+  background: #2c3542
+}
+.container div.leftmenu ul li em.line {
+  width: 4px; height: 100%; background: #3e868f; opacity: 0; position: absolute; top: 0px; left: -4px; z-index: 200; transition: all .3s ease
+}
+.container div.leftmenu ul li span.tit {
+  display: block; line-height: 40px; padding-left: 20px; cursor: pointer; position: relative; z-index: 100
+}
+.container div.leftmenu ul li span.tit.on {
+  background-image: url(icon/triangle.1.svg); background-repeat: no-repeat; background-position: right center; background-size: 10px 16px
+}
+.container div.leftmenu ul li span.tit.t2 {
+  padding-left: 45px
+}
+.container div.leftmenu ul li span.tit.t3 {
+  padding-left: 70px
+}
+.container div.leftmenu ul li span.tit.t4 {
+  padding-left: 95px
+}
+.container div.leftmenu ul li span.tit.t2 a {
+  display: block;
+  padding-left: 45px
+  margin-left: -45px
+}
+.container div.leftmenu ul li span.tit.t3 a{
+  display: block;
+  padding-left: 70px
+  margin-left: -70px
+}
+.container div.leftmenu ul li span.tit.t4 a{
+  display: block;
+  padding-left: 95px
+  margin-left: -95px
+}
+.container div.leftmenu ul li span.tit d {
+  display: block; width: 14px; height: 14px; background: url(icon/arrow.1.svg) center center no-repeat; margin-top: -7px; position: absolute; right: 18px; top: 50%; z-index: 100; transition: all .3s ease
+}
+.container div.leftmenu ul li span.tit b {
+  font-weight: normal; color: #b4bcc8;font-size:12px;
+}
+.container div.leftmenu ul li span.tit em {
+  display: inline-block; width: 18px; height: 18px; margin-right: 7px; background-image: url(icon/module.1.svg); vertical-align: middle; background-position: center; background-repeat: no-repeat
+}
+.container div.leftmenu ul li span.tit em.e1 {
+  background-image: url(icon/setting.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e2 {
+  background-image: url(icon/folder.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e3 {
+  background-image: url(icon/user.2.svg)
+}
+.container div.leftmenu ul li span.tit em.e4 {
+  background-image: url(icon/user.3.svg)
+}
+.container div.leftmenu ul li span.tit em.e5 {
+  background-image: url(icon/package.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e6 {
+  background-image: url(icon/universal.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e7 {
+  background-image: url(icon/news.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e8 {
+  background-image: url(icon/address.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e9 {
+  background-image: url(icon/case.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e10 {
+  background-image: url(icon/team.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e11 {
+  background-image: url(icon/career.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e12 {
+  background-image: url(icon/msg.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e13 {
+  background-image: url(icon/oss.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e14 {
+  background-image: url(icon/cloth.1.svg)
+}
+.container div.leftmenu ul li span.tit em.e15 {
+  background-image: url(icon/contact.1.svg)
+}
+.container div.leftmenu ul li span.tit.open d {
+  transform: rotate(180deg)
+}
+.container div.leftmenu ul li.on em.line {
+  left: 0px; opacity: 1
+}
+.container div.leftmenu dl {
+  display: none
+}
+.container div.leftmenu dl.open {
+  display: block
+}
+.container div.leftmenu dl dd {
+  position: relative; z-index: 100
+}
+.container div.leftmenu dl dd span.tit {
+  line-height: 32px
+}
+.container div.leftmenu dl dd span.tit.on,
+.container div.leftmenu dl dd span.tit:hover {
+  background-color: #3e4b5c
+}
+.container div.leftmenu.min {
+  width: 40px; min-width: 40px
+}
+.container div.leftmenu.min ul li span.tit {
+  padding-left: 7px
+}
+.container div.leftmenu.min ul li span.tit.on {
+  background-image: none
+}
+.container div.leftmenu.min ul li span.tit b,
+.container div.leftmenu.min ul li span.tit d {
+  display: none
+}
+.container div.leftmenu.min ul li span.tit em {
+  width: 24px; height: 24px; cursor: pointer
+}
+.container div.leftmenu.min dl {
+  width: 200px; background: #364150; border: #3d4957 1px solid; border-left: 0px; border-bottom: 0px; box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3); position: absolute; top: -1px; right: -201px; z-index: 100
+}
+.container div.leftmenu.min dl dd {
+  background: #2c3542; border-left: #3d4957 1px solid; border-bottom: #3d4957 1px solid
+}
+.container div.leftmenu.min dl dd:first-child {
+  border-left-color: #2c3542
+}
+.container div.leftmenu.min dl dd span.tit {
+  line-height: 40px; padding-left: 15px
+}
+.container div.leftmenu.min dl dd span.tit b {
+  display: block
+}
+.container div.leftmenu.min dl dd span.tit d {
+  display: block; transform: rotate(270deg)
+}
+.container div.leftmenu.min ul li:hover>dl {
+  display: block
+}
+.container div.leftmenu.min dl dd:hover>dl {
+  display: block
+}
+.container div.maincontent {
+  display: table-cell; vertical-align: top; position: relative; z-index: 100
+}
+.container div.main {
+  width: 100%; height:100%;position: relative; z-index: 100
+}
+.container div.main nav {
+  width: 100%; height: 40px; border-top: #e7ecf1 1px solid; border-bottom: #e1e1e1 1px solid
+}
+.container div.main nav span {
+  padding-left: 20px; font-size: 1.4rem; line-height: 40px; color: #000; cursor: default
+}
+.container div.main nav span u {
+  text-decoration: none; cursor: pointer
+}
+.container div.main nav span u.none {
+  cursor: default
+}
+.container div.main nav span em {
+  display: inline-block; vertical-align: middle; margin: 0px 5px; width: 12px; height: 12px; background: url(icon/arrow.2.svg) center center no-repeat
+}
+.container div.main div.manager {
+  padding: 20px
+}
+.container div.main div.manager toplink {
+  display: block; margin-bottom: 10px; background: #ececec; border-left: #2b3643 5px solid
+}
+.container div.main div.manager toplink a {
+  display: inline-block; padding: 10px 15px; font-size: 1.4rem; line-height: 100%; cursor: pointer
+}
+.container div.main div.manager toplink a.on {
+  background: #364150; color: #fff
+}
+.container div.main div.manager toplink.path {
+  padding-left: 15px
+}
+.container div.main div.manager toplink.path a {
+  padding: 10px 0px; font-family: verdana
+}
+.container div.main div.manager div.table {
+  margin-bottom: 20px; padding: 20px; border: #e1e1e1 1px solid; position: relative; z-index: 100
+}
+.container div.main div.manager div.table h3 {
+  line-height: 100%; margin-bottom: 0; padding-bottom: 15px; font-size: 1.6rem; color: #000; border-bottom: #e1e1e1 1px solid
+}
+.container div.main div.manager div.table div.tab {
+  margin-top: -4px; margin-bottom: 10px
+}
+.container div.main div.manager div.table div.tab div.option {
+  height: 35px
+}
+.container div.main div.manager div.table div.tab div.option label {
+  line-height: 34px
+}
+.container div.main div.manager div.table rightarea {
+  position: absolute; top: 14px; right: 20px; z-index: 100; color: #666
+}
+.container div.main div.manager div.table p.text {
+  line-height: 150%; color: #333
+}
+.container div.main div.manager div.table ul.para li {
+  line-height: 40px; color: #333; border-bottom: #e1e1e1 1px dashed
+}
+.container div.main div.manager div.table ul.para li b {
+display: inline-block;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: middle;
+}
+.container div.main div.manager div.table ul.para li b a {
+display: inline-block;
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap
+}
+.container div.main div.manager div.table ul.para li t {
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+}
+.container div.main div.manager div.table ul.para li:last-child {
+  border-bottom: 0px
+}
+.container div.main div.manager div.table div.control {
+  width: 100%; position: relative; z-index: 100
+}
+.container div.main div.manager div.table div.batch {
+  padding-left: 14px; height: 30px; line-height: 30px; background: #f5f5f5; position: absolute; top: 10px; left: 0px; z-index: 100; border: #e1e1e1 1px solid
+}
+.container div.main div.manager div.table div.batch span.text {
+  padding-right: 10px; color: #333
+}
+.container div.main div.manager div.table div.batch select.batch {
+  background: none; border: 0px; margin-right: 10px
+}
+.container div.main div.manager div.table div.batch span.ok {
+  padding: 0px 10px; display: inline-block; border-left: #e7ecf1 1px solid; cursor: pointer
+}
+.container div.main div.manager div.table icon.file {
+  display: inline-block; width: 50px; height: 50px; background: url(icon/filetype/folder.svg) center center no-repeat; vertical-align: middle
+}
+.container div.main div.manager div.table .mainlink {
+  display: block; word-break: break-all
+}
+.container div.main div.manager div.form_tips {
+  padding-left: 150px
+}
+.container div.main div.manager div.form_tips ul {
+  display: inline-block; border-left: #e7505a 5px solid; background: #ececec; margin-bottom: 20px; padding: 5px 20px 5px 10px; font-size: 1.4rem
+}
+.container div.main div.manager div.form_tips ul li {
+  display: block; line-height: 26px
+}
+.container div.main div.manager div.form_tips em {
+  display: inline-block; border-left: #336633 5px solid; background: #ececec; margin-bottom: 20px; padding: 5px 20px 5px 10px; font-size: 1.4rem; font-style: normal; line-height: 26px
+}
+.container div.main div.manager div.form_button {
+  padding-left: 150px; padding-bottom: 10px
+}
+.container div.waiting {
+  width: 100%; height: 100%; background: rgba(255, 255, 255, .7); opacity: 0; position: absolute; top: 0px; left: 0px; z-index: 50
+}
+.container div.waiting.on {
+  opacity: 1; z-index: 10000
+}
+.container div.waiting bar {
+  width: 10%; height: 5px; background: rgba(228, 122, 38, .7); position: absolute; top: 39px; left: 0%; z-index: 100
+}
+.container div.waiting.on bar {
+  animation: waiting_bar 6s infinite ease; -webkit-animation: waiting_bar 6s infinite ease
+}
+.att {
+  width: 100%; position: relative; z-index: 100
+}
+.att div.icons {
+  position: absolute; top: 7px; right: 10px; z-index: 100
+}
+.att div.upload:hover {
+  opacity: 1
+}
+.att h6 {
+  line-height: 28px; background: #f8f8f8; border: #d1d1d1 1px solid; font-size: 1.2rem; padding-left: 10px
+}
+.att ul {
+  border: #d1d1d1 1px solid; border-top: 0px; padding: 5px 0px
+}
+.att ul li {
+  line-height: 30px; padding-left: 10px; position: relative; z-index: 100
+}
+.att ul li span.tit {
+  display: inline-block; padding-right: 120px; word-break: break-all; cursor: pointer
+}
+.att ul li span.size {
+  position: absolute; top: 0px; right: 80px; font-size: 1rem; color: #999
+}
+.att ul li icons {
+  position: absolute; top: 0px; right: 10px
+}
+.att ul li icons icon {
+  vertical-align: middle
+}
+.att ul li:hover {
+  background: #f8f8f8
+}
+.att ul li.del {
+  opacity: .5
+}
+.att ul li.del span.tit {
+  text-decoration: line-through
+}
+.attPreview {
+  min-width: 200px; margin: auto; padding: 20px; text-align: center
+}
+.attPreview img.item {
+  max-width: 520px; max-height: 520px; border: #d1d1d1 1px solid; box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1)
+}
+.attPreview a.item {
+  display: inline-block; font-size: 1.4rem; color: #276899; line-height: 20px; padding-bottom: 1px; border-bottom: #276899 1px solid
+}
+.fileup {
+  width: 100%
+}
+.fileup div.item {
+  margin-top: 10px; line-height: 30px; background: #ececec; border-radius: 5px; position: relative; z-index: 100
+}
+.fileup div.item span.filename {
+  display: block; padding: 0px 100px 0px 10px; font-size: 1.4rem; word-break: break-all; position: relative; z-index: 200
+}
+.fileup div.item span.filesize {
+  padding: 0px 10px; color: #666; position: absolute; top: 0px; right: 0px; z-index: 200
+}
+.fileup div.item span.bar {
+  display: block; width: 0%; height: 100%; background: #d1f1c0; border-radius: 5px; position: absolute; top: 0px; left: 0px; z-index: 100; transition: width .3s linear
+}
+.fileup div.item.error span.bar {
+  width: 100% !important; background-color: #ff9893
+}
+.filetype {
+  display: inline-block; vertical-align: middle; margin-right: 10px; padding: 0px 5px; background: #000; opacity: 0.8; font-size: 1.4rem; color: #fff; line-height: 22px; border-radius: 6px; font-style: normal; text-transform: uppercase
+}
+.filetype.mp4 {
+  background: #cb8119
+}
+.filetype.zip, .filetype.gz, .filetype.rar {
+  background: #5b0233
+}
+.filetype.jpg, .filetype.jpeg, .filetype.gif, .filetype.png {
+  background: #0f6974
+}
+.filetype.doc, .filetype.docx, .filetype.xls, .filetype.xlsx, .filetype.ppt, .filetype.pptx, .filetype.pdf {
+  background: #779028
+}
+.login {
+  width: 450px; height: 450px; background: #fff; border: #e2e2e2 1px solid; border-top: #000 5px solid; border-bottom: #e2e2e2 5px solid; margin-left: -225px; margin-top: -225px; position: fixed; top: 50%; left: 50%; z-index: 100
+}
+.login h1 {
+  padding: 60px; font-size: 4.8rem; font-family: arial; font-weight: normal; color: #000; line-height: 100%; text-align: center
+}
+.login div.field {
+  width: 360px; height: 44px; border: #d9d9d9 1px solid; margin: auto; margin-bottom: 10px; position: relative; z-index: 100
+}
+.login div.field input {
+  width: 295px; margin-left: 45px; height: 44px; line-height: 44px; padding-left: 20px; border: 0px; font-size: 1.4rem; color: #999; transition: all .3s ease
+}
+.login div.field input:focus {
+  color: #000
+}
+.login div.field em.u {
+  display: block; width: 44px; height: 44px; background: url(icon/user.1.svg) center center no-repeat; background-size: 20px; border-right: #d9d9d9 1px solid; position: absolute; top: 0px; left: 0px; z-index: 100
+}
+.login div.field em.p {
+  display: block; width: 44px; height: 44px; background: url(icon/lock.1.svg) center center no-repeat; background-size: 20px; border-right: #d9d9d9 1px solid; position: absolute; top: 0px; left: 0px; z-index: 100
+}
+.login div.button {
+  width: 360px; margin: auto; padding-top: 10px; text-align: right
+}
+.login div.button label.remember {
+  float: left
+}
+.login div.message {
+  padding-top: 50px; text-align: center; font-size: 1.4rem; color: #e47a26
+}
+.login div.error {
+  width: 408px; padding: 10px; background: #f2dede; border: #ebccd1 1px solid; border-radius: 5px; color: #a94442; text-align: center; margin-left: -215px; position: absolute; bottom: 10px; left: 50%; z-index: 100
+}
+.pagi {
+  padding-top: 10px; height: 32px; text-align: right
+}
+.pagi span {
+  display: inline-block; height: 30px; line-height: 30px; color: #666; padding: 0px 10px; border: #e1e1e1 1px solid; vertical-align: middle
+}
+.pagi input {
+  width: 40px; margin-left: 5px; display: inline-block; height: 30px; line-height: 30px; color: #666; text-align: center; border: #e1e1e1 1px solid; vertical-align: middle
+}
+.pagi a {
+  display: inline-block; height: 30px; line-height: 30px; padding: 0px 10px; color: #666; border: #e1e1e1 1px solid; cursor: pointer; vertical-align: middle
+}
+.pagi a.current {
+    background: #eee;
+}
+.pagi a.on {
+  text-decoration: underline
+}
+.pagi a.go:hover {
+  text-decoration: none
+}
+.popedom {
+  display: inline-block; background: #f6f6f6; padding: 10px 20px 0px 10px; border: #d1d1d1 1px solid
+}
+.popedom ul {
+  padding-bottom: 10px
+}
+.popedom ul li {
+  line-height: 26px
+}
+.popedom ul li.l2 {
+  padding-left: 24px
+}
+.popedom ul li.l3 {
+  padding-left: 48px
+}
+.popedom ul li.l4 {
+  padding-left: 72px
+}
+.popedom ul li label {
+  font-size: 1.4rem; color: #000
+}
+.popedom ul li label.option {
+  margin-left: 10px; font-size: 1.2rem; color: #666
+}
+.popedom_category {
+  padding-top: 20px
+}
+.popedom_category ul li {
+  line-height: 26px
+}
+.popedom_category dl {
+  padding-left: 24px
+}
+.popup_mask {
+  width: 100%; height: 100%; background: #000; opacity: 0; position: fixed; top: 0px; left: 0px; z-index: 50; transition: all .3s ease
+}
+.popup_mask.on {
+  opacity: 0.8; z-index: 10000
+}
+.popup_alert {
+  width: 500px; height: 300px; background: #fff; position: fixed; top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%) scale(0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, .5); z-index: 50; transition: all .3s ease
+}
+.popup_alert.on {
+  opacity: 1; transform: translate(-50%, -50%) scale(1); z-index: 11000
+}
+.popup_alert div.title {
+  width: 100%; height: 140px; margin-top: 20px; background: url(icon/exclamation.1.svg) center center no-repeat; background-size: 90px 90px
+}
+.popup_alert div.word {
+  width: 90%; margin: auto; font-size: 2.4rem; text-align: center; line-height: 30px; max-height: 60px; overflow: hidden; text-overflow: ellipsis
+}
+.popup_alert div.word em {
+  display: block; font-size: 1.4rem; font-style: normal
+}
+.popup_alert div.word em a {
+  display: inline-block; line-height: 16px; border-bottom: #999 1px solid; color: #999
+}
+.popup_alert div.word em a:hover {
+  border-color: #000; color: #000
+}
+.popup_alert div.button {
+  padding-top: 30px; text-align: center
+}
+.popup_alert div.button button {
+  margin-left: 10px; margin-right: 10px
+}
+.popup_minialert {
+  background: rgba(0, 0, 0, 0.7); position: fixed; top: 50%; left: 50%; border-radius: 6px; opacity: 0; transform: translate(-50%, -50%) scale(0.2); z-index: 50; transition: all .3s ease
+}
+.popup_minialert.on {
+  opacity: 1; transform: translate(-50%, -50%) scale(1); z-index: 1100000000
+}
+.popup_minialert div.word {
+  padding: 10px 20px; line-height: 24px; font-size: 1.4rem; color: #fff
+}
+.popup_confirm {
+  width: 500px; height: 300px; background: #fff; position: fixed; top: 50%; left: 50%; opacity: 0; transform: translate(-50%, -50%) scale(0.2); box-shadow: 0 5px 15px rgba(0, 0, 0, .5); z-index: 50; transition: all .3s ease
+}
+.popup_confirm.on {
+  opacity: 1; transform: translate(-50%, -50%) scale(1); z-index: 11000
+}
+.popup_confirm div.title {
+  width: 100%; height: 140px; margin-top: 20px; background: url(icon/exclamation.1.svg) center center no-repeat; background-size: 90px 90px
+}
+.popup_confirm div.word {
+  font-size: 2.4rem; text-align: center; line-height: 30px; max-height: 60px; overflow: hidden
+}
+.popup_confirm div.button {
+  padding-top: 30px; text-align: center
+}
+.popup_confirm div.button button {
+  margin-left: 10px; margin-right: 10px
+}
+.popup_page {
+  background: #fff; position: fixed; top: 40%; left: 50%; opacity: 0; transform: translate(-50%, -50%); box-shadow: 0 5px 15px rgba(0, 0, 0, .5); z-index: 50; transition: all .3s ease
+}
+.popup_page span.close {
+  display: block; width: 40px; height: 40px; background: url(icon/close.1.svg) center center no-repeat; background-size: 20px 20px; cursor: pointer; position: absolute; top: 0px; right: 0px; z-index: 1000
+}
+.popup_page div.title {
+  min-width: 200px; line-height: 30px; background: #ececec; padding: 5px 40px 5px 10px; font-size: 1.4rem; font-weight: bold; color: #333; word-break: break-all
+}
+.popup_page div.title input.title {
+  width: 100%; height: 26px; line-height: 26px; background: none; border: 0px; font-size: 1.4rem; font-weight: bold; color: #333
+}
+.popup_page div.title input.title::-ms-clear {
+  display: none
+}
+.popup_page div.tinyform {
+  padding: 10px 0px
+}
+.popup_page div.tinyform ol.tiny {
+  width: 250px
+}
+.popup_page div.tinyform ol.small {
+  width: 500px
+}
+.popup_page div.tinyform ol.big {
+  width: 1000px
+}
+.popup_page div.tinyform ol li {
+  padding: 10px 20px; position: relative; z-index: 100
+}
+.popup_page div.tinyform ol li h6 {
+  font-size: 1.2rem; font-weight: normal; color: #999; line-height: 30px; margin-top: -15px; position: absolute; right: 50px; top: 50%; z-index: 110
+}
+.popup_page div.tinyform div.submit {
+  padding: 10px 20px; position: relative; z-index: 100
+}
+.popup_page div.tinyform div.submit span.tips {
+  line-height: 30px; text-align: right; color: #999; position: absolute; top: 10px; right: 20px; z-index: 100
+}
+.popup_page div.tinyform div.submit span.tips.h {
+  color: #e47a26
+}
+.popup_page div.substance {
+  min-width: 420px; max-height: 420px; padding: 20px; overflow-y: scroll; position: relative; z-index: 100
+}
+.popup_page div.substance.fixed {
+  overflow-y: auto
+}
+.popup_page div.substance ul.list li {
+  padding: 5px 0px 5px 20px; line-height: 22px; background: url(icon/arrow.2.svg) 5px center no-repeat; background-size: 14px 14px; border: #fff 2px solid; border-radius: 5px; cursor: pointer
+}
+.popup_page div.substance ul.list li.alonetips {
+  padding: 5px; text-align: center; background: none; color: #777; border: 0px; cursor: default
+}
+.popup_page div.substance ul.list li:hover {
+  border-color: #ddd
+}
+.popup_page div.button {
+  padding: 19px 0px 20px 0px; text-align: center; background: #fdfdfd; border-top: #ddd 1px solid
+}
+.popup_page div.button button {
+  margin-left: 10px; margin-right: 10px
+}
+.popup_page.on {
+  top: 50%; opacity: 1; z-index: 11000
+}
+.switch {
+  display: inline-block; width: 60px; height: 30px; cursor: pointer; position: relative; z-index: 100;vertical-align: middle;
+}
+.switch b {
+  display: block; width: 60px; height: 30px; background: #ccc; border-radius: 15px; margin-left: -30px; margin-top: -15px; position: absolute; top: 50%; left: 50%; z-index: 100
+}
+.switch u {
+  display: block; width: 60px; height: 30px; background: #64bd63; border-radius: 15px; margin-left: -30px; margin-top: -15px; transform: scale(0); opacity: 0; position: absolute; top: 50%; left: 50%; z-index: 110; transition: all .3s ease
+}
+.switch em {
+  display: block; width: 26px; height: 26px; background: #fff; border-radius: 13px; cursor: pointer; position: absolute; top: 2px; left: 2px; z-index: 200; transition: all .3s ease
+}
+.switch-1 u {
+  transform: scale(1); opacity: 1
+}
+.switch-1 em {
+  left: 32px
+}
+.sortselect {
+  display: inline-block; padding: 5px 10px; border: #d1d1d1 1px solid; position: relative; z-index: 100
+}
+.sortselect span.tit {
+  display: inline-block; line-height: 18px; font-weight: bold; color: #333; cursor: default
+}
+.sortselect span.tit em {
+  width: 14px; height: 14px; display: inline-block; background: url(icon/sort.2.svg) center center no-repeat; background-size: 14px 14px; margin-left: 5px; vertical-align: middle
+}
+.sortselect ul {
+  width: 100%; background: #fff; border: #d1d1d1 1px solid; border-top: 0px; position: absolute; top: 26px; left: -1px; z-index: 100; display: none
+}
+.sortselect ul li {
+  padding: 5px 10px; cursor: pointer
+}
+.sortselect ul li:hover {
+  background: #ddd
+}
+.sortselect:hover ul {
+  display: block
+}
+.searchbox {
+  display: inline-block; position: relative; z-index: 100;top:-1px;
+}
+.searchbox input.keyword {
+  width: 120px; height: 30px; line-height: 30px; background: none; padding: 0px 30px 0px 10px; border: #d1d1d1 1px solid
+}
+.searchbox input.keyword:focus {
+  border-color: #5b9dd9; box-shadow: 0px 0px 2px rgba(30, 140, 190, 0.8)
+}
+.searchbox input.keyword::-ms-clear {
+  display: none
+}
+.searchbox input.search {
+  width: 22px; height: 30px; border: 0px; display: block; background: url(icon/search.1.svg) center center no-repeat; background-size: 22px 28px; position: absolute; top: 1px; right: 4px; z-index: 200; cursor: pointer
+}
+.tab {
+  width: 100%
+}
+.tab div.option {
+  width: 100%; height: 45px; border-bottom: #ddd 1px solid; position: relative; z-index: 200
+}
+.tab div.option label {
+  display: inline-block; line-height: 44px; font-size: 1.4rem; margin-bottom: -1px; padding: 0px 10px; border: transparent 1px solid; border-top-left-radius: 4px; border-top-right-radius: 4px; cursor: pointer
+}
+.tab div.option label.on {
+  background: #fff; border-color: #ddd; border-bottom-color: #fff; font-weight: bold; cursor: default
+}
+.tab div.option .searchbox {
+  position: absolute; top: 8px; right: 85px
+}
+.tab div.option .sortselect {
+  position: absolute; top: 8px; right: 0px
+}
+.tab div.item_list {
+  position: relative; z-index: 100
+}
+.tab div.item_content {
+  display: none
+}
+.tab div.item input.tabradio {
+  display: none
+}
+.tab div.item input.tabradio:checked ~ div.item_content {
+  display: block
+}
+.tableF {
+  width: 100%; padding: 10px 0px
+}
+.tableF th {
+  width: 120px; font-weight: normal; text-align: right
+}
+.tableF th t {
+  display: inline-block; line-height: 30px
+}
+.tableF th r {
+  font-weight: bold; color: #e02222; padding-left: 5px
+}
+.tableF td r
+{
+  color: #e02222;
+}
+.tableL {
+  width: 100%; background: #e1e1e1
+}
+.tableL a img{
+    vertical-align: bottom;
+}
+.tableL input[type="checkbox"],
+.control input[type="checkbox"]{
+    vertical-align: middle;
+}
+.tableL th {
+  text-align: left; background: #f6f6f6
+}
+.tableL td {
+  background: #fff;
+  max-width:450px;
+  overflow:hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tableL td.id {
+  padding: 0px
+}
+.tableL td.sort {
+  background-image: url(icon/sort.1.svg); background-size: 24px; background-position: center center; background-repeat: no-repeat
+}
+.tableL tr.lock-1 td {
+  color: #999 !important
+}
+.tableL tr:hover td,
+.tableL tr.selected td {
+  background-color: #f9f9f9
+}
+.tableL tr.tips td {
+  color: #999; text-align: center
+}
+.tableL tr.tips:hover td {
+  background-color: #fff
+}
+.tagInput {
+  width: 500px; padding: 4px 10px 0px 10px; box-sizing: border-box; border: #d1d1d1 1px solid; box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.08); position: relative; z-index: 100; transition: all .3s ease
+}
+.tagInput div.hints {
+  display: none; width: 100%; background: #fff; border: #d1d1d1 1px solid; position: absolute; top: 0px; left: -1px; z-index: 100
+}
+.tagInput div.hints ul {
+  padding: 5px; box-sizing: border-box
+}
+.tagInput div.hints ul:empty {
+  display: none
+}
+.tagInput div.hints ul li {
+  padding: 5px 10px; line-height: 100%; background: #fff; cursor: pointer; transition: all .3s ease
+}
+.tagInput div.hints ul li.on,
+.tagInput div.hints ul li:hover {
+  background: #f6f6f6
+}
+.tagInput div.hints.on {
+  display: block
+}
+.tagInput div.tags {
+  display: inline-block
+}
+.tagInput div.tags span {
+  display: inline-block; margin-bottom: 4px; margin-right: 4px; padding: 0px 6px 0px 10px; line-height: 18px; border: #d1d1d1 1px solid; border-radius: 5px; cursor: pointer
+}
+.tagInput div.tags span em {
+  display: inline-block; font-style: normal
+}
+.tagInput div.tags span x {
+  display: inline-block; width: 1rem; height: 1rem; background: url(icon/close.1.svg) center center no-repeat; margin-left: 4px; vertical-align: middle
+}
+.tagInput input.tag {
+  min-width: 60px; max-width: 100%; background: none; line-height: 20px; border: 0px; margin-bottom: 4px
+}
+.tagInput input.tag::-ms-clear {
+  display: none
+}
+.tagInput.focus {
+  border-color: #5b9dd9; box-shadow: 0px 0px 2px rgba(30, 140, 190, 0.8)
+}
+.upfile {
+  display: inline-block; position: relative; z-index: 100
+}
+.upfile input.i1 {
+  padding-right: 70px
+}
+.upfile div.upbtn {
+  height: calc(100% - 2px); position: absolute; top: 1px; right: 1px; z-index: 100
+}
+.upfile div.upbtn button.upbtn {
+  height: 100%
+}
+.upfile div.upbtn span.bar {
+  width: 0%; height: 2px; background: #5cb85c; position: absolute; left: 0px; bottom: 0px; z-index: 100; transition: width .1s linear
+}
+.upload_status {
+  display: inline-block; width: 4px; height: 12px; margin-right: 4px; background: #999; vertical-align: middle
+}
+.upload_status_1 {
+  background-color: #105a2d
+}
+.upload_status_2 {
+  background-color: #ff0000
+}
+.mce-fullscreen.mce-container {
+  z-index: 100000
+}
+.mce-fullscreen .console .container {
+  z-index: 100000
+}
+.mce-fullscreen .console .container div.maincontent {
+  z-index: 100000
+}
+@keyframes waiting_bar {
+  0% { left: 0% }
+  50% { left: 90% }
+  100% { left: 0% }
+}
+.gallery{
+display: inline-block;
+vertical-align: middle;
+}
+.gallery span{
+display: inline-block;
+width:80px;
+height:80px;
+padding: 5px;
+margin-right:5px;
+border:1px solid #5cb85c;
+overflow:hidden;
+}
+.gallery span img {
+max-width:80px;
+max-height:80px;
+}

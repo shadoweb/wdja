@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>disinfo,chinese</field>
+    <base>language_list</base>
+  </configure>
+  <language_list>
+    <item>
+      <disinfo><![CDATA[message_mail]]></disinfo>
+      <chinese><![CDATA[sh***web@qq.com]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[message_title]]></disinfo>
+      <chinese><![CDATA[WDJA新留言提醒]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[message_body]]></disinfo>
+      <chinese><![CDATA[WDJA网站有新留言啦!]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order_mail]]></disinfo>
+      <chinese><![CDATA[sh***web@qq.com]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order_title]]></disinfo>
+      <chinese><![CDATA[WDJA新订单提醒]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order_body]]></disinfo>
+      <chinese><![CDATA[WDJA有新订单啦!
+订单信息如下:
+订单号{$orderid},
+订单总价{$price},
+用户名{$uname},
+订单时间{$time}]]></chinese>
+    </item>
+  </language_list>
+</xml>

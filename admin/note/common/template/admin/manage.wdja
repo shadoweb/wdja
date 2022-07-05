@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[navigation]]></name>
+      <tpl_default><![CDATA[
+      <a id="nav_list" href="?hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a><a id="nav_finish" href="?keyword=1&field=finish&hspan=nav_finish">{$=ii_itake('manage.nav_finish','lng')}</a><a id="nav_nofinish" href="?keyword=0&field=nofinish&hspan=nav_nofinish">{$=ii_itake('manage.nav_nofinish','lng')}</a>
+<a id="nav_add" href="?type=add&hspan=nav_add">{$=ii_itake('manage.add','lng')}</a>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[api]]></name>
+      <tpl_default><![CDATA[
+          <table border="0" width="98%" cellSpacing="0" cellPadding="0">
+            <tr>
+              <td width="100%" colspan="2">
+                {$=vv_itransfer('all', 'global.' . ADMIN_FOLDER . '/note:manage.api_list', 'topx=10;tnum=40;genre=' . ADMIN_FOLDER . '/note;osql= and #_finish=\'0\'')}
+              </td>
+            </tr>
+          </table>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[api_list]]></name>
+      <tpl_default><![CDATA[
+           <ul class="para">
+            {@}
+              <li><b><a href="/{$=ADMIN_FOLDER}/note/manage.php?type=view&id={$id}" target="main">{$topic}</a></b><t>{$=ii_format_date('{$time}',1)}</t></li>
+            {@}
+           </ul>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[list]]></name>
+      <tpl_default><![CDATA[  <toplink>{$=pp_manage_navigation()}</toplink>
+      <div class="table">
+    <h3>{$=ii_itake('manage.nav_list','lng')}</h3>
+    <rightarea>
+      <form method="get" name="search">
+        <select name="field" class="s1">{$=mm_get_admin_search()}</select>
+        <div class="searchbox"><input class="keyword" type="text" name="keyword" value="{$=mm_get_admin_keyword()}"><input id="submit" type="submit" class="search" value=""></div>
+      </form>
+    </rightarea>
+<form method="post" name="sel_form" action="?action=control&backurl={$=urlencode($GLOBALS['nurl'])}" onSubmit="get_sel_id()">
+<input type="hidden" name="sel_ids">
+    <table cellpadding="10" cellspacing="1" class="tableL">
+      <thead>
+        <tr>
+          <th width="20" class="center"><input type="checkbox" name="sel_all" class="checkbox" onClick="select_all()"></th>
+          <th width="40" class="center">{$=ii_itake('global.lng_config.id','lng')}</th>
+          <th>{$=ii_itake('global.lng_config.topic','lng')}</th>
+          <th width="50">{$=ii_itake('manage.staus','lng')}</th>
+          <th width="120">{$=ii_itake('global.lng_config.time','lng')}</th>
+          <th width="60">{$=ii_itake('global.lng_config.edit','lng')}</th>
+        </tr>
+      </thead>
+      <tbody>{@recurrence_ida}
+        <tr class="lock-0">
+          <td class="center"><input type="checkbox" name="sel_id" value="{$id}" class="checkbox"></td>
+          <td class="id center">{$id}</td>
+          <td><a href="?type=view&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}">{$topic}</a></td>
+          <td>{$finish}</td>
+          <td>{$time}</td>
+          <td>
+              <icons>
+              <icon class="edit show-1" title="{$=ii_itake('global.lng_config.edit','lng')}"><a class="link" href="?type=edit&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}"></a></icon>
+              <icon class="delete show-1" title="{$=ii_itake('global.lng_config.delete','lng')}"><a class="link" href="?action=delete&id={$id}&backurl={$=urlencode($GLOBALS['nurl'])}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm2','lng')}[{$topicstr}]')"></a></icon>
+              </icons>
+           </td>
+        </tr>{@recurrence_ida}
+      </tbody>
+    </table>
+    <div class="control">
+      <div class="batch show-1" style=""><input type="checkbox" name="sel_alls" class="checkbox" onClick="select_alls()">&nbsp;&nbsp;{$=ii_itake('global.lng_admin.admin_control','lng')} <select name="control" class="batch">{$=mm_sel_control()}</select><span class="ok" onclick="get_id('btn_batch').click();">{$=ii_itake('global.lng_config.control','lng')}</span> <input type="submit" name="submit" id="btn_batch" value="{$=ii_itake('global.lng_config.control','lng')}" onclick="return click_return('{$=ii_itake('global.lng_admin.admin_confirm','lng')}')" style="display: none;"></div>
+      <div class="pagi">{$cpagestr}</div>
+    </div>
+  </form>
+  </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[add]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
+}
+</script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.add','lng')}</h3>
+     <form name="form" method="post" action="?action=add&backurl={$=urlencode($GLOBALS['nurl'])}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="topic" class="i1"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}</t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="image" size="40" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=image&upfname={$=#nuppath}noimg.gif&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+  </div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+  <td>{$=mm_html_content('content','')}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="content_atts_list" id="content_atts_list"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)"></select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_img(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_img('content', get_id('content_atts').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.edit','lng')}" onclick="edit_img('content_atts',get_id('content_atts').value)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" type="button" onclick="pop_display('content_atts')" value="{$=ii_itake('global.lng_config.upload','lng')}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.finish','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch" bind="1"><b></b><u></u><em></em><input type="hidden" name="finish" class="val" value="0" /></span></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+<script src="{$=#global_images_route}js/pop.js" type="text/javascript"></script>
+{$=mm_get_pop_upload()}
+
+    </form>
+    </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[edit]]></name>
+      <tpl_default><![CDATA[
+<script src="{$=#global_images_route}js/preview_images.js" type="text/javascript"></script>
+<script type="text/javascript">
+function bfsubmit()
+{
+  get_id("content_atts_list").value = get_selects_list(get_id('content_atts'));
+}
+</script>
+<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.edit','lng')}</h3>
+     <form name="form" method="post" action="?action=edit&backurl={$=urlencode($GLOBALS['nurl'])}&id={$id}" onsubmit="bfsubmit()">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.topic','lng')}<r>*</r></t></th>
+  <td><input type="text" name="topic" class="i1" value="{$topic}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.image','lng')}</t></th>
+  <td><div mode="upFile" class="upfile" modebinded="true"><input type="text" id="image" class="i1 fileurl" name="image" size="40" value="{$image}" ondblclick="preview_images(this.value, event)">
+  <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=image&upfname=&upsimg={$upsimg}" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe>
+  </div></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.content','lng')}</t></th>
+  <td>{$=mm_html_content('content',ii_htmlencode($GLOBALS['RS_content']))}</td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('global.lng_config.atts','lng')}</t></th>
+  <td><input type="hidden" name="content_atts_list" id="content_atts_list"><select name="content_atts" id="content_atts" class="s1" onkeydown="selects.displace(this, this.selectedIndex, event.keyCode)">{$=mm_get_img_list('{$content_atts_list}')}</select> <input type="button" value="{$=ii_itake('global.lng_config.preview','lng')}" onclick="preview_img(get_id('content_atts').value, event)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.delete','lng')}" onclick="selects.remove(get_id('content_atts'))" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.insert','lng')}" onclick="insert_img('content', get_id('content_atts').value, 0, 0, '{$=ii_get_lrstr($GLOBALS['nuri'], "/", "leftr")}')" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input type="button" value="{$=ii_itake('global.lng_config.edit','lng')}" onclick="edit_img('content_atts',get_id('content_atts').value)" style="display: inline-block;padding: 6px 16px;border: 1px solid #eee;cursor: pointer;"> <input style="display: inline-block;width: 60px;height: 30px;line-height: 30px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" type="button" onclick="pop_display('content_atts')" value="{$=ii_itake('global.lng_config.upload','lng')}"></td>
+</tr><tr>
+  <th valign="top"><t>{$=ii_itake('manage.finish','lng')}</t></th>
+  <td><span onclick="inputSwitch(this)" class="switch switch-{$finish}" bind="1"><b></b><u></u><em></em><input type="hidden" name="finish" class="val" value="{$finish}" /></span></td>
+</tr></tbody>
+      </table>
+      <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
+<script src="{$=#global_images_route}js/pop.js" type="text/javascript"></script>
+{$=mm_get_pop_upload()}
+
+    </form>
+    </div>
+      ]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[view]]></name>
+      <tpl_default><![CDATA[<toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.view','lng')}</h3>
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody>
+        <tr>
+          <td><t>{$topic}</t>{$=mm_encode_content($GLOBALS['RS_content'])}</td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="form_button" style="padding-left:10px;"><a style="display: inline-block;width: 60px;height: 28px;line-height: 28px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" href="?type=edit&id={$id}" class="button">{$=ii_itake('global.lng_config.edit','lng')}</a>&nbsp;&nbsp;<a style="display: inline-block;width: 60px;height: 28px;line-height: 28px;font-size: 14px;background-color: #5cb85c;border: 0;color: #fff;text-align: center;overflow: hidden;cursor: pointer;" href="?type=list" class="button">{$=ii_itake('global.lng_config.back','lng')}</a></div>
+      ]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

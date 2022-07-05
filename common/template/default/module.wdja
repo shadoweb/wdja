@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdja" author="wdja">
+  <configure>
+    <node>item</node>
+    <field>name,tpl_default</field>
+    <base>item_list</base>
+  </configure>
+  <item_list>
+    <item>
+      <name><![CDATA[index]]></name>
+      <tpl_default><![CDATA[{$=mm_web_head($GLOBALS['nhead'])}
+{$=ii_ireplace('global.module.swiper','tpl')}
+{$=ii_ireplace('global.module.sort-list','tpl')}
+{$=ii_ireplace('global.module.imgtxt-list','tpl')}
+{$=ii_ireplace('global.module.img-list','tpl')}
+{$=ii_ireplace('global.module.text-list','tpl')}
+{$=mm_web_foot($GLOBALS['nfoot'])}]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[swiper]]></name>
+      <tpl_default><![CDATA[<div class="swiper">
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+       {$=vv_itransfer('order', 'swiper-slide', 'topx='.ii_itake('global.support/themes/default:home.slide_num','lng').';tnum=30;genre=support/slide')}
+    </div>
+    <!-- 如果需要导航按钮 -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+</div> 
+</div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[sort-list]]></name>
+      <tpl_default><![CDATA[<div class="sort-list">
+  <div class="sort-list-con">
+    <div class="sort-title"><h2>{$=ii_itake('global.'.ii_itake('global.support/themes/default:home.sort_list','lng').':module.channel_title', 'lng')}</h2></div>
+    <ul>
+      {$=vv_isort(ii_itake('global.support/themes/default:home.sort_list','lng'), 'tpl=sort-list;topx='.ii_itake('global.support/themes/default:home.sort_list_num','lng').';')}
+    </ul>
+  </div>
+</div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[imgtxt-list]]></name>
+      <tpl_default><![CDATA[<div class="imgtxt-list">
+  <div class="imgtxt-list-con">
+    <div class="title"><h2>{$=ii_itake('global.'.ii_itake('global.support/themes/default:home.imagestext_list','lng').':module.channel_title', 'lng')}</h2></div>
+    <ul>
+      {$=vv_itransfer('top', 'imgtxt-list', 'topx='.ii_itake('global.support/themes/default:home.imagestext_list_num','lng').';tnum=30;genre=' . ii_itake('global.support/themes/default:home.imagestext_list','lng') . '')}
+    </ul>
+  </div>
+</div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[img-list]]></name>
+      <tpl_default><![CDATA[<div class="img-list">
+  <div class="img-list-con">
+  <div class="title"><h2>{$=ii_itake('global.'.ii_itake('global.support/themes/default:home.images_list','lng').':module.channel_title', 'lng')}</h2></div>
+    <div class="img-lists">
+      {$=vv_itransfer('top', 'img-list', 'topx='.ii_itake('global.support/themes/default:home.images_list_num','lng').';tnum=30;genre=' . ii_itake('global.support/themes/default:home.images_list','lng') . '')}
+    </div>
+  </div>
+</div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[text-list]]></name>
+      <tpl_default><![CDATA[<div class="text-list">
+  <div class="text-list-con">
+     <div class="title"><h2>{$=ii_itake('global.'.ii_itake('global.support/themes/default:home.text_list','lng').':module.channel_title', 'lng')}</h2></div>
+      {$=vv_itransfer('top', 'text-list', 'topx='.ii_itake('global.support/themes/default:home.text_list_num','lng').';tnum=30;genre=' . ii_itake('global.support/themes/default:home.text_list','lng') . '')}
+  </div>
+</div>]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[links]]></name>
+      <tpl_default><![CDATA[<div class="links">
+  <div class="links-con">
+    <div class="links-title">
+      <strong>
+        {$=ii_itake('global.support/linktext:manage.channel_title', 'lng')}
+      </strong>
+    </div>
+    <ul>
+      {$=vv_itransfer('new', 'link', 'topx=20;tnum=30;genre=support/linktext')}
+    </ul>
+  </div>
+</div>]]></tpl_default>
+    </item>
+  </item_list>
+</xml>

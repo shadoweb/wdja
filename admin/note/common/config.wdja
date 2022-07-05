@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xml mode="wdjafg" author="wdja">
+  <configure>
+    <item varstr="nhead" strvalue="default_head" />
+    <item varstr="nfoot" strvalue="default_foot" />
+    <item varstr="nuppath" strvalue="common/upload/" />
+    <item varstr="nuptype" strvalue=".bmp.jpg.gif.png.txt.zip.html" />
+    <item varstr="npagesize" strvalue="20" />
+    <item varstr="nlisttopx" strvalue="2000" />
+    <item varstr="ndatabase" strvalue="wdja_sys_note" />
+    <item varstr="nidfield" strvalue="nid" />
+    <item varstr="nfpre" strvalue="n_" />
+    <item varstr="nclstype" strvalue="1" />
+    <item varstr="nsaveimages" strvalue="1" />
+    <item varstr="thumbnail.upsimg" strvalue="0" />
+    <item varstr="thumbnail.upsimgs" strvalue="1" />
+    <item varstr="ncontentcutepage" strvalue="1" />
+    <item varstr="nuninstall" strvalue="1|1|1" />
+  </configure>
+</xml>
