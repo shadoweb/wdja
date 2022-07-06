@@ -39,7 +39,7 @@ function wdja_cms_admin_manage_adddisp()
     '" . ii_left(ii_cstr($_POST['content']), 100000) . "',
     '" . ii_now() . "',
     '" . ii_now() . "',
-    " . ii_get_num($_POST['fid']) . ",
+    " . ii_get_num($_POST['ask_sid']) . ",
     " . ii_get_num($_POST['hidden']) . ",
     '$nlng'
     )";
@@ -88,7 +88,7 @@ function wdja_cms_admin_manage_editdisp()
     " . ii_cfname('content') . "='" . ii_left(ii_cstr($_POST['content']), 100000) . "',
     " . ii_cfname('time') . "='" . ii_get_date(ii_cstr($_POST['time'])) . "',
     " . ii_cfname('update') . "='" . ii_now() . "',
-    " . ii_cfname('fid') . "=" . ii_get_num($_POST['fid']) . ",
+    " . ii_cfname('fid') . "=" . ii_get_num($_POST['ask_sid']) . ",
     " . ii_cfname('good') . "=" . ii_get_num($_POST['good']) . ",
     " . ii_cfname('hidden') . "=" . ii_get_num($_POST['hidden']) . "
     where $nidfield=$tid";
@@ -146,6 +146,7 @@ function wdja_cms_admin_manage_edit()
       $GLOBALS['RS_' . $tkey] = $val;
       $tmpstr = str_replace('{$' . $tkey . '}', ii_htmlencode($val), $tmpstr);
     }
+    $tmpstr = str_replace('{$ask_topic}', mm_get_field('ask',$trs[ii_cfname('fid')],'topic'), $tmpstr);
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
     $tmpstr = str_replace('{$backurl}', urlencode($tbackurl), $tmpstr);
     $tmpstr = ii_creplace($tmpstr);

@@ -73,8 +73,24 @@
         <tbody>
 <tr>
   <th valign="top"><t>{$=ii_itake('config.ask','lng')}<r>*</r></t></th>
-  <td><select name="fid" class="s1">{$=mm_sel_ask_list()}</select></td>
-	</tr><tr>
+  <td>
+  <div style="margin-bottom:5px;">
+      <input type="text" class="i1" id="ask_topic" name="ask_topic" value="" readonly style="width:345px;">
+      <icons onclick="pop_iframe('ask')"><icon class="db" ></icon>点击选择</icons>
+    </div>
+    <input type="hidden" id="ask_sid" name="ask_sid" value="">
+    <div class="popup_mask" id="pop_mask_ask" style="display:none;"></div>
+    <div class="popup_page" id="pop_page_ask" style="display:none;">
+      <a href="javascript:pop_iframe_close('ask');" target="_self"><span class="close"></span></a>
+      <div class="content">
+      <div class="title">
+      <input type="text" class="title" value="在线问答">
+      </div>
+      <iframe id="iframe_ask" data-src="/admin/api.php?type=list&ctype=input&source=ask" frameborder="0" scrolling="auto" style="width:850px;min-height:450px;" ></iframe>
+    </div>
+  </div>
+</td>
+</tr><tr>
   <th valign="top"><t>{$=ii_itake('config.author','lng')}<r>*</r></t></th>
   <td><input type="text" name="author" class="i1" ></div></td>
 </tr><tr>
@@ -94,6 +110,7 @@
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
     </form>
+<script src="{$=#global_images_route}js/pop.js" type="text/javascript"></script>
     </div>
 ]]></tpl_default>
     </item>
@@ -107,7 +124,23 @@
         <tbody>
 <tr>
   <th valign="top"><t>{$=ii_itake('config.ask','lng')}</t></th>
-  <td><select name="fid" class="s1">{$=mm_sel_ask_list({$fid})}</select></td>
+  <td>
+      <div style="margin-bottom:5px;">
+          <input type="text" class="i1" id="ask_topic" name="ask_topic" value="{$ask_topic}" readonly="" style="width:345px;">
+          <icons onclick="pop_iframe('ask')"><icon class="db"></icon>点击选择</icons>
+      </div>
+      <input type="hidden" id="ask_sid" name="ask_sid" value="{$fid}">
+      <div class="popup_mask" id="pop_mask_ask" style="display: none;"></div>
+      <div class="popup_page" id="pop_page_ask" style="display: none;">
+          <a href="javascript:pop_iframe_close('ask');" target="_self"><span class="close"></span></a>
+          <div class="content">
+          <div class="title">
+          <input type="text" class="title" value="在线问答">
+          </div>
+          <iframe id="iframe_ask" data-src="/admin/api.php?type=list&amp;ctype=input&amp;source=ask" frameborder="0" scrolling="auto" style="width:850px;min-height:450px;" src="/admin/api.php?type=list&amp;ctype=input&amp;source=ask"></iframe>
+          </div>
+      </div>
+  </td>
 </tr><tr>
   <th valign="top"><t>{$=ii_itake('config.author','lng')}<r>*</r></t></th>
   <td><input type="text" name="author" id="author" class="i1" value="{$author}"></td>
@@ -131,6 +164,7 @@
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
     </form>
+<script src="{$=#global_images_route}js/pop.js" type="text/javascript"></script>
     </div>
 ]]></tpl_default>
     </item>
