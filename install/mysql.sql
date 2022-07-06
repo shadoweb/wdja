@@ -1,3 +1,6 @@
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
 CREATE TABLE `wdja_aboutus` (
   `abid` int NOT NULL AUTO_INCREMENT,
   `ab_topic` varchar(50) DEFAULT NULL,
