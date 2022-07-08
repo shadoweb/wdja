@@ -90,7 +90,8 @@ function api_get_related_sid($genre,$gid,$source)
       $tsqlstr = 'select '.ii_cfnames($ffpre,"sid").' from '. $fdatabase.' where '.ii_cfnames($ffpre,"genre").' = "' .$genre.'" and '.ii_cfnames($ffpre,"gid").' = "' .$tgid. '" and '.ii_cfnames($ffpre,"source").' = "' .$source. '"';
       $trs = ii_conn_query($tsqlstr, $conn);
       $trs = ii_conn_fetch_array($trs);
-      if ($trs) $tsid = ii_get_num($trs[ii_cfnames($ffpre,"sid")]);
+      if ($trs) $tsid = $trs[ii_cfnames($ffpre,"sid")];
+      if (ii_isnull($tsid)) $tsid = 0;
    }
    return $tsid;
 }
