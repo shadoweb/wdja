@@ -49,7 +49,7 @@ function wdja_cms_admin_manage_adddisp()
   if (is_array($Err) && count($Err) > 0) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
   $ttutorial_id = ii_get_safecode($_POST['tutorial_id']);
   $tischapter = ii_get_num($_POST['ischapter']);
-  $tchapter_id = $tischapter == 0 ? 0 : ii_get_safecode($_POST['chapter_id']);
+  $tchapter_id = ($tischapter == 0 || ii_isnull($_POST['chapter_id'])) ? 0 : ii_get_num($_POST['chapter_id']);
   $tvuser = ii_get_num($_POST['vuser']);
   if ($tvuser == 1) $tvuid = ii_get_num(mm_get_rand_vuser());
   else $tvuid = 0;
@@ -140,7 +140,7 @@ function wdja_cms_admin_manage_editdisp()
   }
   if (is_array($Err) && count($Err) > 0) wdja_cms_admin_msg($Err[0], $tbackurl, 1);
   $tischapter = ii_get_num($_POST['ischapter']);
-  $tchapter_id = $tischapter == 0 ? 0 : ii_get_num($_POST['chapter_id']);
+  $tchapter_id = ($tischapter == 0 || ii_isnull($_POST['chapter_id'])) ? 0 : ii_get_num($_POST['chapter_id']);
   $tid = ii_get_num($_GET['id']);
   $tvuser = ii_get_num($_POST['vuser']);
   $tvuid = mm_get_field($ngenre,$tid,'vuid');
