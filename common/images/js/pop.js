@@ -9,6 +9,7 @@ function pop_iframe(obj)
 
 function pop_iframe_close(obj)
 {
+  get_id("iframe_" + obj).src = '';
   get_id("pop_mask_" + obj).style.display = 'none';
   get_id("pop_page_" + obj).style.display = 'none';
   get_id("pop_mask_" + obj).className = 'popup_mask';
