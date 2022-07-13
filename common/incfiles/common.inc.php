@@ -743,7 +743,8 @@ function vv_itransfer($type, $tpl, $vars)
             $rrs = ii_conn_query($rsqlstr, $conn);
             $stat = ii_conn_fetch_array($rrs);
             $total = $stat['recount'];
-            $offset = mt_rand(0, $total-$ttopx);
+            $totals = $total-$ttopx >= 0 ? $total-$ttopx : 0;
+            $offset = mt_rand(0, $totles);
             $ttopx = $offset.','.$ttopx;
             $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'hidden') . "=0";
             $tsqlorder = " order by rand() desc";
