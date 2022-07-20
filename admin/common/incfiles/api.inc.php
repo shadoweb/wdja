@@ -280,44 +280,46 @@ function wdja_cms_pop_list($source,$ctype='list')
   else $tmpstr = ii_itake('global.tpl_pops.pop_input', 'tpl');
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
-  if (!ii_isnull($search_keyword)) $tsqlstr .= " and " . ii_cfnames($nfpre,'topic') . " like '%" . $search_keyword . "%'";
-  $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
-  $tcp = new cc_cutepage;
-  $tcp -> id = $nidfield;
-  $tcp -> sqlstr = $tsqlstr;
-  $tcp -> offset = $toffset;
-  $tcp -> pagesize = $npagesize;
-  $tcp -> rslimit = $nlisttopx;
-  $tcp -> init();
-  $trsary = $tcp -> get_rs_array();
-  $font_disabled = ii_itake('global.tpl_config.font_disabled', 'tpl');
-  $postfix_good = ii_ireplace('global.tpl_config.postfix_good', 'tpl');
-  if (!(ii_isnull($search_keyword))) $font_red = ii_itake('global.tpl_config.font_red', 'tpl');
-  if (is_array($trsary))
-  {
-    foreach($trsary as $trs)
+  if(!ii_isnull($ndatabase)){
+    $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre,'hidden') . "=0";
+    if (!ii_isnull($search_keyword)) $tsqlstr .= " and " . ii_cfnames($nfpre,'topic') . " like '%" . $search_keyword . "%'";
+    $tsqlstr .= " order by " . ii_cfnames($nfpre,'time') . " desc";
+    $tcp = new cc_cutepage;
+    $tcp -> id = $nidfield;
+    $tcp -> sqlstr = $tsqlstr;
+    $tcp -> offset = $toffset;
+    $tcp -> pagesize = $npagesize;
+    $tcp -> rslimit = $nlisttopx;
+    $tcp -> init();
+    $trsary = $tcp -> get_rs_array();
+    $font_disabled = ii_itake('global.tpl_config.font_disabled', 'tpl');
+    $postfix_good = ii_ireplace('global.tpl_config.postfix_good', 'tpl');
+    if (!(ii_isnull($search_keyword))) $font_red = ii_itake('global.tpl_config.font_red', 'tpl');
+    if (is_array($trsary))
     {
-      $ttopic = ii_htmlencode($trs[ii_cfnames($nfpre,'topic')]);
-      $title= ii_htmlencode($trs[ii_cfnames($nfpre,'topic')]);
-      if (isset($font_red))
+      foreach($trsary as $trs)
       {
-        $font_red = str_replace('{$explain}', $search_keyword, $font_red);
-        $ttopic = str_replace($search_keyword, $font_red, $ttopic);
+        $ttopic = ii_htmlencode($trs[ii_cfnames($nfpre,'topic')]);
+        $title= ii_htmlencode($trs[ii_cfnames($nfpre,'topic')]);
+        if (isset($font_red))
+        {
+          $font_red = str_replace('{$explain}', $search_keyword, $font_red);
+          $ttopic = str_replace($search_keyword, $font_red, $ttopic);
+        }
+        $turl = '/'.$nsource.'/'.ii_iurl('detail',$trs[$nidfield], $nurltype);
+        $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
+        $tmptstr = str_replace('{$title}', $title, $tmptstr);
+        $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfnames($nfpre,'topic')])), $tmptstr);
+        $tmptstr = str_replace('{$url}', $turl, $tmptstr);
+        $tmptstr = str_replace('{$source}', $nsource, $tmptstr);
+        $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfnames($nfpre,'time')]), $tmptstr);
+        $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
+        $tmprstr .= $tmptstr;
       }
-      $turl = '/'.$nsource.'/'.ii_iurl('detail',$trs[$nidfield], $nurltype);
-      $tmptstr = str_replace('{$topic}', $ttopic, $tmpastr);
-      $tmptstr = str_replace('{$title}', $title, $tmptstr);
-      $tmptstr = str_replace('{$topicstr}', ii_encode_scripts(ii_htmlencode($trs[ii_cfnames($nfpre,'topic')])), $tmptstr);
-      $tmptstr = str_replace('{$url}', $turl, $tmptstr);
-      $tmptstr = str_replace('{$source}', $nsource, $tmptstr);
-      $tmptstr = str_replace('{$time}', ii_get_date($trs[ii_cfnames($nfpre,'time')]), $tmptstr);
-      $tmptstr = str_replace('{$id}', ii_get_num($trs[$nidfield]), $tmptstr);
-      $tmprstr .= $tmptstr;
     }
+    $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
+    $tmpstr  = str_replace('{$source}', $nsource, $tmpstr);
   }
-  $tmpstr = str_replace('{$cpagestr}', $tcp -> get_pagenum(), $tmpstr);
-  $tmpstr  = str_replace('{$source}', $nsource, $tmpstr);
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpstr = ii_creplace($tmpstr);
   return $tmpstr;
