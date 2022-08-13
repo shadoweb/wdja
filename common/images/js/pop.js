@@ -142,14 +142,14 @@ var img_desc = img_arr[1];
   switch (tstrtype)
   {
     case 0:
-      if(file_type =='mp4' || file_type == 'avi' || file_type == 'webm' || file_type == 'ogg'){
+      if(file_type =='mp4' || file_type == 'avi' || file_type == 'webm' || file_type == 'ogg' || file_type == 'wmv' || file_type == 'm4v' || file_type == 'flv' || file_type == 'rm'){
         editor_insert(strid, "<p style=\"text-align: center;\"><video controls=\"controls\" style=\"width:85%;max-width:750px;margin:0 auto;\"><source src=\"" + img_url + "\" /></video></p>");
-      }else if(file_type =='pdf'){
-        editor_insert(strid, "<p style=\"text-align: left;\"><strong><a href=\"" + img_url + "\" download>" + img_title + "</a></strong></p>");
-      }else if(file_type =='zip'|| file_type =='rar'){
-        editor_insert(strid, "<p style=\"text-align: left;\"><strong><a href=\"" + img_url + "\" download>" + img_title + "</a></strong></p>");
+      }else if(file_type =='mp3' || file_type =='wav' || file_type =='wma' || file_type =='flac'){
+         editor_insert(strid, "<p style=\"text-align: center;\"><audio controls=\"\" oncontextmenu=\"return false\" autoplay=\"\" controlslist=\"nodownload\" src=\"" + img_url + "\" />!audio not supported .</audio></p>");
+      }else if(file_type =='jpg' || file_type =='png' || file_type =='gif' || file_type =='jpeg' || file_type =='bmp' || file_type =='webp'){
+         editor_insert(strid, "<p style=\"text-align: center;\"><img src=\"" + img_url + "\" title=\"" + img_title + "\" alt=\"" + img_desc + "\" border=\"0\"></p>");
       }else{
-         editor_insert(strid, "<img src=\"" + img_url + "\" title=\"" + img_title + "\" alt=\"" + img_desc + "\" border=\"0\">");
+        editor_insert(strid, "<p style=\"text-align: left;\"><strong><a href=\"" + img_url + "\" download>" + img_title + "</a></strong></p>");
       }
       break;
     case 3:
