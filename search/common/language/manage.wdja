@@ -19,6 +19,22 @@
       <chinese><![CDATA[导出记录]]></chinese>
     </item>
     <item>
+      <disinfo><![CDATA[export]]></disinfo>
+      <chinese><![CDATA[导出记录]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[exportdisp]]></disinfo>
+      <chinese><![CDATA[导出]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[start]]></disinfo>
+      <chinese><![CDATA[开始日期]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[end]]></disinfo>
+      <chinese><![CDATA[结束日期]]></chinese>
+    </item>
+    <item>
       <disinfo><![CDATA[topic]]></disinfo>
       <chinese><![CDATA[搜索词]]></chinese>
     </item>

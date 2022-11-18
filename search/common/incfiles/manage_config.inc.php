@@ -32,12 +32,14 @@ function wdja_cms_interface_check_topic()
 }
 
 //导出
-function wdja_cms_admin_manage_export() {
+function wdja_cms_admin_manage_exportdisp() {
   header("Content-type: text/html; charset=utf-8"); 
   set_time_limit(0);
   ini_set('memory_limit','1024M');//设置导出最大内存
   $ranking =array();
-  $ranking = wdja_cms_admin_manage_getAll();
+  $start_date = $_POST['start_date'];
+  $end_date = $_POST['end_date'];
+  $ranking = wdja_cms_admin_manage_getAll($start_date,$end_date);
   $nary = array();
   $narys = array();
   foreach($ranking as $ary){
@@ -87,7 +89,8 @@ function getXLSFromList($pres,$lists) {
   foreach($lists as $_list) {
     $content.= "<tr>";
     foreach($keys as $key) {
-      $val = iconv('utf-8','gb2312',$_list[$key]);
+      $val = json_decode(str_replace('\u200e','',json_encode($_list[$key])));
+      $val = iconv('utf-8','gb2312',$val);
       $content.= "<td style='vnd.ms-excel.numberformat:@'>".$val."</td>"; //style样式将导出的内容都设置为文本格式 输出对应键名的键值 即内容
     }
     $content.="</tr>";
@@ -96,13 +99,18 @@ function getXLSFromList($pres,$lists) {
   return $content;
 }
 
-function wdja_cms_admin_manage_getAll()
+function wdja_cms_admin_manage_getAll($start='',$end='')
 {
   global $conn, $slng;
   global $ngenre;
   global $ndatabase, $nidfield, $nfpre;
   $tmprstr = '';
   $tsqlstr = "select * from $ndatabase where " . ii_cfname('lng') . "='$slng'";
+  if(!ii_isnull($start) && !ii_isnull($end)){
+    $start_date = $start.' 00:00:00';
+    $end_date = $end.' 23:59:59';
+    $tsqlstr .= " and " . ii_cfname('time') . " between '".$start_date."' and '".$end_date."'";
+  }
   $tsqlstr .= " order by " . ii_cfname('time') . " desc";
   $trs = ii_conn_query($tsqlstr, $conn);
   $array = array();
@@ -133,8 +141,8 @@ function wdja_cms_admin_manage_action()
     case 'batch_delete':
       wdja_cms_admin_batch_deletedisp($ndatabase, $nidfield, $nfpre);
       break;
-    case 'export':
-      wdja_cms_admin_manage_export();
+    case 'exportdisp':
+      wdja_cms_admin_manage_exportdisp();
       break;
     case 'upload':
       uu_upload_files();
@@ -165,6 +173,13 @@ function wdja_cms_admin_manage_view()
     return $tmpstr;
   }
   else mm_client_alert(ii_itake('global.lng_public.sudd', 'lng'), -1);
+}
+
+
+function wdja_cms_admin_manage_export()
+{
+  $tmpstr = ii_ireplace('manage.export', 'tpl');
+  return $tmpstr;
 }
 
 function wdja_cms_admin_manage_list()
@@ -261,6 +276,9 @@ function wdja_cms_admin_manage()
       break;
     case 'list':
       return wdja_cms_admin_manage_list();
+      break;
+    case 'export':
+      return wdja_cms_admin_manage_export();
       break;
     case 'displace':
       return wdja_cms_admin_manage_displace();

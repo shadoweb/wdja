@@ -10,7 +10,7 @@
       <name><![CDATA[navigation]]></name>
       <tpl_default><![CDATA[
                   <a id="nav_list" href="?hspan=nav_list">{$=ii_itake('manage.nav_list','lng')}</a>
-                  <a id="nav_export" href="?action=export&hspan=nav_export">{$=ii_itake('manage.nav_export','lng')}</a>
+                  <a id="nav_export" href="?type=export&hspan=nav_export">{$=ii_itake('manage.nav_export','lng')}</a>
 ]]></tpl_default>
     </item>
     <item>
@@ -64,6 +64,31 @@
     </div>
   </form>
   </div>
+]]></tpl_default>
+    </item>
+    <item>
+      <name><![CDATA[export]]></name>
+      <tpl_default><![CDATA[
+        <toplink>{$=pp_manage_navigation()}</toplink>
+  <div class="table">
+    <h3>{$=ii_itake('manage.export','lng')}</h3>
+     <form name="form" method="post" action="?action=exportdisp&backurl={$=urlencode($GLOBALS['nurl'])}">
+      <table cellpadding="10" cellspacing="0" class="tableF">
+        <tbody>
+        <tr>
+        <th valign="top"><t>{$=ii_itake('manage.start','lng')}<r>*</r></t></th>
+        <td><input type="date" name="start_date" class="i1" style="width:120px;"></td>
+        </tr><tr>
+          <th valign="top"><t>{$=ii_itake('manage.end','lng')}<r>*</r></t></th>
+          <td><input type="date" name="end_date" class="i1" style="width:120px;"></td>
+        </tr><tr>
+          <th valign="top"><t></t></th>
+          <td><button class="b2 submit">{$=ii_itake('manage.exportdisp','lng')}</button></td>
+        </tr>
+      </tbody>
+      </table>
+    </form>
+    </div>
 ]]></tpl_default>
     </item>
     <item>

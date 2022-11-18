@@ -53,12 +53,13 @@ function search_data_get_field($tshkeyword) {
 }
 
 function search_data_view_all($num = 10) {
+  global $nurlpre;
   $top = search_data_top_cache();
   $top = $top['data'];
   $res = '';
   if(is_array($top)){
     $ntrs = array_slice($top,0,$num);
-    $dom = '<a href="/search/?type=list&keyword={$topic}" data="{$count}">{$topic}</a> ';
+    $dom = '<a href="'.$nurlpre.'/search/?type=list&keyword={$topic}" data="{$count}">{$topic}</a> ';
     $doma = '';
     foreach($ntrs as $key=>$val){
       $doma = str_replace('{$topic}',$val['topic'],$dom);
