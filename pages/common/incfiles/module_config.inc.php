@@ -46,6 +46,7 @@ function wdja_cms_module_list()
   global $nvalidate;
   $toffset = ii_get_num($_GET['offset']);
   $tfsid = ii_get_num($_GET['classid'],0);
+  $tgid = api_get_gid();
   global $nclstype, $nlisttopx, $npagesize, $ntitles,$nkeywords,$ndescription;
   global $ndatabase, $nidfield, $nfpre;
   $tmpstr = ii_itake('module.list', 'tpl');
@@ -54,8 +55,8 @@ function wdja_cms_module_list()
   mm_cndescription($ndescription);
   $tmpastr = ii_ctemplate($tmpstr, '{@recurrence_ida}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and " . ii_cfname('fsid') . "=$tfsid and " . ii_cfname('type') . "=0 and " . ii_cfname('lng') . "= '" . $nlng . "'";
-  $tgid = api_get_gid();
+  $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and " . ii_cfname('type') . "=0 and " . ii_cfname('lng') . "= '" . $nlng . "'";
+  if($tfsid != 0) $tsqlstr .= " and " . ii_cfname('fsid') . "=$tfsid";
   if (!ii_isnull($tgid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield in ($tgid)";
   $tsqlstr .= " order by " . ii_cfname('time') . " desc";
   $trsary = ii_conn_query($tsqlstr, $conn);
@@ -86,8 +87,8 @@ function wdja_cms_module_list()
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);
   $tmpbstr = ii_ctemplate($tmpstr, '{@recurrence_idb}');
   $tmprstr = '';
-  $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and " . ii_cfname('fsid') . "=$tfsid and " . ii_cfname('type') . "=1 and " . ii_cfname('lng') . "= '" . $nlng . "'";
-  $tgid = api_get_gid();
+  $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and " . ii_cfname('type') . "=1 and " . ii_cfname('lng') . "= '" . $nlng . "'";
+  if($tfsid != 0) $tsqlstr .= " and " . ii_cfname('fsid') . "=$tfsid";
   if (!ii_isnull($tgid) && !ii_isnull($_GET['type'])) $tsqlstr .= " and $nidfield in ($tgid)";
   $tsqlstr .= " order by " . ii_cfname('time') . " desc";
   $tcp = new cc_cutepage;
@@ -137,6 +138,8 @@ function wdja_cms_module_detail()
   $tpage = ii_get_num($_GET['page']);
   $tucode = ii_cstr($_GET['ucode']);
   global $ndatabase, $nidfield, $nfpre;
+  global $nurlpre, $nurltype;
+  $turl = $nurlpre.'/'.$ngenre.'/'.ii_iurl('detail', $tid, $nurltype);
   if (!ii_isnull($tucode)) {
     $tsqlstr = "select * from $ndatabase where " . ii_cfname('hidden') . "=0 and " . ii_cfname('ucode') . "='$tucode'";
   }elseif ($tid==0) {
@@ -164,6 +167,7 @@ function wdja_cms_module_detail()
     }
     $tmpstr = api_replace_fields($tmpstr,$trs[$nidfield],$ngenre);
     $tmpstr = str_replace('{$id}', $trs[$nidfield], $tmpstr);
+    $tmpstr = str_replace('{$url}', $turl, $tmpstr);
     $tmpstr = str_replace('{$genre}', $ngenre, $tmpstr);
     $tmpstr = str_replace('{$page}', $tpage, $tmpstr);
     $tmpstr = mm_cvalhtml($tmpstr, $nvalidate, '{@recurrence_valcode}');
