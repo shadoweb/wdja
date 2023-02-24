@@ -175,6 +175,7 @@ CREATE TABLE `wdja_expansion_fields_data` (
   `fd_topic` varchar(50) DEFAULT NULL,
   `fd_fid` int DEFAULT '0',
   `fd_oid` int DEFAULT '0',
+  `fd_ooid` int DEFAULT '0',
   PRIMARY KEY (`fdid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

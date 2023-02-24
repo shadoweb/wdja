@@ -9,7 +9,7 @@
                  width: '100%', 
                  min_height: 500,
                  max_height:650,
-                 plugins: 'print preview clearhtml searchreplace layout fullscreen image media code codesample table charmap hr pagebreak nonbreaking anchor advlist lists textpattern emoticons bdmap indent2em lineheight formatpainter letterspacing wordcount autoresize codesample link ',
+                 plugins: 'print preview clearhtml searchreplace layout fullscreen image media code codesample table charmap hr pagebreak nonbreaking anchor advlist lists textpattern emoticons indent2em lineheight formatpainter letterspacing wordcount autoresize codesample link ',
                  toolbar1: '|undo redo fontselect fontsizeselect forecolor backcolor bold italic underline strikethrough alignment blockquote link unlink layout removeformat table image charmap hr formatpainter cut copy paste searchreplace fullscreen codesample',
                  toolbar_mode: 'sliding',
                  end_container_on_empty_block:true,

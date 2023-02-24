@@ -2,7 +2,7 @@ html {
   width: 100%; overflow-y: scroll; font-size: 10px
 }
 body {
-  width: 100%; margin: 0px; padding: 0px; color: #000; font-size: 1.2rem; font-family: Arial, Verdana, "NSimSun"
+  width: 100%; margin: 0px; padding: 0px; color: #000; font-size: 1.2rem; font-family: "Trebuchet MS",Helvetica,Arial,'PingFang SC','Hiragino Sans GB','STHeiti Light','Microsoft YaHei',SimHei,'WenQuanYi Micro Hei',sans-serif;
 }
 div,p,span,em {
   /*backface-visibility: hidden;*/

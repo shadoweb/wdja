@@ -423,3 +423,103 @@ function api_search_related($genre,$gid,$source){
   }
   return $res;
 }
+
+function mm_sel_genre_topic($genre,$vars)
+{
+  //获取指定模块内容标题,用下拉框显示,供关联模块内容时使用
+  $ngenre = $genre;
+  $tary = mm_get_genre_array($ngenre,$vars);
+  $tid = ii_get_strvalue($vars, 'id');
+  if (is_array($tary))
+  {
+    $trestr = ii_itake('global.tpl_config.sys_spsort', 'tpl');
+    $option_pre = '';//'<option value="0" selected>'.ii_itake('global.lng_config.unselect', 'lng').'</option>';
+    $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
+    $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
+    $tmpstr = '';
+    $treturnstr = '';
+    foreach ($tary as $key => $val)
+    {
+      $tgourl = mm_get_field($ngenre,$val['id'],'gourl');
+      if (!ii_isnull($tgourl)) continue;
+      if (ii_cinstr($tid,$key,',')) $tmpstr = $option_selected;
+      else $tmpstr = $option_unselected;
+      $tmpstr = str_replace('{$explain}', $val['topic'], $tmpstr);
+      $tmpstr = str_replace('{$value}', $val['id'], $tmpstr);
+      $treturnstr .= $tmpstr;
+    }
+    return $option_pre.$treturnstr;
+  }else{
+    return $option_pre;
+  }
+}
+
+function mm_get_genre_array($genre,$vars)
+{
+  global $conn, $variable, $nurlpre, $nlng;
+  $ngenre = $genre;
+  $tfid = ii_get_strvalue($vars, 'fid');
+  $tffield = ii_get_strvalue($vars, 'ffield');
+  $ndatabase = $variable[ii_cvgenre($ngenre) . '.ndatabase'];
+  $nidfield = $variable[ii_cvgenre($ngenre) . '.nidfield'];
+  $nfpre = $variable[ii_cvgenre($ngenre) . '.nfpre'];
+  $tarys = Array();
+  $tsqlstr = "select * from $ndatabase where " . ii_cfnames($nfpre, 'lng') . "='$nlng' and " . ii_cfnames($nfpre, 'hidden') . "=0";
+  if (!ii_isnull($tfid) && !ii_isnull($tffield)) $tsqlstr .= " and " . ii_cfnames($nfpre, $tffield) . "='$tfid'";
+  $tsqlstr .= " order by " . $nidfield . " asc";
+  $trs = ii_conn_query($tsqlstr, $conn);
+  while ($trow = ii_conn_fetch_array($trs))
+  {
+    $tary[$trow[$nidfield]]['id'] = $trow[$nidfield];
+    $tary[$trow[$nidfield]]['topic'] = $trow[ii_cfnames($nfpre, 'topic')];
+    $tary[$trow[$nidfield]]['keywords'] = $trow[ii_cfnames($nfpre, 'keywords')];
+    $tary[$trow[$nidfield]]['description'] = $trow[ii_cfnames($nfpre, 'description')];
+    $tary[$trow[$nidfield]]['image'] = $trow[ii_cfnames($nfpre, 'image')];
+    $tary[$trow[$nidfield]]['content'] = $trow[ii_cfnames($nfpre, 'content')];
+    $tary[$trow[$nidfield]]['gourl'] = $trow[ii_cfnames($nfpre, 'gourl')];
+    $tarys += $tary;
+  }
+  return $tarys;
+}
+
+function mm_get_genre_title($genre)
+{
+  if (!ii_isnull($genre))
+  {
+    $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = @ii_itake('global.' . $genre . ':module.channel_title', 'lng');
+    if (ii_isnull($tmpstr)) $tmpstr = '?';
+    return $tmpstr;
+  }
+}
+
+function mm_sel_genre($genres, $genre)
+{
+  if (!ii_isnull($genres))
+  {
+    $option_unselected = ii_itake('global.tpl_config.option_unselect', 'tpl');
+    $option_selected = ii_itake('global.tpl_config.option_select', 'tpl');
+    $tmodules = ii_get_valid_module('string');
+    $tmpstr = '';
+    $treturnstr = '';
+    $tary = explode(',', $genres);
+    foreach ($tary as $key => $val)
+    {
+      if (ii_cinstr($tmodules, $val, '|'))
+      {
+        if ($val == $genre) $tmpstr = $option_selected;
+        else $tmpstr = $option_unselected;
+        $tmpstr = str_replace('{$explain}', ii_itake('global.' . $val . ':module.channel_title', 'lng'), $tmpstr);
+        $tmpstr = str_replace('{$value}', $val, $tmpstr);
+        $treturnstr .= $tmpstr;
+      }
+    }
+    return $treturnstr;
+  }
+}
+
+//生成商品编号
+function mm_get_shopnum() {
+  date_default_timezone_set('PRC');
+  return date('ymd').substr(time(),-4).substr(microtime(),2,5).mt_rand(10,99);
+}

@@ -1,4 +1,55 @@
 <?php
+function mm_ip_map($ip,$type=0) {
+  //离线查询IP所属区域信息,国内精确到城市.国外精确到省份.
+  ini_set('memory_limit', '1G');
+  spl_autoload_register(function ($class)
+                        {
+                          $class = str_replace("\\","/",$class);
+                          if (strpos($class, 'ipip/db') !== FALSE)
+                          {
+                            require __DIR__.'/ip/'.$class.'.php';
+                          }
+                        }, true, true);
+  $city = new ipip\db\City(__DIR__.'/ip/ipipfree.ipdb');
+  if (ii_isnull($ip)) $ip = ii_get_client_ip();
+  $ip_array = $city->findMap($ip, 'CN');
+  $country = $ip_array['country_name'];
+  $region = $ip_array['region_name'];
+  $city = $ip_array['city_name'];
+  $int = '';
+  switch ($type)
+  {
+    case 0:
+      $int = '';
+      break;
+    case 1:
+      $int = '-';
+      break;
+    case 2:
+      $int = '|';
+      break;
+    case 3:
+      $int = '/';
+      break;
+    case 4:
+      $int = '·';
+      break;
+    default:
+      $int = '-';
+      break;
+  }
+  if (ii_isnull($country)) {
+    $res = '';
+  }elseif (ii_isnull($region)) {
+    $res = $country;
+  }elseif (ii_isnull($city)) {
+    $res = $country .$int .$region;
+  }else{
+    $res = $country .$int .$region .$int .$city;
+  }
+  return $res;
+}
+
 function mm_disable_ip() {
   //检测IP状态,进行相应处理
   if (mm_disable_ua()) {http_response_code(404);exit('非法IP,禁止访问!');}

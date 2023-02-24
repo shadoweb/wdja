@@ -36,7 +36,7 @@
     </item>
     <item>
       <disinfo><![CDATA[name_tips]]></disinfo>
-      <chinese><![CDATA[必须为英文或英文数字混合,并且只能以英文开头,长度20以内,在绑定的模块中可以直接调用字段名称.]]></chinese>
+      <chinese><![CDATA[必须为英文和数字,并且只能以英文开头,长度20以内,在绑定的模块中可以直接调用字段名称.]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[topic]]></disinfo>
@@ -69,6 +69,10 @@
     <item>
       <disinfo><![CDATA[option]]></disinfo>
       <chinese><![CDATA[选项]]></chinese>
+    </item>
+    <item>
+      <disinfo><![CDATA[order]]></disinfo>
+      <chinese><![CDATA[排序]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[createjs]]></disinfo>

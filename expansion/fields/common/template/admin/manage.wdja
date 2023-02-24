@@ -122,14 +122,14 @@
   <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
 </tr></tbody>
       </table>
-      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px;">
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="max-width:850px;margin-top:-20px;">
         <tr id="fields_date_option1" >
           <th valign="top"><t>{$=ii_itake('manage.option','lng')}[1]</t></th>
-          <td><input type="text" name="option1" class="i1"></td>
+          <td><input type="text" name="option1" class="i1"><t>&nbsp;{$=ii_itake('manage.order','lng')}&nbsp;</t><input type="text" name="order1" class="i1" style="max-width:35px;text-align: center;"></td>
         </tr>
         <tr id="fields_date_option2">
           <th valign="top"><t>{$=ii_itake('manage.option','lng')}[2]</t></th>
-          <td><input type="text" name="option2" class="i1"></td>
+          <td><input type="text" name="option2" class="i1"><t>&nbsp;{$=ii_itake('manage.order','lng')}&nbsp;</t><input type="text" name="order2" class="i1" style="max-width:35px;text-align: center;"></td>
         </tr>
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
@@ -188,10 +188,10 @@
   <td><input type="text" id="count" name="count" value="{$count}" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
 </tr></tbody>
       </table>
-      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px;">{@recurrence_ida}
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="max-width:850px;margin-top:-20px;">{@recurrence_ida}
         <tr id="fields_date_option{$oid}">
           <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
-          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"><t>&nbsp;{$=ii_itake('manage.order','lng')}&nbsp;</t><input type="text" name="order{$oid}" value="{$order}" class="i1" style="max-width:35px;text-align: center;"></td>
         </tr>{@recurrence_ida}
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
@@ -250,10 +250,10 @@
   <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
 </tr></tbody>
       </table>
-      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="max-width:850px;margin-top:-20px; display:none;">{@recurrence_ida}
         <tr id="fields_date_option{$oid}">
           <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
-          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"><t>&nbsp;{$=ii_itake('manage.order','lng')}&nbsp;</t><input type="text" name="order{$oid}" value="{$order}" class="i1" style="max-width:35px;text-align: center;"></td>
         </tr>{@recurrence_ida}
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
@@ -312,10 +312,10 @@
   <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
 </tr></tbody>
       </table>
-      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="max-width:850px;margin-top:-20px; display:none;">{@recurrence_ida}
         <tr id="fields_date_option{$oid}">
           <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
-          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"><t>&nbsp;{$=ii_itake('manage.order','lng')}&nbsp;</t><input type="text" name="order{$oid}" value="{$order}" class="i1" style="max-width:35px;text-align: center;"></td>
         </tr>{@recurrence_ida}
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
@@ -374,10 +374,10 @@
   <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
 </tr></tbody>
       </table>
-      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="max-width:850px;margin-top:-20px; display:none;">{@recurrence_ida}
         <tr id="fields_date_option{$oid}">
           <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
-          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"><t>&nbsp;{$=ii_itake('manage.order','lng')}&nbsp;</t><input type="text" name="order{$oid}" value="{$order}" class="i1" style="max-width:35px;text-align: center;"></td>
         </tr>{@recurrence_ida}
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
@@ -436,10 +436,10 @@
   <td><input type="text" id="count" name="count" value="2" class="i1" style="width:50px;" maxlength="3" value="{$count}"> <button class="b3 submit" onclick="fields_set_date()" type='button' onsubmit='return false;'>{$=ii_itake('global.lng_config.set', 'lng')}</button></td>
 </tr></tbody>
       </table>
-      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="margin-top:-20px; display:none;">{@recurrence_ida}
+      <table cellpadding="10" cellspacing="0" class="tableF" id="fields_date" style="max-width:850px;margin-top:-20px; display:none;">{@recurrence_ida}
         <tr id="fields_date_option{$oid}">
           <th valign="top"><t>{$=ii_itake('manage.option','lng')}[{$oid}]</t></th>
-          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"></td>
+          <td><input type="text" name="option{$oid}" value="{$topic}" class="i1"><t>&nbsp;{$=ii_itake('manage.order','lng')}&nbsp;</t><input type="text" name="order{$oid}" value="{$order}" class="i1" style="max-width:35px;text-align: center;"></td>
         </tr>{@recurrence_ida}
       </table>
       <div class="form_button"><button class="b2 submit">{$=ii_itake('global.lng_config.submit','lng')}</button></div>
@@ -477,6 +477,7 @@ function fields_set_date()
       var tobjdate, tobjstr, tstrfields;
       tobjdate = get_id("fields_date");
       tstrfields = "{$=ii_itake('manage.option','lng')}";
+      tstrorder = "{$=ii_itake('manage.order','lng')}";
       tobjstr = ""
       for (i = tdvalue; i <= tvalue; i++)
       {
@@ -486,7 +487,7 @@ function fields_set_date()
         }
         else
         {
-          tobjstr += "<tr id=\"fields_date_option" + i + "\"><th valign=\"top\"><t>" + tstrfields + "[" + i + "]</t></th><td><input type=\"text\" name=\"option" + i + "\"  class=\"i1\"></td></tr>"
+          tobjstr += "<tr id=\"fields_date_option" + i + "\"><th valign=\"top\"><t>" + tstrfields + "[" + i + "]</t></th><td><input type=\"text\" name=\"option" + i + "\"  class=\"i1\"><t>&nbsp;" + tstrorder + "&nbsp;</t><input type=\"text\" name=\"order" + i + "\" class=\"i1\" style=\"max-width:35px;text-align: center;\"></td></tr>"
         }
       }
       tobjdate.innerHTML += tobjstr;

@@ -31,13 +31,13 @@ function preview_images(strurl, e)
 function preview_img(strurl, e)
 {
   var curPosX, curPosY
-var img_arr = strurl.split("#:#");
-var img_arr_len = img_arr.length - 1;
-var img_url = img_arr[img_arr_len];
-var img_title = img_arr[0];
-var img_desc = img_arr[1];
+var file_arr = strurl.split("#:#");
+var file_arr_len = file_arr.length - 1;
+var file_url = file_arr[file_arr_len];
+var file_title = file_arr[0];
+var file_desc = file_arr[1];
   get_id("popup_mask").style.display = 'block';
   get_id("popup_mask").className = 'popup_mask on';
   get_id("popup_page").className = 'popup_page on';
-  get_id("preview_images_bottom").innerHTML = "<img class=\"item\" src=\"" + img_url + "\" border=\"0\" onload=\"if (this.width > 300)this.width = 300;if (this.height > 180)this.height = 180;\" title=\"" + img_title + "\" alt=\"" + img_desc + "\">";
+  get_id("preview_images_bottom").innerHTML = "<img class=\"item\" src=\"" + file_url + "\" border=\"0\" onload=\"if (this.width > 300)this.width = 300;if (this.height > 180)this.height = 180;\" title=\"" + file_title + "\" alt=\"" + file_desc + "\">";
 }

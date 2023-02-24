@@ -989,7 +989,7 @@ function ii_get_safecode($strers)
     $tstrers = str_replace('\'', '', $tstrers);
     $tstrers = str_replace(';', '', $tstrers);
     $tstrers = str_replace('--', '', $tstrers);
-    if(preg_match('# AND | INSERT |SELECT |UPDATE |DELETE | and |insert |select |update |delete #', $tstrers)) $tstrers = '' ;
+    if(preg_match('# AND | INSERT |SELECT |UPDATE |DELETE | and | sleep |insert |select |update |delete | SLEEP #', $tstrers)) $tstrers = '' ;
     return $tstrers;
   }
 }

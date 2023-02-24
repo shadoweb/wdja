@@ -191,7 +191,7 @@ function api_list_fields_radio($oid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -236,7 +236,7 @@ function api_list_fields_select($oid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -621,7 +621,7 @@ function api_get_fields_radio($oid,$gid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -667,7 +667,7 @@ function api_get_fields_checkbox($oid,$gid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -719,7 +719,7 @@ function api_get_fields_select($oid,$gid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -975,7 +975,7 @@ function api_fields_radio($oid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -1020,7 +1020,7 @@ function api_fields_checkbox($oid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);
@@ -1065,7 +1065,7 @@ function api_fields_select($oid)
     $fdatabase = mm_cndatabase(ii_cvgenre($fgenre), 'data');
     $fidfield = mm_cnidfield(ii_cvgenre($fgenre), 'data');
     $ffpre = mm_cnfpre(ii_cvgenre($fgenre), 'data');
-    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'oid') . " asc";
+    $tsqlstr = "select * from $fdatabase where " . ii_cfnames($ffpre,'fid') . "=$tid order by " . ii_cfnames($ffpre,'ooid') . " asc," . ii_cfnames($ffpre,'oid') . " asc";
     $tmpastr = ii_ctemplate($tmpstr, '{@}');
     $tmprstr = '';
     $trs = ii_conn_query($tsqlstr, $conn);

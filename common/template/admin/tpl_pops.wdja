@@ -118,11 +118,11 @@
 
 <div id="pop_add" style="display:none;">
 <table cellpadding="10" cellspacing="0" class="tableF"><tr>
-<th valign="top"><t>{$=ii_itake('global.lng_pops.att_title', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="img_title" name="img_title" msg="{$=ii_itake('global.lng_pops.att_title_tips', 'lng')}" size="25" value=""></td>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_title', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="file_title" name="file_title" msg="{$=ii_itake('global.lng_pops.att_title_tips', 'lng')}" size="25" value=""></td>
 </tr><tr>
-<th valign="top"><t>{$=ii_itake('global.lng_pops.att_desc', 'lng')}</t></th><td><textarea style="width:350px;" type="text" rows="3" name="img_desc" id="img_desc" cols="60" class="t1"></textarea></td>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_desc', 'lng')}</t></th><td><textarea style="width:350px;" type="text" rows="3" name="file_desc" id="file_desc" cols="60" class="t1"></textarea></td>
 </tr><tr>
-<th valign="top"><t>{$=ii_itake('global.lng_pops.att_url', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="img_url" name="img_url" msg="{$=ii_itake('global.lng_pops.att_url_tips', 'lng')}"  msgok="{$=ii_itake('global.lng_pops.att_url_tips_addok', 'lng')}"  msgerr="{$=ii_itake('global.lng_pops.att_url_tips_err', 'lng')}" size="30" value=""> <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=img_url&upsimg=0" style="vertical-align: middle;" width="250" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
+<th valign="top"><t>{$=ii_itake('global.lng_pops.att_url', 'lng')}</t></th><td><input style="width:350px;" class="i1" type="text" id="file_url" name="file_url" msg="{$=ii_itake('global.lng_pops.att_url_tips', 'lng')}"  msgok="{$=ii_itake('global.lng_pops.att_url_tips_addok', 'lng')}"  msgerr="{$=ii_itake('global.lng_pops.att_url_tips_err', 'lng')}" size="30" value=""> <iframe style="width:80px;height:30px;vertical-align: middle;margin-top: -2px;" src="?type=upload&upform=form&uptext=file_url&upsimg=0" style="vertical-align: middle;" width="250" height="25" scrolling="no" marginwidth="0" marginheight="0" align="middle" name="upload" frameborder="0"></iframe></td>
 </tr><tr>
 <th valign="top"><t></t></th><td><a onclick="add_ok(get_id('strid').value);" style="display: inline-block;padding: 6px 16px;border: 0px;line-height: 100%;font-size: 1.4rem;color: #fff;border: #666 1px solid;cursor: pointer;transition: all .1s ease;background-color: #e7505a;border-color: #e7505a;">{$=ii_itake('global.lng_pops.ok', 'lng')}</a></td>
 </tr></table>

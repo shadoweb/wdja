@@ -1,29 +1,10 @@
 <?php
 
-function api_dict_add($did=0)
-{
-  $tmpstr = ii_itake('global.support/dict:api.api_dict_add', 'tpl');
-  $tmpstr = str_replace('{$did}', ii_get_num($did), $tmpstr);
-  $tmpstr = ii_creplace($tmpstr);
-  return $tmpstr;
-}
-
-function api_dict_edit($did=0,$id=0)
-{
-  $tmpstr = ii_itake('global.support/dict:api.api_dict_edit', 'tpl');
-  $tmpstr = str_replace('{$did}', ii_get_num($did), $tmpstr);
-  $tmpstr = str_replace('{$id}', ii_get_num($id), $tmpstr);
-  $tmpstr = ii_creplace($tmpstr);
-  return $tmpstr;
-}
-
-
-
-function mm_nav_dict($mgroup, $baseurl, $id)
+function mm_nav_menu($mgroup, $baseurl, $id)
 {
   global $conn,$slng, $variable;
   ii_conn_init();
-  $tgenre = 'support/dict';
+  $tgenre = 'support/menu';
   $ndatabase = $variable[ii_cvgenre($tgenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($tgenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($tgenre) . '.nfpre'];
@@ -56,11 +37,11 @@ function mm_nav_dict($mgroup, $baseurl, $id)
   }
 }
 
-function mm_get_mydictary($group,$lng,$fsid)
+function mm_get_mymenuary($group,$lng,$fsid)
 {
   global $conn, $variable;
   ii_conn_init();
-  $tgenre = 'support/dict';
+  $tgenre = 'support/menu';
   $ndatabase = $variable[ii_cvgenre($tgenre) . '.ndatabase'];
   $nidfield = $variable[ii_cvgenre($tgenre) . '.nidfield'];
   $nfpre = $variable[ii_cvgenre($tgenre) . '.nfpre'];
@@ -78,21 +59,21 @@ function mm_get_mydictary($group,$lng,$fsid)
     $tary[$trow[$nidfield]]['fsid'] = $trow[ii_cfnames($nfpre, 'fsid')];
     $tary[$trow[$nidfield]]['order'] = $trow[ii_cfnames($nfpre, 'order')];
     $tarys += $tary;
-    $tarys += mm_get_mydictary($tgroup, $tlng, $trow[$nidfield]);
+    $tarys += mm_get_mymenuary($tgroup, $tlng, $trow[$nidfield]);
   }
   return $tarys;
 }
 
-function mm_get_dictary($group,$lng)
+function mm_get_menuary($group,$lng)
 {
-    $tary = mm_get_mydictary($group, $lng, 0);
+    $tary = mm_get_mymenuary($group, $lng, 0);
     $GLOBALS[$tappstr] = $tary;
     return $GLOBALS[$tappstr];
 }
 
-function mm_sel_dict($group,$lng,$fsid)
+function mm_sel_menu($group,$lng,$fsid)
 {
-  $tary = mm_get_dictary($group,$lng);
+  $tary = mm_get_menuary($group,$lng);
   if (is_array($tary))
   {
     $trestr = ii_itake('global.tpl_config.sys_spsort', 'tpl');

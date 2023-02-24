@@ -82,11 +82,13 @@ function wdja_cms_admin_manage_adddisp()
 	        $tsqlstr = "insert into $tdatabase (
 	        " . ii_cfnames($tfpre, 'topic') . ",
 	        " . ii_cfnames($tfpre, 'fid') . ",
-	        " . ii_cfnames($tfpre, 'oid') . "
+	        " . ii_cfnames($tfpre, 'oid') . ",
+	        " . ii_cfnames($tfpre, 'ooid') . "
 	        ) values (
 	        '" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "',
 	        $upfid,
-	        $i
+	        $i,
+	        " . ii_get_num($_POST['order' . $i]) . "
 	        )";
 	        ii_conn_query($tsqlstr, $conn);
 	      }
@@ -159,8 +161,8 @@ function wdja_cms_admin_manage_editdisp()
           $tsqlstr = "select * from $tdatabase where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'oid') . "=$i";
           $trs = ii_conn_query($tsqlstr, $conn);
           $trs = ii_conn_fetch_array($trs);
-          if ($trs) $tsqlstr2 = "update $tdatabase set " . ii_cfnames($tfpre, 'topic') . "='" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "' where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'oid') . "=$i";
-          else $tsqlstr2 = "insert into $tdatabase (" . ii_cfnames($tfpre, 'topic') . "," . ii_cfnames($tfpre, 'fid') . "," . ii_cfnames($tfpre, 'oid') . ") values ('" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "',$tid,$i)";
+          if ($trs) $tsqlstr2 = "update $tdatabase set " . ii_cfnames($tfpre, 'topic') . "='" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "' , " . ii_cfnames($tfpre, 'ooid') . "='" . ii_get_num($_POST['order' . $i])."' where " . ii_cfnames($tfpre, 'fid') . "=$tid and " . ii_cfnames($tfpre, 'oid') . "=$i";
+          else $tsqlstr2 = "insert into $tdatabase (" . ii_cfnames($tfpre, 'topic') . "," . ii_cfnames($tfpre, 'fid') . "," . ii_cfnames($tfpre, 'oid') . "," . ii_cfnames($tfpre, 'ooid') . ") values ('" . ii_left(ii_cstr($_POST['option' . $i]), 50) . "',$tid,$i,'" . ii_get_num($_POST['order' . $i]). "')";
           ii_conn_query($tsqlstr2, $conn);
         }
         if ($tycount > $tcount)
@@ -278,6 +280,7 @@ function wdja_cms_admin_manage_edit()
     $tmptstr = str_replace('{$topic}', ii_htmlencode($trow[ii_cfnames($tfpre, 'topic')]), $tmpastr);
     $tmptstr = str_replace('{$count}', ii_get_num($trow[ii_cfnames($tfpre, 'count')], 0), $tmptstr);
     $tmptstr = str_replace('{$oid}', ii_get_num($trow[ii_cfnames($tfpre, 'oid')], 0), $tmptstr);
+    $tmptstr = str_replace('{$order}', ii_get_num($trow[ii_cfnames($tfpre, 'ooid')], 0), $tmptstr);
     $tmprstr .= $tmptstr;
   }
   $tmpstr = str_replace(WDJA_CINFO, $tmprstr, $tmpstr);

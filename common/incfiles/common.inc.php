@@ -4,6 +4,97 @@
 // Email: admin@wdja.net
 // Web: http://www.wdja.net/
 //****************************************************
+
+function mm_get_content_image($genre,$content,$image) {
+  global $global_images_route,$nskin;
+  preg_match_all('/<img.*?(?: |\\t|\\r|\\n)?src=[\'"]?(.+?)[\'"]?(?:(?: |\\t|\\r|\\n)+.*?)?>/sim', $content, $strResult, PREG_PATTERN_ORDER); 
+  $n = count($strResult[1]);
+  if (strpos($image,'/noimg.gif') !== false || ii_isnull($image)) {
+      if ($n > 0) {
+          $img_url = $strResult[1][0]; 
+       }else{
+       $random = mt_rand(1, 25);
+       $img_url = $global_images_route.'theme/'.$nskin.'/random/'. $random .'.jpg';
+       }
+    }else{
+      $img_url = $image; 
+      return $img_url;
+    }
+  return $img_url;
+}
+
+function mm_update_field($genre,$id,$field,$val)
+{
+  //更新任意字段
+  global $conn, $variable;
+  ii_conn_init();
+  $bool = false;
+  $tgenre = $genre;
+  $tdatabase = mm_cndatabase(ii_cvgenre($tgenre));
+  $tidfield = mm_cnidfield(ii_cvgenre($tgenre));
+  $tfpre = mm_cnfpre(ii_cvgenre($tgenre));
+  $tsqlstr = 'update '. $tdatabase.' set '.ii_cfnames($tfpre,$field).' = '.$val.' where '.$tidfield.' = ' .$id;
+  $trs = ii_conn_query($tsqlstr, $conn);
+  if (ii_conn_affected_rows($conn) > 0) $bool = true;
+  return $bool;
+}
+
+function mm_search_field($genre,$field_val,$field,$id = '0')
+{
+  //查询字段值是否重复
+  global $conn, $variable;
+  ii_conn_init();
+  $res = false;
+  $tgenre = $genre;
+  $tdatabase = $variable[ii_cvgenre($tgenre) . '.ndatabase'];
+  $tidfield = $variable[ii_cvgenre($tgenre) . '.nidfield'];
+  $tfpre = $variable[ii_cvgenre($tgenre) . '.nfpre'];
+  $tmpstr = '';
+  if ($id == '0') $tsqlstr = 'select * from '. $tdatabase.' where '.ii_cfnames($tfpre,$field).' = "' .$field_val.'"';
+  else $tsqlstr = 'select * from '. $tdatabase.' where '.ii_cfnames($tfpre,$field).' = "' .$field_val.'" and ' . $tidfield . ' <> ' . $id;
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  if ($trs) $res = true;
+  else $res = false;
+  return $res;
+}
+
+function mm_get_field($genre,$id,$field)
+{
+  //获取模块任意字段
+  global $conn, $variable;
+  ii_conn_init();
+  $tgenre = $genre;
+  $tdatabase = $variable[ii_cvgenre($tgenre) . '.ndatabase'];
+  $tidfield = $variable[ii_cvgenre($tgenre) . '.nidfield'];
+  $tfpre = $variable[ii_cvgenre($tgenre) . '.nfpre'];
+  $tmpstr = '';
+  $result = '';
+  if(!ii_isnull($tdatabase) && !ii_isnull($tidfield) && !ii_isnull($tfpre) && !ii_isnull($id)){
+      $tsqlstr = 'select * from '. $tdatabase.' where '.$tidfield.' = ' .$id;
+      $trs = ii_conn_query($tsqlstr, $conn);
+      $trs = ii_conn_fetch_array($trs);
+      $result = $trs[ii_cfnames($tfpre,$field)];
+  }
+  return $result;
+}
+
+function mm_get_id($genre,$field_val,$field)
+{
+  //获取模块数据ID
+  global $conn, $variable;
+  ii_conn_init();
+  $tgenre = $genre;
+  $tdatabase = $variable[ii_cvgenre($tgenre) . '.ndatabase'];
+  $tidfield = $variable[ii_cvgenre($tgenre) . '.nidfield'];
+  $tfpre = $variable[ii_cvgenre($tgenre) . '.nfpre'];
+  $tmpstr = '';
+  $tsqlstr = 'select * from '. $tdatabase.' where '.ii_cfnames($tfpre,$field).' = "' .$field_val .'"';
+  $trs = ii_conn_query($tsqlstr, $conn);
+  $trs = ii_conn_fetch_array($trs);
+  return $trs[$tidfield];
+}
+
 function mm_get_gallery($strers)
 {
   if (!(ii_isnull($strers)))
@@ -697,9 +788,18 @@ function mm_web_foot($key)
   $tfoot = ii_creplace($tfoot);
   $endtime = microtime(1);
   $protime = number_format((($endtime - $starttime) * 1000), 3, '.', '');
-  if($mirror_switch == 1 && !ii_isAdmin()) $tfoot = deny_mirrored_websites() . $tfoot;
+  if($mirror_switch == 1 && !ii_isAdmin()) $tfoot = mm_deny_mirrored_websites() . $tfoot;
   if($runtime_switch == 1) $tfoot .= CRLF . '<!--WDJA, Processed in ' . $protime . ' ms-->';;
   return $tfoot;
+}
+
+function mm_deny_mirrored_websites() {
+  global $nurls;
+  $mirror_url = ii_itake('global.support/global:basic.mirror_url','lng');
+  if(!ii_isnull($mirror_url)) $nurls = $mirror_url;
+  $currentDomain = ii_get_lrstr($nurls, '.', 'leftr').'." + "'.ii_get_lrstr($nurls, '.', 'right');
+  $res = '<img style="display:none" src=" " onerror=\'this.onerror=null;var str1="'.$currentDomain.'";str2="docu"+"ment.loca"+"tion.host";str3=eval(str2);if( str1!=str3 ){ do_action = "loca" + "tion." + "href = loca" + "tion.href" + ".rep" + "lace(docu" +"ment"+".loca"+"tion.ho"+"st," + "\"' . $currentDomain .'\"" + ")";eval(do_action) }\' />';
+  return $res;
 }
 
 function vv_itransfer($type, $tpl, $vars)

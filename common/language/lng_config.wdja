@@ -283,16 +283,16 @@
       <chinese><![CDATA[内容模板]]></chinese> 
     </item>
     <item>
-      <disinfo><![CDATA[img_title]]></disinfo>
-      <chinese><![CDATA[图片标题]]></chinese>
+      <disinfo><![CDATA[file_title]]></disinfo>
+      <chinese><![CDATA[文件标题]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[img_desc]]></disinfo>
-      <chinese><![CDATA[图片介绍]]></chinese>
+      <disinfo><![CDATA[file_desc]]></disinfo>
+      <chinese><![CDATA[文件介绍]]></chinese>
     </item>
     <item>
-      <disinfo><![CDATA[img_url]]></disinfo>
-      <chinese><![CDATA[图片链接]]></chinese>
+      <disinfo><![CDATA[file_url]]></disinfo>
+      <chinese><![CDATA[文件链接]]></chinese>
     </item>
     <item>
       <disinfo><![CDATA[view_user]]></disinfo>
